@@ -5,7 +5,7 @@ import CourseCard from './components/CourseCard';
 import AIAssistant from './components/AIAssistant';
 import LessonViewer from './components/LessonViewer';
 import Playground from './components/Playground';
-import { COURSES } from './constants';
+import { COURSES, ICON_MAP } from './constants';
 import { Course, Lesson } from './types';
 import { 
   Search, 
@@ -18,10 +18,10 @@ import {
   Flame,
   LayoutDashboard,
   Menu,
-  X,
   ChevronLeft,
   BookOpen,
-  Settings
+  Settings,
+  Sparkles
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
@@ -33,9 +33,12 @@ const App: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   useEffect(() => {
-    if (window.innerWidth < 1024) {
-      setIsSidebarOpen(false);
-    }
+    const handleInitialSize = () => {
+      if (window.innerWidth < 1024) {
+        setIsSidebarOpen(false);
+      }
+    };
+    handleInitialSize();
   }, []);
 
   const statsData = [
@@ -84,7 +87,7 @@ const App: React.FC = () => {
             </div>
             <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br/><span className="text-emerald-400">Web Technology</span></h1>
             <p className="text-emerald-100/80 text-lg lg:text-xl max-w-2xl mb-10 leading-relaxed font-medium">
-              Continue your journey on <span className="text-white font-black underline decoration-emerald-400 underline-offset-4">HTML Attributes</span> and level up your skills today.
+              Explore our comprehensive tracks and start your journey towards becoming a world-class developer.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
@@ -145,10 +148,6 @@ const App: React.FC = () => {
               </div>
               Activity Feed
             </h2>
-            <div className="hidden sm:flex bg-white px-6 py-3 rounded-2xl border border-slate-100 shadow-sm text-sm font-black text-slate-500 items-center gap-3">
-              Daily Avg: <span className="text-emerald-600">3.6h</span>
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-            </div>
           </div>
 
           <div className="bg-white p-6 lg:p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/50">
@@ -171,7 +170,7 @@ const App: React.FC = () => {
 
           <div>
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight">E-Learning Paths</h2>
+              <h2 className="text-3xl font-black text-slate-900 tracking-tight">Available Courses</h2>
               <button className="bg-emerald-50 text-emerald-600 px-6 py-2.5 rounded-xl text-sm font-black hover:bg-emerald-600 hover:text-white transition-all">View All</button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
@@ -221,10 +220,10 @@ const App: React.FC = () => {
   );
 
   const getPageTitle = () => {
-    if (activeTab === 'dashboard') return 'Dashboard Home';
+    if (activeTab === 'dashboard') return 'Dashboard';
     if (activeTab === 'lesson' && selectedCourse) return selectedCourse.title;
     if (activeTab === 'playground') return 'Code Playground';
-    if (activeTab === 'ai-tutor') return 'Siksha AI Assistant';
+    if (activeTab === 'ai-tutor') return 'AI Assistant';
     return 'Learning Hub';
   };
 
@@ -268,7 +267,7 @@ const App: React.FC = () => {
           <div className="flex items-center gap-4 min-w-0">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
-              className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all focus:outline-none active:scale-95"
+              className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all focus:outline-none"
             >
                {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
             </button>
@@ -289,39 +288,69 @@ const App: React.FC = () => {
                 className="w-40 lg:w-56 bg-slate-50 border border-slate-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/10 text-xs font-medium"
               />
             </div>
-            
             <button className="bg-slate-50 p-2 rounded-lg border border-slate-200 text-slate-400 hover:text-emerald-600 transition-all">
               <Bell size={18} />
             </button>
-            <div className="h-8 w-8 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center">
-               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" className="w-full h-full rounded-lg" alt="Profile" />
-            </div>
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-100" alt="Sarah" />
           </div>
         </header>
 
-        {/* PROMINENT CONTEXT BAR (COURSE NAME DISPLAYED JUST AFTER THE TOP BAR) */}
-        <div className="bg-white border-b border-slate-200 py-6 px-6 lg:px-12 flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0 shadow-sm animate-in slide-in-from-top-4 duration-500">
-          <div className="flex items-center gap-5">
-            <div className="p-3 bg-emerald-100 text-emerald-600 rounded-2xl shadow-inner">
-              {activeTab === 'dashboard' ? <LayoutDashboard size={24} /> : 
-               activeTab === 'lesson' ? <BookOpen size={24} /> : 
-               activeTab === 'playground' ? <Play size={24} /> : <Zap size={24} />}
+        {/* HEADING BAR WITH COURSE LINKS (Displayed just after the top bar) */}
+        <div className="bg-white border-b border-slate-200 overflow-hidden shrink-0">
+          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center px-6 lg:px-12 py-4 gap-6">
+            <div className="flex items-center gap-4 shrink-0">
+              <div className="p-2.5 bg-emerald-600 text-white rounded-xl shadow-lg shadow-emerald-200">
+                <Sparkles size={20} />
+              </div>
+              <div>
+                <h1 className="text-xl lg:text-2xl font-black text-slate-900 tracking-tight leading-none mb-1">
+                  {getPageTitle()}
+                </h1>
+                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">SikshaSarovar Hub</p>
+              </div>
             </div>
-            <div>
-              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.2em] mb-1">Learning Module</p>
-              <h1 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
-                {getPageTitle()}
-              </h1>
+
+            <div className="h-8 w-px bg-slate-100 hidden md:block"></div>
+
+            {/* Horizontal Course Links */}
+            <nav className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+              {COURSES.map((course) => (
+                <button
+                  key={course.id}
+                  onClick={() => handleSelectLesson(course.id, course.lessons[0].id)}
+                  className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${
+                    selectedCourse?.id === course.id && activeTab === 'lesson'
+                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-md shadow-emerald-100'
+                      : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-emerald-200 hover:text-emerald-600'
+                  }`}
+                >
+                  <span className={selectedCourse?.id === course.id && activeTab === 'lesson' ? 'text-white' : 'text-emerald-500'}>
+                    {ICON_MAP[course.icon]}
+                  </span>
+                  {course.title}
+                </button>
+              ))}
+              <button 
+                onClick={() => setActiveTab('playground')}
+                className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${
+                  activeTab === 'playground'
+                    ? 'bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-100'
+                    : 'bg-amber-50 text-amber-600 border-amber-100 hover:bg-amber-100'
+                }`}
+              >
+                <Zap size={14} fill="currentColor" />
+                Live Editor
+              </button>
+            </nav>
+
+            <div className="flex-1"></div>
+
+            <div className="hidden xl:flex items-center gap-4">
+              <button className="flex items-center gap-2 bg-slate-50 text-slate-500 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-100 transition-all">
+                <Settings size={14} />
+                Prefs
+              </button>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="flex items-center gap-2 bg-slate-50 text-slate-600 px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-black hover:bg-slate-100 transition-all">
-               <Settings size={14} />
-               Preferences
-            </button>
-            <button className="flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-xs font-black shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all">
-               Quick Start
-            </button>
           </div>
         </div>
 
