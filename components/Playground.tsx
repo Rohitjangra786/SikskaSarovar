@@ -7,13 +7,12 @@ interface PlaygroundProps {
 }
 
 const Playground: React.FC<PlaygroundProps> = ({ initialCode = '' }) => {
-  const [code, setCode] = useState(initialCode || `<!DOCTYPE html>\n<html>\n<head>\n<style>\n  body {\n    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n    background: #ecfdf5;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n    margin: 0;\n  }\n  .card {\n    background: white;\n    padding: 2rem;\n    border-radius: 2rem;\n    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);\n    text-align: center;\n  }\n  h1 { color: #059669; }\n  .btn {\n    background: #059669;\n    color: white;\n    padding: 12px 24px;\n    border-radius: 12px;\n    border: none;\n    font-weight: bold;\n    cursor: pointer;\n    transition: 0.3s;\n  }\n  .btn:hover { background: #047857; }\n</style>\n</head>\n<body>\n\n<div class="card">\n  <h1>Siksha Editor</h1>\n  <p>Practice your code in real-time!</p>\n  <button class="btn" onclick="alert('Success!')">Test Action</button>\n</div>\n\n</body>\n</html>`);
+  const [code, setCode] = useState(initialCode || `<!DOCTYPE html>\n<html>\n<head>\n<style>\n  body {\n    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n    background: #f0fbfc;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    height: 100vh;\n    margin: 0;\n  }\n  .card {\n    background: white;\n    padding: 2.5rem;\n    border-radius: 2.5rem;\n    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);\n    text-align: center;\n    border: 1px solid #91d9df;\n  }\n  h1 { color: #00828C; font-weight: 900; }\n  .btn {\n    background: #00828C;\n    color: white;\n    padding: 14px 28px;\n    border-radius: 14px;\n    border: none;\n    font-weight: 800;\n    cursor: pointer;\n    transition: 0.3s;\n  }\n  .btn:hover { background: #005b63; }\n</style>\n</head>\n<body>\n\n<div class="card">\n  <h1>Siksha Editor</h1>\n  <p>Practice your code in real-time!</p>\n  <button class="btn" onclick="alert('Dark Cyan System Online!')">Test Action</button>\n</div>\n\n</body>\n</html>`);
 
   const [srcDoc, setSrcDoc] = useState('');
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    // Initial run
     setSrcDoc(code);
   }, []);
 
@@ -34,11 +33,11 @@ const Playground: React.FC<PlaygroundProps> = ({ initialCode = '' }) => {
           <div className="flex gap-2">
             <div className="w-3 h-3 rounded-full bg-rose-500"></div>
             <div className="w-3 h-3 rounded-full bg-amber-500"></div>
-            <div className="w-3 h-3 rounded-full bg-emerald-500"></div>
+            <div className="w-3 h-3 rounded-full bg-brand-500"></div>
           </div>
           <div className="flex items-center gap-2 text-slate-400">
              <Terminal size={16} />
-             <span className="text-[10px] font-black uppercase tracking-widest">siksha-playground v1.0</span>
+             <span className="text-[10px] font-black uppercase tracking-widest">siksha-playground v2.0</span>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -46,7 +45,7 @@ const Playground: React.FC<PlaygroundProps> = ({ initialCode = '' }) => {
             onClick={handleCopy}
             className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors bg-white/5 px-4 py-2 rounded-xl text-xs font-bold"
           >
-            {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+            {copied ? <Check size={14} className="text-brand-400" /> : <Copy size={14} />}
             {copied ? 'Copied' : 'Copy'}
           </button>
           <button 
@@ -58,7 +57,7 @@ const Playground: React.FC<PlaygroundProps> = ({ initialCode = '' }) => {
           </button>
           <button 
             onClick={handleRun}
-            className="flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-2.5 rounded-xl text-sm font-black transition-all shadow-lg shadow-emerald-900/40"
+            className="flex items-center gap-3 bg-brand-600 hover:bg-brand-500 text-white px-8 py-2.5 rounded-xl text-sm font-black transition-all shadow-lg shadow-brand-900/40"
           >
             <Play size={16} fill="currentColor" />
             RUN CODE
@@ -75,7 +74,7 @@ const Playground: React.FC<PlaygroundProps> = ({ initialCode = '' }) => {
           <textarea
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="flex-1 w-full bg-slate-900 text-emerald-50/80 p-8 font-mono text-sm resize-none focus:outline-none leading-relaxed custom-scrollbar selection:bg-emerald-500/30"
+            className="flex-1 w-full bg-slate-900 text-brand-50/80 p-8 font-mono text-sm resize-none focus:outline-none leading-relaxed custom-scrollbar selection:bg-brand-500/30"
             spellCheck={false}
           />
         </div>

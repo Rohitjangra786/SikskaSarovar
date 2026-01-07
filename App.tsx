@@ -33,12 +33,9 @@ const App: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   useEffect(() => {
-    const handleInitialSize = () => {
-      if (window.innerWidth < 1024) {
-        setIsSidebarOpen(false);
-      }
-    };
-    handleInitialSize();
+    if (window.innerWidth < 1024) {
+      setIsSidebarOpen(false);
+    }
   }, []);
 
   const statsData = [
@@ -73,33 +70,33 @@ const App: React.FC = () => {
 
   const renderDashboard = () => (
     <div className="space-y-10 animate-in fade-in duration-700">
-      <div className="relative bg-emerald-900 rounded-[3rem] p-8 lg:p-12 overflow-hidden text-white shadow-2xl border border-white/10">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-emerald-400/20 to-transparent skew-x-12 translate-x-1/4"></div>
+      <div className="relative bg-brand-900 rounded-[3rem] p-8 lg:p-12 overflow-hidden text-white shadow-2xl border border-white/10">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-500/20 to-transparent skew-x-12 translate-x-1/4"></div>
         <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-12">
           <div className="flex-1 text-center lg:text-left">
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6">
-              <span className="bg-emerald-500 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] border border-white/20 shadow-lg shadow-emerald-900/40">
+              <span className="bg-brand-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] border border-white/20 shadow-lg shadow-brand-900/40">
                 PRO STUDENT
               </span>
               <span className="flex items-center gap-1 text-amber-400 text-[10px] font-black bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-md uppercase tracking-widest">
                 <Flame size={14} fill="currentColor" /> 12 DAY STREAK
               </span>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br/><span className="text-emerald-400">Web Technology</span></h1>
-            <p className="text-emerald-100/80 text-lg lg:text-xl max-w-2xl mb-10 leading-relaxed font-medium">
+            <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br/><span className="text-brand-400">Web Technology</span></h1>
+            <p className="text-brand-100/80 text-lg lg:text-xl max-w-2xl mb-10 leading-relaxed font-medium">
               Explore our comprehensive tracks and start your journey towards becoming a world-class developer.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
                 onClick={() => handleSelectLesson('html-tutorial', 'html-intro')}
-                className="bg-white text-emerald-900 font-black px-12 py-5 rounded-2xl hover:bg-emerald-50 transition-all flex items-center justify-center gap-3 shadow-2xl hover:scale-105 active:scale-95"
+                className="bg-white text-brand-900 font-black px-12 py-5 rounded-2xl hover:bg-brand-50 transition-all flex items-center justify-center gap-3 shadow-2xl hover:scale-105 active:scale-95"
               >
                 <Play fill="currentColor" size={18} />
                 CONTINUE LEARNING
               </button>
               <button 
                 onClick={() => setActiveTab('playground')}
-                className="bg-emerald-800/40 backdrop-blur-xl text-white border border-white/20 px-10 py-5 rounded-2xl hover:bg-emerald-700/60 transition-all font-black uppercase tracking-widest text-sm"
+                className="bg-brand-800/40 backdrop-blur-xl text-white border border-white/20 px-10 py-5 rounded-2xl hover:bg-brand-700/60 transition-all font-black uppercase tracking-widest text-sm"
               >
                 OPEN PLAYGROUND
               </button>
@@ -108,7 +105,7 @@ const App: React.FC = () => {
           <div className="w-full lg:w-auto hidden md:block">
              <div className="bg-white/10 backdrop-blur-2xl rounded-[2.5rem] p-10 border border-white/20 shadow-2xl w-full lg:w-80">
                <div className="flex justify-between items-center mb-8">
-                 <div className="p-4 bg-emerald-500 rounded-3xl shadow-xl shadow-emerald-500/40">
+                 <div className="p-4 bg-brand-500 rounded-3xl shadow-xl shadow-brand-500/40">
                     <Star className="text-white" size={28} fill="currentColor" />
                  </div>
                  <div className="text-right">
@@ -118,17 +115,17 @@ const App: React.FC = () => {
                </div>
                <div className="space-y-6">
                   <div>
-                    <div className="flex justify-between text-[10px] font-black uppercase mb-2 opacity-60 tracking-widest text-emerald-100">
+                    <div className="flex justify-between text-[10px] font-black uppercase mb-2 opacity-60 tracking-widest text-brand-100">
                       <span>NEXT LEVEL: MASTER</span>
                       <span>85%</span>
                     </div>
                     <div className="h-2.5 w-full bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)] w-[85%]"></div>
+                      <div className="h-full bg-brand-400 shadow-[0_0_10px_rgba(0,130,140,0.5)] w-[85%]"></div>
                     </div>
                   </div>
                   <div className="pt-6 border-t border-white/10 flex justify-between items-center">
                     <div>
-                      <p className="text-[10px] opacity-60 font-black uppercase tracking-widest text-emerald-100">RANK</p>
+                      <p className="text-[10px] opacity-60 font-black uppercase tracking-widest text-brand-100">RANK</p>
                       <p className="text-lg font-black text-amber-400">#42 Worldwide</p>
                     </div>
                     <Zap className="text-amber-400" size={24} fill="currentColor" />
@@ -143,7 +140,7 @@ const App: React.FC = () => {
         <div className="lg:col-span-2 space-y-10">
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-4">
-              <div className="p-2 bg-emerald-100 text-emerald-600 rounded-xl">
+              <div className="p-2 bg-brand-100 text-brand-600 rounded-xl">
                 <Clock size={24} />
               </div>
               Activity Feed
@@ -160,7 +157,7 @@ const App: React.FC = () => {
                   <Tooltip cursor={{ fill: '#f8fafc' }} contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.15)', padding: '20px' }} />
                   <Bar dataKey="hours" radius={[12, 12, 12, 12]} barSize={40}>
                     {statsData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.hours > 4 ? '#059669' : '#d1fae5'} className="hover:opacity-80 transition-opacity" />
+                      <Cell key={`cell-${index}`} fill={entry.hours > 4 ? '#00828C' : '#dcf5f7'} className="hover:opacity-80 transition-opacity" />
                     ))}
                   </Bar>
                 </BarChart>
@@ -171,7 +168,7 @@ const App: React.FC = () => {
           <div>
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-3xl font-black text-slate-900 tracking-tight">Available Courses</h2>
-              <button className="bg-emerald-50 text-emerald-600 px-6 py-2.5 rounded-xl text-sm font-black hover:bg-emerald-600 hover:text-white transition-all">View All</button>
+              <button className="bg-brand-50 text-brand-600 px-6 py-2.5 rounded-xl text-sm font-black hover:bg-brand-600 hover:text-white transition-all">View All</button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {COURSES.map(course => (
@@ -186,7 +183,7 @@ const App: React.FC = () => {
         <div className="space-y-10">
           <AIAssistant />
           <div className="bg-slate-900 p-8 lg:p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group border border-slate-800">
-            <div className="absolute -right-4 -top-4 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-1000"></div>
+            <div className="absolute -right-4 -top-4 w-32 h-32 bg-brand-500/10 rounded-full blur-3xl group-hover:bg-brand-500/20 transition-all duration-1000"></div>
             <h3 className="font-black text-2xl text-white mb-8 flex items-center gap-4">
               <div className="p-2 bg-amber-400/10 rounded-xl">
                 <Zap className="text-amber-400" size={24} fill="currentColor" />
@@ -199,12 +196,12 @@ const App: React.FC = () => {
                 { title: 'Flexbox Mastery', reward: '+300 XP', category: 'CSS3', progress: 30 },
                 { title: 'JS Async/Await', reward: '+500 XP', category: 'JS ES6', progress: 0 },
               ].map((task, i) => (
-                <div key={i} className="group/item flex items-center justify-between p-6 rounded-[1.5rem] bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer hover:border-emerald-500/30">
+                <div key={i} className="group/item flex items-center justify-between p-6 rounded-[1.5rem] bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer hover:border-brand-500/30">
                   <div className="flex-1">
-                    <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">{task.category}</p>
+                    <p className="text-[10px] font-black text-brand-400 uppercase tracking-widest mb-1">{task.category}</p>
                     <p className="font-bold text-white mb-3 text-sm">{task.title}</p>
                     <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                       <div className="h-full bg-emerald-500 transition-all duration-1000" style={{ width: `${task.progress}%` }}></div>
+                       <div className="h-full bg-brand-500 transition-all duration-1000" style={{ width: `${task.progress}%` }}></div>
                     </div>
                   </div>
                   <div className="ml-4 text-amber-400 font-black text-xs text-right whitespace-nowrap">
@@ -230,7 +227,7 @@ const App: React.FC = () => {
   return (
     <div className="h-screen w-full flex bg-slate-50 overflow-hidden font-['Inter']">
       
-      {/* SIDEBAR CONTAINER */}
+      {/* SIDEBAR CONTAINER - Context Sensitive */}
       <aside 
         className={`
           fixed lg:relative inset-y-0 left-0 z-50 
@@ -244,9 +241,11 @@ const App: React.FC = () => {
             activeTab={activeTab} 
             setActiveTab={(tab) => {
               setActiveTab(tab);
+              if (tab === 'dashboard') setSelectedCourse(null);
               if (window.innerWidth < 1024) setIsSidebarOpen(false);
             }} 
             onSelectLesson={handleSelectLesson}
+            filterCourseId={selectedCourse?.id}
           />
         </div>
       </aside>
@@ -267,15 +266,15 @@ const App: React.FC = () => {
           <div className="flex items-center gap-4 min-w-0">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
-              className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all focus:outline-none"
+              className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition-all focus:outline-none"
             >
                {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
             </button>
             
             <nav className="flex items-center text-xs font-bold tracking-tight overflow-hidden text-slate-400">
-               <button onClick={() => setActiveTab('dashboard')} className="hover:text-emerald-600 transition-colors">SikshaSarovar</button>
+               <button onClick={() => { setActiveTab('dashboard'); setSelectedCourse(null); }} className="hover:text-brand-600 transition-colors">SikshaSarovar</button>
                <ChevronRight size={14} className="mx-2 opacity-50" />
-               <span className="text-emerald-600 truncate">{getPageTitle()}</span>
+               <span className="text-brand-600 truncate">{getPageTitle()}</span>
             </nav>
           </div>
 
@@ -285,21 +284,21 @@ const App: React.FC = () => {
               <input 
                 type="text" 
                 placeholder="Search..." 
-                className="w-40 lg:w-56 bg-slate-50 border border-slate-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/10 text-xs font-medium"
+                className="w-40 lg:w-56 bg-slate-50 border border-slate-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-xs font-medium"
               />
             </div>
-            <button className="bg-slate-50 p-2 rounded-lg border border-slate-200 text-slate-400 hover:text-emerald-600 transition-all">
+            <button className="bg-slate-50 p-2 rounded-lg border border-slate-200 text-slate-400 hover:text-brand-600 transition-all">
               <Bell size={18} />
             </button>
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-100" alt="Sarah" />
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" className="w-8 h-8 rounded-lg bg-brand-50 border border-brand-100" alt="Sarah" />
           </div>
         </header>
 
-        {/* HEADING BAR WITH COURSE LINKS (Displayed just after the top bar) */}
+        {/* HEADING BAR WITH COURSE LINKS - Dark Cyan Themed */}
         <div className="bg-white border-b border-slate-200 overflow-hidden shrink-0">
           <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center px-6 lg:px-12 py-4 gap-6">
             <div className="flex items-center gap-4 shrink-0">
-              <div className="p-2.5 bg-emerald-600 text-white rounded-xl shadow-lg shadow-emerald-200">
+              <div className="p-2.5 bg-brand-900 text-white rounded-xl shadow-lg shadow-brand-200">
                 <Sparkles size={20} />
               </div>
               <div>
@@ -312,19 +311,19 @@ const App: React.FC = () => {
 
             <div className="h-8 w-px bg-slate-100 hidden md:block"></div>
 
-            {/* Horizontal Course Links */}
+            {/* Horizontal Course Links - Switches Context */}
             <nav className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
               {COURSES.map((course) => (
                 <button
                   key={course.id}
                   onClick={() => handleSelectLesson(course.id, course.lessons[0].id)}
                   className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${
-                    selectedCourse?.id === course.id && activeTab === 'lesson'
-                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-md shadow-emerald-100'
-                      : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-emerald-200 hover:text-emerald-600'
+                    selectedCourse?.id === course.id && (activeTab === 'lesson' || activeTab === 'playground')
+                      ? 'bg-brand-900 text-white border-brand-900 shadow-md shadow-brand-100'
+                      : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-brand-200 hover:text-brand-600'
                   }`}
                 >
-                  <span className={selectedCourse?.id === course.id && activeTab === 'lesson' ? 'text-white' : 'text-emerald-500'}>
+                  <span className={selectedCourse?.id === course.id ? 'text-white' : 'text-brand-500'}>
                     {ICON_MAP[course.icon]}
                   </span>
                   {course.title}
