@@ -25,7 +25,10 @@ import {
   Info,
   Users,
   Mail,
-  Linkedin
+  Linkedin,
+  Heart,
+  Github,
+  Twitter
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
@@ -86,9 +89,9 @@ const App: React.FC = () => {
                 <Flame size={14} fill="currentColor" /> 12 DAY STREAK
               </span>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br/><span className="text-brand-400">Web Technology</span></h1>
+            <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br/><span className="text-brand-400">Web & Programming</span></h1>
             <p className="text-brand-100/80 text-lg lg:text-xl max-w-2xl mb-10 leading-relaxed font-medium">
-              Explore our comprehensive tracks and start your journey towards becoming a world-class developer.
+              Join thousands of learners on SikshaSarovar.com. From PHP to AI, we've got everything you need to succeed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button 
@@ -171,8 +174,8 @@ const App: React.FC = () => {
 
           <div>
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight">Available Courses</h2>
-              <button className="bg-brand-50 text-brand-600 px-6 py-2.5 rounded-xl text-sm font-black hover:bg-brand-600 hover:text-white transition-all">View All</button>
+              <h2 className="text-3xl font-black text-slate-900 tracking-tight">Catalog</h2>
+              <button className="bg-brand-50 text-brand-600 px-6 py-2.5 rounded-xl text-sm font-black hover:bg-brand-600 hover:text-white transition-all">Explore All</button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {COURSES.map(course => (
@@ -229,7 +232,7 @@ const App: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {[
-          { name: "Mr. Rahul Kumar", role: "Founder & Editor", bio: "With over a decade of experience in software architecture, Rahul envisiones a world where quality code education is a basic right.", initial: "R" },
+          { name: "Mr. Rahul Kumar", role: "Founder & Editor", bio: "With over a decade of experience in software architecture, Rahul envisions a world where quality code education is a basic right.", initial: "R" },
           { name: "Mr. Rohit Kumar", role: "Founder & Editor", bio: "A master of frontend aesthetics and user psychology, Rohit leads the creative direction of SikshaSarovar.", initial: "RK" }
         ].map((founder, i) => (
           <div key={i} className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-6 hover:shadow-2xl hover:-translate-y-2 transition-all group">
@@ -271,6 +274,42 @@ const App: React.FC = () => {
     if (activeTab === 'ai-tutor') return 'AI Assistant';
     return 'Learning Hub';
   };
+
+  const renderFooter = () => (
+    <footer className="bg-white border-t border-slate-200 py-8 px-6 lg:px-12 mt-auto">
+      <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="flex flex-col items-center md:items-start">
+          <div className="flex items-center gap-2 mb-2">
+            <div className="bg-brand-900 p-1 rounded-md">
+              <Sparkles className="text-white" size={14} />
+            </div>
+            <span className="font-black text-slate-800 text-sm tracking-tight">SikshaSarovar.com</span>
+          </div>
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+            Developed by Mr. Rahul Kumar & Mr. Rohit Kumar
+          </p>
+        </div>
+        
+        <div className="flex items-center gap-8 text-[11px] font-black text-slate-500 uppercase tracking-widest">
+          <button onClick={() => setActiveTab('home')} className="hover:text-brand-600 transition-colors">Home</button>
+          <button onClick={() => setActiveTab('about')} className="hover:text-brand-600 transition-colors">About</button>
+          <a href="#" className="hover:text-brand-600 transition-colors">Terms</a>
+          <a href="#" className="hover:text-brand-600 transition-colors">Privacy</a>
+        </div>
+
+        <div className="flex items-center gap-4">
+           <div className="text-right mr-2 hidden sm:block">
+              <p className="text-[10px] font-black text-slate-400 uppercase">© 2025 All Rights Reserved</p>
+           </div>
+           <div className="flex gap-2">
+              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-600 hover:bg-brand-50 border border-slate-100 transition-all"><Twitter size={16}/></button>
+              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-600 hover:bg-brand-50 border border-slate-100 transition-all"><Github size={16}/></button>
+              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-600 hover:bg-brand-50 border border-slate-100 transition-all"><Heart size={16} fill="currentColor" className="text-rose-500"/></button>
+           </div>
+        </div>
+      </div>
+    </footer>
+  );
 
   return (
     <div className="h-screen w-full flex bg-slate-50 overflow-hidden font-['Inter']">
@@ -421,44 +460,49 @@ const App: React.FC = () => {
         </div>
 
         {/* MAIN PAGE CONTENT */}
-        <div className="flex-1 overflow-y-auto p-6 lg:p-12 custom-scrollbar bg-slate-50/50">
-          {activeTab === 'home' && renderHome()}
-          {activeTab === 'about' && renderAbout()}
+        <div className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/50 flex flex-col">
+          <div className="p-6 lg:p-12 flex-1">
+            {activeTab === 'home' && renderHome()}
+            {activeTab === 'about' && renderAbout()}
+            
+            {activeTab === 'lesson' && activeLesson && selectedCourse && (
+              <LessonViewer 
+                lesson={activeLesson}
+                course={selectedCourse}
+                onSelectLesson={(lId) => handleSelectLesson(selectedCourse.id, lId)}
+                onNext={() => {
+                  const nextId = selectedCourse?.lessons.findIndex(l => l.id === activeLesson.id);
+                  if (nextId !== undefined && nextId < (selectedCourse?.lessons.length || 0) - 1) {
+                    handleSelectLesson(selectedCourse!.id, selectedCourse!.lessons[nextId + 1].id);
+                  } else {
+                    setActiveTab('home');
+                  }
+                }} 
+                onPrev={() => {
+                  const prevId = selectedCourse?.lessons.findIndex(l => l.id === activeLesson.id);
+                  if (prevId !== undefined && prevId > 0) {
+                    handleSelectLesson(selectedCourse!.id, selectedCourse!.lessons[prevId - 1].id);
+                  }
+                }}
+                onTryIt={handleTryIt}
+              />
+            )}
+
+            {activeTab === 'playground' && (
+              <div className="h-full min-h-[600px] animate-in zoom-in-95 duration-500">
+                <Playground initialCode={playgroundCode} />
+              </div>
+            )}
+
+            {activeTab === 'ai-tutor' && (
+              <div className="max-w-4xl mx-auto h-full animate-in fade-in duration-500">
+                <AIAssistant />
+              </div>
+            )}
+          </div>
           
-          {activeTab === 'lesson' && activeLesson && selectedCourse && (
-            <LessonViewer 
-              lesson={activeLesson}
-              course={selectedCourse}
-              onSelectLesson={(lId) => handleSelectLesson(selectedCourse.id, lId)}
-              onNext={() => {
-                const nextId = selectedCourse?.lessons.findIndex(l => l.id === activeLesson.id);
-                if (nextId !== undefined && nextId < (selectedCourse?.lessons.length || 0) - 1) {
-                  handleSelectLesson(selectedCourse!.id, selectedCourse!.lessons[nextId + 1].id);
-                } else {
-                  setActiveTab('home');
-                }
-              }} 
-              onPrev={() => {
-                const prevId = selectedCourse?.lessons.findIndex(l => l.id === activeLesson.id);
-                if (prevId !== undefined && prevId > 0) {
-                  handleSelectLesson(selectedCourse!.id, selectedCourse!.lessons[prevId - 1].id);
-                }
-              }}
-              onTryIt={handleTryIt}
-            />
-          )}
-
-          {activeTab === 'playground' && (
-            <div className="h-full min-h-[600px] animate-in zoom-in-95 duration-500">
-              <Playground initialCode={playgroundCode} />
-            </div>
-          )}
-
-          {activeTab === 'ai-tutor' && (
-            <div className="max-w-4xl mx-auto h-full animate-in fade-in duration-500">
-              <AIAssistant />
-            </div>
-          )}
+          {/* Footer Inclusion */}
+          {renderFooter()}
         </div>
       </main>
     </div>

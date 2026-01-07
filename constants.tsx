@@ -8,7 +8,12 @@ import {
   Layout, 
   Terminal, 
   Cpu,
-  Monitor
+  Monitor,
+  Coffee,
+  Smartphone,
+  Brain,
+  Microscope,
+  Box
 } from 'lucide-react';
 import { Course } from './types';
 
@@ -21,75 +26,176 @@ export const COURSES: Course[] = [
     level: 'Beginner',
     progress: 45,
     lessons: [
-      {
-        id: 'html-intro',
-        title: 'HTML Introduction',
-        content: 'HTML stands for Hyper Text Markup Language. It is the standard markup language for creating Web pages. HTML describes the structure of a Web page and consists of a series of elements that tell the browser how to display the content.',
-        codeSnippet: '<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<h1>My First Heading</h1>\n<p>My first paragraph.</p>\n\n</body>\n</html>',
-        isCompleted: true
-      },
-      {
-        id: 'html-elements',
-        title: 'HTML Elements',
-        content: 'An HTML element is defined by a start tag, some content, and an end tag. Everything from the start tag to the end tag is the element. Elements can be nested (elements can contain elements).',
-        codeSnippet: '<h1>My First Heading</h1>\n<p>My first paragraph.</p>',
-        isCompleted: false
-      },
-      {
-        id: 'html-attributes',
-        title: 'HTML Attributes',
-        content: 'All HTML elements can have attributes. Attributes provide additional information about elements and are always specified in the start tag. They usually come in name/value pairs like: name="value".',
-        codeSnippet: '<a href="https://www.sikshasarovar.com">Visit SikshaSarovar</a>',
-        isCompleted: false
-      }
+      { id: 'h1', title: 'HTML Introduction', content: 'HTML stands for Hyper Text Markup Language. It is the standard markup language for Web pages.', codeSnippet: '<!DOCTYPE html>\n<html>\n<body>\n<h1>Hello</h1>\n</body>\n</html>', isCompleted: true },
+      { id: 'h2', title: 'HTML Editors', content: 'Learn how to use Notepad or TextEdit to create HTML.', codeSnippet: '<!-- No specific code for editors -->', isCompleted: true },
+      { id: 'h3', title: 'HTML Basic Examples', content: 'Simple examples of headings and paragraphs.', codeSnippet: '<h1>Header</h1>\n<p>Paragraph</p>', isCompleted: false },
+      { id: 'h4', title: 'HTML Elements', content: 'Nested elements and start/end tags.', codeSnippet: '<div>\n  <p>Inside a div</p>\n</div>', isCompleted: false },
+      { id: 'h5', title: 'HTML Attributes', content: 'Adding extra info like href and src.', codeSnippet: '<a href="https://google.com">Link</a>', isCompleted: false },
+      { id: 'h6', title: 'HTML Headings', content: 'Six levels of headings from h1 to h6.', codeSnippet: '<h1>H1</h1>\n<h2>H2</h2>\n<h3>H3</h3>', isCompleted: false },
+      { id: 'h7', title: 'HTML Paragraphs', content: 'Defining text blocks with the p tag.', codeSnippet: '<p>Standard text block.</p>', isCompleted: false },
+      { id: 'h8', title: 'HTML Styles', content: 'Inline styling with the style attribute.', codeSnippet: '<p style="color:red;">Red Text</p>', isCompleted: false },
+      { id: 'h9', title: 'HTML Formatting', content: 'Bold, italic, and other text formatting.', codeSnippet: '<b>Bold</b>\n<i>Italic</i>', isCompleted: false },
+      { id: 'h10', title: 'HTML Quotations', content: 'Blockquotes and short quotes.', codeSnippet: '<blockquote>Cite source</blockquote>', isCompleted: false },
+      { id: 'h11', title: 'HTML Comments', content: 'Adding notes for developers.', codeSnippet: '<!-- This is a comment -->', isCompleted: false },
+      { id: 'h12', title: 'HTML Colors', content: 'Using RGB, HEX, and named colors.', codeSnippet: '<h1 style="background-color:DodgerBlue;">Blue</h1>', isCompleted: false },
+      { id: 'h13', title: 'HTML CSS', content: 'Connecting HTML to external stylesheets.', codeSnippet: '<link rel="stylesheet" href="style.css">', isCompleted: false },
+      { id: 'h14', title: 'HTML Links', content: 'Creating hyperlinks and target attributes.', codeSnippet: '<a href="#" target="_blank">New Tab</a>', isCompleted: false },
+      { id: 'h15', title: 'HTML Images', content: 'Inserting images with alt text.', codeSnippet: '<img src="img.jpg" alt="Description">', isCompleted: false },
+      { id: 'h16', title: 'HTML Favicon', content: 'Adding a small icon to the tab.', codeSnippet: '<link rel="icon" type="image/x-icon" href="/favicon.ico">', isCompleted: false },
+      { id: 'h17', title: 'HTML Tables', content: 'Structuring data into rows and cells.', codeSnippet: '<table>\n  <tr><th>Head</th></tr>\n  <tr><td>Data</td></tr>\n</table>', isCompleted: false },
+      { id: 'h18', title: 'HTML Lists', content: 'Ordered and unordered lists.', codeSnippet: '<ul><li>Item</li></ul>', isCompleted: false },
+      { id: 'h19', title: 'HTML Block & Inline', content: 'Understanding layout behavior.', codeSnippet: '<div>Block</div>\n<span>Inline</span>', isCompleted: false },
+      { id: 'h20', title: 'HTML Classes', content: 'Using class for reusable styling.', codeSnippet: '<div class="card">Card content</div>', isCompleted: false }
     ]
   },
   {
-    id: 'css-tutorial',
-    title: 'CSS Tutorial',
-    category: 'Web Development',
-    icon: 'globe',
-    level: 'Intermediate',
-    progress: 20,
-    lessons: [
-      {
-        id: 'css-intro',
-        title: 'CSS Introduction',
-        content: 'CSS is the language we use to style an HTML document. CSS describes how HTML elements should be displayed on screen, paper, or in other media. It saves a lot of work by controlling the layout of multiple web pages all at once.',
-        codeSnippet: 'body {\n  background-color: #f0fdf4;\n}\n\nh1 {\n  color: #059669;\n  text-align: center;\n}\n\np {\n  font-family: verdana;\n  font-size: 20px;\n}',
-        isCompleted: false
-      },
-      {
-        id: 'css-selectors',
-        title: 'CSS Selectors',
-        content: 'CSS selectors are used to "find" (or select) the HTML elements you want to style. We can divide CSS selectors into five categories: Simple selectors, Combinator selectors, Pseudo-class selectors, Pseudo-elements selectors, and Attribute selectors.',
-        codeSnippet: '/* Selects all p elements */\np {\n  text-align: center;\n  color: red;\n}\n\n/* Selects element with id="para1" */\n#para1 {\n  text-align: center;\n  color: blue;\n}',
-        isCompleted: false
-      }
-    ]
-  },
-  {
-    id: 'js-tutorial',
-    title: 'JavaScript Tutorial',
+    id: 'python-tutorial',
+    title: 'Python Tutorial',
     category: 'Programming',
-    icon: 'code',
-    level: 'Intermediate',
+    icon: 'terminal',
+    level: 'Beginner',
     progress: 10,
     lessons: [
-      {
-        id: 'js-intro',
-        title: 'JS Introduction',
-        content: 'JavaScript is the world\'s most popular programming language. It is the programming language of the Web. JavaScript is easy to learn. This tutorial will teach you JavaScript from basic to advanced.',
-        codeSnippet: 'document.getElementById("demo").innerHTML = "Hello JavaScript!";',
-        isCompleted: false
-      },
-      {
-        id: 'js-output',
-        title: 'JS Output',
-        content: 'JavaScript can "display" data in different ways: Writing into an HTML element, using innerHTML. Writing into the HTML output using document.write(). Writing into an alert box, using window.alert(). Writing into the browser console, using console.log().',
-        codeSnippet: 'console.log("Hello World!");\nalert("Welcome to Siksha!");',
-        isCompleted: false
-      }
+      { id: 'p1', title: 'Python Intro', content: 'Python is a high-level, interpreted language.', codeSnippet: 'print("Hello Python")', isCompleted: true },
+      { id: 'p2', title: 'Python Get Started', content: 'Setting up the environment.', codeSnippet: 'import sys\nprint(sys.version)', isCompleted: false },
+      { id: 'p3', title: 'Python Syntax', content: 'Indentation and comment basics.', codeSnippet: 'if 5 > 2:\n  print("Five is greater than two!")', isCompleted: false },
+      { id: 'p4', title: 'Python Comments', content: 'Single and multiline comments.', codeSnippet: '# Single line\n""" Multiline """', isCompleted: false },
+      { id: 'p5', title: 'Python Variables', content: 'Creating and assigning variables.', codeSnippet: 'x = 5\ny = "John"', isCompleted: false },
+      { id: 'p6', title: 'Python Data Types', content: 'int, str, float, bool, etc.', codeSnippet: 'x = 5 # int\ny = "Hello" # str', isCompleted: false },
+      { id: 'p7', title: 'Python Numbers', content: 'Working with int, float, and complex.', codeSnippet: 'x = 1\ny = 2.8\nz = 1j', isCompleted: false },
+      { id: 'p8', title: 'Python Casting', content: 'Converting between types.', codeSnippet: 'x = int(1.0)\ny = str(2)', isCompleted: false },
+      { id: 'p9', title: 'Python Strings', content: 'Slicing and formatting strings.', codeSnippet: 'a = "Hello"\nprint(a[1])', isCompleted: false },
+      { id: 'p10', title: 'Python Booleans', content: 'True and False logic.', codeSnippet: 'print(10 > 9)', isCompleted: false },
+      { id: 'p11', title: 'Python Operators', content: 'Arithmetic and logical operators.', codeSnippet: 'print(10 + 5)', isCompleted: false },
+      { id: 'p12', title: 'Python Lists', content: 'Storing multiple items in one variable.', codeSnippet: 'mylist = ["a", "b", "c"]', isCompleted: false },
+      { id: 'p13', title: 'Python Tuples', content: 'Ordered and unchangeable collections.', codeSnippet: 'mytuple = ("apple", "banana")', isCompleted: false },
+      { id: 'p14', title: 'Python Sets', content: 'Unordered and unindexed collections.', codeSnippet: 'myset = {"apple", "banana"}', isCompleted: false },
+      { id: 'p15', title: 'Python Dictionaries', content: 'Key-value pair collections.', codeSnippet: 'mydict = {"brand": "Ford"}', isCompleted: false },
+      { id: 'p16', title: 'Python If...Else', content: 'Decision making logic.', codeSnippet: 'if a > b:\n  print("a is greater")', isCompleted: false },
+      { id: 'p17', title: 'Python While Loops', content: 'Executing while condition is true.', codeSnippet: 'i = 1\nwhile i < 6:\n  print(i)\n  i += 1', isCompleted: false },
+      { id: 'p18', title: 'Python For Loops', content: 'Iterating over sequences.', codeSnippet: 'for x in "banana":\n  print(x)', isCompleted: false },
+      { id: 'p19', title: 'Python Functions', content: 'Defining reusable blocks of code.', codeSnippet: 'def my_func():\n  print("Hello")', isCompleted: false },
+      { id: 'p20', title: 'Python Classes/Objects', content: 'Basics of OOP in Python.', codeSnippet: 'class MyClass:\n  x = 5', isCompleted: false }
+    ]
+  },
+  {
+    id: 'java-tutorial',
+    title: 'Java Tutorial',
+    category: 'Programming',
+    icon: 'coffee',
+    level: 'Intermediate',
+    progress: 5,
+    lessons: [
+      { id: 'j1', title: 'Java Intro', content: 'Java is class-based and object-oriented.', codeSnippet: 'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello Java");\n  }\n}', isCompleted: true },
+      { id: 'j2', title: 'Java Syntax', content: 'Understanding the boilerplate code.', codeSnippet: 'System.out.println("Hello");', isCompleted: false },
+      { id: 'j3', title: 'Java Output', content: 'Printing text and numbers.', codeSnippet: 'System.out.print(5);', isCompleted: false },
+      { id: 'j4', title: 'Java Comments', content: '// and /* */ syntax.', codeSnippet: '// comment', isCompleted: false },
+      { id: 'j5', title: 'Java Variables', content: 'String, int, float, char, boolean.', codeSnippet: 'int myNum = 15;', isCompleted: false },
+      { id: 'j6', title: 'Java Data Types', content: 'Primitive vs non-primitive.', codeSnippet: 'byte myByte = 100;', isCompleted: false },
+      { id: 'j7', title: 'Java Type Casting', content: 'Widening and narrowing casting.', codeSnippet: 'int i = (int) 9.78;', isCompleted: false },
+      { id: 'j8', title: 'Java Operators', content: '+, -, *, /, %, ++, --.', codeSnippet: 'int x = 10 + 5;', isCompleted: false },
+      { id: 'j9', title: 'Java Strings', content: 'String methods and concat.', codeSnippet: 'String txt = "Hello";', isCompleted: false },
+      { id: 'j10', title: 'Java Math', content: 'Math.max, Math.min, Math.sqrt.', codeSnippet: 'Math.sqrt(64);', isCompleted: false },
+      { id: 'j11', title: 'Java Booleans', content: 'Values and expressions.', codeSnippet: 'boolean isJavaFun = true;', isCompleted: false },
+      { id: 'j12', title: 'Java If...Else', content: 'Conditional statements.', codeSnippet: 'if (20 > 18) { }', isCompleted: false },
+      { id: 'j13', title: 'Java Switch', content: 'Selecting one of many blocks.', codeSnippet: 'switch(day) { case 1: break; }', isCompleted: false },
+      { id: 'j14', title: 'Java While Loop', content: 'Loops while true.', codeSnippet: 'while (i < 5) { i++; }', isCompleted: false },
+      { id: 'j15', title: 'Java For Loop', content: 'Traditional and for-each.', codeSnippet: 'for (int i=0; i<5; i++) { }', isCompleted: false },
+      { id: 'j16', title: 'Java Break/Continue', content: 'Jumping out of loops.', codeSnippet: 'if (i==4) break;', isCompleted: false },
+      { id: 'j17', title: 'Java Arrays', content: 'Declaring and accessing arrays.', codeSnippet: 'int[] myArr = {1, 2, 3};', isCompleted: false },
+      { id: 'j18', title: 'Java Methods', content: 'Reusable blocks of code.', codeSnippet: 'static void myMethod() { }', isCompleted: false },
+      { id: 'j19', title: 'Java Parameters', content: 'Passing data to methods.', codeSnippet: 'void myFunc(String fname) { }', isCompleted: false },
+      { id: 'j20', title: 'Java Recursion', content: 'Function calling itself.', codeSnippet: 'int sum(int k) { return k + sum(k-1); }', isCompleted: false }
+    ]
+  },
+  {
+    id: 'php-tutorial',
+    title: 'PHP Tutorial',
+    category: 'Backend',
+    icon: 'database',
+    level: 'Intermediate',
+    progress: 0,
+    lessons: [
+      { id: 'ph1', title: 'PHP Intro', content: 'PHP: Hypertext Preprocessor.', codeSnippet: '<?php echo "Hello World"; ?>', isCompleted: false },
+      { id: 'ph2', title: 'PHP Install', content: 'Setting up XAMPP/WAMP.', codeSnippet: '<!-- Server setup -->', isCompleted: false },
+      { id: 'ph3', title: 'PHP Syntax', content: 'Basic script structure.', codeSnippet: '<?php // code here ?>', isCompleted: false },
+      { id: 'ph4', title: 'PHP Variables', content: 'Declaring variables with $ sign.', codeSnippet: '$x = 5;', isCompleted: false },
+      { id: 'ph5', title: 'PHP Echo/Print', content: 'Outputting data to the browser.', codeSnippet: 'echo "<h2>PHP</h2>";', isCompleted: false },
+      { id: 'ph6', title: 'PHP Data Types', content: 'String, Integer, Float, Boolean, Array.', codeSnippet: '$x = "Hello";', isCompleted: false },
+      { id: 'ph7', title: 'PHP Strings', content: 'Common string functions.', codeSnippet: 'echo strlen("Hello world!");', isCompleted: false },
+      { id: 'ph8', title: 'PHP Numbers', content: 'Integers and floating points.', codeSnippet: 'var_dump(is_int(5));', isCompleted: false },
+      { id: 'ph9', title: 'PHP Math', content: 'pi(), min(), max(), abs().', codeSnippet: 'echo(pi());', isCompleted: false },
+      { id: 'ph10', title: 'PHP Constants', content: 'Defining unchangeable values.', codeSnippet: 'define("GREET", "Welcome!");', isCompleted: false },
+      { id: 'ph11', title: 'PHP Operators', content: 'Math and comparison ops.', codeSnippet: '$x + $y;', isCompleted: false },
+      { id: 'ph12', title: 'PHP If...Else', content: 'Conditionals in PHP.', codeSnippet: 'if ($t < "20") { }', isCompleted: false },
+      { id: 'ph13', title: 'PHP Switch', content: 'Case selection logic.', codeSnippet: 'switch ($color) { case "red": break; }', isCompleted: false },
+      { id: 'ph14', title: 'PHP Loops', content: 'while, do...while, for, foreach.', codeSnippet: 'foreach ($colors as $v) { }', isCompleted: false },
+      { id: 'ph15', title: 'PHP Functions', content: 'Creating custom functions.', codeSnippet: 'function writeMsg() { }', isCompleted: false },
+      { id: 'ph16', title: 'PHP Arrays', content: 'Indexed, Associative, Multidimensional.', codeSnippet: '$cars = array("Volvo");', isCompleted: false },
+      { id: 'ph17', title: 'PHP Superglobals', content: '$_GET, $_POST, $_SERVER.', codeSnippet: 'echo $_SERVER["PHP_SELF"];', isCompleted: false },
+      { id: 'ph18', title: 'PHP Forms', content: 'Handling HTML form input.', codeSnippet: '<form action="welcome.php">', isCompleted: false },
+      { id: 'ph19', title: 'PHP Validation', content: 'Cleaning user inputs.', codeSnippet: 'htmlspecialchars($data);', isCompleted: false },
+      { id: 'ph20', title: 'PHP MySQL', content: 'Database connection basics.', codeSnippet: '$conn = new mysqli($srv, $usr, $pwd);', isCompleted: false }
+    ]
+  },
+  {
+    id: 'ai-tutorial',
+    title: 'AI Fundamentals',
+    category: 'Advanced Tech',
+    icon: 'brain',
+    level: 'Advanced',
+    progress: 0,
+    lessons: [
+      { id: 'ai1', title: 'What is AI?', content: 'Intelligence demonstrated by machines.', codeSnippet: '# Intelligence pseudo-code', isCompleted: false },
+      { id: 'ai2', title: 'History of AI', content: 'From Turing to DeepMind.', codeSnippet: '<!-- Historical context -->', isCompleted: false },
+      { id: 'ai3', title: 'Types of AI', content: 'Narrow vs General vs Super.', codeSnippet: '<!-- AI classification -->', isCompleted: false },
+      { id: 'ai4', title: 'Intelligent Agents', content: 'Perceiving and acting.', codeSnippet: 'class Agent:\n  def act(self): pass', isCompleted: false },
+      { id: 'ai5', title: 'Problem Solving', content: 'State space search basics.', codeSnippet: 'def bfs(graph, start): pass', isCompleted: false },
+      { id: 'ai6', title: 'Adversarial Search', content: 'Minimax and alpha-beta pruning.', codeSnippet: 'def minimax(node, depth): pass', isCompleted: false },
+      { id: 'ai7', title: 'Knowledge Base', content: 'Representing facts logically.', codeSnippet: 'KB = ["Bird(x) => Fly(x)"]', isCompleted: false },
+      { id: 'ai8', title: 'Uncertainty', content: 'Probability in AI.', codeSnippet: 'P(A|B) = P(B|A)P(A)/P(B)', isCompleted: false },
+      { id: 'ai9', title: 'Bayesian Networks', content: 'Graphical probabilistic models.', codeSnippet: 'import pgmpy', isCompleted: false },
+      { id: 'ai10', title: 'NLP Intro', content: 'Understanding human language.', codeSnippet: 'import nltk', isCompleted: false },
+      { id: 'ai11', title: 'Sentiment Analysis', content: 'Extracting emotion from text.', codeSnippet: 'from textblob import TextBlob', isCompleted: false },
+      { id: 'ai12', title: 'Computer Vision', content: 'Teaching machines to see.', codeSnippet: 'import cv2', isCompleted: false },
+      { id: 'ai13', title: 'Robotics', content: 'Physical manifestation of AI.', codeSnippet: 'move_motor(angle=90)', isCompleted: false },
+      { id: 'ai14', title: 'Neural Networks', content: 'Mimicking the brain.', codeSnippet: 'import tensorflow as tf', isCompleted: false },
+      { id: 'ai15', title: 'Deep Learning', content: 'Multilayer networks.', codeSnippet: 'model.add(Dense(64))', isCompleted: false },
+      { id: 'ai16', title: 'Expert Systems', content: 'Rules-based decision making.', codeSnippet: 'if symptom == "fever": diagnose("flu")', isCompleted: false },
+      { id: 'ai17', title: 'Fuzzy Logic', content: 'Dealing with partial truths.', codeSnippet: 'is_warm = 0.7', isCompleted: false },
+      { id: 'ai18', title: 'Genetic Algorithms', content: 'Evolutionary computing.', codeSnippet: 'mutate(genome)', isCompleted: false },
+      { id: 'ai19', title: 'Ethics in AI', content: 'Bias and responsibility.', codeSnippet: '<!-- Ethic guidelines -->', isCompleted: false },
+      { id: 'ai20', title: 'Future of AI', content: 'AGI and beyond.', codeSnippet: '<!-- Speculative tech -->', isCompleted: false }
+    ]
+  },
+  {
+    id: 'ml-tutorial',
+    title: 'Machine Learning',
+    category: 'Advanced Tech',
+    icon: 'microscope',
+    level: 'Advanced',
+    progress: 0,
+    lessons: [
+      { id: 'ml1', title: 'Intro to ML', content: 'Learning from data experience.', codeSnippet: 'from sklearn import datasets', isCompleted: false },
+      { id: 'ml2', title: 'Supervised Learning', content: 'Labeled data training.', codeSnippet: 'model.fit(X_train, y_train)', isCompleted: false },
+      { id: 'ml3', title: 'Unsupervised Learning', content: 'Finding patterns in unlabeled data.', codeSnippet: 'kmeans.fit(X)', isCompleted: false },
+      { id: 'ml4', title: 'Reinforcement Learning', content: 'Reward based learning.', codeSnippet: 'agent.update_q_table()', isCompleted: false },
+      { id: 'ml5', title: 'Data Preprocessing', content: 'Cleaning and scaling.', codeSnippet: 'scaler.transform(X)', isCompleted: false },
+      { id: 'ml6', title: 'Linear Regression', content: 'Predicting continuous values.', codeSnippet: 'reg = LinearRegression()', isCompleted: false },
+      { id: 'ml7', title: 'Logistic Regression', content: 'Binary classification.', codeSnippet: 'clf = LogisticRegression()', isCompleted: false },
+      { id: 'ml8', title: 'Decision Trees', content: 'Rules-based classification.', codeSnippet: 'tree.plot_tree(clf)', isCompleted: false },
+      { id: 'ml9', title: 'Random Forests', content: 'Ensemble of trees.', codeSnippet: 'rf = RandomForestClassifier()', isCompleted: false },
+      { id: 'ml10', title: 'SVM', content: 'Support Vector Machines.', codeSnippet: 'svc = SVC(kernel="linear")', isCompleted: false },
+      { id: 'ml11', title: 'Naive Bayes', content: 'Probabilistic classifiers.', codeSnippet: 'nb = GaussianNB()', isCompleted: false },
+      { id: 'ml12', title: 'KNN', content: 'K-Nearest Neighbors.', codeSnippet: 'knn = KNeighborsClassifier(3)', isCompleted: false },
+      { id: 'ml13', title: 'Clustering', content: 'K-Means and Hierarchical.', codeSnippet: 'kmeans = KMeans(n_clusters=3)', isCompleted: false },
+      { id: 'ml14', title: 'PCA', content: 'Dimensionality reduction.', codeSnippet: 'pca = PCA(n_components=2)', isCompleted: false },
+      { id: 'ml15', title: 'Feature Engineering', content: 'Creating better inputs.', codeSnippet: 'X["new_feat"] = X["a"] * X["b"]', isCompleted: false },
+      { id: 'ml16', title: 'Model Evaluation', content: 'MAE, MSE, Accuracy, F1.', codeSnippet: 'accuracy_score(y_true, y_pred)', isCompleted: false },
+      { id: 'ml17', title: 'Train/Test Split', content: 'Validating performance.', codeSnippet: 'X_train, X_test = split(X)', isCompleted: false },
+      { id: 'ml18', title: 'Hyperparameter Tuning', content: 'GridSearch and RandomSearch.', codeSnippet: 'GridSearchCV(param_grid)', isCompleted: false },
+      { id: 'ml19', title: 'Overfitting', content: 'Understanding variance/bias.', codeSnippet: '<!-- Regularization docs -->', isCompleted: false },
+      { id: 'ml20', title: 'Deep Learning Intro', content: 'Building neurons with Keras.', codeSnippet: 'model = Sequential()', isCompleted: false }
     ]
   }
 ];
@@ -102,5 +208,10 @@ export const ICON_MAP: Record<string, React.ReactNode> = {
   code: <Code size={18} />,
   database: <Database size={18} />,
   cpu: <Cpu size={18} />,
-  monitor: <Monitor size={18} />
+  monitor: <Monitor size={18} />,
+  coffee: <Coffee size={18} />,
+  smartphone: <Smartphone size={18} />,
+  brain: <Brain size={18} />,
+  microscope: <Microscope size={18} />,
+  box: <Box size={18} />
 };
