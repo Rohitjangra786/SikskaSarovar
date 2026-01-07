@@ -32,6 +32,8 @@ import {
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
+const LogoImg = "https://raw.githubusercontent.com/stackblitz/stackblitz-images/main/siksha-logo.png"; // Placeholder for the provided image
+
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -82,10 +84,10 @@ const App: React.FC = () => {
         <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-12">
           <div className="flex-1 text-center lg:text-left">
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6">
-              <span className="bg-brand-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] border border-white/20 shadow-lg shadow-brand-900/40">
+              <span className="bg-accent-500 text-brand-900 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-lg shadow-accent-900/40">
                 PRO STUDENT
               </span>
-              <span className="flex items-center gap-1 text-amber-400 text-[10px] font-black bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-md uppercase tracking-widest">
+              <span className="flex items-center gap-1 text-accent-300 text-[10px] font-black bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-md uppercase tracking-widest">
                 <Flame size={14} fill="currentColor" /> 12 DAY STREAK
               </span>
             </div>
@@ -112,8 +114,8 @@ const App: React.FC = () => {
           <div className="w-full lg:w-auto hidden md:block">
              <div className="bg-white/10 backdrop-blur-2xl rounded-[2.5rem] p-10 border border-white/20 shadow-2xl w-full lg:w-80">
                <div className="flex justify-between items-center mb-8">
-                 <div className="p-4 bg-brand-500 rounded-3xl shadow-xl shadow-brand-500/40">
-                    <Star className="text-white" size={28} fill="currentColor" />
+                 <div className="p-4 bg-accent-500 rounded-3xl shadow-xl shadow-accent-500/40">
+                    <Star className="text-brand-900" size={28} fill="currentColor" />
                  </div>
                  <div className="text-right">
                     <p className="text-[10px] opacity-60 font-black uppercase tracking-[0.2em] mb-1">XP SCORE</p>
@@ -127,15 +129,15 @@ const App: React.FC = () => {
                       <span>85%</span>
                     </div>
                     <div className="h-2.5 w-full bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-brand-400 shadow-[0_0_10px_rgba(0,130,140,0.5)] w-[85%]"></div>
+                      <div className="h-full bg-accent-500 shadow-[0_0_10px_rgba(211,177,109,0.5)] w-[85%]"></div>
                     </div>
                   </div>
                   <div className="pt-6 border-t border-white/10 flex justify-between items-center">
                     <div>
                       <p className="text-[10px] opacity-60 font-black uppercase tracking-widest text-brand-100">RANK</p>
-                      <p className="text-lg font-black text-amber-400">#42 Worldwide</p>
+                      <p className="text-lg font-black text-accent-500">#42 Worldwide</p>
                     </div>
-                    <Zap className="text-amber-400" size={24} fill="currentColor" />
+                    <Zap className="text-accent-500" size={24} fill="currentColor" />
                   </div>
                </div>
              </div>
@@ -164,7 +166,7 @@ const App: React.FC = () => {
                   <Tooltip cursor={{ fill: '#f8fafc' }} contentStyle={{ borderRadius: '24px', border: 'none', boxShadow: '0 25px 50px -12px rgb(0 0 0 / 0.15)', padding: '20px' }} />
                   <Bar dataKey="hours" radius={[12, 12, 12, 12]} barSize={40}>
                     {statsData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.hours > 4 ? '#00828C' : '#dcf5f7'} className="hover:opacity-80 transition-opacity" />
+                      <Cell key={`cell-${index}`} fill={entry.hours > 4 ? '#168B99' : '#e0f2f4'} className="hover:opacity-80 transition-opacity" />
                     ))}
                   </Bar>
                 </BarChart>
@@ -189,11 +191,11 @@ const App: React.FC = () => {
 
         <div className="space-y-10">
           <AIAssistant />
-          <div className="bg-slate-900 p-8 lg:p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group border border-slate-800">
-            <div className="absolute -right-4 -top-4 w-32 h-32 bg-brand-500/10 rounded-full blur-3xl group-hover:bg-brand-500/20 transition-all duration-1000"></div>
+          <div className="bg-brand-900 p-8 lg:p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group border border-slate-800">
+            <div className="absolute -right-4 -top-4 w-32 h-32 bg-accent-500/10 rounded-full blur-3xl group-hover:bg-accent-500/20 transition-all duration-1000"></div>
             <h3 className="font-black text-2xl text-white mb-8 flex items-center gap-4">
-              <div className="p-2 bg-amber-400/10 rounded-xl">
-                <Zap className="text-amber-400" size={24} fill="currentColor" />
+              <div className="p-2 bg-accent-500/10 rounded-xl">
+                <Zap className="text-accent-500" size={24} fill="currentColor" />
               </div>
               Daily Missions
             </h3>
@@ -203,15 +205,15 @@ const App: React.FC = () => {
                 { title: 'Flexbox Mastery', reward: '+300 XP', category: 'CSS3', progress: 30 },
                 { title: 'JS Async/Await', reward: '+500 XP', category: 'JS ES6', progress: 0 },
               ].map((task, i) => (
-                <div key={i} className="group/item flex items-center justify-between p-6 rounded-[1.5rem] bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer hover:border-brand-500/30">
+                <div key={i} className="group/item flex items-center justify-between p-6 rounded-[1.5rem] bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer hover:border-accent-500/30">
                   <div className="flex-1">
-                    <p className="text-[10px] font-black text-brand-400 uppercase tracking-widest mb-1">{task.category}</p>
+                    <p className="text-[10px] font-black text-accent-500 uppercase tracking-widest mb-1">{task.category}</p>
                     <p className="font-bold text-white mb-3 text-sm">{task.title}</p>
                     <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                       <div className="h-full bg-brand-500 transition-all duration-1000" style={{ width: `${task.progress}%` }}></div>
+                       <div className="h-full bg-accent-500 transition-all duration-1000" style={{ width: `${task.progress}%` }}></div>
                     </div>
                   </div>
-                  <div className="ml-4 text-amber-400 font-black text-xs text-right whitespace-nowrap">
+                  <div className="ml-4 text-accent-500 font-black text-xs text-right whitespace-nowrap">
                     {task.reward}
                   </div>
                 </div>
@@ -236,12 +238,12 @@ const App: React.FC = () => {
           { name: "Mr. Rohit Kumar", role: "Founder & Editor", bio: "A master of frontend aesthetics and user psychology, Rohit leads the creative direction of SikshaSarovar.", initial: "RK" }
         ].map((founder, i) => (
           <div key={i} className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-6 hover:shadow-2xl hover:-translate-y-2 transition-all group">
-            <div className="w-24 h-24 bg-brand-900 rounded-[2rem] flex items-center justify-center text-white text-3xl font-black shadow-2xl group-hover:scale-110 transition-transform">
+            <div className="w-24 h-24 bg-brand-900 rounded-[2rem] flex items-center justify-center text-accent-500 text-3xl font-black shadow-2xl group-hover:scale-110 transition-transform border-4 border-accent-500/20">
               {founder.initial}
             </div>
             <div>
               <h3 className="text-2xl font-black text-slate-900 mb-1">{founder.name}</h3>
-              <p className="text-brand-600 font-black text-[10px] uppercase tracking-widest">{founder.role}</p>
+              <p className="text-accent-600 font-black text-[10px] uppercase tracking-widest">{founder.role}</p>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">{founder.bio}</p>
             <div className="flex gap-4 pt-2">
@@ -253,8 +255,8 @@ const App: React.FC = () => {
       </div>
 
       <div className="bg-brand-900 p-12 rounded-[3.5rem] text-white text-center space-y-8 relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
-        <Users className="mx-auto text-brand-400" size={48} />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-accent-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+        <Users className="mx-auto text-accent-500" size={48} />
         <div className="space-y-4 relative z-10">
           <h3 className="text-3xl font-black tracking-tight">Our Mission</h3>
           <p className="text-brand-100/80 text-lg leading-relaxed max-w-2xl mx-auto">
@@ -281,9 +283,9 @@ const App: React.FC = () => {
         <div className="flex flex-col items-center md:items-start">
           <div className="flex items-center gap-2 mb-2">
             <div className="bg-brand-900 p-1 rounded-md">
-              <Sparkles className="text-white" size={14} />
+              <Sparkles className="text-accent-500" size={14} />
             </div>
-            <span className="font-black text-slate-800 text-sm tracking-tight">SikshaSarovar.com</span>
+            <span className="font-black text-brand-900 text-sm tracking-tight">SikshaSarovar.com</span>
           </div>
           <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
             Developed by Mr. Rahul Kumar & Mr. Rohit Kumar
@@ -291,10 +293,10 @@ const App: React.FC = () => {
         </div>
         
         <div className="flex items-center gap-8 text-[11px] font-black text-slate-500 uppercase tracking-widest">
-          <button onClick={() => setActiveTab('home')} className="hover:text-brand-600 transition-colors">Home</button>
-          <button onClick={() => setActiveTab('about')} className="hover:text-brand-600 transition-colors">About</button>
-          <a href="#" className="hover:text-brand-600 transition-colors">Terms</a>
-          <a href="#" className="hover:text-brand-600 transition-colors">Privacy</a>
+          <button onClick={() => setActiveTab('home')} className="hover:text-brand-900 transition-colors">Home</button>
+          <button onClick={() => setActiveTab('about')} className="hover:text-brand-900 transition-colors">About</button>
+          <a href="#" className="hover:text-brand-900 transition-colors">Terms</a>
+          <a href="#" className="hover:text-brand-900 transition-colors">Privacy</a>
         </div>
 
         <div className="flex items-center gap-4">
@@ -302,9 +304,9 @@ const App: React.FC = () => {
               <p className="text-[10px] font-black text-slate-400 uppercase">© 2025 All Rights Reserved</p>
            </div>
            <div className="flex gap-2">
-              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-600 hover:bg-brand-50 border border-slate-100 transition-all"><Twitter size={16}/></button>
-              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-600 hover:bg-brand-50 border border-slate-100 transition-all"><Github size={16}/></button>
-              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-600 hover:bg-brand-50 border border-slate-100 transition-all"><Heart size={16} fill="currentColor" className="text-rose-500"/></button>
+              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 hover:bg-brand-50 border border-slate-100 transition-all"><Twitter size={16}/></button>
+              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 hover:bg-brand-50 border border-slate-100 transition-all"><Github size={16}/></button>
+              <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 hover:bg-brand-50 border border-slate-100 transition-all"><Heart size={16} fill="currentColor" className="text-accent-500"/></button>
            </div>
         </div>
       </div>
@@ -314,7 +316,7 @@ const App: React.FC = () => {
   return (
     <div className="h-screen w-full flex bg-slate-50 overflow-hidden font-['Inter']">
       
-      {/* SIDEBAR CONTAINER - Context Sensitive */}
+      {/* SIDEBAR CONTAINER */}
       <aside 
         className={`
           fixed lg:relative inset-y-0 left-0 z-50 
@@ -340,7 +342,7 @@ const App: React.FC = () => {
       {/* MOBILE OVERLAY */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm lg:hidden z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-brand-900/40 backdrop-blur-sm lg:hidden z-40 transition-opacity duration-300"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -353,26 +355,25 @@ const App: React.FC = () => {
           <div className="flex items-center gap-4 min-w-0">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
-              className="p-2 bg-white rounded-lg border border-brand-200 text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition-all focus:outline-none"
+              className="p-2 bg-white rounded-lg border border-brand-200 text-brand-900 hover:text-white hover:bg-brand-900 transition-all focus:outline-none"
             >
                {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
             </button>
             
             <nav className="flex items-center text-xs font-bold tracking-tight overflow-hidden text-slate-500">
-               <button onClick={() => { setActiveTab('home'); setSelectedCourse(null); }} className="hover:text-brand-600 transition-colors">SikshaSarovar</button>
+               <button onClick={() => { setActiveTab('home'); setSelectedCourse(null); }} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
                <ChevronRight size={14} className="mx-2 opacity-50" />
-               <span className="text-brand-600 truncate font-black">{getPageTitle()}</span>
+               <span className="text-brand-900 truncate font-black">{getPageTitle()}</span>
             </nav>
           </div>
 
           <div className="flex items-center gap-4">
-            {/* About Page Button - Left of Search Bar */}
             <button 
               onClick={() => setActiveTab('about')}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
                 activeTab === 'about' 
                 ? 'bg-brand-900 text-white border-brand-900' 
-                : 'bg-white text-slate-500 border-brand-200 hover:text-brand-600 hover:border-brand-600'
+                : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
               }`}
             >
               <Info size={14} />
@@ -387,13 +388,13 @@ const App: React.FC = () => {
                 className="w-40 lg:w-56 bg-white border border-brand-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-xs font-medium placeholder:text-brand-200"
               />
             </div>
-            <button className="bg-white p-2 rounded-lg border border-brand-200 text-brand-400 hover:text-brand-600 transition-all">
+            <button className="bg-white p-2 rounded-lg border border-brand-200 text-brand-900 hover:text-white hover:bg-brand-900 transition-all">
               <Bell size={18} />
             </button>
             <div className="flex items-center gap-3 ml-2 pl-4 border-l border-brand-100 hidden sm:flex">
               <div className="text-right">
-                <p className="text-[10px] font-black text-slate-900 leading-none">Sarah Chen</p>
-                <p className="text-[8px] font-bold text-brand-500 uppercase tracking-widest mt-0.5">Premium</p>
+                <p className="text-[10px] font-black text-brand-900 leading-none">Sarah Chen</p>
+                <p className="text-[8px] font-bold text-accent-500 uppercase tracking-widest mt-0.5">Premium</p>
               </div>
               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" className="w-9 h-9 rounded-xl bg-white border border-brand-200 shadow-sm" alt="Sarah" />
             </div>
@@ -404,11 +405,11 @@ const App: React.FC = () => {
         <div className="bg-white border-b border-slate-200 overflow-hidden shrink-0">
           <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center px-6 lg:px-12 py-4 gap-6">
             <div className="flex items-center gap-4 shrink-0">
-              <div className="p-2.5 bg-brand-900 text-white rounded-xl shadow-lg shadow-brand-200">
-                <Sparkles size={20} />
+              <div className="p-2 bg-brand-900 text-white rounded-xl shadow-lg shadow-brand-200/50">
+                 <img src="https://raw.githubusercontent.com/stackblitz/stackblitz-images/main/siksha-logo.png" className="w-8 h-8 object-contain filter brightness-0 invert" alt="Siksha Logo" />
               </div>
               <div>
-                <h1 className="text-xl lg:text-2xl font-black text-slate-900 tracking-tight leading-none mb-1">
+                <h1 className="text-xl lg:text-2xl font-black text-brand-900 tracking-tight leading-none mb-1">
                   {getPageTitle()}
                 </h1>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">SikshaSarovar Hub</p>
@@ -417,7 +418,6 @@ const App: React.FC = () => {
 
             <div className="h-8 w-px bg-slate-100 hidden md:block"></div>
 
-            {/* Horizontal Course Links - Switches Context */}
             <nav className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
               {COURSES.map((course) => (
                 <button
@@ -425,11 +425,11 @@ const App: React.FC = () => {
                   onClick={() => handleSelectLesson(course.id, course.lessons[0].id)}
                   className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${
                     selectedCourse?.id === course.id && (activeTab === 'lesson' || activeTab === 'playground')
-                      ? 'bg-brand-900 text-white border-brand-900 shadow-md shadow-brand-100'
-                      : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-brand-200 hover:text-brand-600'
+                      ? 'bg-brand-900 text-white border-brand-900 shadow-md shadow-brand-200'
+                      : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-brand-200 hover:text-brand-900'
                   }`}
                 >
-                  <span className={selectedCourse?.id === course.id ? 'text-white' : 'text-brand-500'}>
+                  <span className={selectedCourse?.id === course.id ? 'text-accent-500' : 'text-brand-500'}>
                     {ICON_MAP[course.icon]}
                   </span>
                   {course.title}
@@ -439,8 +439,8 @@ const App: React.FC = () => {
                 onClick={() => setActiveTab('playground')}
                 className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${
                   activeTab === 'playground'
-                    ? 'bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-100'
-                    : 'bg-amber-50 text-amber-600 border-amber-100 hover:bg-amber-100'
+                    ? 'bg-accent-500 text-brand-900 border-accent-500 shadow-md shadow-accent-100'
+                    : 'bg-accent-50 text-accent-700 border-accent-100 hover:bg-accent-100'
                 }`}
               >
                 <Zap size={14} fill="currentColor" />
@@ -459,7 +459,6 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* MAIN PAGE CONTENT */}
         <div className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/50 flex flex-col">
           <div className="p-6 lg:p-12 flex-1">
             {activeTab === 'home' && renderHome()}
@@ -500,8 +499,6 @@ const App: React.FC = () => {
               </div>
             )}
           </div>
-          
-          {/* Footer Inclusion */}
           {renderFooter()}
         </div>
       </main>

@@ -8,7 +8,7 @@ const AIAssistant: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      content: "Hello! I'm Siksha AI, your personal dark-cyan learning assistant. Stuck on a coding problem or need something explained? Just ask!",
+      content: "Hello! I'm Siksha AI. I'm trained in the SikshaSarovar methodology to help you master code. How can I assist your journey today?",
       timestamp: new Date()
     }
   ]);
@@ -64,13 +64,13 @@ const AIAssistant: React.FC = () => {
   return (
     <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-2xl flex flex-col h-[650px] overflow-hidden">
       <div className="bg-brand-900 p-6 flex items-center gap-4">
-        <div className="bg-white/20 p-3 rounded-2xl shadow-inner backdrop-blur-md">
-          <Sparkles className="text-white" size={24} />
+        <div className="bg-white/10 p-3 rounded-2xl shadow-inner backdrop-blur-md">
+          <Sparkles className="text-accent-500" size={24} />
         </div>
         <div>
           <h2 className="text-white font-black text-xl tracking-tight">Siksha AI Tutor</h2>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-brand-300 rounded-full animate-pulse"></span>
+            <span className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></span>
             <p className="text-brand-100 text-[10px] font-black uppercase tracking-widest">Powered by Gemini Pro</p>
           </div>
         </div>
@@ -81,7 +81,7 @@ const AIAssistant: React.FC = () => {
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2 duration-300`}>
             <div className={`flex gap-4 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
               <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border ${
-                msg.role === 'user' ? 'bg-brand-100 text-brand-600 border-brand-200' : 'bg-white text-brand-600 border-slate-100'
+                msg.role === 'user' ? 'bg-brand-100 text-brand-900 border-brand-200' : 'bg-white text-brand-900 border-slate-100'
               }`}>
                 {msg.role === 'user' ? <UserIcon size={20} /> : <Bot size={20} />}
               </div>
@@ -98,12 +98,12 @@ const AIAssistant: React.FC = () => {
         {isLoading && (
           <div className="flex justify-start">
             <div className="flex gap-4 items-center">
-              <div className="w-10 h-10 rounded-2xl bg-white shadow-sm border border-slate-100 text-brand-600 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-2xl bg-white shadow-sm border border-slate-100 text-brand-900 flex items-center justify-center">
                 <Bot size={20} />
               </div>
               <div className="bg-white p-5 rounded-3xl rounded-tl-none border border-slate-100 shadow-sm flex items-center gap-3 text-slate-400 font-bold italic text-xs">
-                <Loader2 size={16} className="animate-spin text-brand-500" />
-                Siksha is processing your request...
+                <Loader2 size={16} className="animate-spin text-accent-500" />
+                Processing your request...
               </div>
             </div>
           </div>
@@ -117,13 +117,13 @@ const AIAssistant: React.FC = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Ask anything about the lessons..."
-            className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-6 pr-14 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 transition-all text-sm font-medium"
+            placeholder="Ask about web dev or programming..."
+            className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-6 pr-14 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all text-sm font-medium"
           />
           <button 
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-brand-900 text-white p-3 rounded-xl hover:bg-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg active:scale-90"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-brand-900 text-accent-500 p-3 rounded-xl hover:bg-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg active:scale-90"
           >
             <Send size={18} />
           </button>
