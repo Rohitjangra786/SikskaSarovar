@@ -1,17 +1,13 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const API_KEY = process.env.API_KEY;
-
 export const chatWithSikshaAI = async (message: string, history: { role: 'user' | 'model', parts: { text: string }[] }[]) => {
-  if (!API_KEY) {
-    throw new Error("API Key is missing");
-  }
-
-  const ai = new GoogleGenAI({ apiKey: API_KEY });
+  // Always initialize GoogleGenAI with a named parameter using process.env.API_KEY directly.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
+  // Using 'gemini-3-pro-preview' as this is a complex coding/reasoning task.
   const response = await ai.models.generateContent({
-    model: 'gemini-3-flash-preview',
+    model: 'gemini-3-pro-preview',
     contents: [
       ...history.map(h => ({ role: h.role, parts: h.parts })),
       { role: 'user', parts: [{ text: message }] }
@@ -28,5 +24,6 @@ export const chatWithSikshaAI = async (message: string, history: { role: 'user' 
     }
   });
 
+  // Directly access the .text property from the GenerateContentResponse object.
   return response.text;
 };

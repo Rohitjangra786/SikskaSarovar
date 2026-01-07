@@ -1,18 +1,29 @@
 
 import React, { useState } from 'react';
 import { Lesson, Course } from '../types';
-import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo } from 'lucide-react';
 
 interface LessonViewerProps {
   lesson: Lesson;
   course: Course;
+  completedLessons: string[];
+  toggleCompletion: (lessonId: string) => void;
   onSelectLesson: (lessonId: string) => void;
   onNext: () => void;
   onPrev: () => void;
   onTryIt: (code: string) => void;
 }
 
-const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, course, onSelectLesson, onNext, onPrev, onTryIt }) => {
+const LessonViewer: React.FC<LessonViewerProps> = ({ 
+  lesson, 
+  course, 
+  completedLessons, 
+  toggleCompletion, 
+  onSelectLesson, 
+  onNext, 
+  onPrev, 
+  onTryIt 
+}) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -24,6 +35,7 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, course, onSelectLes
   };
 
   const currentIndex = course.lessons.findIndex(l => l.id === lesson.id);
+  const isCompleted = completedLessons.includes(lesson.id);
 
   return (
     <div className="max-w-5xl mx-auto py-4 animate-in fade-in slide-in-from-bottom-6 duration-700">
@@ -31,37 +43,52 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, course, onSelectLes
       {/* Visual Learning Path Indicator */}
       <div className="mb-10 px-8">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Your Progress in {course.title}</span>
-          <span className="text-[10px] font-black text-brand-600 uppercase tracking-widest">{currentIndex + 1} of {course.lessons.length} Lessons</span>
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Module Path: {course.title}</span>
+          <span className="text-[10px] font-black text-brand-600 uppercase tracking-widest">{currentIndex + 1} of {course.lessons.length} Modules</span>
         </div>
         <div className="flex items-center gap-3">
-          {course.lessons.map((l, i) => (
-            <button
-              key={l.id}
-              onClick={() => onSelectLesson(l.id)}
-              className={`h-2 flex-1 rounded-full transition-all duration-300 relative group ${
-                i < currentIndex ? 'bg-brand-500' : 
-                i === currentIndex ? 'bg-brand-900 shadow-lg shadow-brand-200' : 
-                'bg-slate-200 hover:bg-slate-300'
-              }`}
-              title={l.title}
-            >
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[9px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
-                {l.title}
-              </div>
-            </button>
-          ))}
+          {course.lessons.map((l, i) => {
+            const done = completedLessons.includes(l.id);
+            const active = i === currentIndex;
+            return (
+              <button
+                key={l.id}
+                onClick={() => onSelectLesson(l.id)}
+                className={`h-2 flex-1 rounded-full transition-all duration-300 relative group ${
+                  done ? 'bg-brand-500' : 
+                  active ? 'bg-brand-900 shadow-lg shadow-brand-200' : 
+                  'bg-slate-200 hover:bg-slate-300'
+                }`}
+                title={l.title}
+              >
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[9px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                  {l.title}
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 
       <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
-        {/* Header decoration - Dark Cyan */}
         <div className="h-3 bg-gradient-to-r from-brand-900 via-brand-700 to-brand-500"></div>
         
         <div className="p-10 md:p-16">
-          <div className="flex items-center gap-2 mb-4">
-             <span className="bg-brand-100 text-brand-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Module {currentIndex + 1}</span>
-             {lesson.isCompleted && <span className="flex items-center gap-1 text-brand-600 text-[10px] font-black"><Check size={12}/> COMPLETED</span>}
+          <div className="flex justify-between items-start mb-8">
+            <div className="flex items-center gap-2">
+               <span className="bg-brand-100 text-brand-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
+               {isCompleted && <span className="flex items-center gap-1 text-brand-600 text-[10px] font-black"><Check size={12}/> COMPLETED</span>}
+            </div>
+            <button 
+              onClick={() => toggleCompletion(lesson.id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                isCompleted 
+                ? 'bg-brand-50 text-brand-600 hover:bg-brand-100' 
+                : 'bg-brand-900 text-white hover:bg-brand-800'
+              }`}
+            >
+              {isCompleted ? <><Undo size={14}/> Mark Incomplete</> : <><Check size={14}/> Mark Complete</>}
+            </button>
           </div>
           
           <h1 className="text-5xl font-black text-slate-900 mb-8 tracking-tight">{lesson.title}</h1>
@@ -81,7 +108,7 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, course, onSelectLes
                     <div className="w-3 h-3 rounded-full bg-amber-500"></div>
                     <div className="w-3 h-3 rounded-full bg-brand-500"></div>
                   </div>
-                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Interactive Example</span>
+                  <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Interactive Sandbox</span>
                 </div>
                 <div className="flex gap-3">
                   <button 
@@ -96,7 +123,7 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, course, onSelectLes
                     className="bg-brand-600 hover:bg-brand-500 text-white px-6 py-2.5 rounded-xl text-xs font-black flex items-center gap-2 transition-all shadow-lg shadow-brand-900/40"
                   >
                     <Play size={14} fill="currentColor" />
-                    Try it Yourself
+                    Open in Playground
                   </button>
                 </div>
               </div>
@@ -111,8 +138,8 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, course, onSelectLes
               <CheckCircle2 size={32} />
             </div>
             <div>
-              <p className="font-black text-xl text-brand-900 mb-1">Concept Summary</p>
-              <p className="text-brand-700 text-lg opacity-80">Make sure to experiment with the code snippet above. Real learning happens when you modify the variables and see how the output changes!</p>
+              <p className="font-black text-xl text-brand-900 mb-1">Module Concept</p>
+              <p className="text-brand-700 text-lg opacity-80">This module is part of the {course.level} path. Experimenting with code is the fastest way to understand syntax behavior!</p>
             </div>
           </div>
 
@@ -125,15 +152,26 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, course, onSelectLes
               }`}
             >
               <ArrowLeft size={20} />
-              Previous Lesson
+              Previous Module
             </button>
-            <button 
-              onClick={onNext}
-              className="w-full sm:w-auto flex items-center justify-center gap-3 bg-brand-900 text-white px-12 py-4 rounded-2xl font-black hover:bg-brand-800 transition-all shadow-2xl hover:scale-105 active:scale-95"
-            >
-              {currentIndex === course.lessons.length - 1 ? 'Finish Tutorial' : 'Next Lesson'}
-              <ArrowRight size={20} />
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              {!isCompleted && (
+                <button 
+                  onClick={() => toggleCompletion(lesson.id)}
+                  className="flex items-center justify-center gap-3 bg-brand-50 text-brand-900 border border-brand-100 px-8 py-4 rounded-2xl font-black hover:bg-brand-100 transition-all"
+                >
+                  <Check size={20} />
+                  Complete Lesson
+                </button>
+              )}
+              <button 
+                onClick={onNext}
+                className="flex items-center justify-center gap-3 bg-brand-900 text-white px-12 py-4 rounded-2xl font-black hover:bg-brand-800 transition-all shadow-2xl hover:scale-105 active:scale-95"
+              >
+                {currentIndex === course.lessons.length - 1 ? 'Finish Course' : 'Next Lesson'}
+                <ArrowRight size={20} />
+              </button>
+            </div>
           </div>
         </div>
       </div>
