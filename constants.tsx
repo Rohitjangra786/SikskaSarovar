@@ -45,7 +45,7 @@ export const COURSES: Course[] = [
     lessons: [
       { 
         id: 'h1', 
-        title: 'HTML Introduction', 
+        title: 'HTML Introduction by Rahul Sir', 
         content: `HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages. HTML describes the structure of a Web page semantically and originally included cues for the appearance of the document.\n\nHTML elements are the building blocks of HTML pages. They are represented by tags like <h1>, <p>, <a>, etc. Browsers do not display the HTML tags, but use them to render the content of the page.\n\nA simple HTML document consists of a DOCTYPE declaration, an <html> root element, a <head> section containing meta information, and a <body> section that contains the visible page content.`, 
         codeSnippet: '<!DOCTYPE html>\n<html>\n<head>\n  <title>Page Title</title>\n</head>\n<body>\n  <h1>My First Heading</h1>\n  <p>My first paragraph.</p>\n</body>\n</html>', 
         isCompleted: true 
