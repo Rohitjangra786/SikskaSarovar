@@ -342,7 +342,7 @@ const App: React.FC = () => {
         {[
           { 
             name: "Mr. Rahul Kumar", 
-            role: "Founder & Editor", 
+            role: "Founder & CEO", 
             bio: "With over a decade of experience in software architecture, Rahul envisions a world where quality code education is a basic right.", 
             initial: "R", 
             phone: "9639748020",
@@ -350,7 +350,7 @@ const App: React.FC = () => {
           },
           { 
             name: "Mr. Rohit Kumar", 
-            role: "Founder & Editor", 
+            role: "Founder & CEO", 
             bio: "A master of frontend aesthetics and user psychology, Rohit leads the creative direction of SikshaSarovar. He ensures that every student enjoys a frictionless and visually inspiring learning experience.", 
             initial: "RK", 
             phone: "7015204440",
