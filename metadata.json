@@ -1,0 +1,7 @@
+{
+  "name": "SikshaSarovar E-Learning Dashboard",
+  "description": "A comprehensive e-learning dashboard for SikshaSarovar.com featuring course tracking, interactive learning paths, and an AI-powered tutor.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

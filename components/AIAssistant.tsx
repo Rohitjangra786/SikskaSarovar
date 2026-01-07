@@ -1,0 +1,136 @@
+
+import React, { useState, useRef, useEffect } from 'react';
+import { Send, Bot, User as UserIcon, Loader2, Sparkles } from 'lucide-react';
+import { chatWithSikshaAI } from '../services/geminiService';
+import { Message } from '../types';
+
+const AIAssistant: React.FC = () => {
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'model',
+      content: "Hello! I'm Siksha AI, your personal emerald-certified learning assistant. Stuck on a coding problem or need something explained? Just ask!",
+      timestamp: new Date()
+    }
+  ]);
+  const [input, setInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, isLoading]);
+
+  const handleSend = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      role: 'user',
+      content: input,
+      timestamp: new Date()
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setIsLoading(true);
+
+    try {
+      const history = messages.map(m => ({
+        role: m.role,
+        parts: [{ text: m.content }]
+      }));
+      
+      const response = await chatWithSikshaAI(input, history);
+      
+      const aiMessage: Message = {
+        role: 'model',
+        content: response || "I couldn't generate a response. Please try again.",
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, aiMessage]);
+    } catch (error) {
+      console.error(error);
+      setMessages(prev => [...prev, {
+        role: 'model',
+        content: "Sorry, I'm having trouble connecting to my brain right now. Please check your connection.",
+        timestamp: new Date()
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-2xl flex flex-col h-[650px] overflow-hidden">
+      <div className="bg-emerald-600 p-6 flex items-center gap-4">
+        <div className="bg-white/20 p-3 rounded-2xl shadow-inner backdrop-blur-md">
+          <Sparkles className="text-white" size={24} />
+        </div>
+        <div>
+          <h2 className="text-white font-black text-xl tracking-tight">Siksha AI Tutor</h2>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 bg-emerald-300 rounded-full animate-pulse"></span>
+            <p className="text-emerald-100 text-[10px] font-black uppercase tracking-widest">Powered by Gemini Pro</p>
+          </div>
+        </div>
+      </div>
+
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-50/30 custom-scrollbar">
+        {messages.map((msg, i) => (
+          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2 duration-300`}>
+            <div className={`flex gap-4 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
+              <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border ${
+                msg.role === 'user' ? 'bg-emerald-100 text-emerald-600 border-emerald-200' : 'bg-white text-emerald-600 border-slate-100'
+              }`}>
+                {msg.role === 'user' ? <UserIcon size={20} /> : <Bot size={20} />}
+              </div>
+              <div className={`p-5 rounded-3xl text-sm whitespace-pre-wrap leading-relaxed shadow-sm ${
+                msg.role === 'user' 
+                  ? 'bg-emerald-600 text-white rounded-tr-none shadow-emerald-200' 
+                  : 'bg-white text-slate-700 rounded-tl-none border border-slate-100'
+              }`}>
+                {msg.content}
+              </div>
+            </div>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="flex justify-start">
+            <div className="flex gap-4 items-center">
+              <div className="w-10 h-10 rounded-2xl bg-white shadow-sm border border-slate-100 text-emerald-600 flex items-center justify-center">
+                <Bot size={20} />
+              </div>
+              <div className="bg-white p-5 rounded-3xl rounded-tl-none border border-slate-100 shadow-sm flex items-center gap-3 text-slate-400 font-bold italic text-xs">
+                <Loader2 size={16} className="animate-spin text-emerald-500" />
+                Siksha is processing your request...
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="p-6 bg-white border-t border-slate-100">
+        <div className="relative group">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="Ask anything about the lessons..."
+            className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-6 pr-14 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all text-sm font-medium"
+          />
+          <button 
+            onClick={handleSend}
+            disabled={!input.trim() || isLoading}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-emerald-600 text-white p-3 rounded-xl hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg active:scale-90"
+          >
+            <Send size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default AIAssistant;
