@@ -21,12 +21,16 @@ import {
   ChevronLeft,
   BookOpen,
   Settings,
-  Sparkles
+  Sparkles,
+  Info,
+  Users,
+  Mail,
+  Linkedin
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState('home');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
   const [playgroundCode, setPlaygroundCode] = useState('');
@@ -68,7 +72,7 @@ const App: React.FC = () => {
     setActiveTab('playground');
   };
 
-  const renderDashboard = () => (
+  const renderHome = () => (
     <div className="space-y-10 animate-in fade-in duration-700">
       <div className="relative bg-brand-900 rounded-[3rem] p-8 lg:p-12 overflow-hidden text-white shadow-2xl border border-white/10">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-500/20 to-transparent skew-x-12 translate-x-1/4"></div>
@@ -216,8 +220,52 @@ const App: React.FC = () => {
     </div>
   );
 
+  const renderAbout = () => (
+    <div className="max-w-4xl mx-auto space-y-12 animate-in slide-in-from-bottom-10 duration-700 py-6">
+      <div className="text-center space-y-4">
+        <h2 className="text-4xl lg:text-5xl font-black text-brand-900 tracking-tight">About SikshaSarovar</h2>
+        <p className="text-slate-500 font-medium text-lg max-w-2xl mx-auto">Empowering the next generation of digital creators through high-quality, accessible education.</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {[
+          { name: "Mr. Rahul Kumar", role: "Founder & Editor", bio: "With over a decade of experience in software architecture, Rahul envisiones a world where quality code education is a basic right.", initial: "R" },
+          { name: "Mr. Rohit Kumar", role: "Founder & Editor", bio: "A master of frontend aesthetics and user psychology, Rohit leads the creative direction of SikshaSarovar.", initial: "RK" }
+        ].map((founder, i) => (
+          <div key={i} className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-6 hover:shadow-2xl hover:-translate-y-2 transition-all group">
+            <div className="w-24 h-24 bg-brand-900 rounded-[2rem] flex items-center justify-center text-white text-3xl font-black shadow-2xl group-hover:scale-110 transition-transform">
+              {founder.initial}
+            </div>
+            <div>
+              <h3 className="text-2xl font-black text-slate-900 mb-1">{founder.name}</h3>
+              <p className="text-brand-600 font-black text-[10px] uppercase tracking-widest">{founder.role}</p>
+            </div>
+            <p className="text-slate-500 text-sm leading-relaxed">{founder.bio}</p>
+            <div className="flex gap-4 pt-2">
+              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100"><Linkedin size={18}/></button>
+              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100"><Mail size={18}/></button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-brand-900 p-12 rounded-[3.5rem] text-white text-center space-y-8 relative overflow-hidden shadow-2xl">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
+        <Users className="mx-auto text-brand-400" size={48} />
+        <div className="space-y-4 relative z-10">
+          <h3 className="text-3xl font-black tracking-tight">Our Mission</h3>
+          <p className="text-brand-100/80 text-lg leading-relaxed max-w-2xl mx-auto">
+            At SikshaSarovar, we believe that education is the most powerful weapon which you can use to change the world. 
+            Our platform is designed to be your companion in the journey from a curious learner to a professional developer.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
   const getPageTitle = () => {
-    if (activeTab === 'dashboard') return 'Dashboard';
+    if (activeTab === 'home') return 'Home';
+    if (activeTab === 'about') return 'About Us';
     if (activeTab === 'lesson' && selectedCourse) return selectedCourse.title;
     if (activeTab === 'playground') return 'Code Playground';
     if (activeTab === 'ai-tutor') return 'AI Assistant';
@@ -241,7 +289,7 @@ const App: React.FC = () => {
             activeTab={activeTab} 
             setActiveTab={(tab) => {
               setActiveTab(tab);
-              if (tab === 'dashboard') setSelectedCourse(null);
+              if (tab === 'home' || tab === 'about') setSelectedCourse(null);
               if (window.innerWidth < 1024) setIsSidebarOpen(false);
             }} 
             onSelectLesson={handleSelectLesson}
@@ -262,39 +310,58 @@ const App: React.FC = () => {
       <main className="flex-1 flex flex-col h-full min-w-0">
         
         {/* TOP HEADER BAR */}
-        <header className="sticky top-0 z-30 bg-white px-4 lg:px-8 py-3.5 flex justify-between items-center border-b border-slate-200 shrink-0">
+        <header className="sticky top-0 z-30 bg-brand-50 px-4 lg:px-8 py-3.5 flex justify-between items-center border-b border-brand-100 shrink-0">
           <div className="flex items-center gap-4 min-w-0">
             <button 
               onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
-              className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition-all focus:outline-none"
+              className="p-2 bg-white rounded-lg border border-brand-200 text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition-all focus:outline-none"
             >
                {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
             </button>
             
-            <nav className="flex items-center text-xs font-bold tracking-tight overflow-hidden text-slate-400">
-               <button onClick={() => { setActiveTab('dashboard'); setSelectedCourse(null); }} className="hover:text-brand-600 transition-colors">SikshaSarovar</button>
+            <nav className="flex items-center text-xs font-bold tracking-tight overflow-hidden text-slate-500">
+               <button onClick={() => { setActiveTab('home'); setSelectedCourse(null); }} className="hover:text-brand-600 transition-colors">SikshaSarovar</button>
                <ChevronRight size={14} className="mx-2 opacity-50" />
-               <span className="text-brand-600 truncate">{getPageTitle()}</span>
+               <span className="text-brand-600 truncate font-black">{getPageTitle()}</span>
             </nav>
           </div>
 
           <div className="flex items-center gap-4">
+            {/* About Page Button - Left of Search Bar */}
+            <button 
+              onClick={() => setActiveTab('about')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
+                activeTab === 'about' 
+                ? 'bg-brand-900 text-white border-brand-900' 
+                : 'bg-white text-slate-500 border-brand-200 hover:text-brand-600 hover:border-brand-600'
+              }`}
+            >
+              <Info size={14} />
+              About
+            </button>
+
             <div className="relative hidden md:block">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-300" size={16} />
               <input 
                 type="text" 
-                placeholder="Search..." 
-                className="w-40 lg:w-56 bg-slate-50 border border-slate-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-xs font-medium"
+                placeholder="Search resources..." 
+                className="w-40 lg:w-56 bg-white border border-brand-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-xs font-medium placeholder:text-brand-200"
               />
             </div>
-            <button className="bg-slate-50 p-2 rounded-lg border border-slate-200 text-slate-400 hover:text-brand-600 transition-all">
+            <button className="bg-white p-2 rounded-lg border border-brand-200 text-brand-400 hover:text-brand-600 transition-all">
               <Bell size={18} />
             </button>
-            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" className="w-8 h-8 rounded-lg bg-brand-50 border border-brand-100" alt="Sarah" />
+            <div className="flex items-center gap-3 ml-2 pl-4 border-l border-brand-100 hidden sm:flex">
+              <div className="text-right">
+                <p className="text-[10px] font-black text-slate-900 leading-none">Sarah Chen</p>
+                <p className="text-[8px] font-bold text-brand-500 uppercase tracking-widest mt-0.5">Premium</p>
+              </div>
+              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" className="w-9 h-9 rounded-xl bg-white border border-brand-200 shadow-sm" alt="Sarah" />
+            </div>
           </div>
         </header>
 
-        {/* HEADING BAR WITH COURSE LINKS - Dark Cyan Themed */}
+        {/* HEADING BAR WITH COURSE LINKS */}
         <div className="bg-white border-b border-slate-200 overflow-hidden shrink-0">
           <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center px-6 lg:px-12 py-4 gap-6">
             <div className="flex items-center gap-4 shrink-0">
@@ -355,7 +422,8 @@ const App: React.FC = () => {
 
         {/* MAIN PAGE CONTENT */}
         <div className="flex-1 overflow-y-auto p-6 lg:p-12 custom-scrollbar bg-slate-50/50">
-          {activeTab === 'dashboard' && renderDashboard()}
+          {activeTab === 'home' && renderHome()}
+          {activeTab === 'about' && renderAbout()}
           
           {activeTab === 'lesson' && activeLesson && selectedCourse && (
             <LessonViewer 
@@ -367,7 +435,7 @@ const App: React.FC = () => {
                 if (nextId !== undefined && nextId < (selectedCourse?.lessons.length || 0) - 1) {
                   handleSelectLesson(selectedCourse!.id, selectedCourse!.lessons[nextId + 1].id);
                 } else {
-                  setActiveTab('dashboard');
+                  setActiveTab('home');
                 }
               }} 
               onPrev={() => {

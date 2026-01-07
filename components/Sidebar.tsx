@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { 
-  Home, 
+  Home as HomeIcon, 
   BookOpen, 
   Code2, 
   MessageSquare, 
@@ -10,7 +10,8 @@ import {
   ChevronDown,
   ChevronRight,
   Circle,
-  CheckCircle
+  CheckCircle,
+  Info
 } from 'lucide-react';
 import { COURSES } from '../constants';
 
@@ -24,13 +25,13 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLesson, filterCourseId }) => {
   const [expandedCourses, setExpandedCourses] = useState<string[]>([]);
 
-  // Sync expanded state with filtering and auto-collapse on dashboard
+  // Sync expanded state with filtering and auto-collapse on home
   useEffect(() => {
     if (filterCourseId) {
       // If a specific course is filtered, ensure it's expanded
       setExpandedCourses([filterCourseId]);
-    } else if (activeTab === 'dashboard') {
-      // If we are on the dashboard with no filter, collapse all sub-menus
+    } else if (activeTab === 'home') {
+      // If we are on the home page with no filter, collapse all sub-menus
       setExpandedCourses([]);
     }
   }, [filterCourseId, activeTab]);
@@ -42,9 +43,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
   };
 
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: <Home size={20} /> },
+    { id: 'home', label: 'Home', icon: <HomeIcon size={20} /> },
     { id: 'ai-tutor', label: 'AI Tutor', icon: <MessageSquare size={20} /> },
     { id: 'playground', label: 'Playground', icon: <Code2 size={20} /> },
+    { id: 'about', label: 'About Us', icon: <Info size={20} /> },
   ];
 
   // Filter courses based on user selection in Heading Bar
@@ -88,7 +90,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
           </span>
           {filterCourseId && (
             <button 
-              onClick={() => setActiveTab('dashboard')} 
+              onClick={() => setActiveTab('home')} 
               className="text-[9px] font-bold text-brand-600 hover:underline"
             >
               Clear Filter
