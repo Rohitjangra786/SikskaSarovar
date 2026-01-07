@@ -1,16 +1,18 @@
 
 import React, { useState } from 'react';
-import { Lesson } from '../types';
-import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check } from 'lucide-react';
+import { Lesson, Course } from '../types';
+import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle } from 'lucide-react';
 
 interface LessonViewerProps {
   lesson: Lesson;
+  course: Course;
+  onSelectLesson: (lessonId: string) => void;
   onNext: () => void;
   onPrev: () => void;
   onTryIt: (code: string) => void;
 }
 
-const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, onNext, onPrev, onTryIt }) => {
+const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, course, onSelectLesson, onNext, onPrev, onTryIt }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -21,15 +23,44 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, onNext, onPrev, onT
     }
   };
 
+  const currentIndex = course.lessons.findIndex(l => l.id === lesson.id);
+
   return (
-    <div className="max-w-5xl mx-auto py-8 animate-in fade-in slide-in-from-bottom-6 duration-700">
+    <div className="max-w-5xl mx-auto py-4 animate-in fade-in slide-in-from-bottom-6 duration-700">
+      
+      {/* Visual Learning Path Indicator */}
+      <div className="mb-10 px-8">
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Your Progress in {course.title}</span>
+          <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{currentIndex + 1} of {course.lessons.length} Lessons</span>
+        </div>
+        <div className="flex items-center gap-3">
+          {course.lessons.map((l, i) => (
+            <button
+              key={l.id}
+              onClick={() => onSelectLesson(l.id)}
+              className={`h-2 flex-1 rounded-full transition-all duration-300 relative group ${
+                i < currentIndex ? 'bg-emerald-500' : 
+                i === currentIndex ? 'bg-emerald-600 shadow-lg shadow-emerald-200' : 
+                'bg-slate-200 hover:bg-slate-300'
+              }`}
+              title={l.title}
+            >
+              <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[9px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                {l.title}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
         {/* Header decoration */}
         <div className="h-3 bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-600"></div>
         
         <div className="p-10 md:p-16">
           <div className="flex items-center gap-2 mb-4">
-             <span className="bg-emerald-100 text-emerald-700 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson Module</span>
+             <span className="bg-emerald-100 text-emerald-700 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Module {currentIndex + 1}</span>
              {lesson.isCompleted && <span className="flex items-center gap-1 text-emerald-600 text-[10px] font-black"><Check size={12}/> COMPLETED</span>}
           </div>
           
@@ -88,7 +119,10 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, onNext, onPrev, onT
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-100">
             <button 
               onClick={onPrev}
-              className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 text-slate-500 font-black hover:text-emerald-600 hover:bg-emerald-50 transition-all rounded-2xl"
+              disabled={currentIndex === 0}
+              className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 font-black transition-all rounded-2xl ${
+                currentIndex === 0 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:text-emerald-600 hover:bg-emerald-50'
+              }`}
             >
               <ArrowLeft size={20} />
               Previous Lesson
@@ -97,7 +131,7 @@ const LessonViewer: React.FC<LessonViewerProps> = ({ lesson, onNext, onPrev, onT
               onClick={onNext}
               className="w-full sm:w-auto flex items-center justify-center gap-3 bg-slate-900 text-white px-12 py-4 rounded-2xl font-black hover:bg-emerald-600 transition-all shadow-2xl hover:scale-105 active:scale-95"
             >
-              Next Lesson
+              {currentIndex === course.lessons.length - 1 ? 'Finish Tutorial' : 'Next Lesson'}
               <ArrowRight size={20} />
             </button>
           </div>

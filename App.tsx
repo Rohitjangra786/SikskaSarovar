@@ -18,7 +18,10 @@ import {
   Flame,
   LayoutDashboard,
   Menu,
-  X
+  X,
+  ChevronLeft,
+  BookOpen,
+  Settings
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
@@ -28,6 +31,12 @@ const App: React.FC = () => {
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
   const [playgroundCode, setPlaygroundCode] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    if (window.innerWidth < 1024) {
+      setIsSidebarOpen(false);
+    }
+  }, []);
 
   const statsData = [
     { name: 'Mon', hours: 2.5 },
@@ -47,7 +56,9 @@ const App: React.FC = () => {
         setSelectedCourse(course);
         setActiveLesson(lesson);
         setActiveTab('lesson');
-        if (window.innerWidth < 1024) setIsSidebarOpen(false);
+        if (window.innerWidth < 1024) {
+          setIsSidebarOpen(false);
+        }
       }
     }
   };
@@ -59,7 +70,7 @@ const App: React.FC = () => {
 
   const renderDashboard = () => (
     <div className="space-y-10 animate-in fade-in duration-700">
-      <div className="relative bg-emerald-900 rounded-[3rem] p-12 overflow-hidden text-white shadow-2xl border border-white/10">
+      <div className="relative bg-emerald-900 rounded-[3rem] p-8 lg:p-12 overflow-hidden text-white shadow-2xl border border-white/10">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-emerald-400/20 to-transparent skew-x-12 translate-x-1/4"></div>
         <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-12">
           <div className="flex-1 text-center lg:text-left">
@@ -71,8 +82,8 @@ const App: React.FC = () => {
                 <Flame size={14} fill="currentColor" /> 12 DAY STREAK
               </span>
             </div>
-            <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br/><span className="text-emerald-400">Web Technology</span></h1>
-            <p className="text-emerald-100/80 text-xl max-w-2xl mb-10 leading-relaxed font-medium">
+            <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br/><span className="text-emerald-400">Web Technology</span></h1>
+            <p className="text-emerald-100/80 text-lg lg:text-xl max-w-2xl mb-10 leading-relaxed font-medium">
               Continue your journey on <span className="text-white font-black underline decoration-emerald-400 underline-offset-4">HTML Attributes</span> and level up your skills today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -81,17 +92,17 @@ const App: React.FC = () => {
                 className="bg-white text-emerald-900 font-black px-12 py-5 rounded-2xl hover:bg-emerald-50 transition-all flex items-center justify-center gap-3 shadow-2xl hover:scale-105 active:scale-95"
               >
                 <Play fill="currentColor" size={18} />
-                START LEARNING
+                CONTINUE LEARNING
               </button>
               <button 
                 onClick={() => setActiveTab('playground')}
                 className="bg-emerald-800/40 backdrop-blur-xl text-white border border-white/20 px-10 py-5 rounded-2xl hover:bg-emerald-700/60 transition-all font-black uppercase tracking-widest text-sm"
               >
-                OPEN EDITOR
+                OPEN PLAYGROUND
               </button>
             </div>
           </div>
-          <div className="w-full lg:w-auto">
+          <div className="w-full lg:w-auto hidden md:block">
              <div className="bg-white/10 backdrop-blur-2xl rounded-[2.5rem] p-10 border border-white/20 shadow-2xl w-full lg:w-80">
                <div className="flex justify-between items-center mb-8">
                  <div className="p-4 bg-emerald-500 rounded-3xl shadow-xl shadow-emerald-500/40">
@@ -99,12 +110,12 @@ const App: React.FC = () => {
                  </div>
                  <div className="text-right">
                     <p className="text-[10px] opacity-60 font-black uppercase tracking-[0.2em] mb-1">XP SCORE</p>
-                    <p className="text-4xl font-black tracking-tighter">4,820</p>
+                    <p className="text-4xl font-black tracking-tighter text-white">4,820</p>
                  </div>
                </div>
                <div className="space-y-6">
                   <div>
-                    <div className="flex justify-between text-[10px] font-black uppercase mb-2 opacity-60 tracking-widest">
+                    <div className="flex justify-between text-[10px] font-black uppercase mb-2 opacity-60 tracking-widest text-emerald-100">
                       <span>NEXT LEVEL: MASTER</span>
                       <span>85%</span>
                     </div>
@@ -114,7 +125,7 @@ const App: React.FC = () => {
                   </div>
                   <div className="pt-6 border-t border-white/10 flex justify-between items-center">
                     <div>
-                      <p className="text-[10px] opacity-60 font-black uppercase tracking-widest">RANK</p>
+                      <p className="text-[10px] opacity-60 font-black uppercase tracking-widest text-emerald-100">RANK</p>
                       <p className="text-lg font-black text-amber-400">#42 Worldwide</p>
                     </div>
                     <Zap className="text-amber-400" size={24} fill="currentColor" />
@@ -132,7 +143,7 @@ const App: React.FC = () => {
               <div className="p-2 bg-emerald-100 text-emerald-600 rounded-xl">
                 <Clock size={24} />
               </div>
-              Learning Analytics
+              Activity Feed
             </h2>
             <div className="hidden sm:flex bg-white px-6 py-3 rounded-2xl border border-slate-100 shadow-sm text-sm font-black text-slate-500 items-center gap-3">
               Daily Avg: <span className="text-emerald-600">3.6h</span>
@@ -140,7 +151,7 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/50">
+          <div className="bg-white p-6 lg:p-10 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/50">
             <div className="h-[280px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={statsData}>
@@ -161,11 +172,13 @@ const App: React.FC = () => {
           <div>
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-3xl font-black text-slate-900 tracking-tight">E-Learning Paths</h2>
-              <button className="bg-emerald-50 text-emerald-600 px-6 py-2.5 rounded-xl text-sm font-black hover:bg-emerald-600 hover:text-white transition-all">Explore All</button>
+              <button className="bg-emerald-50 text-emerald-600 px-6 py-2.5 rounded-xl text-sm font-black hover:bg-emerald-600 hover:text-white transition-all">View All</button>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {COURSES.map(course => (
-                <CourseCard key={course.id} course={course} />
+                <div key={course.id} onClick={() => handleSelectLesson(course.id, course.lessons[0].id)}>
+                  <CourseCard course={course} />
+                </div>
               ))}
             </div>
           </div>
@@ -173,7 +186,7 @@ const App: React.FC = () => {
 
         <div className="space-y-10">
           <AIAssistant />
-          <div className="bg-slate-900 p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group border border-slate-800">
+          <div className="bg-slate-900 p-8 lg:p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group border border-slate-800">
             <div className="absolute -right-4 -top-4 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl group-hover:bg-emerald-500/20 transition-all duration-1000"></div>
             <h3 className="font-black text-2xl text-white mb-8 flex items-center gap-4">
               <div className="p-2 bg-amber-400/10 rounded-xl">
@@ -184,13 +197,13 @@ const App: React.FC = () => {
             <div className="space-y-5">
               {[
                 { title: 'Semantic HTML Quiz', reward: '+150 XP', category: 'HTML5', progress: 100 },
-                { title: 'Flexbox Froggy Style', reward: '+300 XP', category: 'CSS3', progress: 30 },
-                { title: 'Async/Await Mastery', reward: '+500 XP', category: 'JS ES6', progress: 0 },
+                { title: 'Flexbox Mastery', reward: '+300 XP', category: 'CSS3', progress: 30 },
+                { title: 'JS Async/Await', reward: '+500 XP', category: 'JS ES6', progress: 0 },
               ].map((task, i) => (
                 <div key={i} className="group/item flex items-center justify-between p-6 rounded-[1.5rem] bg-white/5 border border-white/10 hover:bg-white/10 transition-all cursor-pointer hover:border-emerald-500/30">
                   <div className="flex-1">
                     <p className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-1">{task.category}</p>
-                    <p className="font-bold text-white mb-3">{task.title}</p>
+                    <p className="font-bold text-white mb-3 text-sm">{task.title}</p>
                     <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
                        <div className="h-full bg-emerald-500 transition-all duration-1000" style={{ width: `${task.progress}%` }}></div>
                     </div>
@@ -207,77 +220,120 @@ const App: React.FC = () => {
     </div>
   );
 
-  return (
-    <div className="min-h-screen flex bg-slate-50 overflow-hidden font-['Inter']">
-      {/* Mobile Sidebar Toggle */}
-      <button 
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        className="fixed bottom-6 right-6 z-[100] bg-emerald-600 text-white p-4 rounded-full shadow-2xl lg:hidden active:scale-90 transition-transform"
-      >
-        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
-      </button>
+  const getPageTitle = () => {
+    if (activeTab === 'dashboard') return 'Dashboard Home';
+    if (activeTab === 'lesson' && selectedCourse) return selectedCourse.title;
+    if (activeTab === 'playground') return 'Code Playground';
+    if (activeTab === 'ai-tutor') return 'Siksha AI Assistant';
+    return 'Learning Hub';
+  };
 
-      <div className={`transition-all duration-500 ease-in-out fixed inset-0 z-50 lg:relative lg:inset-auto lg:block ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
-        <Sidebar 
-          activeTab={activeTab} 
-          setActiveTab={(tab) => {
-            setActiveTab(tab);
-            if (window.innerWidth < 1024) setIsSidebarOpen(false);
-          }} 
-          onSelectLesson={handleSelectLesson}
-        />
-        {/* Mobile Overlay */}
-        {isSidebarOpen && (
-          <div 
-            className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm lg:hidden -z-10"
-            onClick={() => setIsSidebarOpen(false)}
-          ></div>
-        )}
-      </div>
+  return (
+    <div className="h-screen w-full flex bg-slate-50 overflow-hidden font-['Inter']">
       
-      <main className="flex-1 h-screen overflow-y-auto custom-scrollbar relative">
-        {/* Navigation Context Bar */}
-        <header className="sticky top-0 z-40 bg-slate-50/90 backdrop-blur-xl px-6 lg:px-12 py-6 flex justify-between items-center border-b border-slate-200/50">
-          <div className="flex items-center gap-4">
-            <div className="p-2.5 bg-white rounded-2xl shadow-sm border border-slate-100">
-               <LayoutDashboard size={20} className="text-emerald-500" />
-            </div>
-            <nav className="hidden sm:flex items-center text-sm font-black tracking-tight">
-              <span className="text-slate-400 uppercase tracking-widest text-[10px]">Portal</span>
-              <ChevronRight size={14} className="mx-3 text-slate-300" />
-              <span className="text-slate-900 uppercase tracking-widest text-[10px]">{activeTab.replace('-', ' ')}</span>
+      {/* SIDEBAR CONTAINER */}
+      <aside 
+        className={`
+          fixed lg:relative inset-y-0 left-0 z-50 
+          transition-all duration-500 ease-in-out
+          ${isSidebarOpen ? 'w-72 translate-x-0' : 'w-0 -translate-x-full lg:translate-x-0'}
+          bg-white border-r border-slate-200 overflow-hidden
+        `}
+      >
+        <div className="w-72 h-full">
+          <Sidebar 
+            activeTab={activeTab} 
+            setActiveTab={(tab) => {
+              setActiveTab(tab);
+              if (window.innerWidth < 1024) setIsSidebarOpen(false);
+            }} 
+            onSelectLesson={handleSelectLesson}
+          />
+        </div>
+      </aside>
+
+      {/* MOBILE OVERLAY */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm lg:hidden z-40 transition-opacity duration-300"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+      
+      {/* MAIN CONTENT AREA */}
+      <main className="flex-1 flex flex-col h-full min-w-0">
+        
+        {/* TOP HEADER BAR */}
+        <header className="sticky top-0 z-30 bg-white px-4 lg:px-8 py-3.5 flex justify-between items-center border-b border-slate-200 shrink-0">
+          <div className="flex items-center gap-4 min-w-0">
+            <button 
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)} 
+              className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-slate-500 hover:text-emerald-600 hover:bg-emerald-50 transition-all focus:outline-none active:scale-95"
+            >
+               {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
+            </button>
+            
+            <nav className="flex items-center text-xs font-bold tracking-tight overflow-hidden text-slate-400">
+               <button onClick={() => setActiveTab('dashboard')} className="hover:text-emerald-600 transition-colors">SikshaSarovar</button>
+               <ChevronRight size={14} className="mx-2 opacity-50" />
+               <span className="text-emerald-600 truncate">{getPageTitle()}</span>
             </nav>
           </div>
 
-          <div className="flex items-center gap-4 lg:gap-8">
-            <div className="relative hidden xl:block group">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-emerald-600 transition-colors" size={18} />
+          <div className="flex items-center gap-4">
+            <div className="relative hidden md:block">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" size={16} />
               <input 
                 type="text" 
-                placeholder="Search courses, docs..." 
-                className="w-80 bg-white border border-slate-200 rounded-2xl py-3 pl-12 pr-6 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 transition-all text-sm font-bold shadow-sm"
+                placeholder="Search..." 
+                className="w-40 lg:w-56 bg-slate-50 border border-slate-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-emerald-500/10 text-xs font-medium"
               />
             </div>
-            <button className="relative bg-white p-3 rounded-2xl border border-slate-200 text-slate-400 hover:text-emerald-600 transition-all shadow-sm">
-              <Bell size={20} />
-              <span className="absolute top-2.5 right-2.5 w-2.5 h-2.5 bg-emerald-500 rounded-full border-[3px] border-white"></span>
+            
+            <button className="bg-slate-50 p-2 rounded-lg border border-slate-200 text-slate-400 hover:text-emerald-600 transition-all">
+              <Bell size={18} />
             </button>
-            <div className="flex items-center gap-4 pl-4 lg:pl-8 border-l border-slate-200">
-              <div className="text-right hidden sm:block">
-                <p className="text-xs font-black text-slate-800 leading-none">Sarah Jenkins</p>
-                <p className="text-[9px] font-black text-emerald-500 uppercase tracking-widest mt-1.5">Top 1% Learner</p>
-              </div>
-              <img src="https://picsum.photos/id/64/100/100" className="w-11 h-11 rounded-[1.2rem] object-cover ring-4 ring-emerald-50 shadow-xl" />
+            <div className="h-8 w-8 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-center">
+               <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" className="w-full h-full rounded-lg" alt="Profile" />
             </div>
           </div>
         </header>
 
-        <div className="p-6 lg:p-12">
+        {/* PROMINENT CONTEXT BAR (COURSE NAME DISPLAYED JUST AFTER THE TOP BAR) */}
+        <div className="bg-white border-b border-slate-200 py-6 px-6 lg:px-12 flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0 shadow-sm animate-in slide-in-from-top-4 duration-500">
+          <div className="flex items-center gap-5">
+            <div className="p-3 bg-emerald-100 text-emerald-600 rounded-2xl shadow-inner">
+              {activeTab === 'dashboard' ? <LayoutDashboard size={24} /> : 
+               activeTab === 'lesson' ? <BookOpen size={24} /> : 
+               activeTab === 'playground' ? <Play size={24} /> : <Zap size={24} />}
+            </div>
+            <div>
+              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.2em] mb-1">Learning Module</p>
+              <h1 className="text-2xl lg:text-3xl font-black text-slate-900 tracking-tight">
+                {getPageTitle()}
+              </h1>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <button className="flex items-center gap-2 bg-slate-50 text-slate-600 px-4 py-2.5 rounded-xl border border-slate-200 text-xs font-black hover:bg-slate-100 transition-all">
+               <Settings size={14} />
+               Preferences
+            </button>
+            <button className="flex items-center gap-2 bg-emerald-600 text-white px-5 py-2.5 rounded-xl text-xs font-black shadow-lg shadow-emerald-200 hover:bg-emerald-700 transition-all">
+               Quick Start
+            </button>
+          </div>
+        </div>
+
+        {/* MAIN PAGE CONTENT */}
+        <div className="flex-1 overflow-y-auto p-6 lg:p-12 custom-scrollbar bg-slate-50/50">
           {activeTab === 'dashboard' && renderDashboard()}
           
-          {activeTab === 'lesson' && activeLesson && (
+          {activeTab === 'lesson' && activeLesson && selectedCourse && (
             <LessonViewer 
               lesson={activeLesson}
+              course={selectedCourse}
+              onSelectLesson={(lId) => handleSelectLesson(selectedCourse.id, lId)}
               onNext={() => {
                 const nextId = selectedCourse?.lessons.findIndex(l => l.id === activeLesson.id);
                 if (nextId !== undefined && nextId < (selectedCourse?.lessons.length || 0) - 1) {
@@ -297,13 +353,13 @@ const App: React.FC = () => {
           )}
 
           {activeTab === 'playground' && (
-            <div className="h-[calc(100vh-180px)] animate-in zoom-in-95 duration-500">
+            <div className="h-full min-h-[600px] animate-in zoom-in-95 duration-500">
               <Playground initialCode={playgroundCode} />
             </div>
           )}
 
           {activeTab === 'ai-tutor' && (
-            <div className="max-w-4xl mx-auto h-[calc(100vh-180px)] animate-in fade-in duration-500">
+            <div className="max-w-4xl mx-auto h-full animate-in fade-in duration-500">
               <AIAssistant />
             </div>
           )}

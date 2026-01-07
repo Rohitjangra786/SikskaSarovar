@@ -36,55 +36,55 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
   ];
 
   return (
-    <div className="w-72 bg-white h-screen border-r border-slate-200 fixed left-0 top-0 flex flex-col overflow-hidden z-50">
-      <div className="p-6 flex items-center gap-3">
+    <div className="w-72 bg-white h-full border-r border-slate-200 flex flex-col overflow-hidden shadow-sm">
+      <div className="p-8 pb-4 flex items-center gap-3">
         <div className="bg-emerald-600 p-2 rounded-xl shadow-lg shadow-emerald-200">
           <GraduationCap className="text-white" size={24} />
         </div>
         <div>
           <span className="font-black text-xl tracking-tight text-slate-800 block leading-none">SikshaSarovar</span>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">E-Learning Platform</span>
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 block">Learn Your Way</span>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-4 py-4 custom-scrollbar">
-        <div className="space-y-1 mb-8">
+      <div className="flex-1 overflow-y-auto px-6 py-6 custom-scrollbar">
+        <div className="space-y-1 mb-10">
           {menuItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+              className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-300 ${
                 activeTab === item.id 
-                  ? 'bg-emerald-600 text-white font-bold shadow-md shadow-emerald-100' 
+                  ? 'bg-emerald-600 text-white font-bold shadow-lg shadow-emerald-100' 
                   : 'text-slate-500 hover:bg-slate-50 hover:text-emerald-600'
               }`}
             >
               {item.icon}
-              <span>{item.label}</span>
+              <span className="text-sm">{item.label}</span>
             </button>
           ))}
         </div>
 
-        <div className="px-4 mb-3">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Learning Paths</span>
+        <div className="px-4 mb-4">
+          <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Learning Paths</span>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-3">
           {COURSES.map(course => (
             <div key={course.id} className="space-y-1">
               <button
                 onClick={() => toggleCourse(course.id)}
-                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all group ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl transition-all group ${
                   expandedCourses.includes(course.id) ? 'bg-emerald-50 text-emerald-700' : 'hover:bg-slate-50 text-slate-600'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div className={`${expandedCourses.includes(course.id) ? 'text-emerald-600' : 'text-slate-400 group-hover:text-emerald-500'} transition-colors`}>
-                    {course.title.includes('HTML') ? <GraduationCap size={18} /> : <Code2 size={18} />}
+                    {course.icon === 'layout' ? <GraduationCap size={18} /> : <Code2 size={18} />}
                   </div>
-                  <span className="font-bold text-sm">{course.title}</span>
+                  <span className="font-bold text-[13px]">{course.title}</span>
                 </div>
-                {expandedCourses.includes(course.id) ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                {expandedCourses.includes(course.id) ? <ChevronDown size={14} className="opacity-50" /> : <ChevronRight size={14} className="opacity-50" />}
               </button>
               
               {expandedCourses.includes(course.id) && (
@@ -93,7 +93,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
                     <button
                       key={lesson.id}
                       onClick={() => onSelectLesson(course.id, lesson.id)}
-                      className="w-full text-left px-3 py-2 rounded-lg text-sm text-slate-500 hover:text-emerald-600 hover:bg-emerald-50/50 transition-all flex items-center justify-between group"
+                      className="w-full text-left px-3 py-2.5 rounded-xl text-[13px] text-slate-500 hover:text-emerald-600 hover:bg-emerald-50/50 transition-all flex items-center justify-between group"
                     >
                       <div className="flex items-center gap-2">
                         <Circle size={4} className={`fill-current ${lesson.isCompleted ? 'text-emerald-500' : 'text-slate-300'}`} />
@@ -110,17 +110,17 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
       </div>
 
       <div className="p-6 border-t border-slate-100">
-        <div className="bg-emerald-900 rounded-2xl p-4 text-white">
-          <div className="flex items-center gap-2 mb-3">
+        <div className="bg-slate-900 rounded-[2rem] p-5 text-white shadow-xl">
+          <div className="flex items-center gap-2 mb-4">
             <Trophy size={16} className="text-amber-400" />
-            <span className="text-xs font-bold uppercase tracking-wider">Daily Goal</span>
+            <span className="text-[10px] font-black uppercase tracking-wider text-emerald-100">Daily Mission</span>
           </div>
-          <div className="flex justify-between text-xs mb-2">
-            <span className="opacity-70">XP Gained</span>
-            <span className="font-bold">450 / 1000</span>
+          <div className="flex justify-between text-[11px] mb-2 font-bold">
+            <span className="opacity-50">XP PROGRESS</span>
+            <span className="text-emerald-400">450 / 1k</span>
           </div>
-          <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-            <div className="h-full bg-emerald-400" style={{ width: '45%' }}></div>
+          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden mb-1">
+            <div className="h-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" style={{ width: '45%' }}></div>
           </div>
         </div>
       </div>
