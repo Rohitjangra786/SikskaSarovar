@@ -520,18 +520,7 @@ const App: React.FC = () => {
               About
             </button>
 
-            {isLoggedIn && (
-              <button 
-                onClick={() => setActiveTab('settings')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
-                  activeTab === 'settings' 
-                  ? 'bg-brand-900 text-white border-brand-900' 
-                  : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
-                }`}
-              >
-                Settings
-              </button>
-            )}
+            {/* Settings moved into user dropdown; header button removed */}
 
             {!isLoggedIn ? (
               <div className="flex items-center gap-3">
