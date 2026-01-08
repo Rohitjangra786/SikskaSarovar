@@ -354,7 +354,7 @@ const App: React.FC = () => {
             bio: "A master of frontend aesthetics and user psychology, Rohit leads the creative direction of SikshaSarovar. He ensures that every student enjoys a frictionless and visually inspiring learning experience.", 
             initial: "RK", 
             phone: "7015204440",
-            image: "https://api.aistudio.google.com/v1/files/file-0" // Using provided professional black & white portrait
+            image: "https://drive.google.com/file/d/1AmNH7evlWjRr4C8v_B1O5w7uwCAv4Wci/view?usp=drive_link" // Using provided professional black & white portrait
           }
         ].map((founder, i) => (
           <div key={i} className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-6 hover:shadow-2xl hover:-translate-y-2 transition-all group overflow-hidden">
