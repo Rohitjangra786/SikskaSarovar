@@ -30,18 +30,27 @@ const AIAssistant: React.FC = () => {
       timestamp: new Date()
     };
 
+    // Append the user message immediately so it appears in the UI
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
     try {
-      const history = messages.map(m => ({ role: m.role, parts: [{ text: m.content }] }));
+      // Build history including the newly added user message to preserve order
+      const history = [...messages, userMessage].map(m => ({ role: m.role, parts: [{ text: m.content }] }));
+
       const r = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ message: input, history })
+        body: JSON.stringify({ message: userMessage.content, history })
       });
+
+      if (!r.ok) {
+        const errText = await r.text().catch(() => 'server error');
+        throw new Error(`AI request failed: ${r.status} ${errText}`);
+      }
+
       const data = await r.json();
       const responseText = data?.text;
 
@@ -50,6 +59,7 @@ const AIAssistant: React.FC = () => {
         content: responseText || "I couldn't generate a response. Please try again.",
         timestamp: new Date()
       };
+
       setMessages(prev => [...prev, aiMessage]);
     } catch (error) {
       console.error(error);
