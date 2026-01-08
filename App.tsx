@@ -7,6 +7,7 @@ import SEO from './components/SEO';
 import LessonViewer from './components/LessonViewer';
 import Playground from './components/Playground';
 import Login from './components/Login';
+import Settings from './components/Settings';
 import { Analytics } from '@vercel/analytics/react';
 import { COURSES, ICON_MAP } from './constants';
 import { Course, Lesson } from './types';
@@ -21,7 +22,7 @@ import {
   Flame,
   Menu,
   ChevronLeft,
-  Settings,
+  Settings as SettingsIcon,
   Sparkles,
   Info,
   Users,
@@ -83,7 +84,7 @@ const statsData = [
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
-  const [currentUser, setCurrentUser] = useState<{ name: string, email: string } | null>(null);
+  const [currentUser, setCurrentUser] = useState<any | null>(null);
   const [activeTab, setActiveTab] = useState('home');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
@@ -111,7 +112,7 @@ const App: React.FC = () => {
         if (r.ok) {
           const j = await r.json();
           if (j.user) {
-            setCurrentUser({ name: j.user.name, email: j.user.email });
+            setCurrentUser({ name: j.user.name, email: j.user.email, designation: j.user.designation || '', age: j.user.age ?? '', sex: j.user.sex || '' });
             setIsLoggedIn(true);
             localStorage.setItem('siksha_user', JSON.stringify({ name: j.user.name, email: j.user.email }));
           }
@@ -444,11 +445,11 @@ const App: React.FC = () => {
     if (activeTab === 'lesson' && activeLesson && selectedCourse) {
       const title = `${activeLesson.title} — ${selectedCourse.title}`;
       const desc = activeLesson.content.replace(/\n+/g, ' ').slice(0, 160);
-      const url = `${typeof window !== 'undefined' ? window.location.origin : FRONTEND}/${selectedCourse.id}/lesson/${activeLesson.id}`;
+      const url = `${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/${selectedCourse.id}/lesson/${activeLesson.id}`;
       return { title, description: desc, url };
     }
-    if (activeTab === 'about') return { title: 'About SikshaSarovar', description: 'About SikshaSarovar - our mission, team and values.', url: `${typeof window !== 'undefined' ? window.location.origin : FRONTEND}/about` };
-    return { title: 'SikshaSarovar', description: 'SikshaSarovar - interactive tutorials and projects for web development and AI.', url: typeof window !== 'undefined' ? window.location.origin : FRONTEND };
+    if (activeTab === 'about') return { title: 'About SikshaSarovar', description: 'About SikshaSarovar - our mission, team and values.', url: `${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/about` };
+    return { title: 'SikshaSarovar', description: 'SikshaSarovar - interactive tutorials and projects for web development and AI.', url: typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000' };
   })();
 
   return (
@@ -516,6 +517,19 @@ const App: React.FC = () => {
               <Info size={14} />
               About
             </button>
+
+            {isLoggedIn && (
+              <button 
+                onClick={() => setActiveTab('settings')}
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
+                  activeTab === 'settings' 
+                  ? 'bg-brand-900 text-white border-brand-900' 
+                  : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
+                }`}
+              >
+                Settings
+              </button>
+            )}
 
             {!isLoggedIn ? (
               <div className="flex items-center gap-3">
@@ -604,6 +618,14 @@ const App: React.FC = () => {
                 }}
                 onTryIt={handleTryIt}
               />
+            )}
+            {activeTab === 'settings' && (
+              <div className="max-w-[1200px] mx-auto p-6 lg:p-12">
+                <Settings currentUser={currentUser} onUpdate={(u) => {
+                  setCurrentUser({ name: u.name, email: u.email, designation: u.designation || '', age: u.age ?? '', sex: u.sex || '' });
+                  localStorage.setItem('siksha_user', JSON.stringify({ name: u.name, email: u.email }));
+                }} />
+              </div>
             )}
             {activeTab === 'playground' && <div className="h-full min-h-[600px] animate-in zoom-in-95 duration-500"><Playground initialCode={playgroundCode} /></div>}
             {activeTab === 'ai-tutor' && <div className="max-w-4xl mx-auto h-full animate-in fade-in duration-500"><AIAssistant /></div>}

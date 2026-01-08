@@ -30,10 +30,17 @@ async function ensureUsersTable() {
       provider TEXT,
       provider_id TEXT,
       picture TEXT,
+      designation TEXT,
+      age INTEGER,
+      sex TEXT,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
       last_login TIMESTAMP WITH TIME ZONE DEFAULT now()
     )
   `);
+  // Ensure new columns exist for backwards compatibility on upgrades
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS designation TEXT`);
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS age INTEGER`);
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS sex TEXT`);
 }
 
 app.post('/api/auth/social', async (req, res) => {
@@ -46,19 +53,22 @@ app.post('/api/auth/social', async (req, res) => {
     await ensureUsersTable();
 
     const insertQuery = `
-      INSERT INTO users (name, email, provider, provider_id, picture, last_login)
-      VALUES ($1, $2, $3, $4, $5, now())
-      ON CONFLICT (email) DO UPDATE SET
-        name = EXCLUDED.name,
-        provider = EXCLUDED.provider,
-        provider_id = EXCLUDED.provider_id,
-        picture = EXCLUDED.picture,
-        last_login = now()
-      RETURNING id, name, email, provider, provider_id, picture, created_at, last_login
+        INSERT INTO users (name, email, provider, provider_id, picture, designation, age, sex, last_login)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, now())
+        ON CONFLICT (email) DO UPDATE SET
+          name = EXCLUDED.name,
+          provider = EXCLUDED.provider,
+          provider_id = EXCLUDED.provider_id,
+          picture = EXCLUDED.picture,
+          designation = COALESCE(EXCLUDED.designation, users.designation),
+          age = COALESCE(EXCLUDED.age, users.age),
+          sex = COALESCE(EXCLUDED.sex, users.sex),
+          last_login = now()
+        RETURNING id, name, email, provider, provider_id, picture, designation, age, sex, created_at, last_login
     `;
 
-    const { rows } = await pool.query(insertQuery, [name, email, provider, providerId, picture]);
-    const user = rows[0];
+      const { rows } = await pool.query(insertQuery, [name, email, provider, providerId, picture, null, null, null]);
+      const user = rows[0];
 
     // Sign JWT and set as HttpOnly cookie
     const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
@@ -255,11 +265,41 @@ app.get('/api/auth/me', async (req, res) => {
   const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
   try {
     const payload: any = jwt.verify(token, secret);
-    const { rows } = await pool.query('SELECT id, name, email, provider, picture, created_at, last_login FROM users WHERE id = $1', [payload.id]);
+    const { rows } = await pool.query('SELECT id, name, email, provider, picture, designation, age, sex, created_at, last_login FROM users WHERE id = $1', [payload.id]);
     if (!rows[0]) return res.status(404).json({ error: 'user_not_found' });
     return res.json({ user: rows[0] });
   } catch (err) {
     console.error('me error', err);
+    return res.status(401).json({ error: 'invalid_token' });
+  }
+});
+
+// Update current authenticated user's profile (designation, age, sex)
+app.put('/api/auth/me', async (req, res) => {
+  const token = req.cookies?.token || (req.headers.authorization || '').replace(/^Bearer\s+/, '');
+  if (!token) return res.status(401).json({ error: 'no_token' });
+  const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
+
+  try {
+    const payload: any = jwt.verify(token, secret);
+    const { designation, age, sex } = req.body || {};
+    // Basic validation
+    const updates: string[] = [];
+    const values: any[] = [];
+    let idx = 1;
+    if (designation !== undefined) { updates.push(`designation = $${idx++}`); values.push(designation); }
+    if (age !== undefined) { updates.push(`age = $${idx++}`); values.push(Number(age) || null); }
+    if (sex !== undefined) { updates.push(`sex = $${idx++}`); values.push(sex); }
+
+    if (updates.length === 0) return res.status(400).json({ error: 'no_fields' });
+
+    const q = `UPDATE users SET ${updates.join(', ')} WHERE id = $${idx} RETURNING id, name, email, provider, picture, designation, age, sex, created_at, last_login`;
+    values.push(payload.id);
+    const { rows } = await pool.query(q, values);
+    if (!rows[0]) return res.status(404).json({ error: 'user_not_found' });
+    return res.json({ user: rows[0] });
+  } catch (err) {
+    console.error('update profile error', err);
     return res.status(401).json({ error: 'invalid_token' });
   }
 });
