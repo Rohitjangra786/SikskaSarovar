@@ -41,7 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
 
   const menuItems = [
     { id: 'home', label: 'Home', icon: <HomeIcon size={20} /> },
-    { id: 'ai-tutor', label: 'Siksha AI', icon: <MessageSquare size={20} /> },
+    { id: 'ai-tutor', label: 'SikshaSarovar AI', icon: <MessageSquare size={20} /> },
     { id: 'playground', label: 'Playground', icon: <Code2 size={20} /> },
     { id: 'about', label: 'Our Story', icon: <Info size={20} /> },
   ];
