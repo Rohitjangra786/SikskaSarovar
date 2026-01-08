@@ -68,10 +68,10 @@ const AIAssistant: React.FC = () => {
           <Sparkles className="text-accent-500" size={24} />
         </div>
         <div>
-          <h2 className="text-white font-black text-xl tracking-tight">Siksha AI Tutor</h2>
+          <h2 className="text-white font-black text-xl tracking-tight">SikshaSarovar AI</h2>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></span>
-            <p className="text-brand-100 text-[10px] font-black uppercase tracking-widest">Powered by Gemini Pro</p>
+            <p className="text-brand-100 text-[10px] font-black uppercase tracking-widest">Powered by SikshaSarovar</p>
           </div>
         </div>
       </div>
