@@ -348,7 +348,7 @@ const App: React.FC = () => {
             bio: "With over a decade of experience in software architecture, Rahul envisions a world where quality code education is a basic right.", 
             initial: "R", 
             phone: "9639748020",
-            image: RohitImg // Local image placeholder (replace with actual photo if desired)
+            image: RahulImg // Local image placeholder (replace with actual photo if desired)
              
           },
           { 
