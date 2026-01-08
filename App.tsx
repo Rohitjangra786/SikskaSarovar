@@ -35,6 +35,7 @@ import {
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import RohitImg from './Images/rohit.jpg';
+import RahulImg from './Images/rahul.jpg';
 
 // High-fidelity SVG recreation of the SikshaSarovar Logo
 export const SikshaLogo: React.FC<{ className?: string, colorMode?: 'light' | 'dark' | 'full' }> = ({ className = "w-10 h-10", colorMode = 'full' }) => {
@@ -347,7 +348,8 @@ const App: React.FC = () => {
             bio: "With over a decade of experience in software architecture, Rahul envisions a world where quality code education is a basic right.", 
             initial: "R", 
             phone: "9639748020",
-            image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rahul" 
+            image: RohitImg // Local image placeholder (replace with actual photo if desired)
+             
           },
           { 
             name: "Mr. Rohit Kumar", 
