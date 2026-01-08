@@ -103,6 +103,22 @@ const App: React.FC = () => {
     if (savedProgress) {
       setCompletedLessons(JSON.parse(savedProgress));
     }
+    // Try server session first (cookie-based JWT)
+    (async () => {
+      try {
+        const r = await fetch('/api/auth/me', { credentials: 'include' });
+        if (r.ok) {
+          const j = await r.json();
+          if (j.user) {
+            setCurrentUser({ name: j.user.name, email: j.user.email });
+            setIsLoggedIn(true);
+            localStorage.setItem('siksha_user', JSON.stringify({ name: j.user.name, email: j.user.email }));
+          }
+        }
+      } catch (err) {
+        // ignore -- no server session
+      }
+    })();
   }, []);
 
   const handleLoginSuccess = (user: { name: string, email: string }) => {

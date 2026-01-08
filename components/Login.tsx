@@ -48,6 +48,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onCancel }) => {
       const res = await fetch('/api/auth/social', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(simulated)
       });
 
