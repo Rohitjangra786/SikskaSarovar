@@ -34,6 +34,7 @@ import {
   MessageCircle
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import RohitImg from './Images/rohit.jpg';
 
 // High-fidelity SVG recreation of the SikshaSarovar Logo
 export const SikshaLogo: React.FC<{ className?: string, colorMode?: 'light' | 'dark' | 'full' }> = ({ className = "w-10 h-10", colorMode = 'full' }) => {
@@ -354,7 +355,7 @@ const App: React.FC = () => {
             bio: "A master of frontend aesthetics and user psychology, Rohit leads the creative direction of SikshaSarovar. He ensures that every student enjoys a frictionless and visually inspiring learning experience.", 
             initial: "RK", 
             phone: "7015204440",
-            image: "https://drive.google.com/file/d/1AmNH7evlWjRr4C8v_B1O5w7uwCAv4Wci/view?usp=drive_link" // Using provided professional black & white portrait
+            image: RohitImg // Local image placeholder (replace with actual photo if desired)
           }
         ].map((founder, i) => (
           <div key={i} className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-6 hover:shadow-2xl hover:-translate-y-2 transition-all group overflow-hidden">
