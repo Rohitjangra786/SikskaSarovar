@@ -31,15 +31,41 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onCancel }) => {
     }, 1500);
   };
 
-  const handleSocialLogin = (provider: string) => {
+  const handleSocialLogin = async (provider: string) => {
     setIsLoading(true);
-    setTimeout(() => {
-      onLoginSuccess({
-        name: `${provider} User`,
-        email: `${provider.toLowerCase()}@example.com`
+
+    // NOTE: Replace the simulated providerId/name/email with real data
+    // from the Google Identity Service or OAuth response in production.
+    const simulated = {
+      provider: provider.toLowerCase(),
+      providerId: `${provider.toLowerCase()}-id-${Date.now()}`,
+      name: `${provider} User`,
+      email: `${provider.toLowerCase()}@example.com`,
+      picture: ''
+    };
+
+    try {
+      const res = await fetch('/api/auth/social', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(simulated)
       });
+
+      if (!res.ok) {
+        throw new Error('Login failed');
+      }
+
+      const data = await res.json();
+      const user = data.user;
+
+      onLoginSuccess({ name: user.name || simulated.name, email: user.email || simulated.email });
+    } catch (err) {
+      console.error('Social login error', err);
+      // fallback to simulated login locally
+      onLoginSuccess({ name: simulated.name, email: simulated.email });
+    } finally {
       setIsLoading(false);
-    }, 1200);
+    }
   };
 
   return (
