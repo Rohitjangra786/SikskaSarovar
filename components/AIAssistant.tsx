@@ -7,7 +7,7 @@ const AIAssistant: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      content: "Hello! I'm Siksha AI. I'm trained in the SikshaSarovar methodology to help you master code. How can I assist your journey today?",
+      content: "Hello! I'm SikshaSarovar AI. I'm trained in the SikshaSarovar methodology to help you master code. How can I assist your journey today?",
       timestamp: new Date()
     }
   ]);
@@ -39,28 +39,48 @@ const AIAssistant: React.FC = () => {
       // Build history including the newly added user message to preserve order
       const history = [...messages, userMessage].map(m => ({ role: m.role, parts: [{ text: m.content }] }));
 
-      const r = await fetch('/api/ai/chat', {
+      // Use streaming endpoint if available. We will create an empty model
+      // message and update it as chunks arrive from the response body.
+      // Append a placeholder model message now so we can update it.
+      setMessages(prev => [...prev, { role: 'model', content: '', timestamp: new Date() }]);
+
+      const r = await fetch('/api/ai/stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ message: userMessage.content, history })
       });
 
-      if (!r.ok) {
+      if (!r.ok || !r.body) {
         const errText = await r.text().catch(() => 'server error');
         throw new Error(`AI request failed: ${r.status} ${errText}`);
       }
 
-      const data = await r.json();
-      const responseText = data?.text;
+      const reader = r.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+      let accumulated = '';
 
-      const aiMessage: Message = {
-        role: 'model',
-        content: responseText || "I couldn't generate a response. Please try again.",
-        timestamp: new Date()
-      };
-
-      setMessages(prev => [...prev, aiMessage]);
+      // Update the last message in state incrementally as chunks arrive
+      while (!done) {
+        const { value, done: d } = await reader.read();
+        done = d;
+        if (value) {
+          const chunk = decoder.decode(value, { stream: true });
+          accumulated += chunk;
+          setMessages(prev => {
+            // replace the last model message with updated content
+            const copy = [...prev];
+            for (let i = copy.length - 1; i >= 0; i--) {
+              if (copy[i].role === 'model') {
+                copy[i] = { ...copy[i], content: accumulated };
+                break;
+              }
+            }
+            return copy;
+          });
+        }
+      }
     } catch (error) {
       console.error(error);
       setMessages(prev => [...prev, {

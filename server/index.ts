@@ -233,5 +233,46 @@ app.post('/api/ai/chat', async (req, res) => {
   }
 });
 
+// Streaming AI endpoint: returns a chunked response so the client can render
+// partial content as it's produced. Currently this implementation obtains the
+// full reply from `chatWithSikshaAI` and streams it in small chunks. If the
+// GenAI client later supports streaming natively, replace this logic.
+app.post('/api/ai/stream', async (req, res) => {
+  const { message, history } = req.body || {};
+  if (!message || typeof message !== 'string') return res.status(400).json({ error: 'message_required' });
+
+  try {
+    // Get full reply (SDK streaming can be added later)
+    const fullReply = await chatWithSikshaAI(message, history || []);
+
+    // Prepare chunked response
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+
+    const chunkSize = 120; // characters per chunk
+    for (let i = 0; i < fullReply.length; i += chunkSize) {
+      const chunk = fullReply.slice(i, i + chunkSize);
+      // write chunk and flush
+      res.write(chunk);
+      // small pause to allow client rendering; adjust or remove in production
+      await new Promise((r) => setTimeout(r, 20));
+    }
+
+    res.end();
+  } catch (err) {
+    console.error('AI stream error', err);
+    if (!res.headersSent) res.status(500).json({ error: 'ai_error' });
+    else res.end();
+  }
+});
+
 const port = process.env.PORT ? Number(process.env.PORT) : 8080;
 app.listen(port, () => console.log(`Auth server running on http://localhost:${port}`));
+
+// Safe startup check: report whether a GenAI API key is present (do not log the key)
+if (process.env.API_KEY && process.env.API_KEY.length > 0) {
+  console.log('GenAI API key found: AI features enabled (server-side only)');
+} else {
+  console.warn('No GenAI API key found in environment. AI features will not work until API_KEY is set.');
+}
