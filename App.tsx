@@ -484,7 +484,7 @@ const App: React.FC = () => {
                   className="flex items-center gap-2 px-4 py-1.5 rounded-xl bg-brand-900 text-white text-[10px] font-black uppercase tracking-widest shadow-xl shadow-brand-900/20 hover:scale-105 active:scale-95 transition-all"
                 >
                   <LogIn size={14} />
-                  Login to Sync
+                  Login
                 </button>
               </div>
             ) : (
