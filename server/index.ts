@@ -229,7 +229,8 @@ app.post('/api/ai/chat', async (req, res) => {
     return res.json({ text: reply });
   } catch (err) {
     console.error('AI chat error', err);
-    return res.status(500).json({ error: 'ai_error' });
+    const message = err instanceof Error ? err.message : String(err);
+    return res.status(500).json({ error: 'ai_error', message });
   }
 });
 
@@ -262,7 +263,8 @@ app.post('/api/ai/stream', async (req, res) => {
     res.end();
   } catch (err) {
     console.error('AI stream error', err);
-    if (!res.headersSent) res.status(500).json({ error: 'ai_error' });
+    const message = err instanceof Error ? err.message : String(err);
+    if (!res.headersSent) res.status(500).json({ error: 'ai_error', message });
     else res.end();
   }
 });
