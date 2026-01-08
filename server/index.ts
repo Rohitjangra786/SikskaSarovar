@@ -203,6 +203,24 @@ app.get('/auth/facebook/callback', async (req, res) => {
   }
 });
 
+// Serve sitemap and robots for crawlers
+app.get('/sitemap.xml', (req, res) => {
+  try {
+    res.setHeader('Content-Type', 'application/xml');
+    return res.send(
+      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${process.env.FRONTEND_URL || 'http://localhost:3000'}/</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n  <url>\n    <loc>${process.env.FRONTEND_URL || 'http://localhost:3000'}/about</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n</urlset>`
+    );
+  } catch (err) {
+    console.error('sitemap error', err);
+    return res.status(500).send('');
+  }
+});
+
+app.get('/robots.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.send(`User-agent: *\nAllow: /\nSitemap: ${process.env.FRONTEND_URL || 'http://localhost:3000'}/sitemap.xml\n`);
+});
+
 // Return current authenticated user based on JWT cookie or Authorization header
 app.get('/api/auth/me', async (req, res) => {
   const token = req.cookies?.token || (req.headers.authorization || '').replace(/^Bearer\s+/, '');
@@ -223,6 +241,7 @@ app.get('/api/auth/me', async (req, res) => {
 // AI chat endpoint - server-side proxy to Gemini/Google GenAI
 app.post('/api/ai/chat', async (req, res) => {
   const { message, history } = req.body || {};
+  console.log('[AI] /api/ai/chat called', { messagePreview: typeof message === 'string' ? message.slice(0,80) : null, hasHistory: Array.isArray(history) && history.length > 0, apiKeyPresent: !!process.env.API_KEY });
   if (!message || typeof message !== 'string') return res.status(400).json({ error: 'message_required' });
   try {
     const reply = await chatWithSikshaAI(message, history || []);
@@ -240,6 +259,7 @@ app.post('/api/ai/chat', async (req, res) => {
 // GenAI client later supports streaming natively, replace this logic.
 app.post('/api/ai/stream', async (req, res) => {
   const { message, history } = req.body || {};
+  console.log('[AI] /api/ai/stream called', { messagePreview: typeof message === 'string' ? message.slice(0,80) : null, hasHistory: Array.isArray(history) && history.length > 0, apiKeyPresent: !!process.env.API_KEY });
   if (!message || typeof message !== 'string') return res.status(400).json({ error: 'message_required' });
 
   try {

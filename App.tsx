@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import CourseCard from './components/CourseCard';
 import AIAssistant from './components/AIAssistant';
+import SEO from './components/SEO';
 import LessonViewer from './components/LessonViewer';
 import Playground from './components/Playground';
 import Login from './components/Login';
@@ -165,11 +166,17 @@ const App: React.FC = () => {
   };
 
   if (showLogin) {
-    return <Login onLoginSuccess={handleLoginSuccess} onCancel={() => setShowLogin(false)} />;
+    return (
+      <>
+        <SEO title="Sign In" description="Sign in to SikshaSarovar to save progress and access premium features." />
+        <Login onLoginSuccess={handleLoginSuccess} onCancel={() => setShowLogin(false)} />
+      </>
+    );
   }
 
   const renderHome = () => (
     <div className="space-y-10 animate-in fade-in duration-700">
+      <SEO title="Home" description="SikshaSarovar - interactive tutorials and projects for web development and AI." />
       <div className="relative bg-brand-900 rounded-[3rem] p-8 lg:p-12 overflow-hidden text-white shadow-2xl border border-white/10">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-500/20 to-transparent skew-x-12 translate-x-1/4"></div>
         <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-12">
@@ -352,6 +359,7 @@ const App: React.FC = () => {
 
   const renderAbout = () => (
     <div className="max-w-4xl mx-auto space-y-12 animate-in slide-in-from-bottom-10 duration-700 py-6">
+      <SEO title="About" description="About SikshaSarovar - our mission, team and values." />
       <div className="text-center space-y-4">
         <h2 className="text-4xl lg:text-5xl font-black text-brand-900 tracking-tight">About SikshaSarovar</h2>
         <p className="text-slate-500 font-medium text-lg max-w-2xl mx-auto">Empowering the next generation of digital creators through high-quality, accessible education.</p>

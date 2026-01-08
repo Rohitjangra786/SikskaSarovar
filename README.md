@@ -20,7 +20,6 @@ View your app in AI Studio: https://ai.studio/apps/drive/1oYJqCeNcob0UtLqMS4BgFE
    `npm run dev`
  
 Server env & testing
----------------------
 
 Add a `.env` file at the project root with the following keys (example values shown):
 
@@ -54,6 +53,10 @@ curl -X POST http://localhost:8080/api/ai/chat -H "Content-Type: application/jso
 ```
 
 Security notes
---------------
-- Keep `API_KEY` and `DATABASE_URL` secret and do not commit `.env` to source control.
-- The server proxies requests to the Google GenAI (Gemini) API — the API key stays server-side.
+
+SEO changes included:
+- Added `components/SEO.tsx` to set page `title`, `description`, Open Graph and JSON-LD structured data.
+- Injected `SEO` into `App.tsx` for main views.
+- Added `sitemap.xml` and `robots.txt` at project root and server routes to serve them.
+
+To customize metadata per route, update `SEO` usage in `App.tsx` or add it to individual page components and pass `title`/`description`/`image`/`url` props.
