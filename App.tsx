@@ -6,6 +6,7 @@ import AIAssistant from './components/AIAssistant';
 import LessonViewer from './components/LessonViewer';
 import Playground from './components/Playground';
 import Login from './components/Login';
+import { Analytics } from '@vercel/analytics/react';
 import { COURSES, ICON_MAP } from './constants';
 import { Course, Lesson } from './types';
 import { 
@@ -598,6 +599,7 @@ const App: React.FC = () => {
           </footer>
         </div>
       </main>
+      <Analytics />
     </div>
   );
 };
