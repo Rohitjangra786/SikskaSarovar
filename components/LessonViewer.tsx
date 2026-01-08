@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import SEO from './SEO';
 import { Lesson, Course } from '../types';
 import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo } from 'lucide-react';
 
@@ -37,8 +38,16 @@ const LessonViewer: React.FC<LessonViewerProps> = ({
   const currentIndex = course.lessons.findIndex(l => l.id === lesson.id);
   const isCompleted = completedLessons.includes(lesson.id);
 
+  const base = typeof window !== 'undefined' ? window.location.origin : 'https://sikshasarovar.com';
+  const seoDescription = lesson.content.replace(/\n+/g, ' ').slice(0, 160);
+
   return (
     <div className="max-w-5xl mx-auto py-4 animate-in fade-in slide-in-from-bottom-6 duration-700">
+      <SEO 
+        title={`${lesson.title} — ${course.title}`} 
+        description={seoDescription}
+        url={`${base}/course/${course.id}/lesson/${lesson.id}`} 
+      />
       
       {/* Visual Learning Path Indicator */}
       <div className="mb-10 px-8">

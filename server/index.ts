@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken';
 import { getPool } from '../services/db';
 import { chatWithSikshaAI } from '../services/geminiService';
 import crypto from 'crypto';
+import { COURSES } from '../constants';
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -206,10 +207,35 @@ app.get('/auth/facebook/callback', async (req, res) => {
 // Serve sitemap and robots for crawlers
 app.get('/sitemap.xml', (req, res) => {
   try {
+    const base = (process.env.FRONTEND_URL || 'http://localhost:3000').replace(/\/$/, '');
+    const urls: { loc: string; changefreq?: string; priority?: string }[] = [];
+    urls.push({ loc: `${base}/`, changefreq: 'daily', priority: '1.0' });
+    urls.push({ loc: `${base}/about`, changefreq: 'monthly', priority: '0.6' });
+
+    // Add all courses and lessons
+    if (Array.isArray(COURSES)) {
+      for (const c of COURSES) {
+        urls.push({ loc: `${base}/course/${c.id}`, changefreq: 'weekly', priority: '0.8' });
+        if (Array.isArray(c.lessons)) {
+          for (const l of c.lessons) {
+            urls.push({ loc: `${base}/course/${c.id}/lesson/${l.id}`, changefreq: 'monthly', priority: '0.6' });
+          }
+        }
+      }
+    }
+
+    const xml = [`<?xml version="1.0" encoding="UTF-8"?>`, `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`];
+    for (const u of urls) {
+      xml.push('  <url>');
+      xml.push(`    <loc>${u.loc}</loc>`);
+      if (u.changefreq) xml.push(`    <changefreq>${u.changefreq}</changefreq>`);
+      if (u.priority) xml.push(`    <priority>${u.priority}</priority>`);
+      xml.push('  </url>');
+    }
+    xml.push('</urlset>');
+
     res.setHeader('Content-Type', 'application/xml');
-    return res.send(
-      `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${process.env.FRONTEND_URL || 'http://localhost:3000'}/</loc>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n  <url>\n    <loc>${process.env.FRONTEND_URL || 'http://localhost:3000'}/about</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n</urlset>`
-    );
+    return res.send(xml.join('\n'));
   } catch (err) {
     console.error('sitemap error', err);
     return res.status(500).send('');

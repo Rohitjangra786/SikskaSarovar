@@ -439,8 +439,21 @@ const App: React.FC = () => {
     return 'Hub';
   };
 
+  // Dynamic SEO: prefer lesson-level metadata when a lesson is active
+  const seoData = (() => {
+    if (activeTab === 'lesson' && activeLesson && selectedCourse) {
+      const title = `${activeLesson.title} — ${selectedCourse.title}`;
+      const desc = activeLesson.content.replace(/\n+/g, ' ').slice(0, 160);
+      const url = `${typeof window !== 'undefined' ? window.location.origin : FRONTEND}/${selectedCourse.id}/lesson/${activeLesson.id}`;
+      return { title, description: desc, url };
+    }
+    if (activeTab === 'about') return { title: 'About SikshaSarovar', description: 'About SikshaSarovar - our mission, team and values.', url: `${typeof window !== 'undefined' ? window.location.origin : FRONTEND}/about` };
+    return { title: 'SikshaSarovar', description: 'SikshaSarovar - interactive tutorials and projects for web development and AI.', url: typeof window !== 'undefined' ? window.location.origin : FRONTEND };
+  })();
+
   return (
     <div className="h-screen w-full flex bg-slate-50 overflow-hidden font-['Inter']">
+      <SEO title={seoData.title} description={seoData.description} url={seoData.url} />
       
       {/* SIDEBAR */}
       <aside className={`fixed lg:relative inset-y-0 left-0 z-50 transition-all duration-500 ease-in-out ${isSidebarOpen ? 'w-72 translate-x-0' : 'w-0 -translate-x-full lg:translate-x-0'} bg-white border-r border-slate-200 overflow-hidden`}>
