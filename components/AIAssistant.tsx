@@ -1,7 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User as UserIcon, Loader2, Sparkles } from 'lucide-react';
-import { chatWithSikshaAI } from '../services/geminiService';
 import { Message } from '../types';
 
 const AIAssistant: React.FC = () => {
@@ -36,16 +35,19 @@ const AIAssistant: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const history = messages.map(m => ({
-        role: m.role,
-        parts: [{ text: m.content }]
-      }));
-      
-      const response = await chatWithSikshaAI(input, history);
-      
+      const history = messages.map(m => ({ role: m.role, parts: [{ text: m.content }] }));
+      const r = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ message: input, history })
+      });
+      const data = await r.json();
+      const responseText = data?.text;
+
       const aiMessage: Message = {
         role: 'model',
-        content: response || "I couldn't generate a response. Please try again.",
+        content: responseText || "I couldn't generate a response. Please try again.",
         timestamp: new Date()
       };
       setMessages(prev => [...prev, aiMessage]);

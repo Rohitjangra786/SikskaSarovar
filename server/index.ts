@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import { getPool } from '../services/db';
+import { chatWithSikshaAI } from '../services/geminiService';
 import crypto from 'crypto';
 
 const app = express();
@@ -216,6 +217,19 @@ app.get('/api/auth/me', async (req, res) => {
   } catch (err) {
     console.error('me error', err);
     return res.status(401).json({ error: 'invalid_token' });
+  }
+});
+
+// AI chat endpoint - server-side proxy to Gemini/Google GenAI
+app.post('/api/ai/chat', async (req, res) => {
+  const { message, history } = req.body || {};
+  if (!message || typeof message !== 'string') return res.status(400).json({ error: 'message_required' });
+  try {
+    const reply = await chatWithSikshaAI(message, history || []);
+    return res.json({ text: reply });
+  } catch (err) {
+    console.error('AI chat error', err);
+    return res.status(500).json({ error: 'ai_error' });
   }
 });
 
