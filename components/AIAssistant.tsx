@@ -83,9 +83,10 @@ const AIAssistant: React.FC = () => {
       }
     } catch (error) {
       console.error(error);
+      const msg = error instanceof Error ? error.message : String(error);
       setMessages(prev => [...prev, {
         role: 'model',
-        content: "Sorry, I'm having trouble connecting to my brain right now. Please check your connection.",
+        content: `Error: ${msg}`,
         timestamp: new Date()
       }]);
     } finally {
