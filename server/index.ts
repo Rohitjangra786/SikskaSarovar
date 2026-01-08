@@ -5,6 +5,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import jwt from 'jsonwebtoken';
 import { getPool } from '../services/db';
+import crypto from 'crypto';
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
@@ -72,6 +73,132 @@ app.post('/api/auth/social', async (req, res) => {
   } catch (err) {
     console.error('auth error', err);
     return res.status(500).json({ error: 'internal_error' });
+  }
+});
+
+// --- OAuth flows for Google and Facebook ---
+function makeState() {
+  return crypto.randomBytes(16).toString('hex');
+}
+
+const FRONTEND = process.env.FRONTEND_URL || 'http://localhost:3000';
+
+app.get('/auth/google', (req, res) => {
+  const state = makeState();
+  res.cookie('oauth_state', state, { httpOnly: true, sameSite: 'lax' });
+  const params = new URLSearchParams({
+    client_id: process.env.GOOGLE_CLIENT_ID || '',
+    redirect_uri: process.env.GOOGLE_CALLBACK_URL || `http://localhost:8080/auth/google/callback`,
+    response_type: 'code',
+    scope: 'openid email profile',
+    state,
+    access_type: 'online',
+    prompt: 'select_account'
+  });
+  const url = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;
+  return res.redirect(url);
+});
+
+app.get('/auth/google/callback', async (req, res) => {
+  const { code, state } = req.query as any;
+  const saved = req.cookies?.oauth_state;
+  if (!code || !state || !saved || state !== saved) {
+    return res.status(400).send('Invalid OAuth state');
+  }
+  try {
+    const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        code: String(code),
+        client_id: process.env.GOOGLE_CLIENT_ID || '',
+        client_secret: process.env.GOOGLE_CLIENT_SECRET || '',
+        redirect_uri: process.env.GOOGLE_CALLBACK_URL || `http://localhost:8080/auth/google/callback`,
+        grant_type: 'authorization_code'
+      })
+    });
+    const tokenJson = await tokenRes.json();
+    const accessToken = tokenJson.access_token;
+    const userRes = await fetch(`https://www.googleapis.com/oauth2/v2/userinfo?access_token=${accessToken}`);
+    const profile = await userRes.json();
+
+    // Upsert user
+    await ensureUsersTable();
+    const insertQuery = `
+      INSERT INTO users (name, email, provider, provider_id, picture, last_login)
+      VALUES ($1, $2, $3, $4, $5, now())
+      ON CONFLICT (email) DO UPDATE SET
+        name = EXCLUDED.name,
+        provider = EXCLUDED.provider,
+        provider_id = EXCLUDED.provider_id,
+        picture = EXCLUDED.picture,
+        last_login = now()
+      RETURNING id, name, email
+    `;
+    const { rows } = await pool.query(insertQuery, [profile.name, profile.email, 'google', profile.id, profile.picture]);
+    const user = rows[0];
+
+    const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
+    const token = jwt.sign({ id: user.id, email: user.email }, secret, { expiresIn: '7d' });
+    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax' });
+    return res.redirect(FRONTEND + '/?auth=success');
+  } catch (err) {
+    console.error('google callback error', err);
+    return res.redirect(FRONTEND + '/?auth=error');
+  }
+});
+
+app.get('/auth/facebook', (req, res) => {
+  const state = makeState();
+  res.cookie('oauth_state', state, { httpOnly: true, sameSite: 'lax' });
+  const params = new URLSearchParams({
+    client_id: process.env.FACEBOOK_CLIENT_ID || '',
+    redirect_uri: process.env.FACEBOOK_CALLBACK_URL || `http://localhost:8080/auth/facebook/callback`,
+    state,
+    scope: 'email,public_profile',
+    response_type: 'code'
+  });
+  const url = `https://www.facebook.com/v13.0/dialog/oauth?${params.toString()}`;
+  return res.redirect(url);
+});
+
+app.get('/auth/facebook/callback', async (req, res) => {
+  const { code, state } = req.query as any;
+  const saved = req.cookies?.oauth_state;
+  if (!code || !state || !saved || state !== saved) {
+    return res.status(400).send('Invalid OAuth state');
+  }
+  try {
+    const tokenUrl = `https://graph.facebook.com/v13.0/oauth/access_token?client_id=${encodeURIComponent(process.env.FACEBOOK_CLIENT_ID || '')}&redirect_uri=${encodeURIComponent(process.env.FACEBOOK_CALLBACK_URL || `http://localhost:8080/auth/facebook/callback`)}&client_secret=${encodeURIComponent(process.env.FACEBOOK_CLIENT_SECRET || '')}&code=${encodeURIComponent(code)}`;
+    const tokenRes = await fetch(tokenUrl);
+    const tokenJson = await tokenRes.json();
+    const accessToken = tokenJson.access_token;
+    const userRes = await fetch(`https://graph.facebook.com/me?fields=id,name,email,picture&access_token=${accessToken}`);
+    const profile = await userRes.json();
+
+    await ensureUsersTable();
+    const insertQuery = `
+      INSERT INTO users (name, email, provider, provider_id, picture, last_login)
+      VALUES ($1, $2, $3, $4, $5, now())
+      ON CONFLICT (email) DO UPDATE SET
+        name = EXCLUDED.name,
+        provider = EXCLUDED.provider,
+        provider_id = EXCLUDED.provider_id,
+        picture = EXCLUDED.picture,
+        last_login = now()
+      RETURNING id, name, email
+    `;
+    const pictureUrl = profile.picture?.data?.url || null;
+    const { rows } = await pool.query(insertQuery, [profile.name, profile.email, 'facebook', profile.id, pictureUrl]);
+    const user = rows[0];
+
+    const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
+    const token = jwt.sign({ id: user.id, email: user.email }, secret, { expiresIn: '7d' });
+    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax' });
+    return res.redirect(FRONTEND + '/?auth=success');
+  } catch (err) {
+    console.error('facebook callback error', err);
+    return res.redirect(FRONTEND + '/?auth=error');
   }
 });
 
