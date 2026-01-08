@@ -91,6 +91,7 @@ const App: React.FC = () => {
   const [playgroundCode, setPlaygroundCode] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
@@ -134,6 +135,7 @@ const App: React.FC = () => {
     setIsLoggedIn(false);
     setCurrentUser(null);
     localStorage.removeItem('siksha_user');
+    setShowUserMenu(false);
   };
 
   const toggleLessonCompletion = (lessonId: string) => {
@@ -543,18 +545,19 @@ const App: React.FC = () => {
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-3 ml-2 pl-4 border-l border-brand-100 relative group cursor-pointer">
-                <div className="text-right">
+              <div className="flex items-center gap-3 ml-2 pl-4 border-l border-brand-100 relative cursor-pointer">
+                <div className="text-right" onClick={() => setShowUserMenu(s => !s)}>
                   <p className="text-[10px] font-black text-brand-900 leading-none">{currentUser?.name}</p>
                   <p className="text-[8px] font-bold text-accent-500 uppercase tracking-widest mt-0.5">Premium Sync</p>
                 </div>
-                <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser?.name}`} className="w-9 h-9 rounded-xl bg-white border border-brand-200 shadow-sm" alt="User" />
-                <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 overflow-hidden">
+                <img onClick={() => setShowUserMenu(s => !s)} src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser?.name}`} className="w-9 h-9 rounded-xl bg-white border border-brand-200 shadow-sm" alt="User" />
+                <div className={`absolute right-0 top-full mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-2xl transition-all duration-200 z-50 overflow-hidden ${showUserMenu ? 'opacity-100 visible translate-y-2' : 'opacity-0 invisible -translate-y-2'}`}>
                   <div className="p-4 border-b border-slate-50">
                     <p className="text-xs font-black text-brand-900">{currentUser?.name}</p>
                     <p className="text-[10px] text-slate-400 truncate">{currentUser?.email}</p>
                   </div>
-                  <button onClick={handleLogout} className="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-rose-500 hover:bg-rose-50 transition-colors">Logout</button>
+                  <button onClick={() => { setActiveTab('settings'); setShowUserMenu(false); }} className="w-full text-left px-4 py-3 text-[10px] font-black uppercase hover:bg-slate-50 transition-colors">Settings</button>
+                  <button onClick={() => { handleLogout(); setShowUserMenu(false); }} className="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-rose-500 hover:bg-rose-50 transition-colors">Logout</button>
                 </div>
               </div>
             )}

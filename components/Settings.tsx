@@ -28,11 +28,17 @@ const Settings: React.FC<Props> = ({ currentUser, onUpdate }) => {
         credentials: 'include',
         body: JSON.stringify({ designation: designation || null, age: age === '' ? null : Number(age), sex: sex || null })
       });
-      const j = await res.json();
-      if (!res.ok) throw new Error(j.error || j.message || 'update_failed');
+      let j: any = null;
+      try { j = await res.json(); } catch (e) { /* ignore invalid json */ }
+      if (!res.ok) {
+        console.error('Settings save failed', res.status, j);
+        if (res.status === 401) throw new Error('Authentication required. Please sign in again.');
+        throw new Error(j?.error || j?.message || `Save failed (status ${res.status})`);
+      }
       onUpdate(j.user);
       setMessage('Profile updated successfully');
     } catch (err: any) {
+      console.error('Settings error', err);
       setMessage(String(err.message || err));
     } finally {
       setSaving(false);
