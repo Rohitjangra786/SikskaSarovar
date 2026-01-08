@@ -575,7 +575,7 @@ const App: React.FC = () => {
                   <div className="bg-brand-900 p-1 rounded-md"><Sparkles className="text-accent-500" size={14} /></div>
                   <span className="font-black text-brand-900 text-sm tracking-tight">SikshaSarovar.com</span>
                 </div>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Developed by Mr. Rahul Kumar & Mr. Rohit Kumar</p>
+                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Developed by SikshaSarovar</p>
                 <div className="mt-2 flex gap-4 text-[9px] font-black text-green-600 uppercase tracking-widest">
                   <a href="https://wa.me/9639748020" target="_blank" rel="noopener noreferrer" className="hover:text-green-800 flex items-center gap-1"><MessageCircle size={12}/> Rahul: 9639748020</a>
                   <a href="https://wa.me/7015204440" target="_blank" rel="noopener noreferrer" className="hover:text-green-800 flex items-center gap-1"><MessageCircle size={12}/> Rohit: 7015204440</a>
