@@ -36,8 +36,8 @@ export const ICON_MAP: Record<string, React.ReactNode> = {
 
 export const COURSES: Course[] = [
   {
-    id: 'html-tutorial',
-    title: 'HTML Tutorial',
+    id: 'html',
+    title: 'HTML',
     category: 'Web Development',
     icon: 'layout',
     level: 'Beginner',
@@ -96,8 +96,8 @@ export const COURSES: Course[] = [
     ]
   },
   {
-    id: 'python-tutorial',
-    title: 'Python Tutorial',
+    id: 'python',
+    title: 'Python',
     category: 'Programming',
     icon: 'terminal',
     level: 'Beginner',
@@ -156,8 +156,8 @@ export const COURSES: Course[] = [
     ]
   },
   {
-    id: 'java-tutorial',
-    title: 'Java Tutorial',
+    id: 'java',
+    title: 'Java',
     category: 'Programming',
     icon: 'coffee',
     level: 'Intermediate',
@@ -216,8 +216,8 @@ export const COURSES: Course[] = [
     ]
   },
   {
-    id: 'php-tutorial',
-    title: 'PHP Tutorial',
+    id: 'php',
+    title: 'PHP',
     category: 'Backend',
     icon: 'database',
     level: 'Intermediate',
@@ -276,7 +276,7 @@ export const COURSES: Course[] = [
     ]
   },
   {
-    id: 'ai-tutorial',
+    id: 'ai',
     title: 'AI Fundamentals',
     category: 'Advanced Tech',
     icon: 'brain',
@@ -336,7 +336,7 @@ export const COURSES: Course[] = [
     ]
   },
   {
-    id: 'ml-tutorial',
+    id: 'ml',
     title: 'Machine Learning',
     category: 'Advanced Tech',
     icon: 'microscope',
