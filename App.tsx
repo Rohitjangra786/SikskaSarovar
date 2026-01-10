@@ -9,6 +9,7 @@ import Playground from './components/Playground';
 import Login from './components/Login';
 import Settings from './components/Settings';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { COURSES, ICON_MAP } from './constants';
 import { Course, Lesson } from './types';
 import { 
@@ -651,6 +652,7 @@ const App: React.FC = () => {
         </div>
       </main>
       <Analytics />
+      <SpeedInsights />
     </div>
   );
 };
