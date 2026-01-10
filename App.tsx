@@ -375,7 +375,7 @@ const App: React.FC = () => {
             name: "Mr. Rahul Kumar", 
             role: "Founder & CEO", 
             bio: "With over a decade of experience in software architecture, Rahul envisions a world where quality code education is a basic right.", 
-            initial: "R", 
+            initial: "RK", 
             phone: "9639748020",
             image: RahulImg // Local image placeholder (replace with actual photo if desired)
              
