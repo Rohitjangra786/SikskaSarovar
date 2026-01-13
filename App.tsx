@@ -187,6 +187,32 @@ const App: React.FC = () => {
       return;
     }
 
+    // Static Routes Handling
+    if (coursePath === 'about') {
+      setActiveTab('about');
+      setSelectedCourse(null);
+      if (window.innerWidth < 1024) setIsSidebarOpen(false);
+      return;
+    }
+    if (coursePath === 'playground') {
+      setActiveTab('playground');
+      setSelectedCourse(null);
+      if (window.innerWidth < 1024) setIsSidebarOpen(false);
+      return;
+    }
+    if (coursePath === 'ai-tutor') {
+      setActiveTab('ai-tutor');
+      setSelectedCourse(null);
+      if (window.innerWidth < 1024) setIsSidebarOpen(false);
+      return;
+    }
+    if (coursePath === 'settings') {
+      setActiveTab('settings');
+      setSelectedCourse(null);
+      if (window.innerWidth < 1024) setIsSidebarOpen(false);
+      return;
+    }
+
     const targetCourse = COURSES.find(c =>
       c.id.toLowerCase() === coursePath ||
       c.title.replace(/\s+/g, '').toLowerCase() === coursePath
