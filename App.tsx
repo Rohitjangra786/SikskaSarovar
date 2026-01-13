@@ -82,6 +82,34 @@ const statsData = [
   { name: 'Sun', hours: 1 },
 ];
 
+function useScrollDirection() {
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down' | null>(null);
+
+  useEffect(() => {
+    const scrollContainer = document.getElementById('scroll-container');
+    if (!scrollContainer) return; // Wait for mount
+
+    let lastScrollY = scrollContainer.scrollTop;
+
+    const updateScrollDirection = () => {
+      const scrollY = scrollContainer.scrollTop;
+      const direction = scrollY > lastScrollY ? 'down' : 'up';
+      if (direction !== scrollDirection && (Math.abs(scrollY - lastScrollY) > 10)) {
+        setScrollDirection(direction);
+      }
+      lastScrollY = scrollY > 0 ? scrollY : 0;
+    };
+
+    scrollContainer.addEventListener("scroll", updateScrollDirection);
+    return () => {
+      scrollContainer.removeEventListener("scroll", updateScrollDirection);
+    }
+  }, [scrollDirection]);
+
+  return scrollDirection;
+};
+
+
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -93,6 +121,7 @@ const App: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const scrollDirection = useScrollDirection();
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
@@ -604,64 +633,64 @@ const App: React.FC = () => {
       )}
 
       {/* MAIN CONTENT */}
-      <main className="flex-1 flex flex-col h-full min-w-0">
+      <main className="flex-1 flex flex-col h-full min-w-0 relative" id="main-content">
 
         {/* HEADER */}
-        <header className="sticky top-0 z-30 bg-brand-50 px-4 lg:px-8 py-3.5 flex justify-between items-center border-b border-brand-100 shrink-0">
-          <div className="flex items-center gap-4 min-w-0">
-            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 bg-white rounded-lg border border-brand-200 text-brand-900 hover:text-white hover:bg-brand-900 transition-all">
-              {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
+        <header className={`sticky top-0 z-30 bg-brand-50/95 backdrop-blur-sm px-4 lg:px-6 py-2.5 flex justify-between items-center border-b border-brand-100 shrink-0 transition-transform duration-300 ${scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'}`}>
+          <div className="flex items-center gap-3 min-w-0">
+            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-1.5 bg-white rounded-lg border border-brand-200 text-brand-900 hover:text-white hover:bg-brand-900 transition-all">
+              {isSidebarOpen ? <ChevronLeft size={16} /> : <Menu size={16} />}
             </button>
-            <nav className="flex items-center text-xs font-bold tracking-tight overflow-hidden text-slate-500">
+            <nav className="flex items-center text-[11px] font-bold tracking-tight overflow-hidden text-slate-500">
               <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
-              <ChevronRight size={14} className="mx-2 opacity-50" />
+              <ChevronRight size={12} className="mx-1.5 opacity-50" />
               <span className="text-brand-900 truncate font-black">{getPageTitle()}</span>
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {/* SEARCH BAR */}
             <div className="relative hidden md:block">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-300" size={16} />
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-brand-300" size={14} />
               <input
                 type="text"
-                placeholder="Search resources..."
-                className="w-40 lg:w-56 bg-white border border-brand-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-xs font-medium placeholder:text-brand-200"
+                placeholder="Search..."
+                className="w-32 lg:w-48 bg-white border border-brand-200 rounded-lg py-1 pl-8 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-[11px] font-medium placeholder:text-brand-200"
               />
             </div>
 
             {/* ABOUT BUTTON */}
             <button
               onClick={() => handleNavigate('about', '/about')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${activeTab === 'about'
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${activeTab === 'about'
                 ? 'bg-brand-900 text-white border-brand-900'
                 : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
                 }`}
             >
-              <Info size={14} />
+              <Info size={12} />
               About
             </button>
 
             {/* Settings moved into user dropdown; header button removed */}
 
             {!isLoggedIn ? (
-              <div className="flex items-center gap-3">
-                <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest Mode</span>
+              <div className="flex items-center gap-2">
+                <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest</span>
                 <button
                   onClick={() => setShowLogin(true)}
-                  className="flex items-center gap-2 px-4 py-1.5 rounded-xl bg-brand-900 text-white text-[10px] font-black uppercase tracking-widest shadow-xl shadow-brand-900/20 hover:scale-105 active:scale-95 transition-all"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-900 text-white text-[10px] font-black uppercase tracking-widest shadow-xl shadow-brand-900/20 hover:scale-105 active:scale-95 transition-all"
                 >
-                  <LogIn size={14} />
+                  <LogIn size={12} />
                   Login
                 </button>
               </div>
             ) : (
-              <div className="flex items-center gap-3 ml-2 pl-4 border-l border-brand-100 relative cursor-pointer">
+              <div className="flex items-center gap-2 ml-1 pl-3 border-l border-brand-100 relative cursor-pointer">
                 <div className="text-right" onClick={() => setShowUserMenu(s => !s)}>
                   <p className="text-[10px] font-black text-brand-900 leading-none">{currentUser?.name}</p>
-                  <p className="text-[8px] font-bold text-accent-500 uppercase tracking-widest mt-0.5">Premium Sync</p>
+                  <p className="text-[8px] font-bold text-accent-500 uppercase tracking-widest mt-0.5">Pro</p>
                 </div>
-                <img onClick={() => setShowUserMenu(s => !s)} src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser?.name}`} className="w-9 h-9 rounded-xl bg-white border border-brand-200 shadow-sm" alt="User" />
+                <img onClick={() => setShowUserMenu(s => !s)} src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser?.name}`} className="w-7 h-7 rounded-lg bg-white border border-brand-200 shadow-sm" alt="User" />
                 <div className={`absolute right-0 top-full mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-2xl transition-all duration-200 z-50 overflow-hidden ${showUserMenu ? 'opacity-100 visible translate-y-2' : 'opacity-0 invisible -translate-y-2'}`}>
                   <div className="p-4 border-b border-slate-50">
                     <p className="text-xs font-black text-brand-900">{currentUser?.name}</p>
@@ -673,15 +702,15 @@ const App: React.FC = () => {
               </div>
             )}
 
-            <button className="bg-white p-2 rounded-lg border border-brand-200 text-brand-900 hover:bg-brand-900 hover:text-white transition-all">
-              <Bell size={18} />
+            <button className="bg-white p-1.5 rounded-lg border border-brand-200 text-brand-900 hover:bg-brand-900 hover:text-white transition-all">
+              <Bell size={16} />
             </button>
           </div>
         </header>
 
         {/* SUB HEADER */}
-        <div className="bg-white border-b border-slate-200 overflow-hidden shrink-0">
-          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center px-6 lg:px-12 py-4 gap-6">
+        <div className={`bg-white border-b border-slate-200 overflow-hidden shrink-0 transition-all duration-300 ${scrollDirection === 'down' ? '-mt-12' : 'mt-0'}`}>
+          <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center px-4 lg:px-8 py-3 gap-4">
             <div className="flex items-center gap-4 shrink-0">
               <div className="p-2 bg-brand-50 rounded-xl shadow-lg shadow-brand-200/50">
                 <SikshaLogo className="w-8 h-8" />
@@ -707,7 +736,7 @@ const App: React.FC = () => {
         </div>
 
         {/* CONTENT */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/50 flex flex-col">
+        <div id="scroll-container" className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/50 flex flex-col">
           <div className="p-6 lg:p-12 flex-1">
             {activeTab === 'home' && renderHome()}
             {activeTab === 'about' && renderAbout()}
