@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Mail, Lock, User, Github, Facebook, Twitter, Chrome, Loader2, ArrowRight, X } from 'lucide-react';
+import { Mail, Lock, User, Chrome, Loader2, ArrowRight, X } from 'lucide-react';
 import { SikshaLogo } from '../App';
 
 interface LoginProps {
@@ -20,7 +20,7 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onCancel }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       onLoginSuccess({
@@ -31,201 +31,120 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onCancel }) => {
     }, 1500);
   };
 
-  const handleSocialLogin = (provider: string) => {
+  const handleGoogleLogin = () => {
     setIsLoading(true);
-    // Trigger server OAuth flow by navigating to the provider start route.
-    // The server will set the HttpOnly cookie and redirect back to the frontend.
-    if (provider.toLowerCase() === 'google') {
-      window.location.href = '/auth/google';
-    } else if (provider.toLowerCase() === 'facebook' || provider.toLowerCase() === 'facebook') {
-      window.location.href = '/auth/facebook';
-    } else {
-      // fallback to previous simulated behaviour for other providers
-      setTimeout(() => {
-        onLoginSuccess({ name: `${provider} User`, email: `${provider.toLowerCase()}@example.com` });
-        setIsLoading(false);
-      }, 1200);
-    }
+    window.location.href = '/auth/google';
   };
 
   return (
-    <div className="min-h-screen w-full bg-brand-900 flex items-center justify-center p-6 relative overflow-hidden font-['Inter']">
-      {/* Close button for optional login */}
-      <button 
+    <div className="min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden font-['Inter'] bg-slate-950">
+      {/* Background Ambience */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-brand-500/10 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-[-20%] left-[-10%] w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[100px] animate-pulse delay-1000"></div>
+      </div>
+
+      {/* Close button */}
+      <button
         onClick={onCancel}
-        className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors z-50 p-2 hover:bg-white/10 rounded-full"
+        className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors z-50 p-2 hover:bg-white/5 rounded-full backdrop-blur-sm"
       >
-        <X size={32} />
+        <X size={24} />
       </button>
 
-      {/* Dynamic Background Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-500/10 rounded-full blur-[120px] translate-y-1/2 -translate-x-1/2"></div>
-      
-      <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 bg-white/5 backdrop-blur-2xl rounded-[4rem] border border-white/10 shadow-2xl overflow-hidden relative z-10 animate-in zoom-in-95 duration-1000">
-        
-        {/* Left Branding Side */}
-        <div className="p-12 lg:p-20 flex flex-col justify-between bg-gradient-to-br from-brand-800/50 to-transparent">
-          <div>
-            <div className="bg-white p-3 rounded-3xl w-fit shadow-2xl shadow-brand-900/40 mb-10">
-              <SikshaLogo className="w-12 h-12" />
+      <div className="w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl overflow-hidden relative z-10 animate-in zoom-in-95 duration-500">
+        <div className="p-8 md:p-10">
+          <div className="flex flex-col items-center mb-8">
+            <div className="bg-gradient-to-br from-brand-500 to-indigo-600 p-3 rounded-2xl shadow-lg shadow-brand-500/20 mb-6">
+              <SikshaLogo className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-4xl lg:text-6xl font-black text-white mb-6 leading-tight tracking-tight">
-              Gateway to <br/>
-              <span className="text-brand-400">Knowledge.</span>
-            </h1>
-            <p className="text-brand-100/80 text-lg lg:text-xl max-w-sm leading-relaxed mb-10">
-              Join SikshaSarovar.com to master modern development skills with our interactive playground and AI tutor.
+            <h2 className="text-2xl font-bold text-white mb-2">
+              {isSignUp ? 'Create Account' : 'Welcome Back'}
+            </h2>
+            <p className="text-slate-400 text-sm text-center">
+              {isSignUp ? 'Start your learning journey today' : 'Continue where you left off'}
             </p>
           </div>
-          
-          <div className="flex items-center gap-4">
-            <div className="flex -space-x-4">
-              {[1, 2, 3, 4].map(i => (
-                <img 
-                  key={i} 
-                  src={`https://api.dicebear.com/7.x/avataaars/svg?seed=user${i}`} 
-                  className="w-12 h-12 rounded-2xl bg-brand-800 border-4 border-brand-900" 
-                  alt="User" 
-                />
-              ))}
-            </div>
-            <p className="text-xs font-bold text-brand-100 uppercase tracking-widest">+ 5,000 active learners</p>
-          </div>
-        </div>
 
-        {/* Right Form Side */}
-        <div className="bg-white p-12 lg:p-20">
-          <div className="max-w-md mx-auto">
-            <div className="mb-10">
-              <h2 className="text-3xl font-black text-brand-900 mb-2">
-                {isSignUp ? 'Create Account' : 'Welcome Back'}
-              </h2>
-              <p className="text-slate-400 font-medium">
-                {isSignUp ? 'Start your learning journey today.' : 'Login to continue your progress.'}
-              </p>
+          <div className="space-y-4">
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              className="w-full bg-white text-slate-900 font-semibold py-3.5 rounded-xl hover:bg-slate-50 transition-all active:scale-[0.98] flex items-center justify-center gap-3 shadow-lg"
+            >
+              <Chrome size={20} className="text-red-500" />
+              <span>Continue with Google</span>
+            </button>
+
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-white/10"></div>
+              </div>
+              <div className="relative flex justify-center text-xs font-medium uppercase tracking-wider">
+                <span className="bg-[#0f111a] px-4 text-slate-500">Or continue with email</span>
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5 mb-10">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {isSignUp && (
                 <div className="relative group">
-                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-600 transition-colors" size={18} />
+                  <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-400 transition-colors" size={18} />
                   <input
                     required
                     type="text"
                     placeholder="Full Name"
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-500/10 transition-all font-medium"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-500/50 focus:bg-white/10 transition-all"
                   />
                 </div>
               )}
               <div className="relative group">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-600 transition-colors" size={18} />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-400 transition-colors" size={18} />
                 <input
                   required
                   type="email"
                   placeholder="Email Address"
                   value={formData.email}
                   onChange={e => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-500/10 transition-all font-medium"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-500/50 focus:bg-white/10 transition-all"
                 />
               </div>
               <div className="relative group">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 group-focus-within:text-brand-600 transition-colors" size={18} />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-400 transition-colors" size={18} />
                 <input
                   required
                   type="password"
                   placeholder="Password"
                   value={formData.password}
                   onChange={e => setFormData({ ...formData, password: e.target.value })}
-                  className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-brand-600 focus:ring-4 focus:ring-brand-500/10 transition-all font-medium"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder:text-slate-500 focus:outline-none focus:border-brand-500/50 focus:bg-white/10 transition-all"
                 />
               </div>
-
-              {!isSignUp && (
-                <div className="text-right">
-                  <button type="button" className="text-xs font-black text-brand-600 hover:text-brand-900 uppercase tracking-widest">
-                    Forgot Password?
-                  </button>
-                </div>
-              )}
 
               <button
                 disabled={isLoading}
                 type="submit"
-                className="w-full bg-brand-900 text-white font-black py-4 rounded-2xl hover:bg-brand-800 transition-all shadow-xl shadow-brand-900/20 active:scale-95 disabled:opacity-50 flex items-center justify-center gap-3"
+                className="w-full bg-gradient-to-r from-brand-600 to-indigo-600 text-white font-bold py-3.5 rounded-xl hover:from-brand-500 hover:to-indigo-500 transition-all shadow-lg shadow-brand-500/25 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-2"
               >
                 {isLoading ? (
-                  <Loader2 size={20} className="animate-spin text-accent-500" />
+                  <Loader2 size={20} className="animate-spin" />
                 ) : (
                   <>
-                    {isSignUp ? 'CREATE ACCOUNT' : 'SIGN IN'}
+                    {isSignUp ? 'Create Account' : 'Sign In'}
                     <ArrowRight size={18} />
                   </>
                 )}
               </button>
             </form>
 
-            <div className="relative mb-10">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-100"></div>
-              </div>
-              <div className="relative flex justify-center text-xs font-black uppercase tracking-widest">
-                <span className="bg-white px-4 text-slate-300">Or continue with</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <button 
+            <div className="text-center mt-6">
+              <button
                 type="button"
-                onClick={() => handleSocialLogin('Google')}
-                className="flex items-center justify-center gap-3 border-2 border-slate-100 py-3 rounded-2xl hover:bg-slate-50 transition-colors font-black text-[10px] uppercase tracking-widest"
+                onClick={() => setIsSignUp(!isSignUp)}
+                className="text-slate-400 text-sm hover:text-white transition-colors"
               >
-                <Chrome size={16} className="text-red-500" />
-                Google
-              </button>
-              <button 
-                type="button"
-                onClick={() => handleSocialLogin('X')}
-                className="flex items-center justify-center gap-3 border-2 border-slate-100 py-3 rounded-2xl hover:bg-slate-50 transition-colors font-black text-[10px] uppercase tracking-widest"
-              >
-                <Twitter size={16} fill="currentColor" className="text-sky-500" />
-                X
-              </button>
-              <button 
-                type="button"
-                onClick={() => handleSocialLogin('Facebook')}
-                className="flex items-center justify-center gap-3 border-2 border-slate-100 py-3 rounded-2xl hover:bg-slate-50 transition-colors font-black text-[10px] uppercase tracking-widest"
-              >
-                <Facebook size={16} fill="currentColor" className="text-blue-600" />
-                Facebook
-              </button>
-              <button 
-                type="button"
-                onClick={() => handleSocialLogin('GitHub')}
-                className="flex items-center justify-center gap-3 border-2 border-slate-100 py-3 rounded-2xl hover:bg-slate-50 transition-colors font-black text-[10px] uppercase tracking-widest"
-              >
-                <Github size={16} className="text-slate-900" />
-                GitHub
-              </button>
-            </div>
-
-            <div className="mt-12 text-center">
-              <p className="text-slate-400 font-medium text-sm">
-                {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
-                <button 
-                  onClick={() => setIsSignUp(!isSignUp)}
-                  className="text-brand-900 font-black hover:underline"
-                >
-                  {isSignUp ? 'Sign In' : 'Sign Up'}
-                </button>
-              </p>
-              <button 
-                onClick={onCancel}
-                className="mt-6 text-slate-400 text-xs font-bold hover:text-brand-900 transition-colors uppercase tracking-widest"
-              >
-                Continue as Guest
+                {isSignUp ? 'Already have an account?' : "Don't have an account?"} <span className="text-brand-400 font-semibold">{isSignUp ? 'Sign In' : 'Sign Up'}</span>
               </button>
             </div>
           </div>
