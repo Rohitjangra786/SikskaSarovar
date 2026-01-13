@@ -175,27 +175,42 @@ const App: React.FC = () => {
 
   // Helper to sync state with URL
   const syncStateWithUrl = () => {
-    const path = window.location.pathname.substring(1).toLowerCase();
-    if (!path || path === '') {
+    // Remove leading slash, split by /
+    const parts = window.location.pathname.substring(1).toLowerCase().split('/');
+    const coursePath = parts[0];
+    const lessonPath = parts.length > 1 ? parts[1] : null;
+
+    if (!coursePath || coursePath === '') {
       setActiveTab('home');
       setSelectedCourse(null);
-      if (window.innerWidth < 1024) setIsSidebarOpen(false); // Optional: close sidebar on home
+      if (window.innerWidth < 1024) setIsSidebarOpen(false);
       return;
     }
 
     const targetCourse = COURSES.find(c =>
-      c.id.toLowerCase() === path ||
-      c.title.replace(/\s+/g, '').toLowerCase() === path
+      c.id.toLowerCase() === coursePath ||
+      c.title.replace(/\s+/g, '').toLowerCase() === coursePath
     );
 
     if (targetCourse) {
       setSelectedCourse(targetCourse);
       setActiveTab('lesson');
-      if (targetCourse.lessons.length > 0) {
-        // preserve active lesson if already set and belongs to course, else default to first
-        // simple approach: always default to first for now unless we add lesson ID to URL too
-        setActiveLesson(targetCourse.lessons[0]);
+
+      let targetLesson = null;
+      if (lessonPath && targetCourse.lessons.length > 0) {
+        // Try to find lesson by ID (case-insensitive check)
+        targetLesson = targetCourse.lessons.find(l => l.id.toLowerCase() === lessonPath);
       }
+
+      // Fallback to first lesson if deep link invalid or not provided
+      if (!targetLesson && targetCourse.lessons.length > 0) {
+        targetLesson = targetCourse.lessons[0];
+      }
+
+      if (targetLesson) {
+        setActiveLesson(targetLesson);
+      }
+
       if (window.innerWidth < 1024) setIsSidebarOpen(false);
     }
   };
@@ -223,10 +238,10 @@ const App: React.FC = () => {
     if (course) {
       const lesson = course.lessons.find(l => l.id === lessonId);
       if (lesson) {
-        // Update URL to /CourseID
-        // We only put CourseID in URL for now based on user request "visit HTML page directly"
-        if (window.location.pathname !== `/${courseId}`) {
-          window.history.pushState(null, '', `/${courseId}`);
+        // Update URL to /CourseID/LessonID
+        const newPath = `/${courseId}/${lessonId}`;
+        if (window.location.pathname !== newPath) {
+          window.history.pushState(null, '', newPath);
         }
 
         setSelectedCourse(course);
