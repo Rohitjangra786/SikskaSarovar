@@ -11,7 +11,7 @@ export const chatWithSikshaAI = async (message: string, history: { role: 'user' 
 
   try {
     const response: any = await ai.models.generateContent({
-      model: 'gemini-1.5-flash-001',
+      model: 'gemini-pro',
       contents: [
         ...history.map(h => ({ role: h.role, parts: h.parts })),
         { role: 'user', parts: [{ text: message }] }
