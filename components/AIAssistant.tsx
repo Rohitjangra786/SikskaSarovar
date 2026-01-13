@@ -95,7 +95,7 @@ const AIAssistant: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-2xl flex flex-col h-[650px] overflow-hidden">
+    <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-2xl flex flex-col h-full overflow-hidden">
       <div className="bg-brand-900 p-6 flex items-center gap-4">
         <div className="bg-white/10 p-3 rounded-2xl shadow-inner backdrop-blur-md">
           <Sparkles className="text-accent-500" size={24} />
@@ -113,16 +113,14 @@ const AIAssistant: React.FC = () => {
         {messages.map((msg, i) => (
           <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2 duration-300`}>
             <div className={`flex gap-4 max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
-              <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border ${
-                msg.role === 'user' ? 'bg-brand-100 text-brand-900 border-brand-200' : 'bg-white text-brand-900 border-slate-100'
-              }`}>
+              <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border ${msg.role === 'user' ? 'bg-brand-100 text-brand-900 border-brand-200' : 'bg-white text-brand-900 border-slate-100'
+                }`}>
                 {msg.role === 'user' ? <UserIcon size={20} /> : <Bot size={20} />}
               </div>
-              <div className={`p-5 rounded-3xl text-sm whitespace-pre-wrap leading-relaxed shadow-sm ${
-                msg.role === 'user' 
-                  ? 'bg-brand-900 text-white rounded-tr-none shadow-brand-200' 
+              <div className={`p-5 rounded-3xl text-sm whitespace-pre-wrap leading-relaxed shadow-sm ${msg.role === 'user'
+                  ? 'bg-brand-900 text-white rounded-tr-none shadow-brand-200'
                   : 'bg-white text-slate-700 rounded-tl-none border border-slate-100'
-              }`}>
+                }`}>
                 {msg.content}
               </div>
             </div>
@@ -153,7 +151,7 @@ const AIAssistant: React.FC = () => {
             placeholder="Ask about web dev or programming..."
             className="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-4 pl-6 pr-14 focus:outline-none focus:ring-4 focus:ring-brand-500/10 focus:border-brand-900 transition-all text-sm font-medium"
           />
-          <button 
+          <button
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-brand-900 text-accent-500 p-3 rounded-xl hover:bg-brand-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg active:scale-90"
