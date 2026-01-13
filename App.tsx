@@ -227,10 +227,14 @@ const App: React.FC = () => {
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
-  const handleNavigateHome = () => {
-    window.history.pushState(null, '', '/');
-    setActiveTab('home');
+  // Unified Navigation Handler
+  const handleNavigate = (tab: string, url: string) => {
+    if (window.location.pathname !== url) {
+      window.history.pushState(null, '', url);
+    }
+    setActiveTab(tab);
     setSelectedCourse(null);
+    if (window.innerWidth < 1024) setIsSidebarOpen(false);
   };
 
   const handleSelectLesson = (courseId: string, lessonId: string) => {
@@ -256,7 +260,7 @@ const App: React.FC = () => {
 
   const handleTryIt = (code: string) => {
     setPlaygroundCode(code);
-    setActiveTab('playground');
+    handleNavigate('playground', '/playground');
   };
 
   if (showLogin) {
@@ -555,9 +559,11 @@ const App: React.FC = () => {
           <Sidebar
             activeTab={activeTab}
             setActiveTab={(tab) => {
-              setActiveTab(tab);
-              if (tab === 'home' || tab === 'about') setSelectedCourse(null);
-              if (window.innerWidth < 1024) setIsSidebarOpen(false);
+              if (tab === 'home') handleNavigate('home', '/');
+              else if (tab === 'about') handleNavigate('about', '/about');
+              else if (tab === 'playground') handleNavigate('playground', '/playground');
+              else if (tab === 'ai-tutor') handleNavigate('ai-tutor', '/ai-tutor');
+              else setActiveTab(tab); // fallback for tabs without specific URLs if any
             }}
             onSelectLesson={handleSelectLesson}
             filterCourseId={selectedCourse?.id}
@@ -581,7 +587,7 @@ const App: React.FC = () => {
               {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
             </button>
             <nav className="flex items-center text-xs font-bold tracking-tight overflow-hidden text-slate-500">
-              <button onClick={handleNavigateHome} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
+              <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
               <ChevronRight size={14} className="mx-2 opacity-50" />
               <span className="text-brand-900 truncate font-black">{getPageTitle()}</span>
             </nav>
@@ -600,7 +606,7 @@ const App: React.FC = () => {
 
             {/* ABOUT BUTTON */}
             <button
-              onClick={() => setActiveTab('about')}
+              onClick={() => handleNavigate('about', '/about')}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${activeTab === 'about'
                 ? 'bg-brand-900 text-white border-brand-900'
                 : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
@@ -635,7 +641,7 @@ const App: React.FC = () => {
                     <p className="text-xs font-black text-brand-900">{currentUser?.name}</p>
                     <p className="text-[10px] text-slate-400 truncate">{currentUser?.email}</p>
                   </div>
-                  <button onClick={() => { setActiveTab('settings'); setShowUserMenu(false); }} className="w-full text-left px-4 py-3 text-[10px] font-black uppercase hover:bg-slate-50 transition-colors">Settings</button>
+                  <button onClick={() => { handleNavigate('settings', '/settings'); setShowUserMenu(false); }} className="w-full text-left px-4 py-3 text-[10px] font-black uppercase hover:bg-slate-50 transition-colors">Settings</button>
                   <button onClick={() => { handleLogout(); setShowUserMenu(false); }} className="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-rose-500 hover:bg-rose-50 transition-colors">Logout</button>
                 </div>
               </div>
@@ -667,7 +673,7 @@ const App: React.FC = () => {
                   {course.title}
                 </button>
               ))}
-              <button onClick={() => setActiveTab('playground')} className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${activeTab === 'playground' ? 'bg-accent-500 text-brand-900 border-accent-500 shadow-md shadow-accent-100' : 'bg-accent-50 text-accent-700 border-accent-100 hover:bg-accent-100'}`}>
+              <button onClick={() => handleNavigate('playground', '/playground')} className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${activeTab === 'playground' ? 'bg-accent-500 text-brand-900 border-accent-500 shadow-md shadow-accent-100' : 'bg-accent-50 text-accent-700 border-accent-100 hover:bg-accent-100'}`}>
                 <Zap size={14} fill="currentColor" /> Live Editor
               </button>
             </nav>
@@ -690,7 +696,7 @@ const App: React.FC = () => {
                   const nextId = selectedCourse.lessons.findIndex(l => l.id === activeLesson.id);
                   if (nextId !== undefined && nextId < selectedCourse.lessons.length - 1) {
                     handleSelectLesson(selectedCourse.id, selectedCourse.lessons[nextId + 1].id);
-                  } else { handleNavigateHome(); }
+                  } else { handleNavigate('home', '/'); }
                 }}
                 onPrev={() => {
                   const prevId = selectedCourse.lessons.findIndex(l => l.id === activeLesson.id);
@@ -727,8 +733,8 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-center gap-8 text-[11px] font-black text-slate-500 uppercase tracking-widest">
-                <button onClick={handleNavigateHome} className="hover:text-brand-900 transition-colors">Home</button>
-                <button onClick={() => setActiveTab('about')} className="hover:text-brand-900 transition-colors">About</button>
+                <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 transition-colors">Home</button>
+                <button onClick={() => handleNavigate('about', '/about')} className="hover:text-brand-900 transition-colors">About</button>
                 <a href="#" className="hover:text-brand-900 transition-colors">Terms</a>
                 <a href="#" className="hover:text-brand-900 transition-colors">Privacy</a>
               </div>
