@@ -12,13 +12,13 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { COURSES, ICON_MAP } from './constants';
 import { Course, Lesson } from './types';
-import { 
-  Search, 
-  Bell, 
-  ChevronRight, 
-  Play, 
-  Star, 
-  Clock, 
+import {
+  Search,
+  Bell,
+  ChevronRight,
+  Play,
+  Star,
+  Clock,
   Zap,
   Flame,
   Menu,
@@ -44,10 +44,10 @@ import RahulImg from './Images/rahul.jpg';
 // High-fidelity SVG recreation of the SikshaSarovar Logo
 export const SikshaLogo: React.FC<{ className?: string, colorMode?: 'light' | 'dark' | 'full' }> = ({ className = "w-10 h-10", colorMode = 'full' }) => {
   const isDark = colorMode === 'dark';
-  const outerColor = isDark ? '#FFFFFF' : '#00385D'; 
-  const innerColor = isDark ? '#D3B16D' : '#168B99'; 
-  const highlightColor = '#D3B16D'; 
-  
+  const outerColor = isDark ? '#FFFFFF' : '#00385D';
+  const innerColor = isDark ? '#D3B16D' : '#168B99';
+  const highlightColor = '#D3B16D';
+
   return (
     <svg viewBox="0 0 200 200" className={className} fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M20 160C20 150 100 145 100 145C100 145 180 150 180 160L180 180C180 170 100 165 100 165C100 165 20 170 20 180L20 160Z" fill={outerColor} />
@@ -98,6 +98,28 @@ const App: React.FC = () => {
     if (window.innerWidth < 1024) {
       setIsSidebarOpen(false);
     }
+
+    // Direct Course Routing: Handle access via URLs like /HTML, /Python
+    const path = window.location.pathname.substring(1).toLowerCase(); // e.g. "html"
+    if (path && path !== '') {
+      // Find course by ID or Title (case-insensitive)
+      const targetCourse = COURSES.find(c =>
+        c.id.toLowerCase() === path ||
+        c.title.replace(/\s+/g, '').toLowerCase() === path
+      );
+
+      if (targetCourse) {
+        setSelectedCourse(targetCourse);
+        setActiveTab('lesson');
+        if (targetCourse.lessons.length > 0) {
+          setActiveLesson(targetCourse.lessons[0]);
+        }
+        // Ensure sidebar is handled for mobile
+        if (window.innerWidth < 1024) {
+          setIsSidebarOpen(false);
+        }
+      }
+    }
     const savedUser = localStorage.getItem('siksha_user');
     if (savedUser) {
       setCurrentUser(JSON.parse(savedUser));
@@ -141,7 +163,7 @@ const App: React.FC = () => {
 
   const toggleLessonCompletion = (lessonId: string) => {
     setCompletedLessons(prev => {
-      const updated = prev.includes(lessonId) 
+      const updated = prev.includes(lessonId)
         ? prev.filter(id => id !== lessonId)
         : [...prev, lessonId];
       localStorage.setItem('siksha_progress', JSON.stringify(updated));
@@ -149,11 +171,64 @@ const App: React.FC = () => {
     });
   };
 
+
+
+  // Helper to sync state with URL
+  const syncStateWithUrl = () => {
+    const path = window.location.pathname.substring(1).toLowerCase();
+    if (!path || path === '') {
+      setActiveTab('home');
+      setSelectedCourse(null);
+      if (window.innerWidth < 1024) setIsSidebarOpen(false); // Optional: close sidebar on home
+      return;
+    }
+
+    const targetCourse = COURSES.find(c =>
+      c.id.toLowerCase() === path ||
+      c.title.replace(/\s+/g, '').toLowerCase() === path
+    );
+
+    if (targetCourse) {
+      setSelectedCourse(targetCourse);
+      setActiveTab('lesson');
+      if (targetCourse.lessons.length > 0) {
+        // preserve active lesson if already set and belongs to course, else default to first
+        // simple approach: always default to first for now unless we add lesson ID to URL too
+        setActiveLesson(targetCourse.lessons[0]);
+      }
+      if (window.innerWidth < 1024) setIsSidebarOpen(false);
+    }
+  };
+
+  // Handle URL changes (Initial load + Back/Forward)
+  useEffect(() => {
+    syncStateWithUrl();
+
+    const onPopState = () => {
+      syncStateWithUrl();
+    };
+
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const handleNavigateHome = () => {
+    window.history.pushState(null, '', '/');
+    setActiveTab('home');
+    setSelectedCourse(null);
+  };
+
   const handleSelectLesson = (courseId: string, lessonId: string) => {
     const course = COURSES.find(c => c.id === courseId);
     if (course) {
       const lesson = course.lessons.find(l => l.id === lessonId);
       if (lesson) {
+        // Update URL to /CourseID
+        // We only put CourseID in URL for now based on user request "visit HTML page directly"
+        if (window.location.pathname !== `/${courseId}`) {
+          window.history.pushState(null, '', `/${courseId}`);
+        }
+
         setSelectedCourse(course);
         setActiveLesson(lesson);
         setActiveTab('lesson');
@@ -193,12 +268,12 @@ const App: React.FC = () => {
                 <Flame size={14} fill="currentColor" /> {isLoggedIn ? '12 DAY STREAK' : 'LOCAL PROGRESS ON'}
               </span>
             </div>
-            <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br/><span className="text-brand-400">Web & Programming</span></h1>
+            <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br /><span className="text-brand-400">Web & Programming</span></h1>
             <p className="text-brand-100/80 text-lg lg:text-xl max-w-2xl mb-10 leading-relaxed font-medium">
               SikshaSarovar.com provides full access to all tutorials for everyone. Explore coding, AI, and backend development without any barriers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button 
+              <button
                 onClick={() => handleSelectLesson('html-tutorial', 'h1')}
                 className="bg-white text-brand-900 font-black px-12 py-5 rounded-2xl hover:bg-brand-50 transition-all flex items-center justify-center gap-3 shadow-2xl hover:scale-105 active:scale-95"
               >
@@ -206,7 +281,7 @@ const App: React.FC = () => {
                 START LEARNING
               </button>
               {!isLoggedIn && (
-                <button 
+                <button
                   onClick={() => setShowLogin(true)}
                   className="bg-brand-800/40 backdrop-blur-xl text-white border border-white/20 px-10 py-5 rounded-2xl hover:bg-brand-700/60 transition-all font-black uppercase tracking-widest text-sm flex items-center gap-3"
                 >
@@ -217,48 +292,48 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="w-full lg:w-auto hidden md:block">
-             <div className="bg-white/10 backdrop-blur-2xl rounded-[2.5rem] p-10 border border-white/20 shadow-2xl w-full lg:w-80">
-               <div className="flex justify-between items-center mb-8">
-                 <div className="p-2 bg-brand-900 rounded-3xl shadow-xl">
-                    <SikshaLogo className="w-12 h-12" colorMode="dark" />
-                 </div>
-                 <div className="text-right">
-                    <p className="text-[10px] opacity-60 font-black uppercase tracking-[0.2em] mb-1">XP SCORE</p>
-                    <p className="text-4xl font-black tracking-tighter text-white">{completedLessons.length * 50}</p>
-                 </div>
-               </div>
-               <div className="space-y-6">
-                  <div>
-                    <div className="flex justify-between text-[10px] font-black uppercase mb-2 opacity-60 tracking-widest text-brand-100">
-                      <span>LEVEL Progress</span>
-                      <span>{Math.min(100, completedLessons.length * 5)}%</span>
-                    </div>
-                    <div className="h-2.5 w-full bg-white/10 rounded-full overflow-hidden">
-                      <div className="h-full bg-accent-500 shadow-[0_0_10px_rgba(211,177,109,0.5)] transition-all duration-1000" style={{ width: `${Math.min(100, completedLessons.length * 5)}%` }}></div>
-                    </div>
+            <div className="bg-white/10 backdrop-blur-2xl rounded-[2.5rem] p-10 border border-white/20 shadow-2xl w-full lg:w-80">
+              <div className="flex justify-between items-center mb-8">
+                <div className="p-2 bg-brand-900 rounded-3xl shadow-xl">
+                  <SikshaLogo className="w-12 h-12" colorMode="dark" />
+                </div>
+                <div className="text-right">
+                  <p className="text-[10px] opacity-60 font-black uppercase tracking-[0.2em] mb-1">XP SCORE</p>
+                  <p className="text-4xl font-black tracking-tighter text-white">{completedLessons.length * 50}</p>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div>
+                  <div className="flex justify-between text-[10px] font-black uppercase mb-2 opacity-60 tracking-widest text-brand-100">
+                    <span>LEVEL Progress</span>
+                    <span>{Math.min(100, completedLessons.length * 5)}%</span>
                   </div>
-                  {!isLoggedIn ? (
-                    <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                      <p className="text-[9px] font-bold text-accent-500 uppercase tracking-widest mb-2">Guest Account</p>
-                      <p className="text-xs text-brand-100/70 leading-relaxed mb-4">Your progress is being saved locally. Create an account to access it from any device.</p>
-                      <button 
-                        onClick={() => setShowLogin(true)}
-                        className="w-full bg-accent-500 text-brand-900 font-black py-3 rounded-xl text-[10px] uppercase tracking-widest hover:bg-accent-400 transition-all"
-                      >
-                        Save to Cloud
-                      </button>
+                  <div className="h-2.5 w-full bg-white/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-accent-500 shadow-[0_0_10px_rgba(211,177,109,0.5)] transition-all duration-1000" style={{ width: `${Math.min(100, completedLessons.length * 5)}%` }}></div>
+                  </div>
+                </div>
+                {!isLoggedIn ? (
+                  <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <p className="text-[9px] font-bold text-accent-500 uppercase tracking-widest mb-2">Guest Account</p>
+                    <p className="text-xs text-brand-100/70 leading-relaxed mb-4">Your progress is being saved locally. Create an account to access it from any device.</p>
+                    <button
+                      onClick={() => setShowLogin(true)}
+                      className="w-full bg-accent-500 text-brand-900 font-black py-3 rounded-xl text-[10px] uppercase tracking-widest hover:bg-accent-400 transition-all"
+                    >
+                      Save to Cloud
+                    </button>
+                  </div>
+                ) : (
+                  <div className="pt-6 border-t border-white/10 flex justify-between items-center">
+                    <div>
+                      <p className="text-[10px] opacity-60 font-black uppercase tracking-widest text-brand-100">CLOUD SYNC</p>
+                      <p className="text-lg font-black text-accent-500">Active</p>
                     </div>
-                  ) : (
-                    <div className="pt-6 border-t border-white/10 flex justify-between items-center">
-                      <div>
-                        <p className="text-[10px] opacity-60 font-black uppercase tracking-widest text-brand-100">CLOUD SYNC</p>
-                        <p className="text-lg font-black text-accent-500">Active</p>
-                      </div>
-                      <Zap className="text-accent-500" size={24} fill="currentColor" />
-                    </div>
-                  )}
-               </div>
-             </div>
+                    <Zap className="text-accent-500" size={24} fill="currentColor" />
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -292,13 +367,13 @@ const App: React.FC = () => {
               </ResponsiveContainer>
             </div>
             {!isLoggedIn && (
-               <div className="mt-6 pt-6 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                 <p className="text-xs text-slate-400 font-medium">Tracking {completedLessons.length} completed tasks today.</p>
-                 <button onClick={() => setShowLogin(true)} className="text-brand-600 font-black text-[10px] uppercase tracking-widest hover:underline flex items-center gap-2">
-                    <CloudUpload size={14} />
-                    Sync this data to my profile
-                 </button>
-               </div>
+              <div className="mt-6 pt-6 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-xs text-slate-400 font-medium">Tracking {completedLessons.length} completed tasks today.</p>
+                <button onClick={() => setShowLogin(true)} className="text-brand-600 font-black text-[10px] uppercase tracking-widest hover:underline flex items-center gap-2">
+                  <CloudUpload size={14} />
+                  Sync this data to my profile
+                </button>
+              </div>
             )}
           </div>
 
@@ -338,7 +413,7 @@ const App: React.FC = () => {
                     <p className="text-[10px] font-black text-accent-500 uppercase tracking-widest mb-1">{task.category}</p>
                     <p className="font-bold text-white mb-3 text-sm">{task.title}</p>
                     <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                       <div className="h-full bg-accent-500 transition-all duration-1000" style={{ width: `${Math.min(100, task.progress)}%` }}></div>
+                      <div className="h-full bg-accent-500 transition-all duration-1000" style={{ width: `${Math.min(100, task.progress)}%` }}></div>
                     </div>
                   </div>
                   <div className="ml-4 text-accent-500 font-black text-xs text-right whitespace-nowrap">
@@ -348,7 +423,7 @@ const App: React.FC = () => {
               ))}
             </div>
             {!isLoggedIn && (
-              <button 
+              <button
                 onClick={() => setShowLogin(true)}
                 className="w-full mt-6 bg-white/10 border border-white/20 text-white font-black py-4 rounded-2xl text-[10px] uppercase tracking-widest hover:bg-white/20 transition-all"
               >
@@ -371,37 +446,37 @@ const App: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {[
-          { 
-            name: "Mr. Rahul Kumar", 
-            role: "Founder & CEO", 
-            bio: "With over a decade of experience in software architecture, Rahul envisions a world where quality code education is a basic right.", 
-            initial: "RK", 
+          {
+            name: "Mr. Rahul Kumar",
+            role: "Founder & CEO",
+            bio: "With over a decade of experience in software architecture, Rahul envisions a world where quality code education is a basic right.",
+            initial: "RK",
             phone: "9639748020",
             image: RahulImg // Local image placeholder (replace with actual photo if desired)
-             
+
           },
-          { 
-            name: "Mr. Rohit Kumar", 
-            role: "Founder & CEO", 
-            bio: "A master of frontend aesthetics and user psychology, Rohit leads the creative direction of SikshaSarovar. He ensures that every student enjoys a frictionless and visually inspiring learning experience.", 
-            initial: "RK", 
+          {
+            name: "Mr. Rohit Kumar",
+            role: "Founder & CEO",
+            bio: "A master of frontend aesthetics and user psychology, Rohit leads the creative direction of SikshaSarovar. He ensures that every student enjoys a frictionless and visually inspiring learning experience.",
+            initial: "RK",
             phone: "7015204440",
             image: RohitImg // Local image placeholder (replace with actual photo if desired)
           }
         ].map((founder, i) => (
           <div key={i} className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-6 hover:shadow-2xl hover:-translate-y-2 transition-all group overflow-hidden">
             <div className="relative w-full aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-brand-900/10">
-               <img 
-                 src={founder.image} 
-                 alt={founder.name} 
-                 className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
-                 onError={(e) => {
-                   (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${founder.name}`;
-                 }}
-               />
-               <div className="absolute inset-0 bg-gradient-to-t from-brand-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-8">
-                 <p className="text-white font-black text-xs uppercase tracking-widest">{founder.initial}</p>
-               </div>
+              <img
+                src={founder.image}
+                alt={founder.name}
+                className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${founder.name}`;
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-8">
+                <p className="text-white font-black text-xs uppercase tracking-widest">{founder.initial}</p>
+              </div>
             </div>
             <div className="pt-2">
               <h3 className="text-2xl font-black text-slate-900 mb-1">{founder.name}</h3>
@@ -410,11 +485,11 @@ const App: React.FC = () => {
             <p className="text-slate-500 text-sm leading-relaxed px-4">{founder.bio}</p>
             <div className="flex gap-4 pt-4 w-full justify-center">
               <a href={`https://wa.me/${founder.phone}`} target="_blank" rel="noopener noreferrer" className="flex-1 max-w-[140px] p-3 bg-green-50 rounded-xl text-green-600 hover:bg-green-600 hover:text-white transition-all border border-green-100 flex items-center justify-center gap-2 font-black text-[10px] uppercase tracking-widest">
-                <MessageCircle size={18}/>
+                <MessageCircle size={18} />
                 WhatsApp
               </a>
-              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100"><Linkedin size={18}/></button>
-              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100"><Mail size={18}/></button>
+              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100"><Linkedin size={18} /></button>
+              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100"><Mail size={18} /></button>
             </div>
           </div>
         ))}
@@ -426,7 +501,7 @@ const App: React.FC = () => {
         <div className="space-y-4 relative z-10">
           <h3 className="text-3xl font-black tracking-tight">Our Mission</h3>
           <p className="text-brand-100/80 text-lg leading-relaxed max-w-2xl mx-auto">
-            At SikshaSarovar, we believe that education is the most powerful weapon which you can use to change the world. 
+            At SikshaSarovar, we believe that education is the most powerful weapon which you can use to change the world.
             Our platform is designed to be your companion in the journey from a curious learner to a professional developer.
           </p>
         </div>
@@ -458,17 +533,17 @@ const App: React.FC = () => {
   return (
     <div className="h-screen w-full flex bg-slate-50 overflow-hidden font-['Inter']">
       <SEO title={seoData.title} description={seoData.description} url={seoData.url} />
-      
+
       {/* SIDEBAR */}
       <aside className={`fixed lg:relative inset-y-0 left-0 z-50 transition-all duration-500 ease-in-out ${isSidebarOpen ? 'w-72 translate-x-0' : 'w-0 -translate-x-full lg:translate-x-0'} bg-white border-r border-slate-200 overflow-hidden`}>
         <div className="w-72 h-full">
-          <Sidebar 
-            activeTab={activeTab} 
+          <Sidebar
+            activeTab={activeTab}
             setActiveTab={(tab) => {
               setActiveTab(tab);
               if (tab === 'home' || tab === 'about') setSelectedCourse(null);
               if (window.innerWidth < 1024) setIsSidebarOpen(false);
-            }} 
+            }}
             onSelectLesson={handleSelectLesson}
             filterCourseId={selectedCourse?.id}
             completedLessons={completedLessons}
@@ -480,20 +555,20 @@ const App: React.FC = () => {
       {isSidebarOpen && (
         <div className="fixed inset-0 bg-brand-900/40 backdrop-blur-sm lg:hidden z-40 transition-opacity duration-300" onClick={() => setIsSidebarOpen(false)} />
       )}
-      
+
       {/* MAIN CONTENT */}
       <main className="flex-1 flex flex-col h-full min-w-0">
-        
+
         {/* HEADER */}
         <header className="sticky top-0 z-30 bg-brand-50 px-4 lg:px-8 py-3.5 flex justify-between items-center border-b border-brand-100 shrink-0">
           <div className="flex items-center gap-4 min-w-0">
             <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 bg-white rounded-lg border border-brand-200 text-brand-900 hover:text-white hover:bg-brand-900 transition-all">
-               {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
+              {isSidebarOpen ? <ChevronLeft size={18} /> : <Menu size={18} />}
             </button>
             <nav className="flex items-center text-xs font-bold tracking-tight overflow-hidden text-slate-500">
-               <button onClick={() => { setActiveTab('home'); setSelectedCourse(null); }} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
-               <ChevronRight size={14} className="mx-2 opacity-50" />
-               <span className="text-brand-900 truncate font-black">{getPageTitle()}</span>
+              <button onClick={handleNavigateHome} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
+              <ChevronRight size={14} className="mx-2 opacity-50" />
+              <span className="text-brand-900 truncate font-black">{getPageTitle()}</span>
             </nav>
           </div>
 
@@ -501,21 +576,20 @@ const App: React.FC = () => {
             {/* SEARCH BAR */}
             <div className="relative hidden md:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-300" size={16} />
-              <input 
-                type="text" 
-                placeholder="Search resources..." 
+              <input
+                type="text"
+                placeholder="Search resources..."
                 className="w-40 lg:w-56 bg-white border border-brand-200 rounded-lg py-1.5 pl-9 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-xs font-medium placeholder:text-brand-200"
               />
             </div>
 
             {/* ABOUT BUTTON */}
-            <button 
+            <button
               onClick={() => setActiveTab('about')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${
-                activeTab === 'about' 
-                ? 'bg-brand-900 text-white border-brand-900' 
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all border ${activeTab === 'about'
+                ? 'bg-brand-900 text-white border-brand-900'
                 : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
-              }`}
+                }`}
             >
               <Info size={14} />
               About
@@ -526,7 +600,7 @@ const App: React.FC = () => {
             {!isLoggedIn ? (
               <div className="flex items-center gap-3">
                 <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest Mode</span>
-                <button 
+                <button
                   onClick={() => setShowLogin(true)}
                   className="flex items-center gap-2 px-4 py-1.5 rounded-xl bg-brand-900 text-white text-[10px] font-black uppercase tracking-widest shadow-xl shadow-brand-900/20 hover:scale-105 active:scale-95 transition-all"
                 >
@@ -551,7 +625,7 @@ const App: React.FC = () => {
                 </div>
               </div>
             )}
-            
+
             <button className="bg-white p-2 rounded-lg border border-brand-200 text-brand-900 hover:bg-brand-900 hover:text-white transition-all">
               <Bell size={18} />
             </button>
@@ -563,7 +637,7 @@ const App: React.FC = () => {
           <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center px-6 lg:px-12 py-4 gap-6">
             <div className="flex items-center gap-4 shrink-0">
               <div className="p-2 bg-brand-50 rounded-xl shadow-lg shadow-brand-200/50">
-                 <SikshaLogo className="w-8 h-8" />
+                <SikshaLogo className="w-8 h-8" />
               </div>
               <div>
                 <h1 className="text-xl lg:text-2xl font-black text-brand-900 tracking-tight leading-none mb-1">{getPageTitle()}</h1>
@@ -591,9 +665,9 @@ const App: React.FC = () => {
             {activeTab === 'home' && renderHome()}
             {activeTab === 'about' && renderAbout()}
             {activeTab === 'lesson' && activeLesson && selectedCourse && (
-              <LessonViewer 
-                lesson={activeLesson} 
-                course={selectedCourse} 
+              <LessonViewer
+                lesson={activeLesson}
+                course={selectedCourse}
                 completedLessons={completedLessons}
                 toggleCompletion={toggleLessonCompletion}
                 onSelectLesson={(lId) => handleSelectLesson(selectedCourse.id, lId)}
@@ -601,8 +675,8 @@ const App: React.FC = () => {
                   const nextId = selectedCourse.lessons.findIndex(l => l.id === activeLesson.id);
                   if (nextId !== undefined && nextId < selectedCourse.lessons.length - 1) {
                     handleSelectLesson(selectedCourse.id, selectedCourse.lessons[nextId + 1].id);
-                  } else { setActiveTab('home'); }
-                }} 
+                  } else { handleNavigateHome(); }
+                }}
                 onPrev={() => {
                   const prevId = selectedCourse.lessons.findIndex(l => l.id === activeLesson.id);
                   if (prevId !== undefined && prevId > 0) {
@@ -623,7 +697,7 @@ const App: React.FC = () => {
             {activeTab === 'playground' && <div className="h-full min-h-[600px] animate-in zoom-in-95 duration-500"><Playground initialCode={playgroundCode} /></div>}
             {activeTab === 'ai-tutor' && <div className="max-w-4xl mx-auto h-full animate-in fade-in duration-500"><AIAssistant /></div>}
           </div>
-          
+
           <footer className="bg-white border-t border-slate-200 py-8 px-6 lg:px-12 mt-auto">
             <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="flex flex-col items-center md:items-start">
@@ -633,19 +707,19 @@ const App: React.FC = () => {
                 </div>
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Developed by SikshaSarovar</p>
                 <div className="mt-2 flex gap-4 text-[9px] font-black text-green-600 uppercase tracking-widest">
-                  <a href="https://wa.me/9639748020" target="_blank" rel="noopener noreferrer" className="hover:text-green-800 flex items-center gap-1"><MessageCircle size={12}/> Rahul: 9639748020</a>
-                  <a href="https://wa.me/7015204440" target="_blank" rel="noopener noreferrer" className="hover:text-green-800 flex items-center gap-1"><MessageCircle size={12}/> Rohit: 7015204440</a>
+                  <a href="https://wa.me/9639748020" target="_blank" rel="noopener noreferrer" className="hover:text-green-800 flex items-center gap-1"><MessageCircle size={12} /> Rahul: 9639748020</a>
+                  <a href="https://wa.me/7015204440" target="_blank" rel="noopener noreferrer" className="hover:text-green-800 flex items-center gap-1"><MessageCircle size={12} /> Rohit: 7015204440</a>
                 </div>
               </div>
               <div className="flex items-center gap-8 text-[11px] font-black text-slate-500 uppercase tracking-widest">
-                <button onClick={() => setActiveTab('home')} className="hover:text-brand-900 transition-colors">Home</button>
+                <button onClick={handleNavigateHome} className="hover:text-brand-900 transition-colors">Home</button>
                 <button onClick={() => setActiveTab('about')} className="hover:text-brand-900 transition-colors">About</button>
                 <a href="#" className="hover:text-brand-900 transition-colors">Terms</a>
                 <a href="#" className="hover:text-brand-900 transition-colors">Privacy</a>
               </div>
               <div className="flex gap-2">
-                <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 border border-slate-100 transition-all"><Twitter size={16}/></button>
-                <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 border border-slate-100 transition-all"><Github size={16}/></button>
+                <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 border border-slate-100 transition-all"><Twitter size={16} /></button>
+                <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 border border-slate-100 transition-all"><Github size={16} /></button>
               </div>
             </div>
           </footer>
