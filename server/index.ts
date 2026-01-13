@@ -67,8 +67,8 @@ app.post('/api/auth/social', async (req, res) => {
         RETURNING id, name, email, provider, provider_id, picture, designation, age, sex, created_at, last_login
     `;
 
-      const { rows } = await pool.query(insertQuery, [name, email, provider, providerId, picture, null, null, null]);
-      const user = rows[0];
+    const { rows } = await pool.query(insertQuery, [name, email, provider, providerId, picture, null, null, null]);
+    const user = rows[0];
 
     // Sign JWT and set as HttpOnly cookie
     const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
@@ -307,7 +307,7 @@ app.put('/api/auth/me', async (req, res) => {
 // AI chat endpoint - server-side proxy to Gemini/Google GenAI
 app.post('/api/ai/chat', async (req, res) => {
   const { message, history } = req.body || {};
-  console.log('[AI] /api/ai/chat called', { messagePreview: typeof message === 'string' ? message.slice(0,80) : null, hasHistory: Array.isArray(history) && history.length > 0, apiKeyPresent: !!process.env.API_KEY });
+  console.log('[AI] /api/ai/chat called', { messagePreview: typeof message === 'string' ? message.slice(0, 80) : null, hasHistory: Array.isArray(history) && history.length > 0, apiKeyPresent: !!process.env.API_KEY });
   if (!message || typeof message !== 'string') return res.status(400).json({ error: 'message_required' });
   try {
     const reply = await chatWithSikshaAI(message, history || []);
@@ -325,7 +325,7 @@ app.post('/api/ai/chat', async (req, res) => {
 // GenAI client later supports streaming natively, replace this logic.
 app.post('/api/ai/stream', async (req, res) => {
   const { message, history } = req.body || {};
-  console.log('[AI] /api/ai/stream called', { messagePreview: typeof message === 'string' ? message.slice(0,80) : null, hasHistory: Array.isArray(history) && history.length > 0, apiKeyPresent: !!process.env.API_KEY });
+  console.log('[AI] /api/ai/stream called', { messagePreview: typeof message === 'string' ? message.slice(0, 80) : null, hasHistory: Array.isArray(history) && history.length > 0, apiKeyPresent: !!process.env.API_KEY });
   if (!message || typeof message !== 'string') return res.status(400).json({ error: 'message_required' });
 
   try {
@@ -353,6 +353,23 @@ app.post('/api/ai/stream', async (req, res) => {
     if (!res.headersSent) res.status(500).json({ error: 'ai_error', message });
     else res.end();
   }
+});
+
+// Serve static files from the "dist" directory (Vite build output)
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const distPath = path.join(__dirname, '../dist');
+
+// Serve static assets (JS, CSS, Images, etc.)
+app.use(express.static(distPath));
+
+// API routes are defined above.
+// For any other request, serve index.html to let client-side router handle it.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(distPath, 'index.html'));
 });
 
 const port = process.env.PORT ? Number(process.env.PORT) : 8080;
