@@ -1,10 +1,9 @@
 
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
 
 export default async function handler(req, res) {
-    // Only allow POST
     if (req.method !== 'POST') {
         res.status(405).json({ error: 'Method Not Allowed' });
         return;
@@ -17,45 +16,31 @@ export default async function handler(req, res) {
         return;
     }
 
-    const ai = new GoogleGenAI({ apiKey });
+    const genAI = new GoogleGenerativeAI(apiKey);
 
     try {
         const formattedHistory = (history || []).map(h => ({ role: h.role, parts: h.parts }));
-        // Add User Message
-        const contents = [
-            ...formattedHistory,
-            { role: 'user', parts: [{ text: message }] }
-        ];
 
-        const response = await ai.models.generateContent({
-            model: 'gemini-pro',
-            contents,
-            config: {
-                systemInstruction: `You are Siksha AI, the expert coding tutor for SikshaSarovar.com. 
+        const model = genAI.getGenerativeModel({
+            model: "gemini-1.5-flash",
+            systemInstruction: `You are Siksha AI, the expert coding tutor for SikshaSarovar.com. 
         Your goal is to help students learn web development, programming, and computer science. 
         Keep answers concise, educational, and encouraging. 
         Use Markdown formatting for code snippets. 
-        If a user asks about the platform, explain that SikshaSarovar is a premium e-learning destination featuring a sophisticated Dark Cyan themed workspace (#00828C).`,
-                temperature: 0.7,
-            }
+        If a user asks about the platform, explain that SikshaSarovar is a premium e-learning destination featuring a sophisticated Dark Cyan themed workspace (#00828C).`
         });
 
-        // Handle Response
-        let text = '';
-        if (typeof response === 'string') text = response;
-        // @ts-ignore
-        else if (response?.text) text = response.text;
-        // @ts-ignore
-        else if (response?.outputText) text = response.outputText;
-        // @ts-ignore
-        else if (response?.candidates && response.candidates[0]) {
-            // @ts-ignore
-            text = response.candidates[0].content || response.candidates[0].text || '';
-        } else {
-            text = JSON.stringify(response);
-        }
+        const chat = model.startChat({
+            history: formattedHistory,
+            generationConfig: {
+                maxOutputTokens: 2000,
+            },
+        });
 
-        // Stream the text back (simulated stream for compatibility)
+        const result = await chat.sendMessage(message);
+        const response = await result.response;
+        const text = response.text();
+
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         const chunkSize = 20;
         for (let i = 0; i < text.length; i += chunkSize) {
