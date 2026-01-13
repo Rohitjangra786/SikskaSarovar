@@ -1,12 +1,12 @@
 
 import React from 'react';
-import { 
-  Code, 
-  Database, 
-  Globe, 
-  Layers, 
-  Layout, 
-  Terminal, 
+import {
+  Code,
+  Database,
+  Globe,
+  Layers,
+  Layout,
+  Terminal,
   Cpu,
   Monitor,
   Coffee,
@@ -43,40 +43,40 @@ export const COURSES: Course[] = [
     level: 'Beginner',
     progress: 45,
     lessons: [
-      { 
-        id: 'h1', 
-        title: 'HTML Introduction', 
-        content: `HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages. HTML describes the structure of a Web page semantically and originally included cues for the appearance of the document.\n\nHTML elements are the building blocks of HTML pages. They are represented by tags like <h1>, <p>, <a>, etc. Browsers do not display the HTML tags, but use them to render the content of the page.\n\nA simple HTML document consists of a DOCTYPE declaration, an <html> root element, a <head> section containing meta information, and a <body> section that contains the visible page content.`, 
-        codeSnippet: '<!DOCTYPE html>\n<html>\n<head>\n  <title>Page Title</title>\n</head>\n<body>\n  <h1>My First Heading</h1>\n  <p>My first paragraph.</p>\n</body>\n</html>', 
-        isCompleted: true 
+      {
+        id: 'h1',
+        title: 'HTML Introduction',
+        content: `HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages. HTML describes the structure of a Web page semantically and originally included cues for the appearance of the document.\n\nHTML elements are the building blocks of HTML pages. They are represented by tags like <h1>, <p>, <a>, etc. Browsers do not display the HTML tags, but use them to render the content of the page.\n\nA simple HTML document consists of a DOCTYPE declaration, an <html> root element, a <head> section containing meta information, and a <body> section that contains the visible page content.`,
+        codeSnippet: '<!DOCTYPE html>\n<html>\n<head>\n  <title>Page Title</title>\n</head>\n<body>\n  <h1>My First Heading</h1>\n  <p>My first paragraph.</p>\n</body>\n</html>',
+        isCompleted: true
       },
-      { 
-        id: 'h2', 
-        title: 'HTML Editors', 
-        content: `A web developer can use a professional HTML editor to create and modify websites. However, for learning HTML, we recommend a simple text editor like Notepad (PC) or TextEdit (Mac). We believe using a simple text editor is a good way to learn HTML.\n\nProfessional editors like Visual Studio Code, Sublime Text, and Atom are excellent once you have mastered the basics. They offer features like syntax highlighting, autocompletion, and integrated version control. For now, focus on writing the tags manually to build muscle memory.`, 
-        codeSnippet: '<!-- Open your text editor, write your code, and save as index.html -->', 
-        isCompleted: true 
+      {
+        id: 'h2',
+        title: 'HTML Editors',
+        content: `A web developer can use a professional HTML editor to create and modify websites. However, for learning HTML, we recommend a simple text editor like Notepad (PC) or TextEdit (Mac). We believe using a simple text editor is a good way to learn HTML.\n\nProfessional editors like Visual Studio Code, Sublime Text, and Atom are excellent once you have mastered the basics. They offer features like syntax highlighting, autocompletion, and integrated version control. For now, focus on writing the tags manually to build muscle memory.`,
+        codeSnippet: '<!-- Open your text editor, write your code, and save as index.html -->',
+        isCompleted: true
       },
-      { 
-        id: 'h3', 
-        title: 'HTML Basic Examples', 
-        content: `Every HTML document must start with a document type declaration: <!DOCTYPE html>. The document itself begins with <html> and ends with </html>. The visible part of the HTML document is between <body> and </body>.\n\nHTML headings are defined with the <h1> to <h6> tags. <h1> defines the most important heading. <h6> defines the least important heading. HTML paragraphs are defined with the <p> tag. HTML links are defined with the <a> tag.`, 
-        codeSnippet: '<h1>This is a heading</h1>\n<p>This is a paragraph.</p>\n<a href="https://sikshasarovar.com">Visit SikshaSarovar</a>', 
-        isCompleted: false 
+      {
+        id: 'h3',
+        title: 'HTML Basic Examples',
+        content: `Every HTML document must start with a document type declaration: <!DOCTYPE html>. The document itself begins with <html> and ends with </html>. The visible part of the HTML document is between <body> and </body>.\n\nHTML headings are defined with the <h1> to <h6> tags. <h1> defines the most important heading. <h6> defines the least important heading. HTML paragraphs are defined with the <p> tag. HTML links are defined with the <a> tag.`,
+        codeSnippet: '<h1>This is a heading</h1>\n<p>This is a paragraph.</p>\n<a href="https://sikshasarovar.com">Visit SikshaSarovar</a>',
+        isCompleted: false
       },
-      { 
-        id: 'h4', 
-        title: 'HTML Elements', 
-        content: `An HTML element is defined by a start tag, some content, and an end tag. The HTML element is everything from the start tag to the end tag: <tagname>Content goes here...</tagname>.\n\nSome HTML elements have no content (like the <br> element). These elements are called empty elements. Empty elements do not have an end tag!\n\nHTML elements can be nested (this means that elements can contain other elements). All HTML documents consist of nested HTML elements.`, 
-        codeSnippet: '<div>\n  <h1>Nested Heading</h1>\n  <p>Nested <b>bold</b> text.</p>\n</div>', 
-        isCompleted: false 
+      {
+        id: 'h4',
+        title: 'HTML Elements',
+        content: `An HTML element is defined by a start tag, some content, and an end tag. The HTML element is everything from the start tag to the end tag: <tagname>Content goes here...</tagname>.\n\nSome HTML elements have no content (like the <br> element). These elements are called empty elements. Empty elements do not have an end tag!\n\nHTML elements can be nested (this means that elements can contain other elements). All HTML documents consist of nested HTML elements.`,
+        codeSnippet: '<div>\n  <h1>Nested Heading</h1>\n  <p>Nested <b>bold</b> text.</p>\n</div>',
+        isCompleted: false
       },
-      { 
-        id: 'h5', 
-        title: 'HTML Attributes', 
-        content: `All HTML elements can have attributes. Attributes provide additional information about elements and are always specified in the start tag. They usually come in name/value pairs like: name="value".\n\nThe href attribute specifies the URL of the page the link goes to. The src attribute specifies the path to the image to be displayed. The width and height attributes provide size information for images. The alt attribute specifies an alternate text for an image, if the image for some reason cannot be displayed.`, 
-        codeSnippet: '<img src="logo.png" width="500" height="600" alt="Siksha Logo">\n<a href="https://google.com" title="Search Engine">Go to Google</a>', 
-        isCompleted: false 
+      {
+        id: 'h5',
+        title: 'HTML Attributes',
+        content: `All HTML elements can have attributes. Attributes provide additional information about elements and are always specified in the start tag. They usually come in name/value pairs like: name="value".\n\nThe href attribute specifies the URL of the page the link goes to. The src attribute specifies the path to the image to be displayed. The width and height attributes provide size information for images. The alt attribute specifies an alternate text for an image, if the image for some reason cannot be displayed.`,
+        codeSnippet: '<img src="logo.png" width="500" height="600" alt="Siksha Logo">\n<a href="https://google.com" title="Search Engine">Go to Google</a>',
+        isCompleted: false
       },
       { id: 'h6', title: 'HTML Headings', content: 'Headings are used for titles and subtitles that you want to show on a webpage. Search engines use the headings to index the structure and content of your web pages. Users often skim a page by its headings. It is important to use headings to show the document structure.\n\n<h1> headings should be used for main headings, followed by <h2> headings, then the less important <h3>, and so on.', codeSnippet: '<h1>Heading 1</h1>\n<h2>Heading 2</h2>\n<h3>Heading 3</h3>', isCompleted: false },
       { id: 'h7', title: 'HTML Paragraphs', content: 'The HTML <p> element defines a paragraph. A paragraph always starts on a new line, and browsers automatically add some white space (a margin) before and after a paragraph.\n\nYou cannot be sure how HTML will be displayed. Large or small screens, and resized windows will create different results. With HTML, you cannot change the display by adding extra spaces or extra lines in your HTML code.', codeSnippet: '<p>This is a paragraph.</p>\n<p>This is another paragraph.</p>', isCompleted: false },
@@ -92,7 +92,12 @@ export const COURSES: Course[] = [
       { id: 'h17', title: 'HTML Tables', content: 'HTML tables allow web developers to arrange data into rows and columns. A table in HTML consists of table cells inside rows and columns. Each table cell is defined by a <td> and a </td> tag. Each table row starts with a <tr> and ends with a </tr> tag.', codeSnippet: '<table>\n  <tr>\n    <th>Company</th>\n    <th>Contact</th>\n  </tr>\n  <tr>\n    <td>Alfreds Futterkiste</td>\n    <td>Maria Anders</td>\n  </tr>\n</table>', isCompleted: false },
       { id: 'h18', title: 'HTML Lists', content: 'HTML lists allow web developers to group a set of related items in lists. An unordered HTML list starts with the <ul> tag. Each list item starts with the <li> tag. The list items will be marked with bullets (small black circles) by default. An ordered HTML list starts with the <ol> tag. Each list item starts with the <li> tag. The list items will be marked with numbers by default.', codeSnippet: '<ul>\n  <li>Coffee</li>\n  <li>Tea</li>\n  <li>Milk</li>\n</ul>', isCompleted: false },
       { id: 'h19', title: 'HTML Block & Inline', content: 'Every HTML element has a default display value, depending on what type of element it is. There are two display values: block and inline. A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element. An inline element does not start on a new line. An inline element only takes up as much width as necessary.', codeSnippet: '<div>This is a block element.</div>\n<span>This is an inline element.</span>', isCompleted: false },
-      { id: 'h20', title: 'HTML Classes', content: 'The HTML class attribute is used to specify a class for an HTML element. Multiple HTML elements can share the same class. The class attribute is often used to point to a class name in a style sheet. It can also be used by a JavaScript to access and manipulate elements with the specific class name.', codeSnippet: '<style>\n.city {\n  background-color: tomato;\n  color: white;\n  padding: 10px;\n}\n</style>\n\n<h2 class="city">London</h2>\n<h2 class="city">Paris</h2>', isCompleted: false }
+      { id: 'h20', title: 'HTML Classes', content: 'The HTML class attribute is used to specify a class for an HTML element. Multiple HTML elements can share the same class. The class attribute is often used to point to a class name in a style sheet. It can also be used by a JavaScript to access and manipulate elements with the specific class name.', codeSnippet: '<style>\n.city {\n  background-color: tomato;\n  color: white;\n  padding: 10px;\n}\n</style>\n\n<h2 class="city">London</h2>\n<h2 class="city">Paris</h2>', isCompleted: false },
+      { id: 'h21', title: 'HTML Forms Attributes', content: 'This chapter describes the different attributes for the HTML <form> element. The Action Attribute defines the action to be performed when the form is submitted. The Target Attribute specifies where to display the response that is received after submitting the form. The Method Attribute specifies the HTTP method to be used when submitting the form data.', codeSnippet: '<form action="/action_page.php" target="_blank" method="post">\n  <label for="fname">First name:</label><br>\n  <input type="text" id="fname" name="fname" value="John"><br>\n  <input type="submit" value="Submit">\n</form>', isCompleted: false },
+      { id: 'h22', title: 'HTML Form Elements', content: 'The HTML <form> element can contain one or more of the following form elements: <input>, <label>, <select>, <textarea>, <button>, <fieldset>, <legend>, <datalist>, <output>, <option>, <optgroup>.', codeSnippet: '<label for="cars">Choose a car:</label>\n<select id="cars" name="cars">\n  <option value="volvo">Volvo</option>\n  <option value="saab">Saab</option>\n</select>', isCompleted: false },
+      { id: 'h23', title: 'HTML Input Types', content: 'This chapter describes the different types for the HTML <input> element. Here are some examples: <input type="button">, <input type="checkbox">, <input type="color">, <input type="date">, <input type="email">, <input type="file">, <input type="hidden">, <input type="image">, <input type="number">, <input type="password">, <input type="radio">, <input type="range">, <input type="reset">, <input type="search">, <input type="submit">, <input type="tel">, <input type="text">, <input type="time">, <input type="url">, <input type="week">.', codeSnippet: '<input type="button" onclick="alert(\'Hello World!\')" value="Click Me!">', isCompleted: false },
+      { id: 'h24', title: 'HTML Input Attributes', content: 'This chapter describes the different attributes for the HTML <input> element. The value attribute specifies an initial value for an input field. The readonly attribute specifies that an input field is read-only. The disabled attribute specifies that an input field should be disabled. The size attribute specifies the visible width, in characters, of an input field.', codeSnippet: '<input type="text" id="fname" name="fname" value="John" readonly>', isCompleted: false },
+      { id: 'h25', title: 'HTML Input Form Attributes', content: 'This chapter describes the different attributes for the HTML <input> element. The form attribute specifies the form the <input> element belongs to. The formaction attribute specifies the URL of the file that will process the input control when the form is submitted. The formenctype attribute specifies how the form-data should be encoded when submitting it to the server.', codeSnippet: '<form action="/action_page.php" id="form1">\n  <label for="fname">First name:</label>\n  <input type="text" id="fname" name="fname"><br><br>\n  <input type="submit" value="Submit">\n</form>\n\n<label for="lname">Last name:</label>\n<input type="text" id="lname" name="lname" form="form1">', isCompleted: false }
     ]
   },
   {
@@ -103,40 +108,40 @@ export const COURSES: Course[] = [
     level: 'Beginner',
     progress: 10,
     lessons: [
-      { 
-        id: 'p1', 
-        title: 'Python Intro', 
-        content: `Python is a popular programming language. It was created by Guido van Rossum, and released in 1991. It is used for web development (server-side), software development, mathematics, and system scripting.\n\nPython can be used on a server to create web applications. It can be used alongside software to create workflows. It can connect to database systems. It can also read and modify files. It can be used to handle big data and perform complex mathematics.\n\nPython works on different platforms (Windows, Mac, Linux, Raspberry Pi, etc). Python has a simple syntax similar to the English language.`, 
-        codeSnippet: 'print("Hello, World!")', 
-        isCompleted: true 
+      {
+        id: 'p1',
+        title: 'Python Intro',
+        content: `Python is a popular programming language. It was created by Guido van Rossum, and released in 1991. It is used for web development (server-side), software development, mathematics, and system scripting.\n\nPython can be used on a server to create web applications. It can be used alongside software to create workflows. It can connect to database systems. It can also read and modify files. It can be used to handle big data and perform complex mathematics.\n\nPython works on different platforms (Windows, Mac, Linux, Raspberry Pi, etc). Python has a simple syntax similar to the English language.`,
+        codeSnippet: 'print("Hello, World!")',
+        isCompleted: true
       },
-      { 
-        id: 'p2', 
-        title: 'Python Get Started', 
-        content: `Many PCs and Macs will have python already installed. To check if you have python installed on a Windows PC, search in the start bar for Python or run the following on the Command Line (cmd.exe): python --version.\n\nIf you find that you do not have Python installed on your computer, then you can download it for free from the following website: https://www.python.org/.\n\nPython is an interpreted programming language, this means that as a developer you write Python (.py) files in a text editor and then put those files into the python interpreter to be executed.`, 
-        codeSnippet: 'import sys\nprint(sys.version)', 
-        isCompleted: false 
+      {
+        id: 'p2',
+        title: 'Python Get Started',
+        content: `Many PCs and Macs will have python already installed. To check if you have python installed on a Windows PC, search in the start bar for Python or run the following on the Command Line (cmd.exe): python --version.\n\nIf you find that you do not have Python installed on your computer, then you can download it for free from the following website: https://www.python.org/.\n\nPython is an interpreted programming language, this means that as a developer you write Python (.py) files in a text editor and then put those files into the python interpreter to be executed.`,
+        codeSnippet: 'import sys\nprint(sys.version)',
+        isCompleted: false
       },
-      { 
-        id: 'p3', 
-        title: 'Python Syntax', 
-        content: `Python syntax can be executed by writing directly in the Command Line. Or by creating a python file on the server, using the .py file extension, and running it in the Command Line.\n\nIndentation refers to the spaces at the beginning of a code line. Where in other programming languages the indentation in code is for readability only, the indentation in Python is very important. Python uses indentation to indicate a block of code.\n\nPython will give you an error if you skip the indentation.`, 
-        codeSnippet: 'if 5 > 2:\n  print("Five is greater than two!")\n\n# This will raise an error:\n# if 5 > 2:\n# print("Five is greater than two!")', 
-        isCompleted: false 
+      {
+        id: 'p3',
+        title: 'Python Syntax',
+        content: `Python syntax can be executed by writing directly in the Command Line. Or by creating a python file on the server, using the .py file extension, and running it in the Command Line.\n\nIndentation refers to the spaces at the beginning of a code line. Where in other programming languages the indentation in code is for readability only, the indentation in Python is very important. Python uses indentation to indicate a block of code.\n\nPython will give you an error if you skip the indentation.`,
+        codeSnippet: 'if 5 > 2:\n  print("Five is greater than two!")\n\n# This will raise an error:\n# if 5 > 2:\n# print("Five is greater than two!")',
+        isCompleted: false
       },
-      { 
-        id: 'p4', 
-        title: 'Python Comments', 
-        content: `Comments can be used to explain Python code. Comments can be used to make the code more readable. Comments can be used to prevent execution when testing code.\n\nComments starts with a #, and Python will ignore them. Comments can be placed at the end of a line, and Python will ignore the rest of the line.\n\nPython does not really have a syntax for multi line comments. To add a multiline comment you could insert a # for each line. Or, not quite as intended, you can use a multiline string.`, 
-        codeSnippet: '# This is a comment\nprint("Hello, World!")\n\n"""\nThis is a multiline string\nused as a comment\n"""', 
-        isCompleted: false 
+      {
+        id: 'p4',
+        title: 'Python Comments',
+        content: `Comments can be used to explain Python code. Comments can be used to make the code more readable. Comments can be used to prevent execution when testing code.\n\nComments starts with a #, and Python will ignore them. Comments can be placed at the end of a line, and Python will ignore the rest of the line.\n\nPython does not really have a syntax for multi line comments. To add a multiline comment you could insert a # for each line. Or, not quite as intended, you can use a multiline string.`,
+        codeSnippet: '# This is a comment\nprint("Hello, World!")\n\n"""\nThis is a multiline string\nused as a comment\n"""',
+        isCompleted: false
       },
-      { 
-        id: 'p5', 
-        title: 'Python Variables', 
-        content: `Variables are containers for storing data values. Python has no command for declaring a variable. A variable is created the moment you first assign a value to it.\n\nVariables do not need to be declared with any particular type, and can even change type after they have been set. String variables can be declared either by using single or double quotes.\n\nVariable names are case-sensitive (age, Age and AGE are three different variables).`, 
-        codeSnippet: 'x = 5\ny = "Siksha"\nprint(x)\nprint(y)', 
-        isCompleted: false 
+      {
+        id: 'p5',
+        title: 'Python Variables',
+        content: `Variables are containers for storing data values. Python has no command for declaring a variable. A variable is created the moment you first assign a value to it.\n\nVariables do not need to be declared with any particular type, and can even change type after they have been set. String variables can be declared either by using single or double quotes.\n\nVariable names are case-sensitive (age, Age and AGE are three different variables).`,
+        codeSnippet: 'x = 5\ny = "Siksha"\nprint(x)\nprint(y)',
+        isCompleted: false
       },
       { id: 'p6', title: 'Python Data Types', content: 'In programming, data type is an important concept. Variables can store data of different types, and different types can do different things. Python has the following data types built-in by default, in these categories:\n\nText Type: str\nNumeric Types: int, float, complex\nSequence Types: list, tuple, range\nMapping Type: dict\nSet Types: set, frozenset\nBoolean Type: bool\nBinary Types: bytes, bytearray, memoryview\nNone Type: NoneType', codeSnippet: 'x = 5    # int\ny = "Hi" # str\nz = 20.5 # float', isCompleted: false },
       { id: 'p7', title: 'Python Numbers', content: 'There are three numeric types in Python: int, float, complex. Variables of numeric types are created when you assign a value to them.\n\nInt, or integer, is a whole number, positive or negative, without decimals, of unlimited length. Float, or "floating point number" is a number, positive or negative, containing one or more decimals. Complex numbers are written with a "j" as the imaginary part.', codeSnippet: 'x = 1    # int\ny = 2.8  # float\nz = 1j   # complex', isCompleted: false },
@@ -152,7 +157,12 @@ export const COURSES: Course[] = [
       { id: 'p17', title: 'Python While Loops', content: 'Python has two primitive loop commands: while loops and for loops. With the while loop we can execute a set of statements as long as a condition is true.\n\nThe while loop requires relevant variables to be ready, in this example we need to define an indexing variable, i, which we set to 1. With the break statement we can stop the loop even if the while condition is true. With the continue statement we can stop the current iteration, and continue with the next.', codeSnippet: 'i = 1\nwhile i < 6:\n  print(i)\n  i += 1', isCompleted: false },
       { id: 'p18', title: 'Python For Loops', content: 'A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string). This is less like the for keyword in other programming languages, and works more like an iterator method as found in other object-orientated programming languages.\n\nWith the for loop we can execute a set of statements, once for each item in a list, tuple, set etc.', codeSnippet: 'fruits = ["apple", "banana", "cherry"]\nfor x in fruits:\n  print(x)', isCompleted: false },
       { id: 'p19', title: 'Python Functions', content: 'A function is a block of code which only runs when it is called. You can pass data, known as parameters, into a function. A function can return data as a result.\n\nIn Python a function is defined using the def keyword. To call a function, use the function name followed by parenthesis. Information can be passed into functions as arguments.', codeSnippet: 'def my_function():\n  print("Hello from a function")\n\nmy_function()', isCompleted: false },
-      { id: 'p20', title: 'Python Classes/Objects', content: 'Python is an object oriented programming language. Almost everything in Python is an object, with its properties and methods. A Class is like an object constructor, or a "blueprint" for creating objects.\n\nTo create a class, use the keyword class. All classes have a function called __init__(), which is always executed when the class is being initiated. Use the __init__() function to assign values to object properties, or other operations that are necessary to do when the object is being created.', codeSnippet: 'class Person:\n  def __init__(self, name, age):\n    self.name = name\n    self.age = age\n\np1 = Person("John", 36)\nprint(p1.name)\nprint(p1.age)', isCompleted: false }
+      { id: 'p20', title: 'Python Classes/Objects', content: 'Python is an object oriented programming language. Almost everything in Python is an object, with its properties and methods. A Class is like an object constructor, or a "blueprint" for creating objects.\n\nTo create a class, use the keyword class. All classes have a function called __init__(), which is always executed when the class is being initiated. Use the __init__() function to assign values to object properties, or other operations that are necessary to do when the object is being created.', codeSnippet: 'class Person:\n  def __init__(self, name, age):\n    self.name = name\n    self.age = age\n\np1 = Person("John", 36)\nprint(p1.name)\nprint(p1.age)', isCompleted: false },
+      { id: 'p21', title: 'Python Iterators', content: 'An iterator is an object that contains a countable number of values. An iterator is an object that can be iterated upon, meaning that you can traverse through all the values. Technically, in Python, an iterator is an object which implements the iterator protocol, which consist of the methods __iter__() and __next__().', codeSnippet: 'mytuple = ("apple", "banana", "cherry")\nmyit = iter(mytuple)\n\nprint(next(myit))\nprint(next(myit))\nprint(next(myit))', isCompleted: false },
+      { id: 'p22', title: 'Python Scope', content: 'A variable is only available from inside the region it is created. This is called scope. A variable created inside a function belongs to the local scope of that function, and can only be used inside that function. A variable created in the main body of the Python code is a global variable and belongs to the global scope.', codeSnippet: 'def myfunc():\n  x = 300\n  print(x)\n\nmyfunc()', isCompleted: false },
+      { id: 'p23', title: 'Python Modules', content: 'Consider a module to be the same as a code library. A file containing a set of functions you want to include in your application. To create a module just save the code you want in a file with the file extension .py. To use a module, we use the import statement.', codeSnippet: 'import mymodule\n\nmymodule.greeting("Jonathan")', isCompleted: false },
+      { id: 'p24', title: 'Python Dates', content: 'A date in Python is not a data type of its own, but we can import a module named datetime to work with dates as date objects. The module is named datetime. The datetime module has many methods to return information about the date object.', codeSnippet: 'import datetime\n\nx = datetime.datetime.now()\nprint(x)', isCompleted: false },
+      { id: 'p25', title: 'Python Math', content: 'Python has a set of built-in math functions, including an extensive math module, that allows you to perform mathematical tasks on numbers. The min() and max() functions can be used to find the lowest or highest value in an iterable. The abs() function returns the absolute (positive) value of the specified number.', codeSnippet: 'import math\n\nx = math.sqrt(64)\n\nprint(x)', isCompleted: false }
     ]
   },
   {
@@ -163,40 +173,40 @@ export const COURSES: Course[] = [
     level: 'Intermediate',
     progress: 5,
     lessons: [
-      { 
-        id: 'j1', 
-        title: 'Java Intro', 
-        content: `Java is a popular programming language, created in 1995. It is owned by Oracle, and more than 3 billion devices run Java. It is used for mobile applications (specially Android apps), desktop applications, web applications, web servers and application servers, games, and database connection.\n\nJava works on different platforms (Windows, Mac, Linux, Raspberry Pi, etc). It is one of the most popular programming language in the world. It is easy to learn and simple to use.\n\nIt is open-source and free. It is secure, fast and powerful. It has a huge community support (tens of millions of developers).`, 
-        codeSnippet: 'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, World!");\n  }\n}', 
-        isCompleted: true 
+      {
+        id: 'j1',
+        title: 'Java Intro',
+        content: `Java is a popular programming language, created in 1995. It is owned by Oracle, and more than 3 billion devices run Java. It is used for mobile applications (specially Android apps), desktop applications, web applications, web servers and application servers, games, and database connection.\n\nJava works on different platforms (Windows, Mac, Linux, Raspberry Pi, etc). It is one of the most popular programming language in the world. It is easy to learn and simple to use.\n\nIt is open-source and free. It is secure, fast and powerful. It has a huge community support (tens of millions of developers).`,
+        codeSnippet: 'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, World!");\n  }\n}',
+        isCompleted: true
       },
-      { 
-        id: 'j2', 
-        title: 'Java Syntax', 
-        content: `Every line of code that runs in Java must be inside a class. In our example, we named the class Main. A class should always start with an uppercase first letter.\n\nThe main method is required and you will see it in every Java program: public static void main(String[] args). Any code inside the main() method will be executed.\n\nFor now, just remember that every Java program has a class name which must match the filename, and that every program must contain the main() method.`, 
-        codeSnippet: 'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Learning Syntax");\n  }\n}', 
-        isCompleted: false 
+      {
+        id: 'j2',
+        title: 'Java Syntax',
+        content: `Every line of code that runs in Java must be inside a class. In our example, we named the class Main. A class should always start with an uppercase first letter.\n\nThe main method is required and you will see it in every Java program: public static void main(String[] args). Any code inside the main() method will be executed.\n\nFor now, just remember that every Java program has a class name which must match the filename, and that every program must contain the main() method.`,
+        codeSnippet: 'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Learning Syntax");\n  }\n}',
+        isCompleted: false
       },
-      { 
-        id: 'j3', 
-        title: 'Java Output', 
-        content: `The println() method is used to print values or text in Java. You can add as many println() methods as you want. Note that it will add a new line for each method.\n\nYou can also output numbers, and perform mathematical calculations inside the println() method. There is also a print() method, which is similar to println(). The only difference is that it does not insert a new line at the end of the output.`, 
-        codeSnippet: 'System.out.println("Hello World!");\nSystem.out.println("I am learning Java.");\nSystem.out.println(3 + 3);', 
-        isCompleted: false 
+      {
+        id: 'j3',
+        title: 'Java Output',
+        content: `The println() method is used to print values or text in Java. You can add as many println() methods as you want. Note that it will add a new line for each method.\n\nYou can also output numbers, and perform mathematical calculations inside the println() method. There is also a print() method, which is similar to println(). The only difference is that it does not insert a new line at the end of the output.`,
+        codeSnippet: 'System.out.println("Hello World!");\nSystem.out.println("I am learning Java.");\nSystem.out.println(3 + 3);',
+        isCompleted: false
       },
-      { 
-        id: 'j4', 
-        title: 'Java Comments', 
-        content: `Comments can be used to explain Java code, and to make it more readable. It can also be used to prevent execution when testing alternative code.\n\nSingle-line comments start with two forward slashes (//). Any text between // and the end of the line is ignored by Java (will not be executed).\n\nMulti-line comments start with /* and ends with */. Any text between /* and */ will be ignored by Java.`, 
-        codeSnippet: '// This is a comment\nSystem.out.println("Hello World");\n\n/* The code below will print the words Hello World\nto the screen, and it is amazing */', 
-        isCompleted: false 
+      {
+        id: 'j4',
+        title: 'Java Comments',
+        content: `Comments can be used to explain Java code, and to make it more readable. It can also be used to prevent execution when testing alternative code.\n\nSingle-line comments start with two forward slashes (//). Any text between // and the end of the line is ignored by Java (will not be executed).\n\nMulti-line comments start with /* and ends with */. Any text between /* and */ will be ignored by Java.`,
+        codeSnippet: '// This is a comment\nSystem.out.println("Hello World");\n\n/* The code below will print the words Hello World\nto the screen, and it is amazing */',
+        isCompleted: false
       },
-      { 
-        id: 'j5', 
-        title: 'Java Variables', 
-        content: `Variables are containers for storing data values. In Java, there are different types of variables, for example: String (stores text), int (stores integers), float (stores floating point numbers), char (stores single characters), and boolean (stores values with two states).\n\nTo create a variable, you must specify the type and assign it a value. If you don't want others (or yourself) to overwrite existing values, use the final keyword (this will declare the variable as "final" or "constant", which means unchangeable and read-only).`, 
-        codeSnippet: 'String name = "John";\nint myNum = 15;\nfinal int myConstant = 20;\n// myConstant = 10; // error', 
-        isCompleted: false 
+      {
+        id: 'j5',
+        title: 'Java Variables',
+        content: `Variables are containers for storing data values. In Java, there are different types of variables, for example: String (stores text), int (stores integers), float (stores floating point numbers), char (stores single characters), and boolean (stores values with two states).\n\nTo create a variable, you must specify the type and assign it a value. If you don't want others (or yourself) to overwrite existing values, use the final keyword (this will declare the variable as "final" or "constant", which means unchangeable and read-only).`,
+        codeSnippet: 'String name = "John";\nint myNum = 15;\nfinal int myConstant = 20;\n// myConstant = 10; // error',
+        isCompleted: false
       },
       { id: 'j6', title: 'Java Data Types', content: 'Data types are divided into two groups: Primitive data types - includes byte, short, int, long, float, double, boolean and char. Non-primitive data types - such as String, Arrays and Classes.\n\nA primitive data type specifies the size and type of variable values, and it has no additional methods.', codeSnippet: 'int myNum = 5;\nfloat myFloatNum = 5.99f;\nchar myLetter = \'D\';\nboolean myBool = true;', isCompleted: false },
       { id: 'j7', title: 'Java Type Casting', content: 'Type casting is when you assign a value of one primitive data type to another type. In Java, there are two types of casting: Widening Casting (automatically) - converting a smaller type to a larger type size. Narrowing Casting (manually) - converting a larger type to a smaller size type.', codeSnippet: 'int myInt = 9;\ndouble myDouble = myInt; // Widening\n\ndouble d = 9.78d;\nint i = (int) d; // Narrowing', isCompleted: false },
@@ -212,7 +222,12 @@ export const COURSES: Course[] = [
       { id: 'j17', title: 'Java Arrays', content: 'Arrays are used to store multiple values in a single variable, instead of declaring separate variables for each value. To declare an array, define the variable type with square brackets. Array indexes start with 0: [0] is the first element. [1] is the second element, etc.', codeSnippet: 'String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};\nSystem.out.println(cars[0]);', isCompleted: false },
       { id: 'j18', title: 'Java Methods', content: 'A method is a block of code which only runs when it is called. You can pass data, known as parameters, into a method. Methods are used to perform certain actions, and they are also known as functions. Why use methods? To reuse code: define the code once, and use it many times.', codeSnippet: 'public class Main {\n  static void myMethod() {\n    System.out.println("I just got executed!");\n  }\n\n  public static void main(String[] args) {\n    myMethod();\n  }\n}', isCompleted: false },
       { id: 'j19', title: 'Java Parameters', content: 'Information can be passed to methods as parameter. Parameters act as variables inside the method. Parameters are specified after the method name, inside the parentheses. You can add as many parameters as you want, just separate them with a comma.', codeSnippet: 'static void myMethod(String fname) {\n  System.out.println(fname + " Kumar");\n}\n\npublic static void main(String[] args) {\n  myMethod("Rahul");\n}', isCompleted: false },
-      { id: 'j20', title: 'Java Recursion', content: 'Recursion is the technique of making a function call itself. This technique provides a way to break complicated problems down into simple problems which are easier to solve. Recursion may be a bit difficult to understand. The best way to figure out how it works is to experiment with it.', codeSnippet: 'public static int sum(int k) {\n  if (k > 0) {\n    return k + sum(k - 1);\n  } else {\n    return 0;\n  }\n}', isCompleted: false }
+      { id: 'j20', title: 'Java Recursion', content: 'Recursion is the technique of making a function call itself. This technique provides a way to break complicated problems down into simple problems which are easier to solve. Recursion may be a bit difficult to understand. The best way to figure out how it works is to experiment with it.', codeSnippet: 'public static int sum(int k) {\n  if (k > 0) {\n    return k + sum(k - 1);\n  } else {\n    return 0;\n  }\n}', isCompleted: false },
+      { id: 'j21', title: 'Java Enums', content: 'An enum is a special "class" that represents a group of constants (unchangeable variables, like final variables). To create an enum, use the enum keyword (instead of class or interface), and separate the constants with a comma. Note that they should be in uppercase letters.', codeSnippet: 'enum Level {\n  LOW,\n  MEDIUM,\n  HIGH\n}\n\nLevel myVar = Level.MEDIUM;\nSystem.out.println(myVar);', isCompleted: false },
+      { id: 'j22', title: 'Java User Input', content: 'The Scanner class is used to get user input, and it is found in the java.util package. To use the Scanner class, create an object of the class and use any of the available methods found in the Scanner class documentation. In our example, we will use the nextLine() method, which is used to read Strings.', codeSnippet: 'import java.util.Scanner;\n\nclass Main {\n  public static void main(String[] args) {\n    Scanner myObj = new Scanner(System.in);\n    String userName = myObj.nextLine();\n    System.out.println("Username is: " + userName);\n  }\n}', isCompleted: false },
+      { id: 'j23', title: 'Java Date', content: 'Java does not have a built-in Date class, but we can import the java.time package to work with the date and time API. The package includes many date and time classes. For example: LocalDate, LocalTime, LocalDateTime, DateTimeFormatter.', codeSnippet: 'import java.time.LocalDate;\n\npublic class Main {\n  public static void main(String[] args) {\n    LocalDate myObj = LocalDate.now();\n    System.out.println(myObj);\n  }\n}', isCompleted: false },
+      { id: 'j24', title: 'Java ArrayList', content: 'The ArrayList class is a resizable array, which can be found in the java.util package. The difference between a built-in array and an ArrayList in Java, is that the size of an array cannot be modified (if you want to add or remove elements to/from an array, you have to create a new one). While elements can be added and removed from an ArrayList whenever you want.', codeSnippet: 'import java.util.ArrayList;\n\nArrayList<String> cars = new ArrayList<String>();\ncars.add("Volvo");\ncars.add("BMW");\nSystem.out.println(cars);', isCompleted: false },
+      { id: 'j25', title: 'Java HashMap', content: 'In the ArrayList chapter, you learned that Arrays store items as an ordered collection, and you have to access them with an index number (int type). A HashMap however, store items in "key/value" pairs, and you can access them by an index of another type (e.g. a String). One object is used as a key (index) to another object (value).', codeSnippet: 'import java.util.HashMap;\n\nHashMap<String, String> capitalCities = new HashMap<String, String>();\ncapitalCities.put("England", "London");\ncapitalCities.put("Germany", "Berlin");\nSystem.out.println(capitalCities);', isCompleted: false }
     ]
   },
   {
@@ -223,40 +238,40 @@ export const COURSES: Course[] = [
     level: 'Intermediate',
     progress: 0,
     lessons: [
-      { 
-        id: 'ph1', 
-        title: 'PHP Intro', 
-        content: `PHP is an acronym for "PHP: Hypertext Preprocessor". It is a widely-used, open source scripting language. PHP scripts are executed on the server. It is free to download and use.\n\nPHP is an amazing and popular language! It is powerful enough to be at the core of the biggest blogging system on the web (WordPress)! It is deep enough to run the largest social network (Facebook)! It is also easy enough to be a beginner's first server side language!\n\nPHP files can contain text, HTML, CSS, JavaScript, and PHP code. PHP code is executed on the server, and the result is returned to the browser as plain HTML.`, 
-        codeSnippet: '<?php\necho "Hello World!";\n?>', 
-        isCompleted: false 
+      {
+        id: 'ph1',
+        title: 'PHP Intro',
+        content: `PHP is an acronym for "PHP: Hypertext Preprocessor". It is a widely-used, open source scripting language. PHP scripts are executed on the server. It is free to download and use.\n\nPHP is an amazing and popular language! It is powerful enough to be at the core of the biggest blogging system on the web (WordPress)! It is deep enough to run the largest social network (Facebook)! It is also easy enough to be a beginner's first server side language!\n\nPHP files can contain text, HTML, CSS, JavaScript, and PHP code. PHP code is executed on the server, and the result is returned to the browser as plain HTML.`,
+        codeSnippet: '<?php\necho "Hello World!";\n?>',
+        isCompleted: false
       },
-      { 
-        id: 'ph2', 
-        title: 'PHP Install', 
-        content: `To start using PHP, you can find a web host with PHP and MySQL support, or install a web server on your own PC, and then install PHP and MySQL.\n\nIf your server has activated support for PHP you do not need to do anything. Just create some .php files, place them in your web directory, and the server will automatically parse them for you. You do not need to compile anything or install any extra tools.\n\nBecause PHP is free, most web hosts offer PHP support.`, 
-        codeSnippet: '<!-- No code, setup XAMPP or WAMP -->', 
-        isCompleted: false 
+      {
+        id: 'ph2',
+        title: 'PHP Install',
+        content: `To start using PHP, you can find a web host with PHP and MySQL support, or install a web server on your own PC, and then install PHP and MySQL.\n\nIf your server has activated support for PHP you do not need to do anything. Just create some .php files, place them in your web directory, and the server will automatically parse them for you. You do not need to compile anything or install any extra tools.\n\nBecause PHP is free, most web hosts offer PHP support.`,
+        codeSnippet: '<!-- No code, setup XAMPP or WAMP -->',
+        isCompleted: false
       },
-      { 
-        id: 'ph3', 
-        title: 'PHP Syntax', 
-        content: `A PHP script can be placed anywhere in the document. A PHP script starts with <?php and ends with ?>. The default file extension for PHP files is ".php".\n\nIn PHP, keywords (e.g. if, else, while, echo, etc.), classes, functions, and user-defined functions are NOT case-sensitive. However, all variable names are case-sensitive.\n\nIn the example below, all three echo statements are equal and legal.`, 
-        codeSnippet: '<?php\nECHO "Hello World!<br>";\necho "Hello World!<br>";\nEcHo "Hello World!<br>";\n?>', 
-        isCompleted: false 
+      {
+        id: 'ph3',
+        title: 'PHP Syntax',
+        content: `A PHP script can be placed anywhere in the document. A PHP script starts with <?php and ends with ?>. The default file extension for PHP files is ".php".\n\nIn PHP, keywords (e.g. if, else, while, echo, etc.), classes, functions, and user-defined functions are NOT case-sensitive. However, all variable names are case-sensitive.\n\nIn the example below, all three echo statements are equal and legal.`,
+        codeSnippet: '<?php\nECHO "Hello World!<br>";\necho "Hello World!<br>";\nEcHo "Hello World!<br>";\n?>',
+        isCompleted: false
       },
-      { 
-        id: 'ph4', 
-        title: 'PHP Variables', 
-        content: `Variables are "containers" for storing information. In PHP, a variable starts with the $ sign, followed by the name of the variable.\n\nA variable name must start with a letter or the underscore character. A variable name cannot start with a number. A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _).\n\nPHP has no command for declaring a variable. It is created the moment you first assign a value to it.`, 
-        codeSnippet: '<?php\n$txt = "Hello world!";\n$x = 5;\n$y = 10.5;\n?>', 
-        isCompleted: false 
+      {
+        id: 'ph4',
+        title: 'PHP Variables',
+        content: `Variables are "containers" for storing information. In PHP, a variable starts with the $ sign, followed by the name of the variable.\n\nA variable name must start with a letter or the underscore character. A variable name cannot start with a number. A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _).\n\nPHP has no command for declaring a variable. It is created the moment you first assign a value to it.`,
+        codeSnippet: '<?php\n$txt = "Hello world!";\n$x = 5;\n$y = 10.5;\n?>',
+        isCompleted: false
       },
-      { 
-        id: 'ph5', 
-        title: 'PHP Echo/Print', 
-        content: `In PHP there are two basic ways to get output: echo and print. echo and print are more or less the same. They are both used to output data to the screen.\n\nThe differences are small: echo has no return value while print has a return value of 1 so it can be used in expressions. echo can take multiple parameters (although such usage is rare) while print can take one argument. echo is marginally faster than print.\n\nThe echo statement can be used with or without parentheses: echo or echo().`, 
-        codeSnippet: '<?php\necho "<h2>PHP is Fun!</h2>";\necho "Hello world!<br>";\necho "I am about to learn PHP!<br>";\n?>', 
-        isCompleted: false 
+      {
+        id: 'ph5',
+        title: 'PHP Echo/Print',
+        content: `In PHP there are two basic ways to get output: echo and print. echo and print are more or less the same. They are both used to output data to the screen.\n\nThe differences are small: echo has no return value while print has a return value of 1 so it can be used in expressions. echo can take multiple parameters (although such usage is rare) while print can take one argument. echo is marginally faster than print.\n\nThe echo statement can be used with or without parentheses: echo or echo().`,
+        codeSnippet: '<?php\necho "<h2>PHP is Fun!</h2>";\necho "Hello world!<br>";\necho "I am about to learn PHP!<br>";\n?>',
+        isCompleted: false
       },
       { id: 'ph6', title: 'PHP Data Types', content: 'Variables can store data of different types, and different data types can do different things. PHP supports the following data types: String, Integer, Float (floating point numbers - also called double), Boolean, Array, Object, NULL, Resource.', codeSnippet: '$x = "Hello world!";\n$y = 5966;\n$z = 10.365;', isCompleted: false },
       { id: 'ph7', title: 'PHP Strings', content: 'A string is a sequence of characters, like "Hello world!". strlen() - returns the length of a string. str_word_count() - counts words in a string. strrev() - reverses a string. strpos() - searches for a text within a string. str_replace() - replaces text within a string.', codeSnippet: 'echo strlen("Hello world!");\necho strrev("Hello world!");', isCompleted: false },
@@ -272,7 +287,12 @@ export const COURSES: Course[] = [
       { id: 'ph17', title: 'PHP Superglobals', content: 'Some predefined variables in PHP are "superglobals", which means that they are always accessible, regardless of scope - and you can access them from any function, class or file without having to do anything special. The PHP superglobal variables are: $GLOBALS, $_SERVER, $_REQUEST, $_POST, $_GET, $_FILES, $_ENV, $_COOKIE, $_SESSION.', codeSnippet: 'echo $_SERVER[\'PHP_SELF\'];\necho $_SERVER[\'SERVER_NAME\'];', isCompleted: false },
       { id: 'ph18', title: 'PHP Forms', content: 'The PHP superglobals $_GET and $_POST are used to collect form-data. Both GET and POST create an array. This array holds key/value pairs, where keys are the names of the form controls and values are the input data from the user. Both GET and POST are treated as $_GET and $_POST. These are superglobals, which means that they are always accessible, regardless of scope.', codeSnippet: '<form action="welcome.php" method="post">\nName: <input type="text" name="name"><br>\nE-mail: <input type="text" name="email"><br>\n<input type="submit">\n</form>', isCompleted: false },
       { id: 'ph19', title: 'PHP Validation', content: 'The first thing you should do when processing HTML forms is to pass all variables through PHP\'s htmlspecialchars() function. When you use the htmlspecialchars() function; then if a user tries to submit a script in a text field, it will not be executed, because it will be saved as HTML escaped code. This is important for security.', codeSnippet: '$name = test_input($_POST["name"]);\nfunction test_input($data) {\n  $data = trim($data);\n  $data = stripslashes($data);\n  $data = htmlspecialchars($data);\n  return $data;\n}', isCompleted: false },
-      { id: 'ph20', title: 'PHP MySQL', content: 'MySQL is the most popular database system used with PHP. MySQL is a database system used on the web. MySQL is a database system that runs on a server. MySQL is ideal for both small and large applications. MySQL is very fast, reliable, and easy to use. MySQL uses standard SQL.', codeSnippet: '$servername = "localhost";\n$username = "username";\n$password = "password";\n\n$conn = new mysqli($servername, $username, $password);\nif ($conn->connect_error) {\n  die("Connection failed: " . $conn->connect_error);\n}\necho "Connected successfully";', isCompleted: false }
+      { id: 'ph20', title: 'PHP MySQL', content: 'MySQL is the most popular database system used with PHP. MySQL is a database system used on the web. MySQL is a database system that runs on a server. MySQL is ideal for both small and large applications. MySQL is very fast, reliable, and easy to use. MySQL uses standard SQL.', codeSnippet: '$servername = "localhost";\n$username = "username";\n$password = "password";\n\n$conn = new mysqli($servername, $username, $password);\nif ($conn->connect_error) {\n  die("Connection failed: " . $conn->connect_error);\n}\necho "Connected successfully";', isCompleted: false },
+      { id: 'ph21', title: 'PHP Date and Time', content: 'The PHP Date() function formats a timestamp to a more readable date and time. Syntax: date(format,timestamp). required format specifies the format of the timestamp. optional timestamp specifies a timestamp. Default is the current date and time.', codeSnippet: 'echo "Today is " . date("Y/m/d") . "<br>";\necho "Today is " . date("Y.m.d") . "<br>";\necho "Today is " . date("Y-m-d") . "<br>";\necho "Today is " . date("l");', isCompleted: false },
+      { id: 'ph22', title: 'PHP Include', content: 'The include (or require) statement takes all the text/code/markup that exists in the specified file and copies it into the file that uses the include statement. Including files is very useful when you want to include the same PHP, HTML, or text on multiple pages of a website.', codeSnippet: '<html>\n<body>\n\n<h1>Welcome to my home page!</h1>\n<?php include \'footer.php\';?>\n\n</body>\n</html>', isCompleted: false },
+      { id: 'ph23', title: 'PHP File Handling', content: 'File handling is an important part of any web application. You often need to open and process a file for different tasks. PHP has several functions for creating, reading, uploading, and editing files. The readfile() function reads a file and writes it to the output buffer.', codeSnippet: '<?php\necho readfile("webdictionary.txt");\n?>', isCompleted: false },
+      { id: 'ph24', title: 'PHP Cookies', content: 'A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user\'s computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values.', codeSnippet: '<?php\n$cookie_name = "user";\n$cookie_value = "John Doe";\nsetcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day\n?>', isCompleted: false },
+      { id: 'ph25', title: 'PHP Sessions', content: 'A session is a way to store information (in variables) to be used across multiple pages. Unlike a cookie, the information is not stored on the users computer. Session variables solve this problem by storing user information to be used across multiple pages (e.g. username, favorite color, etc). By default, session variables last until the user closes the browser.', codeSnippet: '<?php\n// Start the session\nsession_start();\n\n// Set session variables\n$_SESSION["favcolor"] = "green";\n$_SESSION["favanimal"] = "cat";\necho "Session variables are set.";\n?>', isCompleted: false }
     ]
   },
   {
@@ -283,40 +303,40 @@ export const COURSES: Course[] = [
     level: 'Advanced',
     progress: 0,
     lessons: [
-      { 
-        id: 'ai1', 
-        title: 'What is AI?', 
-        content: `Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\nThe ideal characteristic of artificial intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.\n\nAI is already all around us, from the self-driving cars of the future to the automated assistants like Siri and Alexa that we use every day.`, 
-        codeSnippet: '"""\nAI is more of a field of study than a specific code block,\nbut here is how you might represent an agent conceptually:\n"""\nclass SimpleAI:\n    def perceive(self, environment):\n        return environment.get_state()\n    \n    def decide(self, state):\n        return "Optimal Action"\n\nai = SimpleAI()', 
-        isCompleted: false 
+      {
+        id: 'ai1',
+        title: 'What is AI?',
+        content: `Artificial Intelligence (AI) refers to the simulation of human intelligence in machines that are programmed to think like humans and mimic their actions. The term may also be applied to any machine that exhibits traits associated with a human mind such as learning and problem-solving.\n\nThe ideal characteristic of artificial intelligence is its ability to rationalize and take actions that have the best chance of achieving a specific goal. A subset of artificial intelligence is machine learning, which refers to the concept that computer programs can automatically learn from and adapt to new data without being assisted by humans.\n\nAI is already all around us, from the self-driving cars of the future to the automated assistants like Siri and Alexa that we use every day.`,
+        codeSnippet: '"""\nAI is more of a field of study than a specific code block,\nbut here is how you might represent an agent conceptually:\n"""\nclass SimpleAI:\n    def perceive(self, environment):\n        return environment.get_state()\n    \n    def decide(self, state):\n        return "Optimal Action"\n\nai = SimpleAI()',
+        isCompleted: false
       },
-      { 
-        id: 'ai2', 
-        title: 'History of AI', 
-        content: `The journey of AI began in the mid-20th century. In 1950, Alan Turing published "Computing Machinery and Intelligence," where he proposed the Turing Test as a measure of machine intelligence. The actual term "Artificial Intelligence" was coined at the Dartmouth Conference in 1956.\n\nOver the decades, AI has seen periods of extreme optimism followed by "AI winters" where funding and interest dried up due to unmet expectations. However, with the advent of Big Data and massive computing power in the 2010s, AI saw a massive resurgence specifically through Deep Learning.\n\nToday, we are in an era of Generative AI, where models can create text, images, and code that are often indistinguishable from human-generated content.`, 
-        codeSnippet: '# 1950: Turing Test proposed\n# 1956: AI term coined\n# 1997: Deep Blue beats Kasparov\n# 2012: AlexNet wins ILSVRC', 
-        isCompleted: false 
+      {
+        id: 'ai2',
+        title: 'History of AI',
+        content: `The journey of AI began in the mid-20th century. In 1950, Alan Turing published "Computing Machinery and Intelligence," where he proposed the Turing Test as a measure of machine intelligence. The actual term "Artificial Intelligence" was coined at the Dartmouth Conference in 1956.\n\nOver the decades, AI has seen periods of extreme optimism followed by "AI winters" where funding and interest dried up due to unmet expectations. However, with the advent of Big Data and massive computing power in the 2010s, AI saw a massive resurgence specifically through Deep Learning.\n\nToday, we are in an era of Generative AI, where models can create text, images, and code that are often indistinguishable from human-generated content.`,
+        codeSnippet: '# 1950: Turing Test proposed\n# 1956: AI term coined\n# 1997: Deep Blue beats Kasparov\n# 2012: AlexNet wins ILSVRC',
+        isCompleted: false
       },
-      { 
-        id: 'ai3', 
-        title: 'Types of AI', 
-        content: `AI can be classified into several types based on its capabilities and functionality. The most common classification is Narrow AI vs. General AI vs. Super AI.\n\nNarrow AI (Weak AI): Designed and trained for a specific task. For example, virtual assistants, image recognition software, and translation tools. All current AI is Narrow AI.\n\nGeneral AI (Strong AI): AI that would possess the ability to understand, learn, and apply knowledge in a way that is indistinguishable from a human across any intellectual task. This is currently theoretical.\n\nSuper AI: A hypothetical level of AI that surpasses human intelligence in every field.`, 
-        codeSnippet: 'types = ["Narrow AI", "General AI", "Super AI"]\nprint(f"Current State: {types[0]}")', 
-        isCompleted: false 
+      {
+        id: 'ai3',
+        title: 'Types of AI',
+        content: `AI can be classified into several types based on its capabilities and functionality. The most common classification is Narrow AI vs. General AI vs. Super AI.\n\nNarrow AI (Weak AI): Designed and trained for a specific task. For example, virtual assistants, image recognition software, and translation tools. All current AI is Narrow AI.\n\nGeneral AI (Strong AI): AI that would possess the ability to understand, learn, and apply knowledge in a way that is indistinguishable from a human across any intellectual task. This is currently theoretical.\n\nSuper AI: A hypothetical level of AI that surpasses human intelligence in every field.`,
+        codeSnippet: 'types = ["Narrow AI", "General AI", "Super AI"]\nprint(f"Current State: {types[0]}")',
+        isCompleted: false
       },
-      { 
-        id: 'ai4', 
-        title: 'Intelligent Agents', 
-        content: `An intelligent agent is an autonomous entity which observes through sensors and acts upon an environment using actuators (i.e. it is an agent) and directs its activity towards achieving goals.\n\nIntelligent agents may also learn or use knowledge to achieve their goals. They may be very simple or very complex: a reflex machine such as a thermostat is an intelligent agent, as is a human being, as is a community of human beings working together towards a goal.\n\nAgents are categorized into several types: Simple Reflex Agents, Model-based Reflex Agents, Goal-based Agents, and Utility-based Agents.`, 
-        codeSnippet: 'class ThermostatAgent:\n    def act(self, current_temp, target_temp):\n        if current_temp < target_temp:\n            return "Turn On Heater"\n        return "Turn Off"', 
-        isCompleted: false 
+      {
+        id: 'ai4',
+        title: 'Intelligent Agents',
+        content: `An intelligent agent is an autonomous entity which observes through sensors and acts upon an environment using actuators (i.e. it is an agent) and directs its activity towards achieving goals.\n\nIntelligent agents may also learn or use knowledge to achieve their goals. They may be very simple or very complex: a reflex machine such as a thermostat is an intelligent agent, as is a human being, as is a community of human beings working together towards a goal.\n\nAgents are categorized into several types: Simple Reflex Agents, Model-based Reflex Agents, Goal-based Agents, and Utility-based Agents.`,
+        codeSnippet: 'class ThermostatAgent:\n    def act(self, current_temp, target_temp):\n        if current_temp < target_temp:\n            return "Turn On Heater"\n        return "Turn Off"',
+        isCompleted: false
       },
-      { 
-        id: 'ai5', 
-        title: 'Problem Solving', 
-        content: `Many AI tasks can be framed as search problems. A search problem consists of a state space, a start state, goal states, and a set of actions that lead from one state to another.\n\nUninformed search strategies (like Breadth-First Search and Depth-First Search) have no additional information about states beyond that provided in the problem definition. They can only generate successors and distinguish a goal state from a non-goal state.\n\nInformed search strategies (like A* Search) use problem-specific knowledge (heuristics) to find solutions more efficiently by estimating the cost to reach the goal.`, 
-        codeSnippet: 'def breadth_first_search(problem):\n    node = Node(problem.initial_state)\n    if problem.goal_test(node.state): return node\n    frontier = [node]\n    # ... logic continues', 
-        isCompleted: false 
+      {
+        id: 'ai5',
+        title: 'Problem Solving',
+        content: `Many AI tasks can be framed as search problems. A search problem consists of a state space, a start state, goal states, and a set of actions that lead from one state to another.\n\nUninformed search strategies (like Breadth-First Search and Depth-First Search) have no additional information about states beyond that provided in the problem definition. They can only generate successors and distinguish a goal state from a non-goal state.\n\nInformed search strategies (like A* Search) use problem-specific knowledge (heuristics) to find solutions more efficiently by estimating the cost to reach the goal.`,
+        codeSnippet: 'def breadth_first_search(problem):\n    node = Node(problem.initial_state)\n    if problem.goal_test(node.state): return node\n    frontier = [node]\n    # ... logic continues',
+        isCompleted: false
       },
       { id: 'ai6', title: 'Adversarial Search', content: 'Adversarial search problems, also known as games, are those in which two or more agents have conflicting goals. In such environments, the agents must consider the actions of their opponents. The most common algorithm for this is Minimax. Minimax is a recursive algorithm for choosing the next move in an n-player game, usually a two-player, zero-sum game.', codeSnippet: 'def minimax(node, depth, maximizingPlayer):\n  if depth == 0 or node.is_terminal():\n    return node.value\n  # ...', isCompleted: false },
       { id: 'ai7', title: 'Knowledge Base', content: 'A knowledge base is a technology used to store complex structured and unstructured information used by a computer system. The goal of a knowledge base is to enable machines to act as if they have "common sense" or "expertise" by encoding facts and rules in a way that can be processed by an inference engine.', codeSnippet: 'KB = []\nKB.append("Man(Socrates)")\nKB.append("Man(x) => Mortal(x)")', isCompleted: false },
@@ -332,7 +352,12 @@ export const COURSES: Course[] = [
       { id: 'ai17', title: 'Fuzzy Logic', content: 'Fuzzy logic is a form of many-valued logic in which the truth values of variables may be any real number between 0 and 1 both inclusive. It is employed to handle the concept of partial truth, where the truth value may range between completely true and completely false.', codeSnippet: 'is_tall = 0.8 # 80% true', isCompleted: false },
       { id: 'ai18', title: 'Genetic Algorithms', content: 'In computer science and operations research, a genetic algorithm (GA) is a metaheuristic inspired by the process of natural selection that belongs to the larger class of evolutionary algorithms (EA). Genetic algorithms are commonly used to generate high-quality solutions to optimization and search problems by relying on biologically inspired operators such as mutation, crossover and selection.', codeSnippet: 'population = crossover(parents)\nmutate(population)', isCompleted: false },
       { id: 'ai19', title: 'Ethics in AI', content: 'As AI systems become more prevalent, ethical considerations around their development and deployment become crucial. Topics include algorithmic bias, privacy, transparency, and the potential impact of AI on employment and society.', codeSnippet: '# Principle: Fairness\n# Principle: Privacy\n# Principle: Accountability', isCompleted: false },
-      { id: 'ai20', title: 'Future of AI', content: 'The future of AI holds immense potential and significant challenges. We are looking towards Artificial General Intelligence (AGI), more seamless human-AI collaboration, and the integration of AI into almost every aspect of our lives, from healthcare to entertainment.', codeSnippet: '"""\nAGI remains a future goal.\nFocus on Human-in-the-loop systems.\n"""', isCompleted: false }
+      { id: 'ai20', title: 'Future of AI', content: 'The future of AI holds immense potential and significant challenges. We are looking towards Artificial General Intelligence (AGI), more seamless human-AI collaboration, and the integration of AI into almost every aspect of our lives, from healthcare to entertainment.', codeSnippet: '"""\nAGI remains a future goal.\nFocus on Human-in-the-loop systems.\n"""', isCompleted: false },
+      { id: 'ai21', title: 'AI in Healthcare', content: 'Artificial intelligence (AI) in healthcare is the use of complex algorithms and software primarily to estimate human cognition in the analysis of complicated medical data. Specifically, AI is the ability of computer algorithms to approximate conclusions without direct human input.', codeSnippet: 'Data: [Patient Vitals, History]\nAI Model: Risk Prediction', isCompleted: false },
+      { id: 'ai22', title: 'AI in Finance', content: 'AI in finance is transforming the industry by enabling better fraud detection, algorithmic trading, and personalized customer service. AI systems can analyze massive amounts of financial data in real-time to identify patterns and anomalies that humans might miss.', codeSnippet: 'if transaction.risk_score > threshold:\n    flag_fraud(transaction)', isCompleted: false },
+      { id: 'ai23', title: 'AI in Transportation', content: 'AI is a key driver of innovation in the transportation sector. From self-driving cars to optimized traffic management systems, AI is making transportation safer, more efficient, and more sustainable. Autonomous vehicles use computer vision and sensor fusion to navigate complex environments.', codeSnippet: 'vehicle.detect_objects()\nvehicle.plan_path()', isCompleted: false },
+      { id: 'ai24', title: 'AI in Entertainment', content: 'AI is revolutionizing the entertainment industry, from personalized content recommendations on streaming platforms to creating realistic special effects in movies. AI is also being used to compose music, write scripts, and even generate entire video games.', codeSnippet: 'recommendations = model.predict(user_preferences)', isCompleted: false },
+      { id: 'ai25', title: 'Generative AI', content: 'Generative AI refers to deep learning models that can generate high-quality text, images, and other content based on the data they were trained on. Models like GPT-4 and DALL-E are examples of generative AI that have captured the public imagination.', codeSnippet: 'prompt = "A futuristic city"\nimage = generate_image(prompt)', isCompleted: false }
     ]
   },
   {
@@ -343,49 +368,59 @@ export const COURSES: Course[] = [
     level: 'Advanced',
     progress: 0,
     lessons: [
-      { 
-        id: 'ml1', 
-        title: 'Intro to ML', 
-        content: `Machine Learning is a field of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn, gradually improving its accuracy.\n\nIBM defines machine learning as a branch of artificial intelligence and computer science that focuses on the use of data and algorithms to imitate the way that humans learn. It is one of the most exciting technologies that one would have ever come across. As it is evident from the name, it gives the computer that which makes it more similar to humans: The ability to learn.\n\nMachine learning is used in many of the technologies we use today, like speech recognition, image recognition, and recommendation engines.`, 
-        codeSnippet: 'import pandas as pd\nimport numpy as np\n# Load your dataset\ndata = pd.read_csv("data.csv")', 
-        isCompleted: false 
+      {
+        id: 'ml1',
+        title: 'Intro to ML',
+        content: `Machine Learning is a field of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn, gradually improving its accuracy.\n\nIBM defines machine learning as a branch of artificial intelligence and computer science that focuses on the use of data and algorithms to imitate the way that humans learn. It is one of the most exciting technologies that one would have ever come across. As it is evident from the name, it gives the computer that which makes it more similar to humans: The ability to learn.\n\nMachine learning is used in many of the technologies we use today, like speech recognition, image recognition, and recommendation engines.`,
+        codeSnippet: 'import pandas as pd\nimport numpy as np\n# Load your dataset\ndata = pd.read_csv("data.csv")',
+        isCompleted: false
       },
-      { 
-        id: 'ml2', 
-        title: 'Supervised Learning', 
-        content: `Supervised learning is a type of machine learning where the model is trained on a labeled dataset. A labeled dataset is one where the target variable (the thing you want to predict) is already known.\n\nThe goal of supervised learning is to build a mathematical model that can accurately predict the output for new, unseen data based on the patterns it learned from the training data.\n\nExamples of supervised learning tasks include classification (predicting a category, like spam or not spam) and regression (predicting a continuous value, like the price of a house).`, 
-        codeSnippet: 'from sklearn.model_selection import train_test_split\nX_train, X_test, y_train, y_test = train_test_split(X, y)', 
-        isCompleted: false 
+      {
+        id: 'ml2',
+        title: 'Supervised Learning',
+        content: `Supervised learning is a type of machine learning where the model is trained on a labeled dataset. A labeled dataset is one where the target variable (the thing you want to predict) is already known.\n\nThe goal of supervised learning is to build a mathematical model that can accurately predict the output for new, unseen data based on the patterns it learned from the training data.\n\nExamples of supervised learning tasks include classification (predicting a category, like spam or not spam) and regression (predicting a continuous value, like the price of a house).`,
+        codeSnippet: 'from sklearn.model_selection import train_test_split\nX_train, X_test, y_train, y_test = train_test_split(X, y)',
+        isCompleted: false
       },
-      { 
-        id: 'ml3', 
-        title: 'Unsupervised Learning', 
-        content: `Unsupervised learning is a type of machine learning where the model is trained on an unlabeled dataset. This means the target variable is not provided to the model.\n\nThe goal of unsupervised learning is to find hidden patterns or structures in the data on its own. It is often used for clustering (grouping similar data points together) and association (finding rules that describe large portions of your data).\n\nAn example of unsupervised learning is customer segmentation, where a company groups its customers based on their purchasing behavior without knowing the segments beforehand.`, 
-        codeSnippet: 'from sklearn.cluster import KMeans\nkmeans = KMeans(n_clusters=3)\nkmeans.fit(X)', 
-        isCompleted: false 
+      {
+        id: 'ml3',
+        title: 'Unsupervised Learning',
+        content: `Unsupervised learning is a type of machine learning where the model is trained on an unlabeled dataset. This means the target variable is not provided to the model.\n\nThe goal of unsupervised learning is to find hidden patterns or structures in the data on its own. It is often used for clustering (grouping similar data points together) and association (finding rules that describe large portions of your data).\n\nAn example of unsupervised learning is customer segmentation, where a company groups its customers based on their purchasing behavior without knowing the segments beforehand.`,
+        codeSnippet: 'from sklearn.cluster import KMeans\nkmeans = KMeans(n_clusters=3)\nkmeans.fit(X)',
+        isCompleted: false
       },
-      { 
-        id: 'ml4', 
-        title: 'Reinforcement Learning', 
-        content: `Reinforcement learning is a type of machine learning where an agent learns to make decisions by performing actions in an environment to maximize a reward.\n\nIt is inspired by behavioral psychology, where an agent receives positive or negative feedback based on its actions. Over time, the agent learns to take the actions that lead to the highest cumulative reward.\n\nReinforcement learning is often used in robotics, game playing (like AlphaGo), and navigation systems.`, 
-        codeSnippet: 'class ReinforcementAgent:\n    def update(self, state, action, reward, next_state):\n        # Update policy based on reward\n        pass', 
-        isCompleted: false 
+      {
+        id: 'ml4',
+        title: 'Reinforcement Learning',
+        content: `Reinforcement learning is a type of machine learning where an agent learns to make decisions by performing actions in an environment to maximize a reward.\n\nIt is inspired by behavioral psychology, where an agent receives positive or negative feedback based on its actions. Over time, the agent learns to take the actions that lead to the highest cumulative reward.\n\nReinforcement learning is often used in robotics, game playing (like AlphaGo), and navigation systems.`,
+        codeSnippet: 'class ReinforcementAgent:\n    def update(self, state, action, reward, next_state):\n        # Update policy based on reward\n        pass',
+        isCompleted: false
       },
-      { 
-        id: 'ml5', 
-        title: 'Data Preprocessing', 
-        content: `Data preprocessing is a crucial step in the machine learning workflow. Real-world data is often messy, incomplete, and contains errors. Preprocessing involves cleaning and transforming the data into a format that a machine learning model can understand.\n\nCommon preprocessing tasks include handling missing values, encoding categorical variables (converting text into numbers), and scaling numerical features (so they all have a similar range).\n\nWithout proper preprocessing, even the most advanced machine learning algorithms will perform poorly.`, 
-        codeSnippet: 'from sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\nX_scaled = scaler.fit_transform(X)', 
-        isCompleted: false 
+      {
+        id: 'ml5',
+        title: 'Data Preprocessing',
+        content: `Data preprocessing is a crucial step in the machine learning workflow. Real-world data is often messy, incomplete, and contains errors. Preprocessing involves cleaning and transforming the data into a format that a machine learning model can understand.\n\nCommon preprocessing tasks include handling missing values, encoding categorical variables (converting text into numbers), and scaling numerical features (so they all have a similar range).\n\nWithout proper preprocessing, even the most advanced machine learning algorithms will perform poorly.`,
+        codeSnippet: 'from sklearn.preprocessing import StandardScaler\nscaler = StandardScaler()\nX_scaled = scaler.fit_transform(X)',
+        isCompleted: false
       },
-      { 
+      {
         // Fix: Completed the missing Lesson object and added the required 'isCompleted' property.
-        id: 'ml6', 
-        title: 'Linear Regression', 
-        content: 'Linear regression is a linear approach for modelling the relationship between a scalar response and one or more explanatory variables. The relationship is modeled using linear predictor functions whose unknown model parameters are estimated from the data.', 
-        codeSnippet: 'from sklearn.linear_model import LinearRegression\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)', 
-        isCompleted: false 
-      }
+        id: 'ml6',
+        title: 'Linear Regression',
+        content: 'Linear regression is a linear approach for modelling the relationship between a scalar response and one or more explanatory variables. The relationship is modeled using linear predictor functions whose unknown model parameters are estimated from the data.',
+        codeSnippet: 'from sklearn.linear_model import LinearRegression\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)',
+        isCompleted: false
+      },
+      { id: 'ml7', title: 'Decision Trees', content: 'Decision Trees are a type of supervised learning algorithm that is mostly used in classification problems. It works for both categorical and continuous input and output variables. A decision tree is a flowchart-like structure where an internal node represents feature(or attribute), the branch represents a decision rule, and each leaf node represents the outcome.', codeSnippet: 'from sklearn.tree import DecisionTreeClassifier\nclf = DecisionTreeClassifier()\nclf.fit(X_train, y_train)', isCompleted: false },
+      { id: 'ml8', title: 'Random Forest', content: 'Random Forest is a popular machine learning algorithm that belongs to the supervised learning technique. It can be used for both Classification and Regression problems in ML. It is based on the concept of ensemble learning, which is a process of combining multiple classifiers to solve a complex problem and to improve the performance of the model.', codeSnippet: 'from sklearn.ensemble import RandomForestClassifier\nclf = RandomForestClassifier(n_estimators=100)\nclf.fit(X_train, y_train)', isCompleted: false },
+      { id: 'ml9', title: 'Logistic Regression', content: 'Logistic regression is a statistical model that in its basic form uses a logistic function to model a binary dependent variable, although many more complex extensions exist. In regression analysis, logistic regression (or logit regression) is estimating the parameters of a logistic model.', codeSnippet: 'from sklearn.linear_model import LogisticRegression\nclf = LogisticRegression()\nclf.fit(X_train, y_train)', isCompleted: false },
+      { id: 'ml10', title: 'K-Nearest Neighbors', content: 'K-Nearest Neighbors (KNN) is one of the simplest algorithms used in Machine Learning for regression and classification problem. KNN algorithms use data and classify new data points based on similarity measures (e.g. distance function).', codeSnippet: 'from sklearn.neighbors import KNeighborsClassifier\nknn = KNeighborsClassifier(n_neighbors=3)\nknn.fit(X_train, y_train)', isCompleted: false },
+      { id: 'ml11', title: 'Support Vector Machines', content: 'Support Vector Machine (SVM) is a supervised machine learning algorithm used for both classification and regression. Though we say regression problems as well its best suited for classification. The objective of the SVM algorithm is to find a hyperplane in an N-dimensional space that distinctly classifies the data points.', codeSnippet: 'from sklearn import svm\nclf = svm.SVC()\nclf.fit(X_train, y_train)', isCompleted: false },
+      { id: 'ml12', title: 'Naive Bayes', content: 'Naive Bayes classifiers are a collection of classification algorithms based on Bayes’ Theorem. It is not a single algorithm but a family of algorithms where all of them share a common principle, i.e. every pair of features being classified is independent of each other.', codeSnippet: 'from sklearn.naive_bayes import GaussianNB\ngnb = GaussianNB()\ngnb.fit(X_train, y_train)', isCompleted: false },
+      { id: 'ml13', title: 'Model Evaluation', content: 'Model evaluation is an integral part of the model development process. It helps to find the best model that represents our data and how well the chosen model will work in the future. Methods include accuracy, confusion matrix, logarithmic loss, AUC-ROC curve, etc.', codeSnippet: 'from sklearn.metrics import accuracy_score\nprint(accuracy_score(y_test, y_pred))', isCompleted: false },
+      { id: 'ml14', title: 'Cross Validation', content: 'Cross-validation is a resampling procedure used to evaluate machine learning models on a limited data sample. The procedure has a single parameter called k that refers to the number of groups that a given data sample is to be split into.', codeSnippet: 'from sklearn.model_selection import cross_val_score\nscores = cross_val_score(model, X, y, cv=5)', isCompleted: false },
+      { id: 'ml15', title: 'Hyperparameter Tuning', content: 'Hyperparameter tuning is the problem of choosing a set of optimal hyperparameters for a learning algorithm. A hyperparameter is a parameter whose value is used to control the learning process. Grid Search and Random Search are common methods.', codeSnippet: 'from sklearn.model_selection import GridSearchCV\ngrid = GridSearchCV(estimator, param_grid, cv=3)', isCompleted: false },
+      { id: 'ml16', title: 'Gradient Boosting', content: 'Gradient boosting is a machine learning technique for regression and classification problems, which produces a prediction model in the form of an ensemble of weak prediction models, typically decision trees. It builds the model in a stage-wise fashion like other boosting methods do.', codeSnippet: 'from sklearn.ensemble import GradientBoostingClassifier\nclf = GradientBoostingClassifier()\nclf.fit(X_train, y_train)', isCompleted: false }
     ]
   }
 ];
