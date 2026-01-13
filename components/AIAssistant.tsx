@@ -36,8 +36,10 @@ const AIAssistant: React.FC = () => {
     setIsLoading(true);
 
     try {
-      // Build history including the newly added user message to preserve order
-      const history = [...messages, userMessage].map(m => ({ role: m.role, parts: [{ text: m.content }] }));
+      // Build history, excluding the initial welcome message if it exists
+      // Gemini API requires the first message to be from the 'user' role
+      const historyToInclude = messages.filter((_, index) => index > 0);
+      const history = [...historyToInclude].map(m => ({ role: m.role, parts: [{ text: m.content }] }));
 
       // Use streaming endpoint if available. We will create an empty model
       // message and update it as chunks arrive from the response body.
@@ -118,8 +120,8 @@ const AIAssistant: React.FC = () => {
                 {msg.role === 'user' ? <UserIcon size={20} /> : <Bot size={20} />}
               </div>
               <div className={`p-5 rounded-3xl text-sm whitespace-pre-wrap leading-relaxed shadow-sm ${msg.role === 'user'
-                  ? 'bg-brand-900 text-white rounded-tr-none shadow-brand-200'
-                  : 'bg-white text-slate-700 rounded-tl-none border border-slate-100'
+                ? 'bg-brand-900 text-white rounded-tr-none shadow-brand-200'
+                : 'bg-white text-slate-700 rounded-tl-none border border-slate-100'
                 }`}>
                 {msg.content}
               </div>
