@@ -21,8 +21,10 @@ export default async function handler(req, res) {
         let user = await User.findOne({ email });
 
         if (user) {
-            // User exists - Login logic
-            // Ideally verify password here if provider is email (skipping hash check for simplicity in this step unless requested)
+            // User exists - Verify password
+            if (provider === 'email' && user.password !== password) {
+                return res.status(401).json({ error: 'Invalid password' });
+            }
             console.log('User logged in:', user.email);
         } else {
             // Create new user
