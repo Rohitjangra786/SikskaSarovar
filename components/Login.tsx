@@ -22,17 +22,17 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onCancel }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const endpoint = isSignUp ? '/api/auth/signup' : '/api/auth/login';
+      const body = isSignUp
+        ? { name: formData.name, email: formData.email, password: formData.password }
+        : { email: formData.email, password: formData.password };
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-          provider: 'email',
-        }),
+        body: JSON.stringify(body),
       });
 
       const data = await response.json();
@@ -43,11 +43,11 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onCancel }) => {
           email: data.user.email
         });
       } else {
-        alert(data.error || 'Login failed');
+        alert(data.error || (isSignUp ? 'Signup failed' : 'Login failed'));
       }
     } catch (error) {
-      console.error('Login error:', error);
-      alert('An error occurred during login');
+      console.error('Auth error:', error);
+      alert('An error occurred during authentication');
     } finally {
       setIsLoading(false);
     }

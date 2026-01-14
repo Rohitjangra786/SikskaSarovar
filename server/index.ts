@@ -27,6 +27,7 @@ async function ensureUsersTable() {
       id BIGSERIAL PRIMARY KEY,
       name TEXT,
       email TEXT UNIQUE,
+      password TEXT,
       provider TEXT,
       provider_id TEXT,
       picture TEXT,
@@ -41,7 +42,125 @@ async function ensureUsersTable() {
   await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS designation TEXT`);
   await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS age INTEGER`);
   await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS sex TEXT`);
+  await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS password TEXT`);
 }
+
+// Helper: Password Hashing using crypto
+function hashPassword(password: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const salt = crypto.randomBytes(16).toString('hex');
+    crypto.scrypt(password, salt, 64, (err, derivedKey) => {
+      if (err) reject(err);
+      resolve(`${salt}:${derivedKey.toString('hex')}`);
+    });
+  });
+}
+
+// Helper: Password Verification
+function verifyPassword(password: string, hash: string): Promise<boolean> {
+  return new Promise((resolve, reject) => {
+    const [salt, key] = hash.split(':');
+    crypto.scrypt(password, salt, 64, (err, derivedKey) => {
+      if (err) reject(err);
+      resolve(key === derivedKey.toString('hex'));
+    });
+  });
+}
+
+// Email/Password Signup
+app.post('/api/auth/signup', async (req, res) => {
+  const { name, email, password } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({ error: 'name, email and password are required' });
+  }
+
+  try {
+    await ensureUsersTable();
+
+    // Check if user exists
+    const existing = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    if (existing.rows.length > 0) {
+      return res.status(400).json({ error: 'email_in_use' });
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    const insertQuery = `
+        INSERT INTO users (name, email, password, provider, picture, last_login)
+        VALUES ($1, $2, $3, 'email', null, now())
+        RETURNING id, name, email, provider, picture, designation, age, sex, created_at, last_login
+    `;
+
+    const { rows } = await pool.query(insertQuery, [name, email, hashedPassword]);
+    const user = rows[0];
+
+    const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
+    const token = jwt.sign({ id: user.id, email: user.email }, secret, { expiresIn: '7d' });
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    return res.json({ success: true, user });
+  } catch (err) {
+    console.error('signup error', err);
+    return res.status(500).json({ error: 'internal_error' });
+  }
+});
+
+// Email/Password Login
+app.post('/api/auth/login', async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ error: 'email and password are required' });
+  }
+
+  try {
+    await ensureUsersTable();
+
+    const { rows } = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    const user = rows[0];
+
+    if (!user) {
+      return res.status(401).json({ error: 'invalid_credentials' });
+    }
+
+    // If user acts as 'email' provider but has no password (e.g. from bad migration), fail.
+    // If user signed up via social, they might not have a password.
+    if (!user.password) {
+      return res.status(400).json({ error: 'use_social_login' });
+    }
+
+    const isValid = await verifyPassword(password, user.password);
+    if (!isValid) {
+      return res.status(401).json({ error: 'invalid_credentials' });
+    }
+
+    // Update last login
+    await pool.query('UPDATE users SET last_login = now() WHERE id = $1', [user.id]);
+
+    const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
+    const token = jwt.sign({ id: user.id, email: user.email }, secret, { expiresIn: '7d' });
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    // Don't send password back
+    delete user.password;
+    return res.json({ success: true, user });
+
+  } catch (err) {
+    console.error('login error', err);
+    return res.status(500).json({ error: 'internal_error' });
+  }
+});
 
 app.post('/api/auth/social', async (req, res) => {
   const { provider, providerId, name, email, picture } = req.body;
