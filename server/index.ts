@@ -11,21 +11,10 @@ import { getPool } from '../services/db';
 import { chatWithSikshaAI } from '../services/geminiService';
 import crypto from 'crypto';
 import { COURSES } from '../constants';
-import * as fs from 'fs';
-const logStream = fs.createWriteStream('server-debug.log', { flags: 'a' });
-function logToFile(msg: string) {
-  const line = `[${new Date().toISOString()}] ${msg}\n`;
-  logStream.write(line);
-  console.log(msg);
-}
-
-// Override console methods to redirect to file
-console.log = logToFile;
-console.error = logToFile;
-
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
+
 app.use(bodyParser.json());
 app.use(cookieParser());
 
@@ -566,8 +555,11 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(distPath, 'index.html'));
 });
 
-const port = process.env.PORT ? Number(process.env.PORT) : 8080;
-app.listen(port, () => console.log(`Auth server running on http://localhost:${port}`));
+// Only start server if running directly (not imported as a module for Vercel)
+if (require.main === module) {
+  const port = process.env.PORT ? Number(process.env.PORT) : 8080;
+  app.listen(port, () => console.log(`Auth server running on http://localhost:${port}`));
+}
 
 // Safe startup check: report whether a GenAI API key is present (do not log the key)
 if (process.env.API_KEY && process.env.API_KEY.length > 0) {
@@ -575,3 +567,5 @@ if (process.env.API_KEY && process.env.API_KEY.length > 0) {
 } else {
   console.warn('No GenAI API key found in environment. AI features will not work until API_KEY is set.');
 }
+
+export default app;
