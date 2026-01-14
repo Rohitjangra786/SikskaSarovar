@@ -17,18 +17,40 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onCancel }) => {
     password: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      onLoginSuccess({
-        name: formData.name || 'Student',
-        email: formData.email
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          provider: 'email',
+        }),
       });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        onLoginSuccess({
+          name: data.user.name,
+          email: data.user.email
+        });
+      } else {
+        alert(data.error || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('An error occurred during login');
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   const handleGoogleLogin = () => {
