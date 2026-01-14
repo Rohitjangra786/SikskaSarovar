@@ -8,10 +8,12 @@ type Props = {
   lang?: string;
 };
 
+import PreviewImg from '../Images/Preview.jpg';
+
 const defaultSite = {
   title: 'SikshaSarovar - Learn Your Way',
   description: 'SikshaSarovar provides accessible, high-quality tutorials in web development, programming, and AI.',
-  image: '/Images/Preview.jpg',
+  image: PreviewImg,
   url: typeof window !== 'undefined' ? window.location.origin : 'https://sikshasarovar.com'
 };
 
