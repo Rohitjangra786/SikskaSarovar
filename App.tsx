@@ -6,7 +6,7 @@ import AIAssistant from './components/AIAssistant';
 import SEO from './components/SEO';
 import LessonViewer from './components/LessonViewer';
 import Playground from './components/Playground';
-import Login from './components/Login';
+
 import Settings from './components/Settings';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
@@ -111,17 +111,15 @@ function useScrollDirection() {
 
 
 const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [currentUser, setCurrentUser] = useState<any | null>(null);
   const [activeTab, setActiveTab] = useState('home');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
   const [playgroundCode, setPlaygroundCode] = useState('');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
-  const [showUserMenu, setShowUserMenu] = useState(false);
   const scrollDirection = useScrollDirection();
+  const isLoggedIn = false; // Forced to false
+  const currentUser = null;
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
@@ -149,72 +147,11 @@ const App: React.FC = () => {
         }
       }
     }
-    const savedUser = localStorage.getItem('siksha_user');
-    if (savedUser) {
-      setCurrentUser(JSON.parse(savedUser));
-      setIsLoggedIn(true);
-    }
     const savedProgress = localStorage.getItem('siksha_progress');
     if (savedProgress) {
       setCompletedLessons(JSON.parse(savedProgress));
     }
-    // Try server session first (cookie-based JWT)
-    (async () => {
-      try {
-        const r = await fetch('/api/auth/me', { credentials: 'include' });
-        if (r.ok) {
-          const j = await r.json();
-          if (j.user) {
-            setCurrentUser({ name: j.user.name, email: j.user.email, designation: j.user.designation || '', age: j.user.age ?? '', sex: j.user.sex || '' });
-            setIsLoggedIn(true);
-            localStorage.setItem('siksha_user', JSON.stringify({ name: j.user.name, email: j.user.email }));
-
-            // Fetch progress from DB
-            try {
-              const pRes = await fetch('/api/progress', { credentials: 'include' });
-              if (pRes.ok) {
-                const pData = await pRes.json();
-                setCompletedLessons(pData.completedLessons || []);
-              }
-            } catch (err) {
-              console.error('Failed to fetch progress', err);
-            }
-          }
-        }
-      } catch (err) {
-        // ignore -- no server session
-      }
-    })();
   }, []);
-
-  const handleLoginSuccess = async (user: { name: string, email: string }) => {
-    setCurrentUser(user);
-    setIsLoggedIn(true);
-    setShowLogin(false);
-    localStorage.setItem('siksha_user', JSON.stringify(user));
-
-    // Fetch progress on login
-    try {
-      const pRes = await fetch('/api/progress', { credentials: 'include' });
-      if (pRes.ok) {
-        const pData = await pRes.json();
-        setCompletedLessons(pData.completedLessons || []);
-      }
-    } catch (err) {
-      console.error('Failed to fetch progress', err);
-    }
-  };
-
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setCurrentUser(null);
-    localStorage.removeItem('siksha_user');
-    // Clear progress on logout or keep it? Keeping it in local state might be confusing, clearing it is safer.
-    setCompletedLessons([]);
-    setShowUserMenu(false);
-    // Call logout endpoint to clear cookie
-    fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => { });
-  };
 
   const toggleLessonCompletion = async (lessonId: string) => {
     // Optimistic update
@@ -225,21 +162,6 @@ const App: React.FC = () => {
 
     setCompletedLessons(newState);
     localStorage.setItem('siksha_progress', JSON.stringify(newState));
-
-    if (isLoggedIn) {
-      try {
-        await fetch('/api/progress', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify({ lessonId, completed: !wasCompleted })
-        });
-      } catch (err) {
-        console.error('Failed to save progress', err);
-        // Revert on failure
-        setCompletedLessons(prev => wasCompleted ? [...prev, lessonId] : prev.filter(id => id !== lessonId));
-      }
-    }
   };
 
 
@@ -360,13 +282,8 @@ const App: React.FC = () => {
     handleNavigate('playground', '/playground');
   };
 
-  if (showLogin) {
-    return (
-      <>
-        <SEO title="Sign In" description="Sign in to SikshaSarovar to save progress and access premium features." />
-        <Login onLoginSuccess={handleLoginSuccess} onCancel={() => setShowLogin(false)} />
-      </>
-    );
+  if (false) { // Login removed
+    return null;
   }
 
   const renderHome = () => (
@@ -396,15 +313,7 @@ const App: React.FC = () => {
                 <Play fill="currentColor" size={18} />
                 START LEARNING
               </button>
-              {!isLoggedIn && (
-                <button
-                  onClick={() => setShowLogin(true)}
-                  className="bg-brand-800/40 backdrop-blur-xl text-white border border-white/20 px-10 py-5 rounded-2xl hover:bg-brand-700/60 transition-all font-black uppercase tracking-widest text-sm flex items-center gap-3"
-                >
-                  <CloudUpload size={18} />
-                  SYNC PROGRESS
-                </button>
-              )}
+
             </div>
           </div>
           <div className="w-full lg:w-auto hidden md:block">
@@ -428,26 +337,7 @@ const App: React.FC = () => {
                     <div className="h-full bg-accent-500 shadow-[0_0_10px_rgba(211,177,109,0.5)] transition-all duration-1000" style={{ width: `${Math.min(100, completedLessons.length * 5)}%` }}></div>
                   </div>
                 </div>
-                {!isLoggedIn ? (
-                  <div className="p-4 bg-white/5 rounded-2xl border border-white/10">
-                    <p className="text-[9px] font-bold text-accent-500 uppercase tracking-widest mb-2">Guest Account</p>
-                    <p className="text-xs text-brand-100/70 leading-relaxed mb-4">Your progress is being saved locally. Create an account to access it from any device.</p>
-                    <button
-                      onClick={() => setShowLogin(true)}
-                      className="w-full bg-accent-500 text-brand-900 font-black py-3 rounded-xl text-[10px] uppercase tracking-widest hover:bg-accent-400 transition-all"
-                    >
-                      Save to Cloud
-                    </button>
-                  </div>
-                ) : (
-                  <div className="pt-6 border-t border-white/10 flex justify-between items-center">
-                    <div>
-                      <p className="text-[10px] opacity-60 font-black uppercase tracking-widest text-brand-100">CLOUD SYNC</p>
-                      <p className="text-lg font-black text-accent-500">Active</p>
-                    </div>
-                    <Zap className="text-accent-500" size={24} fill="currentColor" />
-                  </div>
-                )}
+                <div></div>
               </div>
             </div>
           </div>
@@ -482,15 +372,7 @@ const App: React.FC = () => {
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            {!isLoggedIn && (
-              <div className="mt-6 pt-6 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p className="text-xs text-slate-400 font-medium">Tracking {completedLessons.length} completed tasks today.</p>
-                <button onClick={() => setShowLogin(true)} className="text-brand-600 font-black text-[10px] uppercase tracking-widest hover:underline flex items-center gap-2">
-                  <CloudUpload size={14} />
-                  Sync this data to my profile
-                </button>
-              </div>
-            )}
+
           </div>
 
           <div>
@@ -538,14 +420,7 @@ const App: React.FC = () => {
                 </div>
               ))}
             </div>
-            {!isLoggedIn && (
-              <button
-                onClick={() => setShowLogin(true)}
-                className="w-full mt-6 bg-white/10 border border-white/20 text-white font-black py-4 rounded-2xl text-[10px] uppercase tracking-widest hover:bg-white/20 transition-all"
-              >
-                Sign In to Save Goals
-              </button>
-            )}
+
           </div>
         </div>
       </div>
@@ -639,11 +514,11 @@ const App: React.FC = () => {
     if (activeTab === 'lesson' && activeLesson && selectedCourse) {
       const title = `${activeLesson.title} — ${selectedCourse.title}`;
       const desc = activeLesson.content.replace(/\n+/g, ' ').slice(0, 160);
-      const url = `${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/${selectedCourse.id}/lesson/${activeLesson.id}`;
+      const url = `${typeof window !== 'undefined' ? window.location.origin : 'https://www.sikshasarovar.com'}/${selectedCourse.id}/lesson/${activeLesson.id}`;
       return { title, description: desc, url };
     }
-    if (activeTab === 'about') return { title: 'About SikshaSarovar', description: 'About SikshaSarovar - our mission, team and values.', url: `${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}/about` };
-    return { title: 'SikshaSarovar', description: 'SikshaSarovar - interactive tutorials and projects for web development and AI.', url: typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000' };
+    if (activeTab === 'about') return { title: 'About SikshaSarovar', description: 'About SikshaSarovar - our mission, team and values.', url: `${typeof window !== 'undefined' ? window.location.origin : 'https://www.sikshasarovar.com'}/about` };
+    return { title: 'SikshaSarovar', description: 'SikshaSarovar - interactive tutorials and projects for web development and AI.', url: typeof window !== 'undefined' ? window.location.origin : 'https://www.sikshasarovar.com' };
   })();
 
   return (
@@ -715,34 +590,9 @@ const App: React.FC = () => {
 
             {/* Settings moved into user dropdown; header button removed */}
 
-            {!isLoggedIn ? (
-              <div className="flex items-center gap-2">
-                <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest</span>
-                <button
-                  onClick={() => setShowLogin(true)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-900 text-white text-[10px] font-black uppercase tracking-widest shadow-xl shadow-brand-900/20 hover:scale-105 active:scale-95 transition-all"
-                >
-                  <LogIn size={12} />
-                  Login
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 ml-1 pl-3 border-l border-brand-100 relative cursor-pointer">
-                <div className="text-right" onClick={() => setShowUserMenu(s => !s)}>
-                  <p className="text-[10px] font-black text-brand-900 leading-none">{currentUser?.name}</p>
-                  <p className="text-[8px] font-bold text-accent-500 uppercase tracking-widest mt-0.5">Pro</p>
-                </div>
-                <img onClick={() => setShowUserMenu(s => !s)} src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser?.name}`} className="w-7 h-7 rounded-lg bg-white border border-brand-200 shadow-sm" alt="User" />
-                <div className={`absolute right-0 top-full mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-2xl transition-all duration-200 z-50 overflow-hidden ${showUserMenu ? 'opacity-100 visible translate-y-2' : 'opacity-0 invisible -translate-y-2'}`}>
-                  <div className="p-4 border-b border-slate-50">
-                    <p className="text-xs font-black text-brand-900">{currentUser?.name}</p>
-                    <p className="text-[10px] text-slate-400 truncate">{currentUser?.email}</p>
-                  </div>
-                  <button onClick={() => { handleNavigate('settings', '/settings'); setShowUserMenu(false); }} className="w-full text-left px-4 py-3 text-[10px] font-black uppercase hover:bg-slate-50 transition-colors">Settings</button>
-                  <button onClick={() => { handleLogout(); setShowUserMenu(false); }} className="w-full text-left px-4 py-3 text-[10px] font-black uppercase text-rose-500 hover:bg-rose-50 transition-colors">Logout</button>
-                </div>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest</span>
+            </div>
 
             <button className="bg-white p-1.5 rounded-lg border border-brand-200 text-brand-900 hover:bg-brand-900 hover:text-white transition-all">
               <Bell size={16} />

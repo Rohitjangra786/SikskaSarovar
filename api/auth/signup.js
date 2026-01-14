@@ -10,8 +10,8 @@ export default async function handler(req, res) {
 
     const { name, email, password, provider } = req.body;
 
-    if (!email) {
-        return res.status(400).json({ error: 'Email is required' });
+    if (!email || !password || !name) {
+        return res.status(400).json({ error: 'Name, email and password are required' });
     }
 
     try {
@@ -21,19 +21,23 @@ export default async function handler(req, res) {
         let user = await User.findOne({ email });
 
         if (user) {
-            // User exists - Verify password
-            if (provider === 'email' && user.password !== password) {
-                return res.status(401).json({ error: 'Invalid password' });
-            }
-            console.log('User logged in:', user.email);
-        } else {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(400).json({ error: 'User already exists' });
         }
 
-        // Track Login Activity
+        // Create new user
+        user = await User.create({
+            name,
+            email,
+            password, // Ideally hash this!
+            provider: provider || 'email',
+        });
+
+        console.log('New user created:', user.email);
+
+        // Track Signup Activity
         await Activity.create({
             userId: user._id,
-            action: 'login',
+            action: 'signup',
             details: { provider: provider || 'email' }
         });
 
@@ -47,7 +51,7 @@ export default async function handler(req, res) {
         });
 
     } catch (error) {
-        console.error('Auth Error:', error);
-        return res.status(500).json({ error: 'Authentication Failed' });
+        console.error('Signup Error:', error);
+        return res.status(500).json({ error: 'Signup Failed' });
     }
 }

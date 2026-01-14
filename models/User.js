@@ -16,18 +16,39 @@ const UserSchema = new mongoose.Schema({
         type: String,
         // Not required if using OAuth (Google), but required for email/password
     },
-    image: {
+    picture: {
         type: String,
     },
     provider: {
         type: String,
-        enum: ['email', 'google'],
+        enum: ['email', 'google', 'facebook'],
         default: 'email',
+    },
+    provider_id: {
+        type: String,
+    },
+    designation: {
+        type: String,
+    },
+    age: {
+        type: Number,
+    },
+    sex: {
+        type: String,
+    },
+    last_login: {
+        type: Date,
+        default: Date.now,
     },
     createdAt: {
         type: Date,
         default: Date.now,
     },
+    // Embedded progress tracking
+    progress: [{
+        lessonId: { type: String, required: true },
+        completedAt: { type: Date, default: Date.now }
+    }]
 });
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);
