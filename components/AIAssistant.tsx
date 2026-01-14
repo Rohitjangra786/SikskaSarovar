@@ -1,18 +1,21 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User as UserIcon, Loader2, Sparkles } from 'lucide-react';
+import { Send, Bot, User as UserIcon, Loader2, Sparkles, WifiOff } from 'lucide-react';
 import { Message } from '../types';
+import { handleOfflineQuery } from '../lib/offlineAI';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const AIAssistant: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
-      content: "Hello! I'm SikshaSarovar AI. I'm trained in the SikshaSarovar methodology to help you master code. How can I assist your journey today?",
+      content: "Hello! I'm SikshaSarovar AI. I can help you learn web development and programming. Ask me anything!",
       timestamp: new Date()
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isOfflineMode, setIsOfflineMode] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -30,70 +33,64 @@ const AIAssistant: React.FC = () => {
       timestamp: new Date()
     };
 
-    // Append the user message immediately so it appears in the UI
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
-    try {
-      // Build history, excluding the initial welcome message if it exists
-      // Gemini API requires the first message to be from the 'user' role
-      const historyToInclude = messages.filter((_, index) => index > 0);
-      const history = [...historyToInclude].map(m => ({ role: m.role, parts: [{ text: m.content }] }));
+    // Try Gemini API first (if available), otherwise use offline mode
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.VITE_API_KEY;
 
-      // Use streaming endpoint if available. We will create an empty model
-      // message and update it as chunks arrive from the response body.
-      // Append a placeholder model message now so we can update it.
-      setMessages(prev => [...prev, { role: 'model', content: '', timestamp: new Date() }]);
+    if (apiKey) {
+      try {
+        const genAI = new GoogleGenerativeAI(apiKey);
+        const model = genAI.getGenerativeModel({
+          model: "gemini-pro",
+          systemInstruction: `You are Siksha AI, the expert coding tutor for SikshaSarovar.com. 
+          Your goal is to help students learn web development, programming, and computer science. 
+          Keep answers concise, educational, and encouraging.`
+        });
 
-      const r = await fetch('/api/ai/stream', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ message: userMessage.content, history })
-      });
+        const history = messages
+          .filter((_, index) => index > 0)
+          .map(m => ({
+            role: m.role,
+            parts: [{ text: m.content }]
+          }));
 
-      if (!r.ok || !r.body) {
-        const errText = await r.text().catch(() => 'server error');
-        throw new Error(`AI request failed: ${r.status} ${errText}`);
+        const chat = model.startChat({ history });
+        const result = await chat.sendMessage(userMessage.content);
+        const response = await result.response;
+        const text = response.text();
+
+        setIsOfflineMode(false);
+        setMessages(prev => [...prev, {
+          role: 'model',
+          content: text,
+          timestamp: new Date()
+        }]);
+      } catch (error) {
+        console.error('Gemini API failed, using offline mode:', error);
+        // Fallback to offline mode
+        const offlineResponse = handleOfflineQuery(userMessage.content);
+        setIsOfflineMode(true);
+        setMessages(prev => [...prev, {
+          role: 'model',
+          content: offlineResponse,
+          timestamp: new Date()
+        }]);
       }
-
-      const reader = r.body.getReader();
-      const decoder = new TextDecoder();
-      let done = false;
-      let accumulated = '';
-
-      // Update the last message in state incrementally as chunks arrive
-      while (!done) {
-        const { value, done: d } = await reader.read();
-        done = d;
-        if (value) {
-          const chunk = decoder.decode(value, { stream: true });
-          accumulated += chunk;
-          setMessages(prev => {
-            // replace the last model message with updated content
-            const copy = [...prev];
-            for (let i = copy.length - 1; i >= 0; i--) {
-              if (copy[i].role === 'model') {
-                copy[i] = { ...copy[i], content: accumulated };
-                break;
-              }
-            }
-            return copy;
-          });
-        }
-      }
-    } catch (error) {
-      console.error(error);
-      const msg = error instanceof Error ? error.message : String(error);
+    } else {
+      // No API key, use offline mode directly
+      const offlineResponse = handleOfflineQuery(userMessage.content);
+      setIsOfflineMode(true);
       setMessages(prev => [...prev, {
         role: 'model',
-        content: `Error: ${msg}`,
+        content: offlineResponse,
         timestamp: new Date()
       }]);
-    } finally {
-      setIsLoading(false);
     }
+
+    setIsLoading(false);
   };
 
   return (
@@ -102,13 +99,21 @@ const AIAssistant: React.FC = () => {
         <div className="bg-white/10 p-3 rounded-2xl shadow-inner backdrop-blur-md">
           <Sparkles className="text-accent-500" size={24} />
         </div>
-        <div>
+        <div className="flex-1">
           <h2 className="text-white font-black text-xl tracking-tight">SikshaSarovar AI</h2>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></span>
-            <p className="text-brand-100 text-[10px] font-black uppercase tracking-widest">Powered by SikshaSarovar</p>
+            <p className="text-brand-100 text-[10px] font-black uppercase tracking-widest">
+              {isOfflineMode ? 'Offline Mode' : 'Ready to Help'}
+            </p>
           </div>
         </div>
+        {isOfflineMode && (
+          <div className="bg-accent-500/20 border border-accent-500/30 px-3 py-1.5 rounded-xl flex items-center gap-2">
+            <WifiOff className="text-accent-500" size={14} />
+            <span className="text-accent-500 text-[10px] font-black uppercase tracking-widest">Offline</span>
+          </div>
+        )}
       </div>
 
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-50/30 custom-scrollbar">
@@ -136,7 +141,7 @@ const AIAssistant: React.FC = () => {
               </div>
               <div className="bg-white p-5 rounded-3xl rounded-tl-none border border-slate-100 shadow-sm flex items-center gap-3 text-slate-400 font-bold italic text-xs">
                 <Loader2 size={16} className="animate-spin text-accent-500" />
-                Processing your request...
+                Thinking...
               </div>
             </div>
           </div>

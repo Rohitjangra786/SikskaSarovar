@@ -16,6 +16,7 @@ import {
   Box
 } from 'lucide-react';
 import { Course } from './types';
+import MLAppsImg from './Images/ml-applications.jpg';
 
 // Fix: Added missing ICON_MAP export which was causing errors in Sidebar, CourseCard, and App components.
 export const ICON_MAP: Record<string, React.ReactNode> = {
@@ -420,7 +421,87 @@ export const COURSES: Course[] = [
       { id: 'ml13', title: 'Model Evaluation', content: 'Model evaluation is an integral part of the model development process. It helps to find the best model that represents our data and how well the chosen model will work in the future. Methods include accuracy, confusion matrix, logarithmic loss, AUC-ROC curve, etc.', codeSnippet: 'from sklearn.metrics import accuracy_score\nprint(accuracy_score(y_test, y_pred))', isCompleted: false },
       { id: 'ml14', title: 'Cross Validation', content: 'Cross-validation is a resampling procedure used to evaluate machine learning models on a limited data sample. The procedure has a single parameter called k that refers to the number of groups that a given data sample is to be split into.', codeSnippet: 'from sklearn.model_selection import cross_val_score\nscores = cross_val_score(model, X, y, cv=5)', isCompleted: false },
       { id: 'ml15', title: 'Hyperparameter Tuning', content: 'Hyperparameter tuning is the problem of choosing a set of optimal hyperparameters for a learning algorithm. A hyperparameter is a parameter whose value is used to control the learning process. Grid Search and Random Search are common methods.', codeSnippet: 'from sklearn.model_selection import GridSearchCV\ngrid = GridSearchCV(estimator, param_grid, cv=3)', isCompleted: false },
-      { id: 'ml16', title: 'Gradient Boosting', content: 'Gradient boosting is a machine learning technique for regression and classification problems, which produces a prediction model in the form of an ensemble of weak prediction models, typically decision trees. It builds the model in a stage-wise fashion like other boosting methods do.', codeSnippet: 'from sklearn.ensemble import GradientBoostingClassifier\nclf = GradientBoostingClassifier()\nclf.fit(X_train, y_train)', isCompleted: false }
+      { id: 'ml16', title: 'Gradient Boosting', content: 'Gradient boosting is a machine learning technique for regression and classification problems, which produces a prediction model in the form of an ensemble of weak prediction models, typically decision trees. It builds the model in a stage-wise fashion like other boosting methods do.', codeSnippet: 'from sklearn.ensemble import GradientBoostingClassifier\nclf = GradientBoostingClassifier()\nclf.fit(X_train, y_train)', isCompleted: false },
+
+      // Machine Learning Applications
+      {
+        id: 'ml-app-intro',
+        title: 'ML Applications Overview',
+        content: 'Machine learning has a wide range of applications across various industries and fields. From image recognition to healthcare, autonomous vehicles to financial services, ML is transforming how we interact with technology and improving efficiency and decision-making processes. This section explores 10 major application areas where machine learning is making a significant impact.',
+        image: MLAppsImg,
+        codeSnippet: 'import pandas as pd\nimport numpy as np\nfrom sklearn.model_selection import train_test_split\n\n# Load dataset\ndata = pd.read_csv("data.csv")\nX = data.drop("target", axis=1)\ny = data["target"]\n\n# Split data\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)',
+        isCompleted: false
+      },
+      {
+        id: 'ml-image-recognition',
+        title: 'Image and Object Recognition',
+        content: 'Machine learning algorithms can be trained to recognize and classify images, enabling applications such as facial recognition, object detection, and autonomous driving. Convolutional Neural Networks (CNNs) are particularly effective for image recognition tasks. These systems can identify faces, detect objects in real-time, and enable self-driving cars to perceive their environment.',
+        codeSnippet: 'from tensorflow.keras.models import Sequential\nfrom tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense\n\n# Build CNN model\nmodel = Sequential([\n    Conv2D(32, (3, 3), activation=\'relu\', input_shape=(64, 64, 3)),\n    MaxPooling2D(2, 2),\n    Conv2D(64, (3, 3), activation=\'relu\'),\n    MaxPooling2D(2, 2),\n    Flatten(),\n    Dense(128, activation=\'relu\'),\n    Dense(10, activation=\'softmax\')\n])\n\nmodel.compile(optimizer=\'adam\', loss=\'categorical_crossentropy\', metrics=[\'accuracy\'])',
+        isCompleted: false
+      },
+      {
+        id: 'ml-nlp',
+        title: 'Natural Language Processing (NLP)',
+        content: 'Machine learning is used to process and understand human language, enabling applications like sentiment analysis, language translation, chatbots, and speech recognition. NLP allows computers to read, understand, and derive meaning from human languages. It powers virtual assistants, automatic translation services, and text analysis tools.',
+        codeSnippet: 'from transformers import pipeline\n\n# Sentiment Analysis\nsentiment_analyzer = pipeline("sentiment-analysis")\nresult = sentiment_analyzer("I love machine learning!")\nprint(result)  # [{"label": "POSITIVE", "score": 0.9998}]\n\n# Text Translation\ntranslator = pipeline("translation_en_to_fr")\nresult = translator("Hello, how are you?")\nprint(result)  # [{"translation_text": "Bonjour, comment allez-vous?"}]',
+        isCompleted: false
+      },
+      {
+        id: 'ml-recommender',
+        title: 'Recommender Systems',
+        content: 'Machine learning algorithms can analyze user preferences and behavior to provide personalized recommendations, such as movie or product recommendations on platforms like Netflix or Amazon. Recommender systems use collaborative filtering, content-based filtering, or hybrid approaches to suggest items users are likely to enjoy based on their past behavior and similar users\' preferences.',
+        codeSnippet: 'from sklearn.neighbors import NearestNeighbors\nimport numpy as np\n\n# User-item matrix (users x items)\nuser_item_matrix = np.array([\n    [5, 3, 0, 1],\n    [4, 0, 0, 1],\n    [1, 1, 0, 5],\n    [0, 0, 5, 4]\n])\n\n# Collaborative Filtering\nmodel = NearestNeighbors(metric=\'cosine\', algorithm=\'brute\')\nmodel.fit(user_item_matrix)\n\n# Find similar users\ndistances, indices = model.kneighbors([user_item_matrix[0]], n_neighbors=3)\nprint(f"Similar users: {indices}")',
+        isCompleted: false
+      },
+      {
+        id: 'ml-fraud-detection',
+        title: 'Fraud Detection',
+        content: 'Machine learning can detect patterns and anomalies in large datasets to identify fraudulent transactions or activities in industries like banking, insurance, and cybersecurity. By analyzing historical transaction data, ML models can identify unusual patterns that may indicate fraud, such as unusual spending patterns, geographic anomalies, or suspicious account activities.',
+        codeSnippet: 'from sklearn.ensemble import IsolationForest\nimport pandas as pd\n\n# Load transaction data\ntransactions = pd.read_csv("transactions.csv")\nfeatures = transactions[[\'amount\', \'time\', \'location_id\']]\n\n# Train anomaly detection model\nmodel = IsolationForest(contamination=0.01, random_state=42)\nmodel.fit(features)\n\n# Predict anomalies (-1 = fraud, 1 = normal)\npredictions = model.predict(features)\ntransactions[\'is_fraud\'] = predictions == -1\n\nprint(f"Detected {transactions[\'is_fraud\'].sum()} fraudulent transactions")',
+        isCompleted: false
+      },
+      {
+        id: 'ml-predictive-analytics',
+        title: 'Predictive Analytics',
+        content: 'Machine learning models can analyze historical data to make predictions and forecasts about future events, such as predicting customer churn, stock market trends, or equipment failure in predictive maintenance. These models identify patterns in historical data and use them to forecast future outcomes, enabling businesses to make proactive decisions.',
+        codeSnippet: 'from sklearn.ensemble import RandomForestClassifier\nimport pandas as pd\n\n# Customer churn prediction\ndata = pd.read_csv("customer_data.csv")\nX = data[[\'tenure\', \'monthly_charges\', \'total_charges\', \'num_services\']]\ny = data[\'churned\']\n\n# Train model\nmodel = RandomForestClassifier(n_estimators=100, random_state=42)\nmodel.fit(X_train, y_train)\n\n# Predict churn probability\nchurn_probability = model.predict_proba(X_test)[:, 1]\nprint(f"Churn risk: {churn_probability[0]:.2%}")',
+        isCompleted: false
+      },
+      {
+        id: 'ml-healthcare',
+        title: 'Healthcare Applications',
+        content: 'Machine learning is being used for various healthcare applications, including disease diagnosis, medical image analysis, personalized treatment recommendations, drug discovery, and genomics. ML models can analyze medical images to detect diseases like cancer, predict patient outcomes, discover new drugs, and provide personalized treatment plans based on patient data and genetic information.',
+        codeSnippet: 'from sklearn.ensemble import GradientBoostingClassifier\nimport numpy as np\n\n# Disease diagnosis model\npatient_features = np.array([\n    [45, 120, 80, 5.5, 200],  # age, bp_sys, bp_dia, glucose, cholesterol\n])\n\n# Train diagnostic model\nmodel = GradientBoostingClassifier()\nmodel.fit(X_train, y_train)\n\n# Predict disease probability\ndisease_prob = model.predict_proba(patient_features)[0][1]\nprint(f"Disease probability: {disease_prob:.2%}")',
+        isCompleted: false
+      },
+      {
+        id: 'ml-autonomous-vehicles',
+        title: 'Autonomous Vehicles',
+        content: 'Machine learning is a crucial technology for developing self-driving cars and autonomous vehicles. It enables the vehicles to perceive and interpret their surroundings, make decisions, and navigate safely. ML models process data from cameras, lidar, radar, and other sensors to detect objects, recognize traffic signs, predict pedestrian behavior, and plan safe routes.',
+        codeSnippet: 'import cv2\nimport numpy as np\n\n# Lane detection for autonomous driving\ndef detect_lanes(image):\n    # Convert to grayscale\n    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)\n    \n    # Apply Gaussian blur\n    blur = cv2.GaussianBlur(gray, (5, 5), 0)\n    \n    # Canny edge detection\n    edges = cv2.Canny(blur, 50, 150)\n    \n    # Hough transform for line detection\n    lines = cv2.HoughLinesP(edges, 1, np.pi/180, 100, minLineLength=100, maxLineGap=50)\n    \n    return lines\n\n# Process camera feed\nimage = cv2.imread(\'road.jpg\')\nlanes = detect_lanes(image)',
+        isCompleted: false
+      },
+      {
+        id: 'ml-financial-services',
+        title: 'Financial Services',
+        content: 'Machine learning is employed in financial institutions for credit scoring, fraud detection, algorithmic trading, risk assessment, and customer segmentation. ML models analyze financial data to assess creditworthiness, execute trades automatically, predict market trends, evaluate investment risks, and segment customers for targeted marketing.',
+        codeSnippet: 'from sklearn.linear_model import LogisticRegression\nimport pandas as pd\n\n# Credit scoring model\napplicant_data = pd.DataFrame({\n    \'income\': [50000, 75000, 30000],\n    \'debt_ratio\': [0.3, 0.2, 0.6],\n    \'credit_history\': [750, 680, 600],\n    \'employment_years\': [5, 10, 2]\n})\n\n# Train credit scoring model\nmodel = LogisticRegression()\nmodel.fit(X_train, y_train)\n\n# Predict credit approval\ncredit_score = model.predict_proba(applicant_data)[:, 1]\nprint(f"Approval probability: {credit_score}")',
+        isCompleted: false
+      },
+      {
+        id: 'ml-robotics',
+        title: 'Robotics',
+        content: 'Machine learning algorithms are used in robotics for perception, control, and decision-making tasks. They enable robots to adapt to changing environments, learn new tasks, and interact with humans. ML allows robots to recognize objects, navigate complex environments, manipulate objects with precision, and learn from demonstrations.',
+        codeSnippet: 'import gym\nimport numpy as np\n\n# Reinforcement Learning for robot control\nenv = gym.make(\'RoboticArm-v0\')\n\nclass RobotAgent:\n    def __init__(self, state_size, action_size):\n        self.q_table = np.zeros((state_size, action_size))\n        self.learning_rate = 0.1\n        self.discount_factor = 0.95\n    \n    def choose_action(self, state, epsilon=0.1):\n        if np.random.random() < epsilon:\n            return env.action_space.sample()  # Explore\n        return np.argmax(self.q_table[state])  # Exploit',
+        isCompleted: false
+      },
+      {
+        id: 'ml-industrial-automation',
+        title: 'Industrial Automation',
+        content: 'Machine learning helps optimize manufacturing processes, predictive maintenance, quality control, and supply chain management by analyzing large amounts of data collected from sensors and machines. ML models can predict equipment failures before they occur, detect defects in products, optimize production schedules, and improve supply chain efficiency.',
+        codeSnippet: 'from sklearn.ensemble import RandomForestRegressor\nimport pandas as pd\n\n# Predictive maintenance model\nsensor_data = pd.DataFrame({\n    \'temperature\': [75, 82, 95, 105],\n    \'vibration\': [0.5, 0.7, 1.2, 1.8],\n    \'pressure\': [100, 105, 110, 120],\n    \'runtime_hours\': [1000, 1500, 2000, 2500]\n})\n\n# Train failure prediction model\nmodel = RandomForestRegressor(n_estimators=100)\nmodel.fit(X_train, y_train)\n\n# Predict remaining useful life\nremaining_life = model.predict(sensor_data)\nprint(f"Equipment will fail in {remaining_life[0]:.0f} hours")\n\n# Schedule maintenance\nif remaining_life[0] < 100:\n    print("⚠️ Schedule maintenance immediately!")',
+        isCompleted: false
+      }
     ]
   }
 ];

@@ -3,6 +3,7 @@ export interface Lesson {
   id: string;
   title: string;
   content: string;
+  image?: string;
   codeSnippet?: string;
   isCompleted: boolean;
 }

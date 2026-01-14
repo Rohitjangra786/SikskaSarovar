@@ -5,45 +5,147 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { chatWithSikshaAI } from '../services/geminiService';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { COURSES } from '../constants';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(bodyParser.json());
 
-// AI chat endpoint
-app.post('/api/ai/chat', async (req, res) => {
-  const { message, history } = req.body || {};
-  try {
-    const reply = await chatWithSikshaAI(message, history || []);
-    return res.json({ text: reply });
-  } catch (err) {
-    console.error('AI chat error', err);
-    const message = err instanceof Error ? err.message : String(err);
-    return res.status(500).json({ error: 'ai_error', message });
-  }
-});
+const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
 
-// Streaming AI endpoint
+// Inline offline search functionality
+function searchCourses(query: string, maxResults = 5) {
+  const COURSES_DATA = [
+    {
+      id: 'html', title: 'HTML',
+      lessons: [
+        { id: 'h1', title: 'HTML Introduction', keywords: ['html', 'introduction', 'hypertext', 'markup', 'web', 'pages'], content: 'HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages.', codeSnippet: '<!DOCTYPE html>\n<html>\n<head>\n  <title>Page Title</title>\n</head>\n<body>\n  <h1>My First Heading</h1>\n</body>\n</html>' },
+        { id: 'p1', title: 'Python Intro', keywords: ['python', 'introduction', 'programming'], content: 'Python is a popular programming language created by Guido van Rossum.', codeSnippet: 'print("Hello, World!")' },
+        { id: 'p19', title: 'Python Functions', keywords: ['python', 'functions', 'def'], content: 'A function is a block of code which only runs when it is called.', codeSnippet: 'def my_function():\n  print("Hello")\n\nmy_function()' }
+      ]
+    }
+  ];
+
+  if (!query) return [];
+  const queryTokens = query.toLowerCase().split(/\s+/).filter(t => t.length > 2);
+  if (queryTokens.length === 0) return [];
+
+  const results: any[] = [];
+  COURSES_DATA.forEach(course => {
+    course.lessons.forEach(lesson => {
+      let score = 0;
+      queryTokens.forEach(qToken => {
+        if (lesson.title.toLowerCase().includes(qToken)) score += 10;
+        if (lesson.keywords.some(k => k.includes(qToken))) score += 5;
+        if (lesson.content.toLowerCase().includes(qToken)) score += 2;
+      });
+      if (score > 0) {
+        results.push({ score, course: course.title, title: lesson.title, content: lesson.content, codeSnippet: lesson.codeSnippet });
+      }
+    });
+  });
+
+  return results.sort((a, b) => b.score - a.score).slice(0, maxResults);
+}
+
+function handleOfflineQuery(query: string) {
+  const lowerQuery = query.toLowerCase();
+
+  if (/^(hi|hello|hey)/i.test(lowerQuery)) {
+    return "Hello! I'm SikshaSarovar AI. I'm here to help you learn web development, programming, and computer science. What would you like to learn about today?";
+  }
+
+  const results = searchCourses(query, 5);
+
+  if (!results || results.length === 0) {
+    return `I couldn't find specific information about "${query}" in the course library. Try asking about HTML, Python, Java, or other programming topics!`;
+  }
+
+  const topResult = results[0];
+  let response = `Great question! Let me help you with that.\n\n**${topResult.title}** (from ${topResult.course} course)\n\n${topResult.content}\n\n`;
+
+  if (topResult.codeSnippet) {
+    response += `Here's an example:\n\`\`\`\n${topResult.codeSnippet}\n\`\`\`\n\n`;
+  }
+
+  response += `\n💡 This response is from the SikshaSarovar offline knowledge base.`;
+  return response;
+}
+
+// Streaming AI endpoint with offline fallback
 app.post('/api/ai/stream', async (req, res) => {
   const { message, history } = req.body || {};
-  try {
-    const fullReply = await chatWithSikshaAI(message, history || []);
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
-    const chunkSize = 120;
-    for (let i = 0; i < fullReply.length; i += chunkSize) {
-      res.write(fullReply.slice(i, i + chunkSize));
-      await new Promise((r) => setTimeout(r, 20));
+
+  let useOfflineMode = false;
+  let offlineResponse = '';
+
+  if (!apiKey) {
+    console.warn('No API key found, using offline mode');
+    useOfflineMode = true;
+  }
+
+  if (!useOfflineMode) {
+    const genAI = new GoogleGenerativeAI(apiKey);
+
+    try {
+      const formattedHistory = (history || []).map((h: any) => ({ role: h.role, parts: h.parts }));
+
+      const model = genAI.getGenerativeModel({
+        model: "gemini-pro",
+        systemInstruction: `You are Siksha AI, the expert coding tutor for SikshaSarovar.com. 
+        Your goal is to help students learn web development, programming, and computer science. 
+        Keep answers concise, educational, and encouraging.`
+      });
+
+      const chat = model.startChat({ history: formattedHistory });
+      const result = await chat.sendMessage(message);
+      const response = await result.response;
+      const text = response.text();
+
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('X-AI-Mode', 'online');
+
+      const chunkSize = 20;
+      for (let i = 0; i < text.length; i += chunkSize) {
+        res.write(text.slice(i, i + chunkSize));
+        await new Promise(r => setTimeout(r, 10));
+      }
+      res.end();
+      return;
+
+    } catch (error) {
+      console.error('Gemini API Error, falling back to offline mode:', error);
+      useOfflineMode = true;
+      offlineResponse = handleOfflineQuery(message);
     }
-    res.end();
-  } catch (err) {
-    if (!res.headersSent) res.status(500).json({ error: 'ai_error' });
-    else res.end();
+  }
+
+  if (useOfflineMode) {
+    try {
+      if (!offlineResponse) {
+        offlineResponse = handleOfflineQuery(message);
+      }
+
+      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+      res.setHeader('X-AI-Mode', 'offline');
+
+      const chunkSize = 20;
+      for (let i = 0; i < offlineResponse.length; i += chunkSize) {
+        res.write(offlineResponse.slice(i, i + chunkSize));
+        await new Promise(r => setTimeout(r, 10));
+      }
+      res.end();
+
+    } catch (offlineError) {
+      console.error('Offline mode error:', offlineError);
+      res.status(500).json({
+        error: 'AI Processing Failed',
+        details: 'Both online and offline modes failed.'
+      });
+    }
   }
 });
 
