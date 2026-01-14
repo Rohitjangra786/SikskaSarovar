@@ -11,6 +11,18 @@ import { getPool } from '../services/db';
 import { chatWithSikshaAI } from '../services/geminiService';
 import crypto from 'crypto';
 import { COURSES } from '../constants';
+import * as fs from 'fs';
+const logStream = fs.createWriteStream('server-debug.log', { flags: 'a' });
+function logToFile(msg: string) {
+  const line = `[${new Date().toISOString()}] ${msg}\n`;
+  logStream.write(line);
+  console.log(msg);
+}
+
+// Override console methods to redirect to file
+console.log = logToFile;
+console.error = logToFile;
+
 
 const app = express();
 app.use(cors({ origin: true, credentials: true }));

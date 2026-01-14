@@ -35,19 +35,24 @@ const Login: React.FC<LoginProps> = ({ onLoginSuccess, onCancel }) => {
         body: JSON.stringify(body),
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        onLoginSuccess({
-          name: data.user.name,
-          email: data.user.email
-        });
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const data = await response.json();
+        if (response.ok && data.success) {
+          onLoginSuccess({
+            name: data.user.name,
+            email: data.user.email
+          });
+        } else {
+          alert(data.error || (isSignUp ? 'Signup failed' : 'Login failed'));
+        }
       } else {
-        alert(data.error || (isSignUp ? 'Signup failed' : 'Login failed'));
+        const text = await response.text();
+        throw new Error(`Server error (${response.status}): ${text.slice(0, 100)}`);
       }
     } catch (error) {
       console.error('Auth error:', error);
-      alert('An error occurred during authentication');
+      alert(`Authentication Error: ${error instanceof Error ? error.message : String(error)}`);
     } finally {
       setIsLoading(false);
     }
