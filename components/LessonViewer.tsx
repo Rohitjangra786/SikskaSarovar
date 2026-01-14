@@ -46,6 +46,7 @@ const LessonViewer: React.FC<LessonViewerProps> = ({
       <SEO
         title={`${lesson.title} — ${course.title}`}
         description={seoDescription}
+        image={lesson.image}
         url={`${base}/course/${course.id}/lesson/${lesson.id}`}
       />
 
