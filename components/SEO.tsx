@@ -11,7 +11,7 @@ type Props = {
 const defaultSite = {
   title: 'SikshaSarovar - Learn Your Way',
   description: 'SikshaSarovar provides accessible, high-quality tutorials in web development, programming, and AI.',
-  image: '/Images/rohit.jpg',
+  image: '/Images/Preview.jpg',
   url: typeof window !== 'undefined' ? window.location.origin : 'https://sikshasarovar.com'
 };
 
