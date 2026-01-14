@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         const formattedHistory = (history || []).map(h => ({ role: h.role, parts: h.parts }));
 
         const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash-001",
+            model: "gemini-2.0-flash",
             systemInstruction: `You are Siksha AI, the expert coding tutor for SikshaSarovar.com. 
         Your goal is to help students learn web development, programming, and computer science. 
         Keep answers concise, educational, and encouraging. 
