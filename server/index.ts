@@ -1,4 +1,7 @@
 import 'dotenv/config';
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -43,7 +46,67 @@ async function ensureUsersTable() {
   await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS age INTEGER`);
   await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS sex TEXT`);
   await pool.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS password TEXT`);
+
+  // Create progress table
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS user_progress (
+        user_id BIGINT REFERENCES users(id),
+        lesson_id TEXT,
+        completed_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+        PRIMARY KEY (user_id, lesson_id)
+    )
+  `);
 }
+
+// ... (Hash/Verify functions unchanged) ...
+
+// GET User Progress
+app.get('/api/progress', async (req, res) => {
+  const token = req.cookies?.token || (req.headers.authorization || '').replace(/^Bearer\s+/, '');
+  if (!token) return res.status(401).json({ error: 'no_token' });
+
+  const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
+  try {
+    const payload: any = jwt.verify(token, secret);
+    const { rows } = await pool.query('SELECT lesson_id FROM user_progress WHERE user_id = $1', [payload.id]);
+    const lessonIds = rows.map(r => r.lesson_id);
+    return res.json({ completedLessons: lessonIds });
+  } catch (err) {
+    console.error('get progress error', err);
+    return res.status(500).json({ error: 'internal_error' });
+  }
+});
+
+// POST Toggle Progress
+app.post('/api/progress', async (req, res) => {
+  const token = req.cookies?.token || (req.headers.authorization || '').replace(/^Bearer\s+/, '');
+  if (!token) return res.status(401).json({ error: 'no_token' });
+  const { lessonId, completed } = req.body;
+
+  if (!lessonId) return res.status(400).json({ error: 'missing_lesson_id' });
+
+  const secret = process.env.STACK_SECRET_SERVER_KEY || process.env.POSTGRES_PASSWORD || 'dev_secret';
+  try {
+    const payload: any = jwt.verify(token, secret);
+    const userId = payload.id;
+
+    if (completed) {
+      await pool.query(`
+          INSERT INTO user_progress (user_id, lesson_id) VALUES ($1, $2)
+          ON CONFLICT (user_id, lesson_id) DO NOTHING
+        `, [userId, lessonId]);
+    } else {
+      await pool.query(`DELETE FROM user_progress WHERE user_id = $1 AND lesson_id = $2`, [userId, lessonId]);
+    }
+    return res.json({ success: true });
+  } catch (err) {
+    console.error('save progress error', err);
+    return res.status(500).json({ error: 'internal_error' });
+  }
+});
+
+// Previous functions follow...
+
 
 // Helper: Password Hashing using crypto
 function hashPassword(password: string): Promise<string> {

@@ -168,6 +168,17 @@ const App: React.FC = () => {
             setCurrentUser({ name: j.user.name, email: j.user.email, designation: j.user.designation || '', age: j.user.age ?? '', sex: j.user.sex || '' });
             setIsLoggedIn(true);
             localStorage.setItem('siksha_user', JSON.stringify({ name: j.user.name, email: j.user.email }));
+
+            // Fetch progress from DB
+            try {
+              const pRes = await fetch('/api/progress', { credentials: 'include' });
+              if (pRes.ok) {
+                const pData = await pRes.json();
+                setCompletedLessons(pData.completedLessons || []);
+              }
+            } catch (err) {
+              console.error('Failed to fetch progress', err);
+            }
           }
         }
       } catch (err) {
@@ -176,28 +187,59 @@ const App: React.FC = () => {
     })();
   }, []);
 
-  const handleLoginSuccess = (user: { name: string, email: string }) => {
+  const handleLoginSuccess = async (user: { name: string, email: string }) => {
     setCurrentUser(user);
     setIsLoggedIn(true);
     setShowLogin(false);
     localStorage.setItem('siksha_user', JSON.stringify(user));
+
+    // Fetch progress on login
+    try {
+      const pRes = await fetch('/api/progress', { credentials: 'include' });
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        setCompletedLessons(pData.completedLessons || []);
+      }
+    } catch (err) {
+      console.error('Failed to fetch progress', err);
+    }
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setCurrentUser(null);
     localStorage.removeItem('siksha_user');
+    // Clear progress on logout or keep it? Keeping it in local state might be confusing, clearing it is safer.
+    setCompletedLessons([]);
     setShowUserMenu(false);
+    // Call logout endpoint to clear cookie
+    fetch('/api/auth/logout', { method: 'POST', credentials: 'include' }).catch(() => { });
   };
 
-  const toggleLessonCompletion = (lessonId: string) => {
-    setCompletedLessons(prev => {
-      const updated = prev.includes(lessonId)
-        ? prev.filter(id => id !== lessonId)
-        : [...prev, lessonId];
-      localStorage.setItem('siksha_progress', JSON.stringify(updated));
-      return updated;
-    });
+  const toggleLessonCompletion = async (lessonId: string) => {
+    // Optimistic update
+    const wasCompleted = completedLessons.includes(lessonId);
+    const newState = wasCompleted
+      ? completedLessons.filter(id => id !== lessonId)
+      : [...completedLessons, lessonId];
+
+    setCompletedLessons(newState);
+    localStorage.setItem('siksha_progress', JSON.stringify(newState));
+
+    if (isLoggedIn) {
+      try {
+        await fetch('/api/progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ lessonId, completed: !wasCompleted })
+        });
+      } catch (err) {
+        console.error('Failed to save progress', err);
+        // Revert on failure
+        setCompletedLessons(prev => wasCompleted ? [...prev, lessonId] : prev.filter(id => id !== lessonId));
+      }
+    }
   };
 
 
