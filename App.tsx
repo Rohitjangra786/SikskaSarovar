@@ -5,6 +5,12 @@ import CourseCard from './components/CourseCard';
 import AIAssistant from './components/AIAssistant';
 import SEO from './components/SEO';
 import LessonViewer from './components/LessonViewer';
+import HtmlCourse from './components/courses/HtmlCourse';
+import PythonCourse from './components/courses/PythonCourse';
+import JavaCourse from './components/courses/JavaCourse';
+import PhpCourse from './components/courses/PhpCourse';
+import AiCourse from './components/courses/AiCourse';
+import MlCourse from './components/courses/MlCourse';
 import Playground from './components/Playground';
 
 import Settings from './components/Settings';
@@ -632,28 +638,40 @@ const App: React.FC = () => {
           <div className="p-6 lg:p-12 flex-1">
             {activeTab === 'home' && renderHome()}
             {activeTab === 'about' && renderAbout()}
-            {activeTab === 'lesson' && activeLesson && selectedCourse && (
-              <LessonViewer
-                lesson={activeLesson}
-                course={selectedCourse}
-                completedLessons={completedLessons}
-                toggleCompletion={toggleLessonCompletion}
-                onSelectLesson={(lId) => handleSelectLesson(selectedCourse.id, lId)}
-                onNext={() => {
+
+
+            {activeTab === 'lesson' && activeLesson && selectedCourse && (() => {
+              const commonProps = {
+                lesson: activeLesson,
+                course: selectedCourse,
+                completedLessons,
+                toggleCompletion: toggleLessonCompletion,
+                onSelectLesson: (lId: string) => handleSelectLesson(selectedCourse.id, lId),
+                onNext: () => {
                   const nextId = selectedCourse.lessons.findIndex(l => l.id === activeLesson.id);
                   if (nextId !== undefined && nextId < selectedCourse.lessons.length - 1) {
                     handleSelectLesson(selectedCourse.id, selectedCourse.lessons[nextId + 1].id);
                   } else { handleNavigate('home', '/'); }
-                }}
-                onPrev={() => {
+                },
+                onPrev: () => {
                   const prevId = selectedCourse.lessons.findIndex(l => l.id === activeLesson.id);
                   if (prevId !== undefined && prevId > 0) {
                     handleSelectLesson(selectedCourse.id, selectedCourse.lessons[prevId - 1].id);
                   }
-                }}
-                onTryIt={handleTryIt}
-              />
-            )}
+                },
+                onTryIt: handleTryIt
+              };
+
+              switch (selectedCourse.id) {
+                case 'html': return <HtmlCourse {...commonProps} />;
+                case 'python': return <PythonCourse {...commonProps} />;
+                case 'java': return <JavaCourse {...commonProps} />;
+                case 'php': return <PhpCourse {...commonProps} />;
+                case 'ai': return <AiCourse {...commonProps} />;
+                case 'ml': return <MlCourse {...commonProps} />;
+                default: return <LessonViewer {...commonProps} />;
+              }
+            })()}
             {activeTab === 'settings' && (
               <div className="max-w-[1200px] mx-auto p-6 lg:p-12">
                 <Settings currentUser={currentUser} onUpdate={(u) => {
