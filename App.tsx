@@ -149,7 +149,12 @@ const App: React.FC = () => {
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
   const [notifications, setNotifications] = useState<any[]>([]);
+
+  // Engagement State (Streaks & Resume)
+  const [streak, setStreak] = useState(0);
+  const [lastActiveLesson, setLastActiveLesson] = useState<{ courseId: string, lessonId: string, title: string, category: string } | null>(null);
 
   useEffect(() => {
     // Generate mock notifications based on courses
@@ -243,6 +248,41 @@ const App: React.FC = () => {
     if (savedUser) {
       setCurrentUser(JSON.parse(savedUser));
     }
+
+
+    // Load Streak & Resume Data
+    const savedStreak = localStorage.getItem('siksha_streak');
+    const savedLastVisit = localStorage.getItem('siksha_last_visit');
+    const savedLastActiveFragment = localStorage.getItem('siksha_last_active');
+
+    if (savedLastActiveFragment) {
+      setLastActiveLesson(JSON.parse(savedLastActiveFragment));
+    }
+
+    const today = new Date().toDateString();
+    if (savedStreak && savedLastVisit) {
+      if (savedLastVisit === today) {
+        setStreak(parseInt(savedStreak));
+      } else {
+        const lastDate = new Date(savedLastVisit);
+        const yesterDate = new Date();
+        yesterDate.setDate(yesterDate.getDate() - 1);
+
+        if (lastDate.toDateString() === yesterDate.toDateString()) {
+          const newStreak = parseInt(savedStreak) + 1;
+          setStreak(newStreak);
+          localStorage.setItem('siksha_streak', newStreak.toString());
+        } else {
+          setStreak(1);
+          localStorage.setItem('siksha_streak', '1');
+        }
+      }
+    } else {
+      setStreak(1);
+      localStorage.setItem('siksha_streak', '1');
+    }
+    localStorage.setItem('siksha_last_visit', today);
+
   }, []);
 
   const toggleLessonCompletion = async (lessonId: string) => {
@@ -396,6 +436,16 @@ const App: React.FC = () => {
           window.history.pushState(null, '', newPath);
         }
 
+        // Save Last Active Lesson
+        const activeData = {
+          courseId,
+          lessonId,
+          title: course.title,
+          category: course.category
+        };
+        setLastActiveLesson(activeData);
+        localStorage.setItem('siksha_last_active', JSON.stringify(activeData));
+
         setSelectedCourse(course);
         setActiveLesson(lesson);
         setActiveTab(isCollege ? 'college-lesson' : 'lesson');
@@ -419,6 +469,8 @@ const App: React.FC = () => {
   const renderHome = () => (
     <div className="space-y-10 animate-in fade-in duration-700">
       <SEO title="Home" description="SikshaSarovar - interactive tutorials and projects for web development and AI." />
+
+      {/* HERO SECTION */}
       <div className="relative bg-brand-900 rounded-[3rem] p-8 lg:p-12 overflow-hidden text-white shadow-2xl border border-white/10">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-500/20 to-transparent skew-x-12 translate-x-1/4"></div>
         <div className="relative z-10 flex flex-col xl:flex-row justify-between items-center gap-12">
@@ -428,7 +480,7 @@ const App: React.FC = () => {
                 {isLoggedIn ? 'PRO STUDENT' : 'FREE GUEST ACCESS'}
               </span>
               <span className="flex items-center gap-1 text-accent-300 text-[10px] font-black bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-md uppercase tracking-widest">
-                <Flame size={14} fill="currentColor" /> {isLoggedIn ? '12 DAY STREAK' : 'LOCAL PROGRESS ON'}
+                <Flame size={14} fill="currentColor" className={streak > 0 ? "text-orange-500" : ""} /> {streak} DAY STREAK
               </span>
             </div>
             <h1 className="text-4xl lg:text-6xl font-black mb-6 leading-[1.1] tracking-tight">Master the Future of <br /><span className="text-brand-400">Web & Programming</span></h1>
@@ -444,6 +496,18 @@ const App: React.FC = () => {
                 START LEARNING
               </button>
 
+              {lastActiveLesson && (
+                <button
+                  onClick={() => handleSelectLesson(lastActiveLesson.courseId, lastActiveLesson.lessonId)}
+                  className="bg-white/10 backdrop-blur-md text-white border border-white/20 font-bold px-8 py-5 rounded-2xl hover:bg-white/20 transition-all flex items-center justify-center gap-3 hover:scale-105 active:scale-95"
+                >
+                  <div className="flex flex-col items-start leading-none">
+                    <span className="text-[9px] uppercase tracking-widest opacity-70 mb-1">Jump Back In</span>
+                    <span className="text-sm font-black">{lastActiveLesson.title}</span>
+                  </div>
+                  <ChevronRight size={16} />
+                </button>
+              )}
             </div>
           </div>
           <div className="w-full lg:w-auto hidden md:block">
@@ -467,7 +531,6 @@ const App: React.FC = () => {
                     <div className="h-full bg-accent-500 shadow-[0_0_10px_rgba(211,177,109,0.5)] transition-all duration-1000" style={{ width: `${Math.min(100, completedLessons.length * 5)}%` }}></div>
                   </div>
                 </div>
-                <div></div>
               </div>
             </div>
           </div>
