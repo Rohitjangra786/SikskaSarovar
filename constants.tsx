@@ -42,21 +42,21 @@ export const COURSES: Course[] = [
     category: 'Web Development',
     icon: 'layout',
     level: 'Beginner',
-    progress: 45,
+    progress: 0,
     lessons: [
       {
         id: 'h1',
         title: 'HTML Introduction',
         content: `HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages. HTML describes the structure of a Web page semantically and originally included cues for the appearance of the document.\n\nHTML elements are the building blocks of HTML pages. They are represented by tags like <h1>, <p>, <a>, etc. Browsers do not display the HTML tags, but use them to render the content of the page.\n\nA simple HTML document consists of a DOCTYPE declaration, an <html> root element, a <head> section containing meta information, and a <body> section that contains the visible page content.`,
         codeSnippet: '<!DOCTYPE html>\n<html>\n<head>\n  <title>Page Title</title>\n</head>\n<body>\n  <h1>My First Heading</h1>\n  <p>My first paragraph.</p>\n</body>\n</html>',
-        isCompleted: true
+        isCompleted: false
       },
       {
         id: 'h2',
         title: 'HTML Editors',
         content: `A web developer can use a professional HTML editor to create and modify websites. However, for learning HTML, we recommend a simple text editor like Notepad (PC) or TextEdit (Mac). We believe using a simple text editor is a good way to learn HTML.\n\nProfessional editors like Visual Studio Code, Sublime Text, and Atom are excellent once you have mastered the basics. They offer features like syntax highlighting, autocompletion, and integrated version control. For now, focus on writing the tags manually to build muscle memory.`,
         codeSnippet: '<!-- Open your text editor, write your code, and save as index.html -->',
-        isCompleted: true
+        isCompleted: false
       },
       {
         id: 'h3',
