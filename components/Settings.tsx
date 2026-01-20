@@ -74,10 +74,24 @@ const Settings: React.FC<Props> = ({ currentUser, onUpdate }) => {
           </select>
         </div>
 
-        <div className="flex items-center gap-4">
-          <button onClick={handleSave} disabled={saving} className="bg-brand-900 text-white px-6 py-3 rounded-xl font-black disabled:opacity-50">{saving ? 'Saving...' : 'Save'}</button>
-          {message && <div className="text-sm text-slate-600">{message}</div>}
+
+        <div className="flex items-center gap-4 pt-6 border-t border-slate-100">
+          <button onClick={handleSave} disabled={saving} className="bg-brand-900 text-white px-6 py-3 rounded-xl font-black disabled:opacity-50 hover:bg-brand-800 transition-colors shadow-lg shadow-brand-900/20">{saving ? 'Saving...' : 'Save Profile'}</button>
+
+          <button
+            onClick={() => {
+              if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.removeItem('siksha_progress');
+                localStorage.removeItem('siksha_user');
+                window.location.reload();
+              }
+            }}
+            className="px-6 py-3 rounded-xl font-bold text-red-500 hover:bg-red-50 transition-colors border border-transparent hover:border-red-100"
+          >
+            Reset Progress
+          </button>
         </div>
+        {message && <div className="text-sm font-bold text-emerald-600 animate-in fade-in">{message}</div>}
       </div>
     </div>
   );

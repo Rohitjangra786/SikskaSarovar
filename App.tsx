@@ -419,8 +419,8 @@ const App: React.FC = () => {
       <SEO title="Home" description="SikshaSarovar - interactive tutorials and projects for web development and AI." />
       <div className="relative bg-brand-900 rounded-[3rem] p-8 lg:p-12 overflow-hidden text-white shadow-2xl border border-white/10">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-500/20 to-transparent skew-x-12 translate-x-1/4"></div>
-        <div className="relative z-10 flex flex-col lg:flex-row justify-between items-center gap-12">
-          <div className="flex-1 text-center lg:text-left">
+        <div className="relative z-10 flex flex-col xl:flex-row justify-between items-center gap-12">
+          <div className="flex-1 text-center xl:text-left">
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-6">
               <span className="bg-accent-500 text-brand-900 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-lg shadow-accent-900/40">
                 {isLoggedIn ? 'PRO STUDENT' : 'FREE GUEST ACCESS'}
@@ -433,7 +433,7 @@ const App: React.FC = () => {
             <p className="text-brand-100/80 text-lg lg:text-xl max-w-2xl mb-10 leading-relaxed font-medium">
               SikshaSarovar.com provides full access to all tutorials for everyone. Explore coding, AI, and backend development without any barriers.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center xl:justify-start">
               <button
                 onClick={() => setIsStartLearningOpen(true)}
                 className="bg-white text-brand-900 font-black px-12 py-5 rounded-2xl hover:bg-brand-50 transition-all flex items-center justify-center gap-3 shadow-2xl hover:scale-105 active:scale-95"
@@ -820,7 +820,15 @@ const App: React.FC = () => {
                 </button>
 
                 <div className="flex items-center gap-2">
-                  <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest</span>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${currentUser?.name ? 'bg-brand-900 text-white' : 'bg-brand-100 text-brand-500'}`}>
+                    {currentUser?.name ? currentUser.name.charAt(0).toUpperCase() : <UserIcon size={14} />}
+                  </div>
+                  <div className="hidden sm:flex flex-col">
+                    <span className="text-[10px] font-bold text-brand-900 uppercase tracking-widest leading-none">
+                      {currentUser?.name || 'Guest'}
+                    </span>
+                    {currentUser?.designation && <span className="text-[8px] font-semibold text-slate-400 leading-none mt-0.5">{currentUser.designation}</span>}
+                  </div>
                 </div>
 
                 {/* Notifications */}
