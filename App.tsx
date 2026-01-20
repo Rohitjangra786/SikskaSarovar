@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import CourseCard from './components/CourseCard';
@@ -11,12 +10,16 @@ import JavaCourse from './components/courses/JavaCourse';
 import PhpCourse from './components/courses/PhpCourse';
 import AiCourse from './components/courses/AiCourse';
 import MlCourse from './components/courses/MlCourse';
+import DmpCourse from './components/courses/DmpCourse';
+import CollegeBundle from './components/CollegeBundle';
 import Playground from './components/Playground';
+
 
 import Settings from './components/Settings';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { COURSES, ICON_MAP } from './constants';
+import { COLLEGE_COURSES } from './constants/collegeData';
 import { Course, Lesson } from './types';
 import {
   Search,
@@ -116,7 +119,10 @@ function useScrollDirection() {
 };
 
 
+// ... imports ...
+
 const App: React.FC = () => {
+  // ... (state declarations)
   const [activeTab, setActiveTab] = useState('home');
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
@@ -124,8 +130,9 @@ const App: React.FC = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const scrollDirection = useScrollDirection();
-  const isLoggedIn = false; // Forced to false
+  const isLoggedIn = false;
   const currentUser = null;
+  const [users, setCurrentUser] = useState<any>(null); // Placeholder for missing user logic
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
@@ -170,8 +177,6 @@ const App: React.FC = () => {
     localStorage.setItem('siksha_progress', JSON.stringify(newState));
   };
 
-
-
   // Helper to sync state with URL
   const syncStateWithUrl = () => {
     // Remove leading slash, split by /
@@ -212,10 +217,42 @@ const App: React.FC = () => {
       return;
     }
 
+    // New College Route Handling
+    if (coursePath === 'college') {
+      if (lessonPath) {
+        // /college/dmp
+        // Try to find in college courses
+        const collegeCourse = COLLEGE_COURSES.find(c => c.id.toLowerCase() === lessonPath.toLowerCase());
+        if (collegeCourse) {
+          // college/dmp/lessonId
+          const dmpLessonId = parts.length > 2 ? parts[2] : null;
+          setSelectedCourse(collegeCourse);
+
+          if (dmpLessonId) {
+            const l = collegeCourse.lessons.find(x => x.id === dmpLessonId);
+            if (l) setActiveLesson(l);
+            else setActiveLesson(collegeCourse.lessons[0]);
+          } else {
+            setActiveLesson(collegeCourse.lessons[0]);
+          }
+          setActiveTab('college-lesson');
+        } else {
+          // Just /college -> Hub
+          setActiveTab('college');
+        }
+      } else {
+        setActiveTab('college');
+        setSelectedCourse(null);
+      }
+      if (window.innerWidth < 1024) setIsSidebarOpen(false);
+      return;
+    }
+
     const targetCourse = COURSES.find(c =>
       c.id.toLowerCase() === coursePath ||
       c.title.replace(/\s+/g, '').toLowerCase() === coursePath
     );
+
 
     if (targetCourse) {
       setSelectedCourse(targetCourse);
@@ -263,25 +300,33 @@ const App: React.FC = () => {
   };
 
   const handleSelectLesson = (courseId: string, lessonId: string) => {
-    const course = COURSES.find(c => c.id === courseId);
+    let course = COURSES.find(c => c.id === courseId);
+    let isCollege = false;
+
+    if (!course) {
+      course = COLLEGE_COURSES.find(c => c.id === courseId);
+      isCollege = true;
+    }
+
     if (course) {
       const lesson = course.lessons.find(l => l.id === lessonId);
       if (lesson) {
-        // Update URL to /CourseID/LessonID
-        const newPath = `/${courseId}/${lessonId}`;
+        // Update URL to /CourseID/LessonID or /college/CourseID/LessonID
+        const newPath = isCollege ? `/college/${courseId}/${lessonId}` : `/${courseId}/${lessonId}`;
         if (window.location.pathname !== newPath) {
           window.history.pushState(null, '', newPath);
         }
 
         setSelectedCourse(course);
         setActiveLesson(lesson);
-        setActiveTab('lesson');
+        setActiveTab(isCollege ? 'college-lesson' : 'lesson');
         if (window.innerWidth < 1024) {
           setIsSidebarOpen(false);
         }
       }
     }
   };
+
 
   const handleTryIt = (code: string) => {
     setPlaygroundCode(code);
@@ -620,9 +665,15 @@ const App: React.FC = () => {
             </div>
             <div className="h-8 w-px bg-slate-100 hidden md:block"></div>
             <nav className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
-              {COURSES.map((course) => (
-                <button key={course.id} onClick={() => handleSelectLesson(course.id, course.lessons[0].id)} className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${selectedCourse?.id === course.id && (activeTab === 'lesson' || activeTab === 'playground') ? 'bg-brand-900 text-white border-brand-900 shadow-md shadow-brand-200' : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-brand-200 hover:text-brand-900'}`}>
-                  <span className={selectedCourse?.id === course.id ? 'text-accent-500' : 'text-brand-500'}>{ICON_MAP[course.icon]}</span>
+              {(activeTab.startsWith('college') ? COLLEGE_COURSES : COURSES).map((course) => (
+                <button
+                  key={course.id}
+                  onClick={() => handleSelectLesson(course.id, course.lessons[0].id)}
+                  className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${selectedCourse?.id === course.id && (activeTab === 'lesson' || activeTab === 'college-lesson' || activeTab === 'playground') ? 'bg-brand-900 text-white border-brand-900 shadow-md shadow-brand-200' : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-brand-200 hover:text-brand-900'}`}
+                >
+                  <span className={selectedCourse?.id === course.id ? 'text-accent-500' : 'text-brand-500'}>
+                    {ICON_MAP[course.icon] || <span className="opacity-50">#</span>}
+                  </span>
                   {course.title}
                 </button>
               ))}
@@ -638,6 +689,49 @@ const App: React.FC = () => {
           <div className="p-6 lg:p-12 flex-1">
             {activeTab === 'home' && renderHome()}
             {activeTab === 'about' && renderAbout()}
+
+            {activeTab === 'college' && (
+              <CollegeBundle onSelectCourse={(course) => {
+                setSelectedCourse(course);
+                // If course has lessons, go to first lesson, else stay?
+                // Usually bundle click goes to first lesson or lesson list.
+                if (course.lessons.length > 0) {
+                  handleSelectLesson(course.id, course.lessons[0].id);
+                }
+              }} />
+            )}
+
+            {activeTab === 'college-lesson' && activeLesson && selectedCourse && (() => {
+              const commonProps = {
+                lesson: activeLesson,
+                course: selectedCourse,
+                completedLessons,
+                toggleCompletion: toggleLessonCompletion,
+                onSelectLesson: (lId: string) => handleSelectLesson(selectedCourse.id, lId),
+                onNext: () => {
+                  const nextId = selectedCourse.lessons.findIndex(l => l.id === activeLesson.id);
+                  if (nextId !== undefined && nextId < selectedCourse.lessons.length - 1) {
+                    handleSelectLesson(selectedCourse.id, selectedCourse.lessons[nextId + 1].id);
+                  } else {
+                    // Back to hub?
+                    setActiveTab('college');
+                    window.history.pushState(null, '', '/college');
+                  }
+                },
+                onPrev: () => {
+                  const prevId = selectedCourse.lessons.findIndex(l => l.id === activeLesson.id);
+                  if (prevId !== undefined && prevId > 0) {
+                    handleSelectLesson(selectedCourse.id, selectedCourse.lessons[prevId - 1].id);
+                  }
+                },
+                onTryIt: handleTryIt
+              };
+              // Add specific college course renderers here if needed, or generic DmpCourse
+              if (selectedCourse.id === 'dmp') {
+                return <DmpCourse {...commonProps} />;
+              }
+              return <LessonViewer {...commonProps} />;
+            })()}
 
 
             {activeTab === 'lesson' && activeLesson && selectedCourse && (() => {
