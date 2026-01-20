@@ -14,6 +14,8 @@ import DmpCourse from './components/courses/DmpCourse';
 import CollegeBundle from './components/CollegeBundle';
 import Playground from './components/Playground';
 import StartLearningMenu from './components/StartLearningMenu';
+import Terms from './components/Terms';
+import Privacy from './components/Privacy';
 
 
 import Settings from './components/Settings';
@@ -135,8 +137,8 @@ const App: React.FC = () => {
   const [completedLessons, setCompletedLessons] = useState<string[]>([]);
   const scrollDirection = useScrollDirection();
   const isLoggedIn = false;
-  const currentUser = null;
-  const [users, setCurrentUser] = useState<any>(null); // Placeholder for missing user logic
+  // const currentUser = null; // Removed hardcoded null
+  const [currentUser, setCurrentUser] = useState<any>(null); // State for local user
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -232,6 +234,12 @@ const App: React.FC = () => {
     const savedProgress = localStorage.getItem('siksha_progress');
     if (savedProgress) {
       setCompletedLessons(JSON.parse(savedProgress));
+    }
+
+    // Load Saved User
+    const savedUser = localStorage.getItem('siksha_user');
+    if (savedUser) {
+      setCurrentUser(JSON.parse(savedUser));
     }
   }, []);
 
@@ -626,6 +634,10 @@ const App: React.FC = () => {
     if (activeTab === 'lesson' && selectedCourse) return selectedCourse.title;
     if (activeTab === 'playground') return 'Editor';
     if (activeTab === 'ai-tutor') return 'AI Tutor';
+    if (activeTab === 'ai-tutor') return 'AI Tutor';
+    if (activeTab === 'terms') return 'Terms of Use';
+    if (activeTab === 'privacy') return 'Privacy Policy';
+    if (activeTab === 'settings') return 'Settings';
     return 'Hub';
   };
 
@@ -638,6 +650,9 @@ const App: React.FC = () => {
       return { title, description: desc, url };
     }
     if (activeTab === 'about') return { title: 'About SikshaSarovar', description: 'About SikshaSarovar - our mission, team and values.', url: `${typeof window !== 'undefined' ? window.location.origin : 'https://www.sikshasarovar.com'}/about` };
+    if (activeTab === 'terms') return { title: 'Terms of Use', description: 'Terms of Use for SikshaSarovar.', url: `${typeof window !== 'undefined' ? window.location.origin : 'https://www.sikshasarovar.com'}/terms` };
+    if (activeTab === 'privacy') return { title: 'Privacy Policy', description: 'Privacy Policy for SikshaSarovar.', url: `${typeof window !== 'undefined' ? window.location.origin : 'https://www.sikshasarovar.com'}/privacy` };
+    if (activeTab === 'settings') return { title: 'Settings', description: 'Manage your SikshaSarovar account settings.', url: `${typeof window !== 'undefined' ? window.location.origin : 'https://www.sikshasarovar.com'}/settings` };
     return { title: 'SikshaSarovar', description: 'SikshaSarovar - interactive tutorials and projects for web development and AI.', url: typeof window !== 'undefined' ? window.location.origin : 'https://www.sikshasarovar.com' };
   })();
 
@@ -655,6 +670,7 @@ const App: React.FC = () => {
               else if (tab === 'about') handleNavigate('about', '/about');
               else if (tab === 'playground') handleNavigate('playground', '/playground');
               else if (tab === 'ai-tutor') handleNavigate('ai-tutor', '/ai-tutor');
+              else if (tab === 'settings') handleNavigate('settings', '/settings');
               else setActiveTab(tab); // fallback for tabs without specific URLs if any
             }}
             onSelectLesson={handleSelectLesson}
@@ -792,7 +808,16 @@ const App: React.FC = () => {
                   About
                 </button>
 
-                {/* Settings moved into user dropdown; header button removed */}
+                <button
+                  onClick={() => handleNavigate('settings', '/settings')}
+                  className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${activeTab === 'settings'
+                    ? 'bg-brand-900 text-white border-brand-900'
+                    : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
+                    }`}
+                >
+                  <SettingsIcon size={12} />
+                  Settings
+                </button>
 
                 <div className="flex items-center gap-2">
                   <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest</span>
@@ -889,6 +914,8 @@ const App: React.FC = () => {
           <div className="p-6 lg:p-12 flex-1">
             {activeTab === 'home' && renderHome()}
             {activeTab === 'about' && renderAbout()}
+            {activeTab === 'terms' && <Terms />}
+            {activeTab === 'privacy' && <Privacy />}
 
             {activeTab === 'college' && (
               <CollegeBundle onSelectCourse={(course) => {
@@ -969,8 +996,9 @@ const App: React.FC = () => {
             {activeTab === 'settings' && (
               <div className="max-w-[1200px] mx-auto p-6 lg:p-12">
                 <Settings currentUser={currentUser} onUpdate={(u) => {
-                  setCurrentUser({ name: u.name, email: u.email, designation: u.designation || '', age: u.age ?? '', sex: u.sex || '' });
-                  localStorage.setItem('siksha_user', JSON.stringify({ name: u.name, email: u.email }));
+                  const updatedUser = { name: u.name, email: u.email, designation: u.designation || '', age: u.age ?? '', sex: u.sex || '' };
+                  setCurrentUser(updatedUser);
+                  localStorage.setItem('siksha_user', JSON.stringify(updatedUser));
                 }} />
               </div>
             )}
@@ -994,12 +1022,13 @@ const App: React.FC = () => {
               <div className="flex items-center gap-8 text-[11px] font-black text-slate-500 uppercase tracking-widest">
                 <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 transition-colors">Home</button>
                 <button onClick={() => handleNavigate('about', '/about')} className="hover:text-brand-900 transition-colors">About</button>
-                <a href="#" className="hover:text-brand-900 transition-colors">Terms</a>
-                <a href="#" className="hover:text-brand-900 transition-colors">Privacy</a>
+                <button onClick={() => handleNavigate('terms', '/terms')} className="hover:text-brand-900 transition-colors">Terms</button>
+                <button onClick={() => handleNavigate('privacy', '/privacy')} className="hover:text-brand-900 transition-colors">Privacy</button>
               </div>
               <div className="flex gap-2">
-                <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 border border-slate-100 transition-all"><Twitter size={16} /></button>
-                <button className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 border border-slate-100 transition-all"><Github size={16} /></button>
+                <a href="https://github.com/Rohitjangra786" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 border border-slate-100 transition-all">
+                  <Github size={16} />
+                </a>
               </div>
             </div>
           </footer>

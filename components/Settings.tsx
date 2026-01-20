@@ -6,6 +6,8 @@ interface Props {
 }
 
 const Settings: React.FC<Props> = ({ currentUser, onUpdate }) => {
+  const [name, setName] = useState<string>(currentUser?.name || '');
+  const [email, setEmail] = useState<string>(currentUser?.email || '');
   const [designation, setDesignation] = useState<string>(currentUser?.designation || '');
   const [age, setAge] = useState<number | ''>(currentUser?.age ?? '');
   const [sex, setSex] = useState<string>(currentUser?.sex || '');
@@ -13,43 +15,47 @@ const Settings: React.FC<Props> = ({ currentUser, onUpdate }) => {
   const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
+    setName(currentUser?.name || '');
+    setEmail(currentUser?.email || '');
     setDesignation(currentUser?.designation || '');
     setAge(currentUser?.age ?? '');
     setSex(currentUser?.sex || '');
   }, [currentUser]);
 
-  const handleSave = async () => {
+  const handleSave = () => {
     setSaving(true);
     setMessage(null);
-    try {
-      const res = await fetch('/api/auth/me', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ designation: designation || null, age: age === '' ? null : Number(age), sex: sex || null })
-      });
-      let j: any = null;
-      try { j = await res.json(); } catch (e) { /* ignore invalid json */ }
-      if (!res.ok) {
-        console.error('Settings save failed', res.status, j);
-        if (res.status === 401) throw new Error('Authentication required. Please sign in again.');
-        throw new Error(j?.error || j?.message || `Save failed (status ${res.status})`);
-      }
-      onUpdate(j.user);
-      setMessage('Profile updated successfully');
-    } catch (err: any) {
-      console.error('Settings error', err);
-      setMessage(String(err.message || err));
-    } finally {
+
+    // Simulate save delay
+    setTimeout(() => {
+      const updatedData = {
+        ...currentUser,
+        name,
+        email,
+        designation,
+        age,
+        sex
+      };
+
+      onUpdate(updatedData);
+      setMessage('Profile saved locally');
       setSaving(false);
       setTimeout(() => setMessage(null), 3000);
-    }
+    }, 500);
   };
 
   return (
     <div className="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-md">
       <h2 className="text-2xl font-black mb-4">Profile Settings</h2>
       <div className="space-y-4">
+        <div>
+          <label className="text-sm font-bold">Name</label>
+          <input value={name} onChange={(e) => setName(e.target.value)} className="w-full mt-2 p-3 border rounded-lg" placeholder="Enter your name" />
+        </div>
+        <div>
+          <label className="text-sm font-bold">Email</label>
+          <input value={email} onChange={(e) => setEmail(e.target.value)} className="w-full mt-2 p-3 border rounded-lg" placeholder="Enter your email" />
+        </div>
         <div>
           <label className="text-sm font-bold">Designation</label>
           <input value={designation || ''} onChange={(e) => setDesignation(e.target.value)} className="w-full mt-2 p-3 border rounded-lg" />
