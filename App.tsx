@@ -13,6 +13,7 @@ import MlCourse from './components/courses/MlCourse';
 import DmpCourse from './components/courses/DmpCourse';
 import CollegeBundle from './components/CollegeBundle';
 import Playground from './components/Playground';
+import StartLearningMenu from './components/StartLearningMenu';
 
 
 import Settings from './components/Settings';
@@ -46,7 +47,8 @@ import {
   User as UserIcon,
   MessageCircle,
   GraduationCap,
-  BookOpen
+  BookOpen,
+  X
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import RohitImg from './Images/rohit.jpg';
@@ -138,6 +140,31 @@ const App: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isStartLearningOpen, setIsStartLearningOpen] = useState(false);
+
+  // Mobile Search & Notifications State
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [notifications, setNotifications] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Generate mock notifications based on courses
+    // In a real app, this would come from a backend or 'dateAdded' field
+    const mockNotifications = COURSES.slice(0, 3).map((course, index) => {
+      const date = new Date();
+      date.setDate(date.getDate() - (index * 2)); // Spread out dates
+
+      return {
+        id: `notif-${course.id}`,
+        title: `New Course Added: ${course.title}`,
+        message: `Start learning ${course.category} with our new ${course.title} updated track.`,
+        date: date.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        courseId: course.id,
+        isRead: false
+      };
+    });
+    setNotifications(mockNotifications);
+  }, []);
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
@@ -400,7 +427,7 @@ const App: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <button
-                onClick={() => handleSelectLesson('html-tutorial', 'h1')}
+                onClick={() => setIsStartLearningOpen(true)}
                 className="bg-white text-brand-900 font-black px-12 py-5 rounded-2xl hover:bg-brand-50 transition-all flex items-center justify-center gap-3 shadow-2xl hover:scale-105 active:scale-95"
               >
                 <Play fill="currentColor" size={18} />
@@ -647,75 +674,181 @@ const App: React.FC = () => {
 
         {/* HEADER */}
         <header className={`sticky top-0 z-30 bg-brand-50/95 backdrop-blur-sm px-4 lg:px-6 py-2.5 flex justify-between items-center border-b border-brand-100 shrink-0 transition-transform duration-300 ${scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'}`}>
-          <div className="flex items-center gap-3 min-w-0">
-            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-1.5 bg-white rounded-lg border border-brand-200 text-brand-900 hover:text-white hover:bg-brand-900 transition-all">
-              {isSidebarOpen ? <ChevronLeft size={16} /> : <Menu size={16} />}
-            </button>
-            <nav className="flex items-center text-[11px] font-bold tracking-tight overflow-hidden text-slate-500">
-              <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
-              <ChevronRight size={12} className="mx-1.5 opacity-50" />
-              <span className="text-brand-900 truncate font-black">{getPageTitle()}</span>
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* SEARCH BAR */}
-            <div className="relative hidden md:block group">
-              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-brand-300" size={14} />
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchQuery}
-                onChange={(e) => { setSearchQuery(e.target.value); setIsSearchOpen(true); }}
-                onFocus={() => setIsSearchOpen(true)}
-                onBlur={() => setTimeout(() => setIsSearchOpen(false), 200)}
-                className="w-32 lg:w-48 bg-white border border-brand-200 rounded-lg py-1 pl-8 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-[11px] font-medium placeholder:text-brand-200 transition-all focus:w-64"
-              />
-
-              {/* Search Results Dropdown */}
-              {isSearchOpen && searchResults.length > 0 && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
-                  <div className="flex flex-col p-1">
-                    {searchResults.map((result, idx) => (
-                      <button
-                        key={`${result.type}-${result.id}-${idx}`}
-                        className="text-left px-3 py-2 hover:bg-slate-50 rounded-lg transition-colors flex flex-col gap-0.5"
-                        onClick={() => handleSearchResultClick(result)}
-                      >
-                        <span className="text-xs font-bold text-slate-700">{result.title}</span>
-                        <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                          {result.type === 'course' ? <GraduationCap size={10} /> : <BookOpen size={10} />}
-                          {result.subTitle}
-                        </span>
-                      </button>
-                    ))}
+          {isMobileSearchOpen ? (
+            <div className="w-full flex items-center gap-2 animate-in fade-in slide-in-from-top-2 duration-200">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-300" size={16} />
+                <input
+                  autoFocus
+                  type="text"
+                  placeholder="Search courses..."
+                  value={searchQuery}
+                  onChange={(e) => { setSearchQuery(e.target.value); setIsSearchOpen(true); }}
+                  onBlur={() => {
+                    // Delay closing to allow clicking results
+                    setTimeout(() => setIsSearchOpen(false), 200);
+                  }}
+                  className="w-full bg-white border border-brand-200 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-sm font-medium placeholder:text-brand-300"
+                />
+                {/* Search Results Dropdown for Mobile */}
+                {searchQuery.trim() !== '' && searchResults.length > 0 && (
+                  <div className="absolute top-full left-0 mt-2 w-full bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-50">
+                    <div className="flex flex-col p-1">
+                      {searchResults.map((result, idx) => (
+                        <button
+                          key={`${result.type}-${result.id}-${idx}`}
+                          className="text-left px-3 py-3 hover:bg-slate-50 rounded-lg transition-colors flex items-center gap-3 border-b border-slate-50 last:border-0"
+                          onClick={() => {
+                            handleSearchResultClick(result);
+                            setIsMobileSearchOpen(false);
+                          }}
+                        >
+                          <div className="p-2 bg-brand-50 text-brand-500 rounded-lg">
+                            {result.type === 'course' ? <GraduationCap size={14} /> : <BookOpen size={14} />}
+                          </div>
+                          <div>
+                            <p className="text-sm font-bold text-slate-700">{result.title}</p>
+                            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">{result.subTitle}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
                   </div>
+                )}
+              </div>
+              <button
+                onClick={() => setIsMobileSearchOpen(false)}
+                className="p-2 bg-slate-100 text-slate-500 rounded-xl hover:bg-slate-200"
+              >
+                <X size={18} />
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center gap-3 min-w-0">
+                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-1.5 bg-white rounded-lg border border-brand-200 text-brand-900 hover:text-white hover:bg-brand-900 transition-all">
+                  {isSidebarOpen ? <ChevronLeft size={16} /> : <Menu size={16} />}
+                </button>
+                <nav className="flex items-center text-[11px] font-bold tracking-tight overflow-hidden text-slate-500">
+                  <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
+                  <ChevronRight size={12} className="mx-1.5 opacity-50" />
+                  <span className="text-brand-900 truncate font-black">{getPageTitle()}</span>
+                </nav>
+              </div>
+
+              <div className="flex items-center gap-3">
+                {/* Mobile Search Toggle */}
+                <button
+                  onClick={() => setIsMobileSearchOpen(true)}
+                  className="md:hidden p-1.5 bg-white rounded-lg border border-brand-200 text-brand-900 hover:bg-brand-50"
+                >
+                  <Search size={16} />
+                </button>
+
+                {/* SEARCH BAR (Desktop) */}
+                <div className="relative hidden md:block group">
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-brand-300" size={14} />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => { setSearchQuery(e.target.value); setIsSearchOpen(true); }}
+                    onFocus={() => setIsSearchOpen(true)}
+                    onBlur={() => setTimeout(() => setIsSearchOpen(false), 200)}
+                    className="w-32 lg:w-48 bg-white border border-brand-200 rounded-lg py-1 pl-8 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-[11px] font-medium placeholder:text-brand-200 transition-all focus:w-64"
+                  />
+
+                  {/* Search Results Dropdown */}
+                  {isSearchOpen && searchResults.length > 0 && (
+                    <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
+                      <div className="flex flex-col p-1">
+                        {searchResults.map((result, idx) => (
+                          <button
+                            key={`${result.type}-${result.id}-${idx}`}
+                            className="text-left px-3 py-2 hover:bg-slate-50 rounded-lg transition-colors flex flex-col gap-0.5"
+                            onClick={() => handleSearchResultClick(result)}
+                          >
+                            <span className="text-xs font-bold text-slate-700">{result.title}</span>
+                            <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                              {result.type === 'course' ? <GraduationCap size={10} /> : <BookOpen size={10} />}
+                              {result.subTitle}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* ABOUT BUTTON */}
-            <button
-              onClick={() => handleNavigate('about', '/about')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${activeTab === 'about'
-                ? 'bg-brand-900 text-white border-brand-900'
-                : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
-                }`}
-            >
-              <Info size={12} />
-              About
-            </button>
+                {/* ABOUT BUTTON */}
+                <button
+                  onClick={() => handleNavigate('about', '/about')}
+                  className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all border ${activeTab === 'about'
+                    ? 'bg-brand-900 text-white border-brand-900'
+                    : 'bg-white text-brand-900 border-brand-200 hover:text-white hover:bg-brand-900 hover:border-brand-900'
+                    }`}
+                >
+                  <Info size={12} />
+                  About
+                </button>
 
-            {/* Settings moved into user dropdown; header button removed */}
+                {/* Settings moved into user dropdown; header button removed */}
 
-            <div className="flex items-center gap-2">
-              <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest</span>
-            </div>
+                <div className="flex items-center gap-2">
+                  <span className="hidden sm:block text-[10px] font-bold text-slate-400 uppercase tracking-widest">Guest</span>
+                </div>
 
-            <button className="bg-white p-1.5 rounded-lg border border-brand-200 text-brand-900 hover:bg-brand-900 hover:text-white transition-all">
-              <Bell size={16} />
-            </button>
-          </div>
+                {/* Notifications */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+                    onBlur={() => setTimeout(() => setIsNotificationsOpen(false), 200)}
+                    className={`bg-white p-1.5 rounded-lg border transition-all relative ${isNotificationsOpen ? 'bg-brand-900 text-white border-brand-900' : 'border-brand-200 text-brand-900 hover:bg-brand-900 hover:text-white'}`}
+                  >
+                    <Bell size={16} />
+                    {notifications.filter(n => !n.isRead).length > 0 && (
+                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                    )}
+                  </button>
+
+                  {isNotificationsOpen && (
+                    <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
+                      <div className="p-3 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
+                        <h4 className="text-xs font-black uppercase tracking-widest text-slate-500">Notifications</h4>
+                        <span className="px-2 py-0.5 bg-brand-100 text-brand-600 rounded-full text-[10px] font-bold">{notifications.length} New</span>
+                      </div>
+                      <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
+                        {notifications.length === 0 ? (
+                          <div className="p-8 text-center text-slate-400 text-xs font-medium">No new notifications</div>
+                        ) : (
+                          notifications.map((notif) => (
+                            <div key={notif.id} className="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors group cursor-pointer">
+                              <div className="flex gap-3">
+                                <div className="shrink-0 mt-1">
+                                  <div className="w-2 h-2 rounded-full bg-accent-500"></div>
+                                </div>
+                                <div>
+                                  <p className="text-xs font-bold text-slate-800 mb-1 group-hover:text-brand-600 transition-colors">{notif.title}</p>
+                                  <p className="text-[10px] text-slate-500 leading-relaxed mb-2 line-clamp-2">{notif.message}</p>
+                                  <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest flex items-center gap-1">
+                                    <Clock size={10} /> {notif.date}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                      <div className="p-2 bg-slate-50 border-t border-slate-100 text-center">
+                        <button className="text-[10px] font-bold text-brand-500 hover:text-brand-700 uppercase tracking-widest">Mark all as read</button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+              </div>
+            </>
+          )}
         </header>
 
         {/* SUB HEADER */}
@@ -874,6 +1007,14 @@ const App: React.FC = () => {
       </main>
       <Analytics />
       <SpeedInsights />
+      <StartLearningMenu
+        isOpen={isStartLearningOpen}
+        onClose={() => setIsStartLearningOpen(false)}
+        onSelectCourse={(courseId, lessonId) => {
+          handleSelectLesson(courseId, lessonId);
+          setIsStartLearningOpen(false);
+        }}
+      />
     </div>
   );
 };
