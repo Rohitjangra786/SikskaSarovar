@@ -33,54 +33,61 @@ const AIAssistant: React.FC = () => {
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
-    setIsLoading(true);
+    // Try AI Gateway API first, otherwise use offline mode
+    const apiKey = import.meta.env.VITE_AI_GATEWAY_API_KEY || import.meta.env.VITE_API_KEY;
 
-    // Try Gemini API first (if available), otherwise use offline mode
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || import.meta.env.VITE_API_KEY;
+    try {
+      // Optimistic user message update
+      const newMessages = [...messages, userMessage];
+      setMessages(newMessages);
+      setInput('');
+      setIsLoading(true);
 
-    if (apiKey) {
-      try {
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({
-          model: "gemini-pro",
-          systemInstruction: `You are Siksha AI, the expert coding tutor for SikshaSarovar.com. 
-          Your goal is to help students learn web development, programming, and computer science. 
-          Keep answers concise, educational, and encouraging.`
+      const response = await fetch('/api/ai/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          // Convert messages to standard format
+          messages: newMessages.map(m => ({
+            role: m.role === 'model' ? 'assistant' : m.role,
+            content: m.content
+          }))
+        })
+      });
+
+      if (!response.ok) throw new Error('API request failed');
+
+      const reader = response.body?.getReader();
+      if (!reader) throw new Error('No readable stream');
+
+      // Create placeholder for AI response
+      const aiMessage: Message = {
+        role: 'model',
+        content: '',
+        timestamp: new Date()
+      };
+
+      setMessages(prev => [...prev, aiMessage]);
+      setIsOfflineMode(response.headers.get('X-AI-Mode') === 'offline');
+
+      // Stream user response
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const text = new TextDecoder().decode(value);
+        setMessages(prev => {
+          const last = prev[prev.length - 1];
+          // Determine if we are updating the last message or adding a new part (simplified)
+          // Actually, we just want to append text to the last message content
+          const updatedLast = { ...last, content: last.content + text };
+          return [...prev.slice(0, -1), updatedLast];
         });
-
-        const history = messages
-          .filter((_, index) => index > 0)
-          .map(m => ({
-            role: m.role,
-            parts: [{ text: m.content }]
-          }));
-
-        const chat = model.startChat({ history });
-        const result = await chat.sendMessage(userMessage.content);
-        const response = await result.response;
-        const text = response.text();
-
-        setIsOfflineMode(false);
-        setMessages(prev => [...prev, {
-          role: 'model',
-          content: text,
-          timestamp: new Date()
-        }]);
-      } catch (error) {
-        console.error('Gemini API failed, using offline mode:', error);
-        // Fallback to offline mode
-        const offlineResponse = handleOfflineQuery(userMessage.content);
-        setIsOfflineMode(true);
-        setMessages(prev => [...prev, {
-          role: 'model',
-          content: offlineResponse,
-          timestamp: new Date()
-        }]);
       }
-    } else {
-      // No API key, use offline mode directly
+
+    } catch (error) {
+      console.error('API failed, using offline mode:', error);
+      // Fallback to offline mode
       const offlineResponse = handleOfflineQuery(userMessage.content);
       setIsOfflineMode(true);
       setMessages(prev => [...prev, {
@@ -88,9 +95,9 @@ const AIAssistant: React.FC = () => {
         content: offlineResponse,
         timestamp: new Date()
       }]);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (

@@ -75,58 +75,60 @@ function handleOfflineQuery(query: string) {
   return response;
 }
 
+import { streamText } from 'ai';
+import { createGoogleGenerativeAI } from '@ai-sdk/google';
+
+// ... (searchCourses and handleOfflineQuery should be kept or assumed to be above)
+
 // Streaming AI endpoint with offline fallback
 app.post('/api/ai/stream', async (req, res) => {
-  const { message, history } = req.body || {};
+  const { messages } = req.body || {};
+  const lastMessage = messages && messages.length > 0 ? messages[messages.length - 1].content : '';
 
   let useOfflineMode = false;
   let offlineResponse = '';
 
+  const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY || process.env.GEMINI_API_KEY || process.env.VITE_API_KEY;
+
   if (!apiKey) {
-    console.warn('No API key found, using offline mode');
+    console.warn('No Google API key found, using offline mode');
     useOfflineMode = true;
   }
 
   if (!useOfflineMode) {
-    const genAI = new GoogleGenerativeAI(apiKey);
-
     try {
-      const formattedHistory = (history || []).map((h: any) => ({ role: h.role, parts: h.parts }));
-
-      const model = genAI.getGenerativeModel({
-        model: "gemini-pro",
-        systemInstruction: `You are Siksha AI, the expert coding tutor for SikshaSarovar.com. 
-        Your goal is to help students learn web development, programming, and computer science. 
-        Keep answers concise, educational, and encouraging.`
+      const google = createGoogleGenerativeAI({
+        apiKey: apiKey,
       });
 
-      const chat = model.startChat({ history: formattedHistory });
-      const result = await chat.sendMessage(message);
-      const response = await result.response;
-      const text = response.text();
+      const result = streamText({
+        model: google('gemini-1.5-pro-latest'),
+        messages: messages,
+        system: `You are Siksha AI, the expert coding tutor for SikshaSarovar.com. 
+            Your goal is to help students learn web development, programming, and computer science. 
+            Keep answers concise, educational, and encouraging.`
+      });
 
       res.setHeader('Content-Type', 'text/plain; charset=utf-8');
       res.setHeader('X-AI-Mode', 'online');
 
-      const chunkSize = 20;
-      for (let i = 0; i < text.length; i += chunkSize) {
-        res.write(text.slice(i, i + chunkSize));
-        await new Promise(r => setTimeout(r, 10));
+      for await (const textPart of result.textStream) {
+        res.write(textPart);
       }
       res.end();
       return;
 
     } catch (error) {
-      console.error('Gemini API Error, falling back to offline mode:', error);
+      console.error('AI SDK Error, falling back to offline mode:', error);
       useOfflineMode = true;
-      offlineResponse = handleOfflineQuery(message);
+      offlineResponse = handleOfflineQuery(lastMessage);
     }
   }
 
   if (useOfflineMode) {
     try {
       if (!offlineResponse) {
-        offlineResponse = handleOfflineQuery(message);
+        offlineResponse = handleOfflineQuery(lastMessage);
       }
 
       res.setHeader('Content-Type', 'text/plain; charset=utf-8');
