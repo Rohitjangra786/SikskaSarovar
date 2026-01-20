@@ -825,8 +825,7 @@ const App: React.FC = () => {
                 <div className="relative">
                   <button
                     onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                    onBlur={() => setTimeout(() => setIsUserMenuOpen(false), 200)}
-                    className="flex items-center gap-2 hover:bg-slate-50 p-1.5 rounded-lg border border-transparent hover:border-slate-100 transition-all"
+                    className="flex items-center gap-2 hover:bg-slate-50 p-1.5 rounded-lg border border-transparent hover:border-slate-100 transition-all relative z-[60]"
                   >
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs ${currentUser?.name ? 'bg-brand-900 text-white' : 'bg-brand-100 text-brand-500'}`}>
                       {currentUser?.name ? currentUser.name.charAt(0).toUpperCase() : <UserIcon size={14} />}
@@ -840,35 +839,41 @@ const App: React.FC = () => {
                   </button>
 
                   {isUserMenuOpen && (
-                    <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
-                      <div className="p-4 border-b border-slate-50 bg-slate-50/50">
-                        <p className="text-xs font-black text-slate-900 truncate">{currentUser?.name || 'Guest User'}</p>
-                        <p className="text-[10px] font-semibold text-slate-400 truncate mt-0.5">{currentUser?.email || 'Local Session'}</p>
+                    <>
+                      <div className="fixed inset-0 z-[55]" onClick={() => setIsUserMenuOpen(false)} />
+                      <div className="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-[60] animate-in fade-in zoom-in-95 duration-200 origin-top-right">
+                        <div className="p-4 border-b border-slate-50 bg-slate-50/50">
+                          <p className="text-xs font-black text-slate-900 truncate">{currentUser?.name || 'Guest User'}</p>
+                          <p className="text-[10px] font-semibold text-slate-400 truncate mt-0.5">{currentUser?.email || 'Local Session'}</p>
+                        </div>
+                        <div className="p-1.5 space-y-0.5">
+                          <button
+                            onClick={() => {
+                              handleNavigate('settings', '/settings');
+                              setIsUserMenuOpen(false);
+                            }}
+                            className="w-full text-left px-3 py-2.5 text-xs font-bold text-slate-600 hover:text-brand-900 hover:bg-slate-50 rounded-lg flex items-center gap-3 transition-colors"
+                          >
+                            <SettingsIcon size={14} className="text-slate-400" />
+                            Profile Settings
+                          </button>
+                          <div className="h-px bg-slate-50 my-1"></div>
+                          <button
+                            onClick={() => {
+                              if (confirm('Log out? This will clear your local session progress.')) {
+                                localStorage.removeItem('siksha_progress');
+                                localStorage.removeItem('siksha_user');
+                                window.location.reload();
+                              }
+                            }}
+                            className="w-full text-left px-3 py-2.5 text-xs font-bold text-red-500 hover:bg-red-50 rounded-lg flex items-center gap-3 transition-colors"
+                          >
+                            <LogOut size={14} />
+                            Log Out
+                          </button>
+                        </div>
                       </div>
-                      <div className="p-1.5 space-y-0.5">
-                        <button
-                          onClick={() => handleNavigate('settings', '/settings')}
-                          className="w-full text-left px-3 py-2.5 text-xs font-bold text-slate-600 hover:text-brand-900 hover:bg-slate-50 rounded-lg flex items-center gap-3 transition-colors"
-                        >
-                          <SettingsIcon size={14} className="text-slate-400" />
-                          Profile Settings
-                        </button>
-                        <div className="h-px bg-slate-50 my-1"></div>
-                        <button
-                          onClick={() => {
-                            if (confirm('Log out? This will clear your local session progress.')) {
-                              localStorage.removeItem('siksha_progress');
-                              localStorage.removeItem('siksha_user');
-                              window.location.reload();
-                            }
-                          }}
-                          className="w-full text-left px-3 py-2.5 text-xs font-bold text-red-500 hover:bg-red-50 rounded-lg flex items-center gap-3 transition-colors"
-                        >
-                          <LogOut size={14} />
-                          Log Out
-                        </button>
-                      </div>
-                    </div>
+                    </>
                   )}
                 </div>
 
@@ -960,7 +965,7 @@ const App: React.FC = () => {
 
         {/* CONTENT */}
         <div id="scroll-container" className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/50 flex flex-col">
-          <div className="p-6 lg:p-12 flex-1">
+          <div className="p-4 lg:p-12 flex-1">
             {activeTab === 'home' && renderHome()}
             {activeTab === 'about' && renderAbout()}
             {activeTab === 'terms' && <Terms />}

@@ -45,7 +45,7 @@ const Settings: React.FC<Props> = ({ currentUser, onUpdate }) => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-white rounded-2xl p-8 shadow-md">
+    <div className="max-w-3xl mx-auto bg-white rounded-2xl p-4 sm:p-8 shadow-md">
       <h2 className="text-2xl font-black mb-4">Profile Settings</h2>
       <div className="space-y-4">
         <div>
@@ -75,8 +75,8 @@ const Settings: React.FC<Props> = ({ currentUser, onUpdate }) => {
         </div>
 
 
-        <div className="flex items-center gap-4 pt-6 border-t border-slate-100">
-          <button onClick={handleSave} disabled={saving} className="bg-brand-900 text-white px-6 py-3 rounded-xl font-black disabled:opacity-50 hover:bg-brand-800 transition-colors shadow-lg shadow-brand-900/20">{saving ? 'Saving...' : 'Save Profile'}</button>
+        <div className="flex flex-col sm:flex-row items-center gap-4 pt-6 border-t border-slate-100">
+          <button onClick={handleSave} disabled={saving} className="w-full sm:w-auto bg-brand-900 text-white px-6 py-3 rounded-xl font-black disabled:opacity-50 hover:bg-brand-800 transition-colors shadow-lg shadow-brand-900/20">{saving ? 'Saving...' : 'Save Profile'}</button>
 
           <button
             onClick={() => {
@@ -86,7 +86,7 @@ const Settings: React.FC<Props> = ({ currentUser, onUpdate }) => {
                 window.location.reload();
               }
             }}
-            className="px-6 py-3 rounded-xl font-bold text-red-500 hover:bg-red-50 transition-colors border border-transparent hover:border-red-100"
+            className="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-red-500 hover:bg-red-50 transition-colors border border-transparent hover:border-red-100"
           >
             Reset Progress
           </button>
