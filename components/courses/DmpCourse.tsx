@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SEO from '../SEO';
 import { Lesson, Course } from '../../types';
 import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo, GraduationCap } from 'lucide-react';
@@ -26,6 +26,13 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
     onTryIt
 }) => {
     const [copied, setCopied] = useState(false);
+
+    useEffect(() => {
+        const scrollContainer = document.getElementById('scroll-container');
+        if (scrollContainer) {
+            scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, [lesson.id]);
 
     const handleCopy = () => {
         if (lesson.codeSnippet) {
