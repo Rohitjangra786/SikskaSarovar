@@ -44,7 +44,9 @@ import {
   LogIn,
   CloudUpload,
   User as UserIcon,
-  MessageCircle
+  MessageCircle,
+  GraduationCap,
+  BookOpen
 } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import RohitImg from './Images/rohit.jpg';
@@ -133,6 +135,46 @@ const App: React.FC = () => {
   const isLoggedIn = false;
   const currentUser = null;
   const [users, setCurrentUser] = useState<any>(null); // Placeholder for missing user logic
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+      setSearchResults([]);
+      return;
+    }
+    const query = searchQuery.toLowerCase();
+    const results: any[] = [];
+
+    [...COURSES, ...COLLEGE_COURSES].forEach(course => {
+      if (course.title.toLowerCase().includes(query)) {
+        results.push({ type: 'course', id: course.id, title: course.title, subTitle: 'Course', course });
+      }
+      course.lessons.forEach(lesson => {
+        if (lesson.title.toLowerCase().includes(query)) {
+          results.push({ type: 'lesson', id: lesson.id, title: lesson.title, subTitle: `Lesson in ${course.title}`, course, lesson });
+        }
+      });
+    });
+    setSearchResults(results.slice(0, 5));
+  }, [searchQuery]);
+
+  const handleSearchResultClick = (result: any) => {
+    setSearchQuery('');
+    setIsSearchOpen(false);
+
+    const isCollege = COLLEGE_COURSES.some(c => c.id === result.course.id);
+
+    if (result.type === 'course') {
+      // Go to first lesson of course
+      if (result.course.lessons.length > 0) {
+        handleSelectLesson(result.course.id, result.course.lessons[0].id);
+      }
+    } else {
+      handleSelectLesson(result.course.id, result.lesson.id);
+    }
+  };
 
   useEffect(() => {
     if (window.innerWidth < 1024) {
@@ -618,13 +660,38 @@ const App: React.FC = () => {
 
           <div className="flex items-center gap-3">
             {/* SEARCH BAR */}
-            <div className="relative hidden md:block">
+            <div className="relative hidden md:block group">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-brand-300" size={14} />
               <input
                 type="text"
                 placeholder="Search..."
-                className="w-32 lg:w-48 bg-white border border-brand-200 rounded-lg py-1 pl-8 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-[11px] font-medium placeholder:text-brand-200"
+                value={searchQuery}
+                onChange={(e) => { setSearchQuery(e.target.value); setIsSearchOpen(true); }}
+                onFocus={() => setIsSearchOpen(true)}
+                onBlur={() => setTimeout(() => setIsSearchOpen(false), 200)}
+                className="w-32 lg:w-48 bg-white border border-brand-200 rounded-lg py-1 pl-8 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-[11px] font-medium placeholder:text-brand-200 transition-all focus:w-64"
               />
+
+              {/* Search Results Dropdown */}
+              {isSearchOpen && searchResults.length > 0 && (
+                <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
+                  <div className="flex flex-col p-1">
+                    {searchResults.map((result, idx) => (
+                      <button
+                        key={`${result.type}-${result.id}-${idx}`}
+                        className="text-left px-3 py-2 hover:bg-slate-50 rounded-lg transition-colors flex flex-col gap-0.5"
+                        onClick={() => handleSearchResultClick(result)}
+                      >
+                        <span className="text-xs font-bold text-slate-700">{result.title}</span>
+                        <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                          {result.type === 'course' ? <GraduationCap size={10} /> : <BookOpen size={10} />}
+                          {result.subTitle}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* ABOUT BUTTON */}
