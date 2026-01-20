@@ -65,7 +65,7 @@ const Settings: React.FC<Props> = ({ currentUser, onUpdate }) => {
           <input type="number" value={age === '' ? '' : age} onChange={(e) => setAge(e.target.value === '' ? '' : Number(e.target.value))} className="w-full mt-2 p-3 border rounded-lg" />
         </div>
         <div>
-          <label className="text-sm font-bold">Sex</label>
+          <label className="text-sm font-bold">Gender</label>
           <select value={sex || ''} onChange={(e) => setSex(e.target.value)} className="w-full mt-2 p-3 border rounded-lg">
             <option value="">Prefer not to say</option>
             <option value="male">Male</option>
