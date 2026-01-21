@@ -3,6 +3,8 @@ import DmpOverview from '../components/courses/DMP/Overview.png';
 import DmpMindMap from '../components/courses/DMP/Mind Map.png';
 import WbpOverview from '../components/courses/WBP/Overview Unit 1.png';
 import WbpMindMap from '../components/courses/WBP/Unit 1 Mind Map.png';
+import DvaOverview from '../components/courses/DVA/overview unit 1.png';
+import DvaMindMap from '../components/courses/DVA/Mind Map Unit 1.png';
 
 export const COLLEGE_COURSES: Course[] = [
   {
@@ -1033,6 +1035,662 @@ Feature	Indexed Array	Associative Array
 Index Type	Numeric	Named
 Access	Using index	Using key
 Usage	Lists	Key–value data`,
+        codeSnippet: undefined,
+        isCompleted: false
+      }
+    ]
+  },
+  {
+    id: 'dva',
+    title: 'Data Visualisation and Analytics',
+    category: 'College Subjects',
+    icon: 'bar-chart-2',
+    level: 'Intermediate',
+    progress: 0,
+    lessons: [
+      {
+        id: 'dva-u1-overview',
+        title: 'Unit 1: Overview',
+        content: `  Unit 1: Overview of Data Visualisation and Analytics
+                
+This unit introduces the fundamentals of data visualization, its importance, and various techniques to represent data effectively.
+
+  Visual Overview:
+Below is the visual overview of Unit 1.`,
+        image: DvaOverview,
+        mindMapImage: DvaMindMap,
+        codeSnippet: undefined,
+        isCompleted: false
+      },
+      {
+        id: 'dva-u1-notes',
+        title: 'Unit 1: Detailed Notes',
+        content: `Analytics: Basic Nomenclature
+ 
+ 
+ 
+1. Analytics
+Analytics is the systematic process of collecting, cleaning, analyzing, and interpreting data to discover useful patterns, trends, and insights that help in decision-making.
+
+In simple words:
+Analytics = Using data to understand what happened, why it happened, and what may happen next.
+________________________________________
+2. Data
+Data refers to raw facts and figures that have no meaning by themselves.
+Examples:
+•	Numbers: 45, 78, 102
+•	Text: Rohit, Delhi
+•	Dates: 12-07-2025
+•	Images, audio, video files
+Data can be:
+•	Structured (tables, rows, columns)
+•	Unstructured (text, images, videos)
+________________________________________
+3. Information
+Information is processed data that is meaningful and useful.
+Example:
+•	Data: 45, 50, 55
+•	Information: Average marks of a student = 50
+Data → Processing → Information
+________________________________________
+4. Dataset
+A dataset is a collection of related data, usually stored in tabular form.
+Example (Student Dataset):
+Roll No	Name	Marks
+101	Aman	78
+102	Neha	85
+________________________________________
+5. Variable
+A variable is a characteristic or attribute whose value can change.
+Examples:
+•	Age
+•	Marks
+•	Salary
+•	City
+Types of Variables:
+•	Numerical (Age, Marks)
+•	Categorical (Gender, Department)
+________________________________________
+6. Observation / Record
+An observation (or record) is one complete row of data in a dataset.
+Example:
+•	101 | Aman | 78 → one observation
+________________________________________
+7. Attribute / Feature
+An attribute (feature) is a column in a dataset that describes a property.
+Example:
+•	Roll No
+•	Name
+•	Marks
+________________________________________
+8. Descriptive Analytics
+Descriptive analytics answers:
+
+“What happened?”
+Examples:
+•	Total sales last month
+•	Average marks of a class
+•	Attendance percentage
+Uses charts, tables, and summaries.
+________________________________________
+9. Diagnostic Analytics
+Diagnostic analytics answers:
+“Why did it happen?”
+Examples:
+•	Why did sales decrease?
+•	Why did students fail in a subject?
+________________________________________
+10. Predictive Analytics
+Predictive analytics answers:
+“What is likely to happen?”
+Examples:
+•	Predict next semester results
+•	Forecast future sales
+Uses historical data + statistical models.
+________________________________________
+11. Prescriptive Analytics
+Prescriptive analytics answers:
+“What should we do?”
+Examples:
+•	Which strategy will increase sales?
+•	What actions will improve student performance?
+________________________________________
+12. Data Visualization
+Data visualization is the graphical representation of data to make insights easy to understand.
+Examples:
+•	Bar charts
+•	Pie charts
+•	Line graphs
+•	Dashboards
+________________________________________
+13. Insight
+An insight is a useful conclusion drawn from analyzed data that helps in decision-making.
+Example:
+•	“Students who attend more than 75% classes score higher marks.”
+________________________________________
+14. Decision Making
+Decision making is the final step of analytics, where insights are used to take actions.
+Example:
+•	Conduct extra classes for weak students
+•	Increase stock of high-selling products
+
+
+Analytics Process Model, Analytics Part in Different Profiles & Analytical Model Requirements
+
+ 
+
+ 
+ 
+________________________________________
+1. Analytics Process Model
+The Analytics Process Model explains the step-by-step approach used to convert raw data into meaningful insights and decisions.
+Steps of Analytics Process Model
+1. Problem Definition
+•	Clearly define the business or academic problem.
+•	Decide what needs to be analyzed.
+Example:
+Why are student pass percentages decreasing?
+________________________________________
+2. Data Collection
+•	Collect relevant data from different sources.
+Sources:
+•	Databases
+•	Surveys
+•	Sensors
+•	Logs
+•	Online platforms
+________________________________________
+3. Data Cleaning
+•	Remove errors, duplicates, and missing values.
+•	Improve data quality.
+Example:
+Removing incomplete student records.
+________________________________________
+4. Data Processing / Transformation
+•	Convert data into a suitable format.
+•	Normalize, aggregate, or encode data.
+________________________________________
+5. Data Analysis
+•	Apply statistical, logical, or analytical techniques.
+•	Identify patterns and relationships.
+________________________________________
+6. Data Visualization
+•	Present results using charts and graphs.
+•	Makes analysis easy to understand.
+________________________________________
+7. Interpretation & Insight Generation
+•	Understand results and extract insights.
+________________________________________
+8. Decision Making
+•	Take actions based on insights.
+Example:
+Introduce remedial classes for weak students.
+________________________________________
+Analytics Part in Different Profiles
+Analytics plays a role in various professional profiles across industries.
+   
+
+ 
+ 
+1. Data Analyst
+•	Collects, cleans, and analyzes data
+•	Creates reports and dashboards
+•	Uses Excel, SQL, visualization tools
+Focus: What happened & why?
+________________________________________
+2. Business Analyst
+•	Understands business problems
+•	Uses analytics to improve processes
+•	Acts as a bridge between technical team & management
+Focus: Business improvement using data
+________________________________________
+3. Data Scientist
+•	Builds predictive and prescriptive models
+•	Uses machine learning techniques
+•	Works with large and complex datasets
+Focus: Future predictions & optimization
+________________________________________
+4. Marketing Analyst
+•	Analyzes customer behavior
+•	Measures campaign performance
+•	Improves sales and customer engagement
+________________________________________
+5. Financial Analyst
+•	Risk analysis
+•	Profit forecasting
+•	Budget planning
+________________________________________
+6. Operations Analyst
+•	Optimizes processes
+•	Improves efficiency and productivity
+________________________________________
+7. Academic / Research Profile
+•	Analyzes survey data
+•	Uses analytics for research outcomes
+________________________________________
+3. Analytical Model
+An Analytical Model is a mathematical, statistical, or logical representation of a real-world problem used to analyze data and make predictions.
+Examples of Analytical Models
+•	Statistical models
+•	Regression models
+•	Classification models
+•	Time-series models
+Purpose:
+•	Identify patterns
+•	Predict outcomes
+•	Support decisions
+________________________________________
+4. Analytical Model Requirements
+Before building an analytical model, certain requirements must be fulfilled.
+
+      
+ 
+1. Clear Objective
+•	Define what the model should achieve.
+Example:
+Predict student performance.
+________________________________________
+2. Quality Data
+•	Data must be:
+o	Accurate
+o	Complete
+o	Consistent
+o	Relevant
+________________________________________
+3. Appropriate Variables
+•	Identify correct input (independent) and output (dependent) variables.
+________________________________________
+4. Data Volume
+•	Sufficient data is required for reliable results.
+________________________________________
+5. Assumptions
+•	Model assumptions must be valid.
+Example:
+Linear relationship between variables.
+________________________________________
+6. Tools & Techniques
+•	Selection of proper tools:
+o	Excel
+o	R
+o	Python
+o	Visualization tools
+________________________________________
+7. Validation & Testing
+•	Check accuracy and reliability.
+•	Compare predicted results with actual outcomes.
+________________________________________
+8. Interpretability
+•	Model results should be easy to understand.
+________________________________________
+9. Scalability
+•	Model should handle future data growth.
+
+Data Sources for Data Collection, Sampling & Sampling Distribution
+
+ 
+
+ 
+ 
+________________________________________
+1. Data Sources for Data Collection
+Data sources are the origins from where data is collected for analysis. They are mainly classified into Primary and Secondary data sources.
+________________________________________
+1.1 Primary Data Sources
+Primary data is collected for the first time directly from the source.
+Methods of Primary Data Collection
+1.	Surveys & Questionnaires
+o	Online or offline forms
+2.	Interviews
+o	Face-to-face or telephonic
+3.	Observations
+o	Watching and recording events
+4.	Experiments
+o	Lab or field experiments
+5.	Sensors & IoT Devices
+o	Temperature, traffic sensors, etc.
+Advantages:
+•	Accurate and relevant
+•	Updated data
+Disadvantages:
+•	Time-consuming
+•	Costly
+________________________________________
+1.2 Secondary Data Sources
+Secondary data is already collected and published by others.
+Examples of Secondary Data Sources
+•	Government reports
+•	Company databases
+•	Research papers
+•	Websites and online repositories
+•	Social media data
+Advantages:
+•	Easy to access
+•	Low cost
+Disadvantages:
+•	May be outdated
+•	Less specific
+________________________________________
+Comparison: Primary vs Secondary Data
+Feature	Primary Data	Secondary Data
+Collected by	Researcher	Others
+Cost	High	Low
+Time	More	Less
+Accuracy	High	Moderate
+________________________________________
+2. Sampling
+2.1 Population
+Population is the entire group from which data is to be collected.
+Example:
+All BCA students in a college.
+________________________________________
+2.2 Sample
+A sample is a small subset of the population used for analysis.
+Example:
+100 BCA students selected from the college.
+Sampling saves time, cost, and effort.
+________________________________________
+2.3 Sampling
+Sampling is the process of selecting a sample from a population.
+________________________________________
+3. Types of Sampling
+   
+
+3.1 Probability Sampling
+Each element has a known chance of selection.
+1.	Simple Random Sampling
+o	Every unit has equal chance
+2.	Systematic Sampling
+o	Every nth item is selected
+3.	Stratified Sampling
+o	Population divided into groups (strata)
+4.	Cluster Sampling
+o	Population divided into clusters
+________________________________________
+3.2 Non-Probability Sampling
+Selection is not random.
+1.	Convenience Sampling
+2.	Judgmental Sampling
+3.	Quota Sampling
+4.	Snowball Sampling
+________________________________________
+4. Sampling Distribution
+4.1 Definition
+A Sampling Distribution is the probability distribution of a statistic (mean, proportion, etc.) obtained from all possible samples of the same size drawn from a population.
+________________________________________
+4.2 Example
+•	Population: Marks of all students
+•	Sample size: 30 students
+•	Statistic: Sample mean
+Repeating this process creates a sampling distribution of means.
+________________________________________
+4.3 Importance of Sampling Distribution
+•	Helps in statistical inference
+•	Basis of hypothesis testing
+•	Used to estimate population parameters
+________________________________________
+5. Central Limit Theorem (Basic Idea)
+•	For a large sample size, the sampling distribution of the mean becomes approximately normal, regardless of population distribution.
+This concept is fundamental in analytics.
+________________________________________
+6. Difference Between Population Distribution & Sampling Distribution
+Feature	Population Distribution	Sampling Distribution
+Based on	Entire population	Sample statistics
+Size	Large	Depends on sample size
+Usage	Actual data	Estimation & inference
+
+Types of Data Elements, Missing Values, Outlier Detection & Treatment
+ 
+
+ 
+________________________________________
+1. Types of Data Elements
+Data elements are the basic units of data used in analytics. They are classified based on nature, measurement, and structure.
+________________________________________
+1.1 Qualitative (Categorical) Data
+Data that represents categories or labels.
+a) Nominal Data
+•	No natural order
+•	Used for identification
+Examples:
+Gender, Blood Group, Department
+________________________________________
+b) Ordinal Data
+•	Has a meaningful order
+•	Difference between values is not measurable
+Examples:
+Rank (1st, 2nd, 3rd), Grade (A, B, C)
+________________________________________
+1.2 Quantitative (Numerical) Data
+Data represented by numbers.
+a) Discrete Data
+•	Countable values
+•	Whole numbers
+Examples:
+Number of students, Number of books
+________________________________________
+b) Continuous Data
+•	Measured values
+•	Can take decimal values
+Examples:
+Height, Weight, Time, Temperature
+________________________________________
+1.3 Structured vs Unstructured Data
+•	Structured: Tables, databases
+•	Unstructured: Text, images, videos
+________________________________________
+2. Missing Values
+2.1 Definition
+Missing values occur when data is not recorded or unavailable for some observations.
+Example:
+Marks column has blank entries.
+________________________________________
+2.2 Causes of Missing Values
+•	Data entry errors
+•	Non-response in surveys
+•	System failure
+•	Data corruption
+________________________________________
+2.3 Types of Missing Data
+1.	MCAR (Missing Completely at Random)
+2.	MAR (Missing at Random)
+3.	MNAR (Missing Not at Random)
+ 
+________________________________________
+2.4 Treatment of Missing Values
+Method	Description
+Deletion	Remove rows/columns
+Mean/Median	Replace with average
+Mode	For categorical data
+Forward/Backward Fill	Use nearby values
+Prediction	Use models to estimate
+________________________________________
+3. Outliers
+3.1 Definition
+An outlier is a data value that significantly differs from other observations.
+Example:
+Marks: 45, 48, 50, 52, 98
+________________________________________
+3.2 Causes of Outliers
+•	Measurement errors
+•	Data entry mistakes
+•	Genuine rare events
+________________________________________
+4. Outlier Detection Methods
+4.1 Statistical Methods
+•	Z-Score Method
+•	IQR (Interquartile Range) Method
+________________________________________
+4.2 Visualization Methods
+•	Box plot
+•	Scatter plot
+•	Histogram
+________________________________________
+4.3 Rule-Based Methods
+•	Domain knowledge rules
+________________________________________
+5. Outlier Treatment
+ 
+ 
+Methods to Handle Outliers
+1.	Remove Outliers
+o	If error or irrelevant
+2.	Cap or Floor (Winsorization)
+o	Replace extreme values
+3.	Transformation
+o	Log or square root
+4.	Separate Analysis
+o	Analyze separately if important
+Never remove outliers without proper justification.
+________________________________________
+6. Missing Values vs Outliers (Comparison)
+Aspect	Missing Values	Outliers
+Meaning	Data not available	Extreme value
+Cause	Non-response, error	Error or rare event
+Handling	Imputation or removal	Detection & treatment
+
+Standardization using Min–Max and Z-Score
+ 
+
+ 
+ 
+________________________________________
+1. What is Standardization (Feature Scaling)?
+Standardization is the process of bringing numerical data to a common scale so that features with large values do not dominate features with small values during analysis.
+Why it is needed:
+•	Different units (marks, salary, age) cause bias
+•	Improves accuracy of analysis and models
+•	Makes comparison easier
+________________________________________
+2. Min–Max Standardization (Normalization)
+2.1 Definition
+Min–Max standardization rescales data to a fixed range, usually 0 to 1.
+________________________________________
+2.2 Formula
+ 
+________________________________________
+2.3 Example
+ 
+After Min–Max scaling, all values lie between 0 and 1.
+________________________________________
+2.4 Advantages
+•	Easy to understand
+•	Maintains original relationships
+2.5 Disadvantages
+•	Highly sensitive to outliers
+•	New data outside range breaks scaling
+________________________________________
+3. Z-Score Standardization
+3.1 Definition
+Z-Score standardization converts data into a form where:
+•	Mean = 0
+•	Standard Deviation = 1
+________________________________________
+3.2 Formula
+ ________________________________________
+3.3 Example
+Given Data: 50, 60, 70
+ 
+This means 70 is 1 standard deviation above the mean.
+________________________________________
+3.4 Advantages
+•	Less affected by outliers
+•	Works well when data follows normal distribution
+3.5 Disadvantages
+•	Results include negative values
+•	Harder to interpret than Min–Max
+________________________________________
+4. Min–Max vs Z-Score (Comparison)
+Feature	Min–Max Scaling	Z-Score Scaling
+Output Range	0 to 1	No fixed range
+Mean	Not fixed	0
+Std. Deviation	Not fixed	1
+Outlier Effect	High	Low
+Usage	Visualization, simple models	Statistical & ML models
+________________________________________
+5. When to Use Which?
+•	Min–Max
+o	When data has no extreme outliers
+o	When you need values between 0 and 1
+•	 Z-Score
+o	When data has outliers
+o	When data is normally distributed
+
+Categorization & Segmentation
+ 
+ 
+ 
+________________________________________
+1. Categorization
+1.1 Definition
+Categorization is the process of grouping data into predefined categories or classes based on shared characteristics.
+It answers: “Which category does this data belong to?”
+________________________________________
+1.2 Purpose of Categorization
+•	Simplifies complex data
+•	Improves understanding and reporting
+•	Helps in comparison and analysis
+________________________________________
+1.3 Examples of Categorization
+•	Students → Pass / Fail
+•	Marks → Low / Medium / High
+•	Age → Child / Adult / Senior
+•	Products → Electronics / Clothing / Grocery
+________________________________________
+1.4 Types of Categorization
+a) Manual Categorization
+•	Categories defined by humans
+•	Rule-based
+Example:
+Marks ≥ 40 → Pass
+________________________________________
+b) Automatic Categorization
+•	Uses algorithms or rules
+•	Data-driven
+Example:
+Email → Spam / Not Spam
+________________________________________
+1.5 Advantages
+•	Easy interpretation
+•	Improves visualization
+•	Reduces data complexity
+________________________________________
+2. Segmentation
+2.1 Definition
+Segmentation is the process of dividing a dataset into meaningful and homogeneous groups (segments) based on similarity.
+It answers: “How can data be divided into similar groups?”
+________________________________________
+2.2 Purpose of Segmentation
+•	Identifies hidden patterns
+•	Helps in targeted analysis
+•	Improves decision-making
+________________________________________
+2.3 Examples of Segmentation
+•	Customers segmented by buying behavior
+•	Students grouped by performance level
+•	Users segmented by activity patterns
+________________________________________
+2.4 Types of Segmentation
+a) Demographic Segmentation
+•	Age, gender, income
+b) Geographic Segmentation
+•	City, state, country
+c) Behavioral Segmentation
+•	Purchase history, usage pattern
+d) Psychographic Segmentation
+•	Interests, lifestyle, attitude
+________________________________________
+3. Categorization vs Segmentation
+Aspect	Categorization	Segmentation
+Basis	Predefined rules	Data similarity
+Nature	Simple	Analytical
+Groups	Fixed	Dynamic
+Example	Pass / Fail	Performance-based clusters
+Complexity	Low	High
+________________________________________
+4. Role in Data Analytics
+•	Categorization helps in labeling data
+•	Segmentation helps in discovering structure in data
+•	Both improve data visualization and analysis`,
         codeSnippet: undefined,
         isCompleted: false
       }

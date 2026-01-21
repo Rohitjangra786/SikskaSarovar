@@ -1071,7 +1071,7 @@ const App: React.FC = () => {
                 onTryIt: handleTryIt
               };
               // Add specific college course renderers here if needed, or generic DmpCourse
-              if (selectedCourse.id === 'dmp' || selectedCourse.id === 'wbp') {
+              if (selectedCourse.id === 'dmp' || selectedCourse.id === 'wbp' || selectedCourse.id === 'dva') {
                 return <DmpCourse {...commonProps} />;
               }
               return <LessonViewer {...commonProps} />;
