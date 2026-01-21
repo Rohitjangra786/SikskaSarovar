@@ -157,21 +157,41 @@ const App: React.FC = () => {
   const [lastActiveLesson, setLastActiveLesson] = useState<{ courseId: string, lessonId: string, title: string, category: string } | null>(null);
 
   useEffect(() => {
-    // Generate mock notifications based on courses
-    // In a real app, this would come from a backend or 'dateAdded' field
-    const mockNotifications = COURSES.slice(0, 3).map((course, index) => {
-      const date = new Date();
-      date.setDate(date.getDate() - (index * 2)); // Spread out dates
-
-      return {
-        id: `notif-${course.id}`,
-        title: `New Course Added: ${course.title}`,
-        message: `Start learning ${course.category} with our new ${course.title} updated track.`,
-        date: date.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
-        courseId: course.id,
+    // Generate mock notifications including College Courses
+    const mockNotifications = [
+      {
+        id: 'notif-dva',
+        title: 'New: Data Visualisation',
+        message: 'Master analytics with our new college course. Unit 1 is live with Mind Maps!',
+        date: 'Just Now',
+        courseId: 'dva',
         isRead: false
-      };
-    });
+      },
+      {
+        id: 'notif-wbp',
+        title: 'New: Web Based Programming',
+        message: 'Deep dive into PHP and Web Architecture. Check out the Unit 1 Notes & Mind Map.',
+        date: '2 hours ago',
+        courseId: 'wbp',
+        isRead: false
+      },
+      {
+        id: 'notif-dmp',
+        title: 'Course Update: Disaster Management',
+        message: 'Comprehensive notes and visual mind maps are now available for DMP Unit 1.',
+        date: '5 hours ago',
+        courseId: 'dmp',
+        isRead: false
+      },
+      {
+        id: 'notif-ai',
+        title: 'Try the AI Tutor',
+        message: 'Stuck? Ask our AI assistant for help with any concept.',
+        date: '1 day ago',
+        courseId: 'ai',
+        isRead: false
+      }
+    ];
     setNotifications(mockNotifications);
   }, []);
 
