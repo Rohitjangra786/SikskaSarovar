@@ -1,0 +1,365 @@
+Structure of PHP Application and its Execution into the Web
+1. How PHP Works (Execution Flow)
+PHP is a server-side scripting language. This means the code runs on the server, not the browser.
+Step-by-Step Execution:
+1. Comparison: Client Request: The user opens a browser and types a URL (e.g., www.example.com/index.php).
+2. Server Processing: The request goes to the Web Server (Apache/Nginx).
+3. PHP Engine: The server detects .php extension and sends the file to the PHP Interpreter.
+4. Database Interaction (Optional): If needed, PHP asks the Database (MySQL) for data.
+5. Generate HTML: PHP processes the code and generates a plain HTML page.
+6. Response: The server sends the HTML back to the user’s browser.
+
+2. Basic Structure of a PHP Script
+A PHP script can be placed anywhere in the document.
+Starts with: <?php
+Ends with: ?>
+Extension: .php
+Example:
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>My First PHP Page</h1>
+    <?php
+        echo "Hello, World!";
+    ?>
+</body>
+</html>
+Important Points:
+PHP statements end with a semicolon (;).
+PHP is case-sensitive for variables ($color is different from $COLOR).
+Keywords (e.g., if, else, echo) are not case-sensitive.
+
+3. PHP Variables & Scope
+3. Variables in PHP
+A variable is a container for storing data.
+Syntax: Start with $ sign.
+$name = "Ankit";
+$age = 21;
+
+3.1 Variable Scope
+Local Variable – Defined inside a function
+Global Variable – Defined outside a function
+Static Variable – Retains value between function calls
+function test() {
+  static $x = 0;
+  $x++;
+  echo $x;
+}
+
+4. PHP Super Global Variables
+Super Globals are predefined variables available anywhere in the script.
+
+List of PHP Super Global Variables
+Super Global
+Description
+$_GET
+Collects data from URL
+$_POST
+Collects form data
+$_REQUEST
+Collects GET, POST & COOKIE data
+$_SERVER
+Server information
+$_SESSION
+Stores session data
+$_COOKIE
+Stores cookie data
+$_FILES
+File upload data
+$_ENV
+Environment variables
+$GLOBALS
+Access global variables
+
+4.1 $_GET
+Used to collect data sent via URL.
+echo $_GET['name'];
+
+4.2 $_POST
+Used to collect form data securely.
+echo $_POST['username'];
+
+4.3 $_SERVER
+Provides server and execution environment information.
+echo $_SERVER['SERVER_NAME'];
+
+4.4 $_SESSION
+Used to store user data across multiple pages.
+session_start();
+$_SESSION['user'] = "Admin";
+
+4.5 $_COOKIE
+Used to store small data on user’s browser.
+setcookie("user", "Admin", time()+3600);
+
+5. GET vs POST (Short Comparison)
+Feature
+GET
+POST
+Data Visibility
+Visible in URL
+Hidden
+Security
+Less secure
+More secure
+Data Limit
+Limited
+Large
+Usage
+Search forms
+Login forms
+
+PHP: Constants, Comments, Operators & Expressions, Regular Expressions, Advantages of PHP
+
+1. PHP Constants
+A constant is an identifier whose value cannot be changed once defined.
+Features of Constants
+Do not use $ symbol
+Case-sensitive by default
+Global scope
+Defining Constants
+define("SITE_NAME", "MyWebsite");
+echo SITE_NAME;
+Using const keyword:
+const PI = 3.14;
+
+2. PHP Comments
+Comments are used to explain code and are ignored by the PHP interpreter.
+Types of Comments
+Single-line comment
+// This is a single-line comment
+# This is also a single-line comment
+Multi-line comment
+/*
+ This is
+ a multi-line comment
+*/
+
+3. PHP Operators
+Operators are symbols used to perform operations on variables and values.
+3.1 Arithmetic Operators
+Operator
+Description
++
+Addition
+-
+Subtraction
+*
+Multiplication
+/
+Division
+%
+Modulus
+echo 10 + 5;
+
+3.2 Assignment Operators
+Operator
+Example
+=
+$x = 10
++=
+$x += 5
+-=
+$x -= 2
+
+3.3 Comparison Operators
+Operator
+Meaning
+==
+Equal
+===
+Identical
+!=
+Not equal
+>
+Greater than
+if ($a == $b) { }
+
+3.4 Logical Operators
+Operator
+Meaning
+&&
+AND
+||
+OR
+!
+NOT
+
+3.5 Increment / Decrement Operators
+$x++;
+$y--;
+
+4. PHP Expressions
+An expression is a combination of variables, operators, and values that produces a result.
+Example
+$result = ($a + $b) * 2;
+
+5. PHP Regular Expressions
+Regular Expressions (Regex) are used for pattern matching in strings.
+Common PHP Regex Functions
+Function
+Purpose
+preg_match()
+Match pattern
+preg_replace()
+Replace text
+preg_split()
+Split string
+
+Example: Email Validation
+$email = "test@gmail.com";
+if (preg_match("/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i", $email)) {
+  echo "Valid Email";
+} else {
+  echo "Invalid Email";
+}
+
+6. Advantages of PHP
+Why Use PHP?
+Open source and free
+Easy to learn and use
+Platform independent
+Fast execution
+Supports many databases
+Large community support
+Widely used in web development
+
+**Control Statements in PHP
+Conditional Statements & Loops**
+
+1. Control Statements in PHP
+Control statements are used to control the flow of execution of a PHP program.They help in decision making and repetition of tasks.
+Control statements are mainly of two types:
+Conditional Statements
+Looping Statements
+
+2. Conditional Statements in PHP
+Conditional statements execute code based on conditions.
+
+2.1 if Statement
+Executes code only if the condition is true.
+$age = 20;
+if ($age >= 18) {
+  echo "Eligible to vote";
+}
+
+2.2 if–else Statement
+Executes one block if condition is true, otherwise another block.
+$marks = 45;
+if ($marks >= 40) {
+  echo "Pass";
+} else {
+  echo "Fail";
+}
+
+2.3 if–elseif–else Statement
+Used to test multiple conditions.
+$marks = 75;
+if ($marks >= 80) {
+  echo "Grade A";
+} elseif ($marks >= 60) {
+  echo "Grade B";
+} else {
+  echo "Grade C";
+}
+
+2.4 Nested if Statement
+An if statement inside another if statement.
+$age = 22;
+$citizen = true;
+
+if ($age >= 18) {
+  if ($citizen) {
+    echo "Eligible to vote";
+  }
+}
+
+2.5 switch–case Statement
+Used when there are multiple fixed values.
+$day = 3;
+switch ($day) {
+  case 1:
+    echo "Monday";
+    break;
+  case 2:
+    echo "Tuesday";
+    break;
+  case 3:
+    echo "Wednesday";
+    break;
+  default:
+    echo "Invalid day";
+}
+Important Points:
+break stops execution
+default executes if no case matches
+
+3. Looping Statements in PHP
+Loops are used to execute a block of code repeatedly.
+
+3.1 for Loop
+Used when the number of iterations is known.
+for ($i = 1; $i <= 5; $i++) {
+  echo $i . "<br>";
+}
+
+3.2 while Loop
+Executes code while condition is true.
+$i = 1;
+while ($i <= 5) {
+  echo $i . "<br>";
+  $i++;
+}
+
+3.3 do–while Loop
+Executes code at least once, even if condition is false.
+$i = 1;
+do {
+  echo $i . "<br>";
+  $i++;
+} while ($i <= 5);
+
+3.4 foreach Loop
+Used to iterate through arrays.
+$subjects = array("HTML", "CSS", "PHP");
+foreach ($subjects as $sub) {
+  echo $sub . "<br>";
+}
+
+Arrays in PHP Indexed Array, Associative Array, Multidimensional Array & Predefined Functions
+
+1. Introduction to Arrays in PHP
+An array is a special variable that can store multiple values in a single variable.Each value is stored with an index or key.
+Why Use Arrays?
+Store multiple related values
+Reduce number of variables
+Easy data management
+
+2. Indexed Array
+An indexed array uses numeric indexes (starting from 0 by default).
+Declaration
+$subjects = array("HTML", "CSS", "PHP", "JavaScript");
+Accessing Elements
+echo $subjects[0];   // HTML
+
+3. Associative Array
+An associative array uses named keys instead of numeric indexes.
+Declaration
+$student = array(
+  "name" => "Rohit",
+  "age" => 21,
+  "course" => "BCA"
+);
+
+4. Multidimensional Array
+A multidimensional array is an array containing one or more arrays.
+Example
+$students = array(
+  array("Amit", 20, "BCA"),
+  array("Neha", 21, "BCA")
+);
+
+5. PHP Array Predefined Functions
+PHP provides many built-in functions to handle arrays.
+Common Array Functions:
+count(), sort(), rsort(), array_push(), array_pop(), array_merge(), in_array()

@@ -4,6 +4,7 @@ export interface Lesson {
   title: string;
   content: string;
   image?: string;
+  mindMapImage?: string;
   codeSnippet?: string;
   isCompleted: boolean;
 }
