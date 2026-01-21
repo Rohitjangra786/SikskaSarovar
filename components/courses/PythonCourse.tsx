@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SEO from '../SEO';
 import { Lesson, Course } from '../../types';
-import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo, GraduationCap } from 'lucide-react';
+import MarkdownRenderer from '../MarkdownRenderer';
 
 interface PythonCourseProps {
     lesson: Lesson;
@@ -25,6 +26,11 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
     onTryIt
 }) => {
     const [copied, setCopied] = useState(false);
+    const [showMindMap, setShowMindMap] = useState(false);
+
+    useEffect(() => {
+        setShowMindMap(false);
+    }, [lesson.id]);
 
     const handleCopy = () => {
         if (lesson.codeSnippet) {
@@ -82,43 +88,67 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                 <div className="h-3 bg-gradient-to-r from-brand-900 via-brand-700 to-brand-500"></div>
 
                 <div className="p-10 md:p-16">
-                    <div className="flex justify-between items-start mb-8">
+                    <div className="flex justify-between items-start mb-8 flex-wrap gap-4">
                         <div className="flex items-center gap-2">
                             <span className="bg-brand-100 text-brand-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
                             {isCompleted && <span className="flex items-center gap-1 text-brand-600 text-[10px] font-black"><Check size={12} /> COMPLETED</span>}
                         </div>
-                        <button
-                            onClick={() => toggleCompletion(lesson.id)}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isCompleted
-                                ? 'bg-brand-50 text-brand-600 hover:bg-brand-100'
-                                : 'bg-brand-900 text-white hover:bg-brand-800'
-                                }`}
-                        >
-                            {isCompleted ? <><Undo size={14} /> Mark Incomplete</> : <><Check size={14} /> Mark Complete</>}
-                        </button>
+
+                        <div className="flex items-center gap-3">
+                            {lesson.mindMapImage && (
+                                <button
+                                    onClick={() => setShowMindMap(!showMindMap)}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${showMindMap
+                                        ? 'bg-amber-100 text-amber-700'
+                                        : 'bg-amber-50 text-amber-600 hover:bg-amber-100'
+                                        }`}
+                                >
+                                    <GraduationCap size={14} />
+                                    {showMindMap ? 'Hide Mind Map' : 'View Mind Map'}
+                                </button>
+                            )}
+
+                            <button
+                                onClick={() => toggleCompletion(lesson.id)}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isCompleted
+                                    ? 'bg-brand-50 text-brand-600 hover:bg-brand-100'
+                                    : 'bg-brand-900 text-white hover:bg-brand-800'
+                                    }`}
+                            >
+                                {isCompleted ? <><Undo size={14} /> Mark Incomplete</> : <><Check size={14} /> Mark Complete</>}
+                            </button>
+                        </div>
                     </div>
 
                     <h1 className="text-5xl font-black text-slate-900 mb-8 tracking-tight">{lesson.title}</h1>
 
-                    {lesson.image && (
-                        <div className="mb-10 flex justify-center">
-                            <div className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 max-w-full md:max-w-3xl">
-                                <img
-                                    src={lesson.image}
-                                    alt={lesson.title}
-                                    className="w-full h-auto object-contain"
-                                    onError={(e) => {
-                                        (e.target as HTMLImageElement).style.display = 'none';
-                                    }}
-                                />
+                    {showMindMap && lesson.mindMapImage && (
+                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-amber-100 ring-4 ring-amber-50 animate-in fade-in zoom-in duration-300">
+                            <div className="bg-amber-50 px-6 py-3 border-b border-amber-100 flex items-center justify-between">
+                                <span className="text-amber-800 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                                    <GraduationCap size={14} />
+                                    Mind Map Visual Resource
+                                </span>
                             </div>
+                            <img src={lesson.mindMapImage} alt={`${lesson.title} Mind Map`} className="w-full h-auto object-cover" />
                         </div>
                     )}
 
-                    <div className="prose prose-brand max-w-none text-slate-600 text-xl leading-relaxed mb-12">
-                        {lesson.content.split('\n').map((paragraph, i) => (
-                            <p key={i} className="mb-4">{paragraph}</p>
-                        ))}
+                    {!showMindMap && lesson.image && (
+                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200">
+                            <img
+                                src={lesson.image}
+                                alt={lesson.title}
+                                className="w-full h-auto object-cover"
+                                onError={(e) => {
+                                    (e.target as HTMLImageElement).style.display = 'none';
+                                }}
+                            />
+                        </div>
+                    )}
+
+                    <div className="mb-12">
+                        <MarkdownRenderer content={lesson.content} />
                     </div>
 
                     {lesson.codeSnippet && (

@@ -41,8 +41,8 @@ const StartLearningMenu: React.FC<StartLearningMenuProps> = ({ isOpen, onClose, 
                 <div className="relative bg-brand-900 p-8 sm:p-10 text-white overflow-hidden shrink-0">
                     <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3" />
                     <button
-                        onClick={onClose}
-                        className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+                        onMouseDown={onClose}
+                        className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors z-50 hover:rotate-90 duration-300"
                     >
                         <X size={24} />
                     </button>
@@ -85,11 +85,11 @@ const StartLearningMenu: React.FC<StartLearningMenuProps> = ({ isOpen, onClose, 
                                     <div className="relative z-10 flex flex-col h-full">
                                         <div className="flex justify-between items-start mb-6">
                                             <div className={`p-3.5 rounded-2xl ${course.id === 'html' ? 'bg-orange-100 text-orange-600' :
-                                                    course.id === 'python' ? 'bg-blue-100 text-blue-600' :
-                                                        course.id === 'java' ? 'bg-red-100 text-red-600' :
-                                                            course.id === 'php' ? 'bg-indigo-100 text-indigo-600' :
-                                                                course.id === 'ai' ? 'bg-purple-100 text-purple-600' :
-                                                                    'bg-emerald-100 text-emerald-600'
+                                                course.id === 'python' ? 'bg-blue-100 text-blue-600' :
+                                                    course.id === 'java' ? 'bg-red-100 text-red-600' :
+                                                        course.id === 'php' ? 'bg-indigo-100 text-indigo-600' :
+                                                            course.id === 'ai' ? 'bg-purple-100 text-purple-600' :
+                                                                'bg-emerald-100 text-emerald-600'
                                                 } transition-colors`}>
                                                 {/* Render icon based on course.icon string if needed, or use a generic one if map is missing */}
                                                 <GridIcon iconName={course.icon} />

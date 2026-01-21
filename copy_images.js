@@ -1,19 +1,21 @@
 const fs = require('fs');
 const path = require('path');
 
-const src1 = path.join(__dirname, 'components', 'courses', 'DMP', 'Mind Map.png');
-const dest1 = path.join(__dirname, 'Images', 'dmp-mind-map.png');
+const sourceDir = 'c:\\Users\\rjang\\GitHub\\SikskaSarovar\\components\\courses\\Basics of Python';
+const targetDir = 'c:\\Users\\rjang\\GitHub\\SikskaSarovar\\Images';
 
-const src2 = path.join(__dirname, 'components', 'courses', 'DMP', 'Overview.png');
-const dest2 = path.join(__dirname, 'Images', 'dmp-overview.png');
+const files = ['mindmapBasics.png', 'Basics overview.png'];
 
-console.log(`Copying from ${src1} to ${dest1}`);
+files.forEach(file => {
+    const sourcePath = path.join(sourceDir, file);
+    const targetPath = path.join(targetDir, file);
 
-try {
-    fs.copyFileSync(src1, dest1);
-    console.log('Copied Mind Map');
-    fs.copyFileSync(src2, dest2);
-    console.log('Copied Overview');
-} catch (err) {
-    console.error('Error copying files:', err);
-}
+    try {
+        fs.copyFileSync(sourcePath, targetPath);
+        console.log(`Successfully copied ${file} to ${targetDir}`);
+        // Optional: Delete source after successful copy
+        // fs.unlinkSync(sourcePath); 
+    } catch (err) {
+        console.error(`Error copying ${file}:`, err);
+    }
+});

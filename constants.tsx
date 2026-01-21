@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { Course } from './types';
 import MLAppsImg from './Images/ml-applications.jpg';
+import pythonMindmap from './components/courses/Basics of Python/mindmapBasics.png';
+import pythonOverview from './components/courses/Basics of Python/Basics overview.png';
 
 // Fix: Added missing ICON_MAP export which was causing errors in Sidebar, CourseCard, and App components.
 export const ICON_MAP: Record<string, React.ReactNode> = {
@@ -103,7 +105,7 @@ export const COURSES: Course[] = [
   },
   {
     id: 'python',
-    title: 'Python',
+    title: 'Basics of Python',
     category: 'Programming',
     icon: 'terminal',
     level: 'Beginner',
@@ -111,59 +113,1111 @@ export const COURSES: Course[] = [
     lessons: [
       {
         id: 'p1',
-        title: 'Python Intro',
-        content: `Python is a popular programming language. It was created by Guido van Rossum, and released in 1991. It is used for web development (server-side), software development, mathematics, and system scripting.\n\nPython can be used on a server to create web applications. It can be used alongside software to create workflows. It can connect to database systems. It can also read and modify files. It can be used to handle big data and perform complex mathematics.\n\nPython works on different platforms (Windows, Mac, Linux, Raspberry Pi, etc). Python has a simple syntax similar to the English language.`,
-        codeSnippet: 'print("Hello, World!")',
-        isCompleted: true
+        title: '1. Introduction',
+        image: pythonOverview,
+        mindMapImage: pythonMindmap,
+        content: `Programming is the process of giving instructions to a computer so that it can perform specific tasks. These instructions are written using programming languages. Over time, programming languages have evolved from low-level, hardware-dependent languages to high-level, user-friendly languages.
+
+Python belongs to the category of modern programming languages that focus on:
+
+• Ease of learning
+• Readability
+• Productivity
+• Real-world problem solving
+
+This makes Python suitable for students, researchers, and professionals.`,
+        codeSnippet: 'print("Python is designed for readability and productivity.")',
+        isCompleted: false
+      },
+      {
+        id: 'p1_1',
+        title: '1.1 The New Age of Programming',
+        content: `The term “New Age of Programming” refers to the modern approach to software development where the focus is on **solving problems efficiently rather than writing complex code**.
+
+### Already Programming Era
+In earlier times:
+
+• Programming languages were **hardware dependent**
+• Syntax was complex
+• Writing even small programs required many lines of code
+• Development time was high
+
+**Examples**: Assembly Language, Early versions of C
+
+### Modern Programming Era
+Modern programming emphasizes:
+
+• Human-readable syntax
+• Rapid development
+• Code reusability
+• Cross-platform execution
+
+Python is a **key representative** of this new era.
+
+### Why Python is a New Age Language
+1. **High-level abstraction**: Programmer does not worry about memory management.
+2. **Simple syntax**: Code looks similar to English.
+3. **Multi-domain usage**: Web, Data Science, AI, Automation, Scientific computing.
+4. **Community-driven growth**: Thousands of open-source libraries.
+
+### Advantages of New Age Programming (Python)
+| Feature | Description |
+| :--- | :--- |
+| **Readability** | Easy to understand and learn |
+| **Productivity** | Faster development |
+| **Portability** | Runs on Windows, macOS, Linux |
+| **Scalability** | Suitable for small & large projects |
+| **Integration** | Works with other languages |`,
+        codeSnippet: `# C Language Example:\n# include<stdio.h>\n# int main() {\n#   printf("Hello World");\n#   return 0;\n# }\n\n# Python Example:\nprint("Hello World")\n# Python achieves the same result with less code.`,
+        isCompleted: false
+      },
+      {
+        id: 'p1_2',
+        title: '1.2 MATLAB',
+        content: `MATLAB is a high-level programming environment mainly used for **numerical and scientific computations**.
+
+### What is MATLAB?
+MATLAB stands for **Matrix Laboratory**. It is designed for:
+
+• Mathematical modeling
+• Numerical analysis
+• Engineering simulations
+• Signal and image processing
+
+MATLAB uses **matrix-based computation**, which makes it powerful for scientific work.
+
+### Limitations of MATLAB
+• Commercial (paid software)
+• Limited usage outside scientific fields
+• Less flexible for web and application development
+
+### Python as an Alternative to MATLAB
+Python has emerged as a strong alternative because:
+
+• Python is **free and open-source**
+• Libraries like **NumPy** and **SciPy** provide MATLAB-like functionality
+• Python supports **many more application areas**
+
+### MATLAB vs Python
+| MATLAB | Python |
+| :--- | :--- |
+| Paid software | Free & open-source |
+| Mainly scientific use | Multi-purpose |
+| Limited libraries | Huge ecosystem |
+| Closed environment | Community-driven |
+
+✔ Due to these reasons, many institutions and industries now **prefer Python over MATLAB**.`,
+        codeSnippet: 'import numpy as np\n\n# Python using NumPy is like MATLAB\na = np.array([1, 2, 3])\nprint("Matrix operation in Python:")\nprint(a * 2)',
+        isCompleted: false
       },
       {
         id: 'p2',
-        title: 'Python Get Started',
-        content: `Many PCs and Macs will have python already installed. To check if you have python installed on a Windows PC, search in the start bar for Python or run the following on the Command Line (cmd.exe): python --version.\n\nIf you find that you do not have Python installed on your computer, then you can download it for free from the following website: https://www.python.org/.\n\nPython is an interpreted programming language, this means that as a developer you write Python (.py) files in a text editor and then put those files into the python interpreter to be executed.`,
-        codeSnippet: 'import sys\nprint(sys.version)',
+        title: '2. What is Python?',
+        content: `Python is a **high-level, general-purpose programming language** that is designed to be **simple, readable, and powerful**. It allows programmers to write programs using fewer lines of code compared to many other languages.
+
+### Wide Usage
+Python is widely used in:
+
+• **Education**
+• **Software development**
+• **Data science**
+• **Artificial Intelligence**
+• **Web development**
+• **Automation**`,
+        codeSnippet: `print("Python power relies on simplicity")`,
+        isCompleted: false
+      },
+      {
+        id: 'p2_1',
+        title: '2.1 Introduction to Python',
+        content: `Python was created by **Guido van Rossum** and first released in **1991**. The main goal behind Python was to create a language that:
+
+• Is easy to learn
+• Uses clear and readable syntax
+• Reduces program complexity
+
+Python emphasizes **code readability**, which means a Python program looks almost like plain English.
+
+### Key Characteristics of Python
+1. **High-Level Language**: No need to manage memory manually; Programmer focuses only on logic.
+2. **Interpreted Language**: Code is executed line by line; No separate compilation step.
+3. **Object-Oriented**: Supports classes and objects; Encourages reusable and modular code.
+4. **Platform Independent**: Same program runs on Windows, Linux, macOS.
+5. **Open Source**: Free to use and modify; Supported by a large community.
+
+### Why Python is Easy to Learn
+• No semicolons (\`;\`)
+• No curly braces (\`{}\`)
+• Uses **indentation** instead of brackets
+• English-like keywords`,
+        codeSnippet: `if 5 > 2:\n    print("5 is greater than 2")\n# Indentation is key in Python!`,
+        isCompleted: false
+      },
+      {
+        id: 'p2_1_1',
+        title: '2.1.1 Interpreted vs Compiled',
+        content: `Programming languages are mainly classified into **Interpreted** and **Compiled** languages.
+
+### Interpreted Language
+In interpreted languages:
+
+• Code is executed **line by line**
+• Errors are shown immediately
+• Execution is slower
+
+*Python is an interpreted language.*
+
+**Advantages**: Easy debugging, Faster development.
+**Disadvantages**: Slower execution speed.
+
+### Compiled Language
+In compiled languages:
+• Entire code is converted into machine code
+• Execution is faster
+• Errors are found after compilation
+
+**Examples**: C, C++
+
+### Comparison Table
+| Feature | Interpreted | Compiled |
+| :--- | :--- | :--- |
+| **Execution** | Line by line | Whole program |
+| **Speed** | Slower | Faster |
+| **Error detection** | During execution | After compilation |
+| **Example** | Python | C, C++ |
+
+✔ Python being interpreted makes it **beginner-friendly**.`,
+        codeSnippet: `# Python (Interpreted) execution flow:\nprint("Line 1 executed")\nprint("Line 2 executed")\n# Error here stops execution immediately\n# print(1/0)`,
+        isCompleted: false
+      },
+      {
+        id: 'p2_2',
+        title: '2.2 Python Packages',
+        content: `A **package** in Python is a collection of **modules** that are grouped together to perform related tasks.
+
+• **Package** → Collection of modules
+• **Module** → Collection of functions and classes
+
+Packages help in:
+• Code reusability
+• Organized programming
+• Faster development
+
+### Examples of Python Packages
+• **NumPy**
+• **Pandas**
+• **Matplotlib**
+• **SciPy**`,
+        codeSnippet: `import numpy as np\n# Importing a package alias`,
+        isCompleted: false
+      },
+      {
+        id: 'p2_2_1',
+        title: '2.2.1 Scientific Packages',
+        content: `Python is very popular in scientific computing because of powerful packages.
+
+### Important Scientific Packages
+1. **NumPy**: Supports arrays and matrices; Fast numerical operations.
+2. **SciPy**: Advanced mathematical functions; Engineering and scientific calculations.
+3. **Pandas**: Data analysis and manipulation; Works with tables and datasets.
+4. **Matplotlib**: Graph plotting and visualization.`,
+        codeSnippet: `import pandas as pd\n# Pandas is key for Data Science\nprint("Pandas loaded for data analysis")`,
         isCompleted: false
       },
       {
         id: 'p3',
-        title: 'Python Syntax',
-        content: `Python syntax can be executed by writing directly in the Command Line. Or by creating a python file on the server, using the .py file extension, and running it in the Command Line.\n\nIndentation refers to the spaces at the beginning of a code line. Where in other programming languages the indentation in code is for readability only, the indentation in Python is very important. Python uses indentation to indicate a block of code.\n\nPython will give you an error if you skip the indentation.`,
-        codeSnippet: 'if 5 > 2:\n  print("Five is greater than two!")\n\n# This will raise an error:\n# if 5 > 2:\n# print("Five is greater than two!")',
+        title: '3. Anaconda',
+        content: `Anaconda is a **free and open-source Python distribution** that is specially designed for **data science, scientific computing, machine learning, and analytics**.
+
+Instead of installing Python and libraries separately, Anaconda provides **everything in one package**.
+
+### 3.1 What is Anaconda?
+Anaconda is:
+
+• A **Python distribution**
+• A **package manager**
+• An **environment manager**
+• A collection of **pre-installed scientific libraries**
+
+It simplifies Python usage by removing installation and dependency problems.
+
+### Why Anaconda Was Created
+In normal Python:
+• Libraries must be installed one by one
+• Version conflicts may occur
+• Beginners face setup difficulties
+
+Anaconda solves these problems by providing ready-to-use libraries and managing versions automatically.`,
+        codeSnippet: `conda list\n# Lists all installed packages in Anaconda`,
+        isCompleted: false
+      },
+      {
+        id: 'p3_2',
+        title: '3.2 Components of Anaconda',
+        content: `Anaconda consists of several important components:
+
+![Start Learning](https://mintcdn.com/anaconda-29683c67/eSsEBS6xLmJK8V-1/images/nav-tabs.png?auto=format&fit=max&n=eSsEBS6xLmJK8V-1&q=85&s=8a6590199fa0e668d648ad21432aac58)
+
+### 1. Python Interpreter
+• Core Python language
+• Executes Python programs
+
+### 2. Conda (Package Manager)
+**Conda** is used to install libraries, update packages, and manage environments.
+Example: \`conda install numpy\`
+
+### 3. Conda Environments
+A **virtual environment** is an isolated workspace where specific Python versions and libraries are used to avoid conflicts.
+
+### 4. Anaconda Navigator
+A **graphical user interface (GUI)** to launch tools and manage environments without commands.
+
+### 5. Pre-installed Libraries
+Includes **NumPy, Pandas, SciPy, Matplotlib, Scikit-learn**.
+
+### 6. IDEs Included
+Spyder, Jupyter Notebook, JupyterLab.`,
+        codeSnippet: `conda create -n myenv python=3.9\n# Creates a new environment named 'myenv'`,
+        isCompleted: false
+      },
+      {
+        id: 'p3_3',
+        title: '3.3 Advantages of Anaconda',
+        content: `1. **Easy Installation**: Single installer; No manual setup.
+2. **Beginner-Friendly**: GUI-based tools; Less command-line usage.
+3. **Environment Management**: Avoids dependency issues.
+4. **Scientific Focus**: Ideal for data science and research.
+5. **Cross-Platform**: Works on Windows, macOS, Linux.`,
+        codeSnippet: `# Anaconda makes setup easy!\nprint("Anaconda installed successfully.")`,
+        isCompleted: false
+      },
+      {
+        id: 'p3_4',
+        title: '3.4 Anaconda vs Normal Python',
+        content: `| Feature | Normal Python | Anaconda |
+| :--- | :--- | :--- |
+| **Installation** | Manual | One-click |
+| **Libraries** | Installed separately | Pre-installed |
+| **Package manager** | pip | conda |
+| **Environment management** | Limited | Excellent |
+| **Best for** | General use | Data science |`,
+        codeSnippet: `# Check existing packages\npip list  # Normal Python\nconda list # Anaconda`,
+        isCompleted: false
+      },
+      {
+        id: 'p3_5',
+        title: '3.5 Usage & Installation',
+        content: `### 3.5 When Should You Use Anaconda?
+**Recommended when:**
+
+• You are learning **Python for data science**
+• You need scientific libraries
+• You want fewer setup issues
+• You are a beginner
+
+**Normal Python is better for:**
+• Web development
+• Lightweight applications
+
+### 3.6 Installation of Anaconda (Conceptual Steps)
+1. Download Anaconda installer
+2. Run installer
+3. Choose Python version
+4. Complete installation
+5. Launch Anaconda Navigator
+
+(No command-line knowledge required for basic usage)`,
+        codeSnippet: `# Launch Navigator via command line (optional)\nanaconda-navigator`,
         isCompleted: false
       },
       {
         id: 'p4',
-        title: 'Python Comments',
-        content: `Comments can be used to explain Python code. Comments can be used to make the code more readable. Comments can be used to prevent execution when testing code.\n\nComments starts with a #, and Python will ignore them. Comments can be placed at the end of a line, and Python will ignore the rest of the line.\n\nPython does not really have a syntax for multi line comments. To add a multiline comment you could insert a # for each line. Or, not quite as intended, you can use a multiline string.`,
-        codeSnippet: '# This is a comment\nprint("Hello, World!")\n\n"""\nThis is a multiline string\nused as a comment\n"""',
+        title: '4. Python Editors (IDEs)',
+        content: `A **Python Editor** or **IDE (Integrated Development Environment)** is software that helps programmers to:
+
+• Write Python code
+• Execute programs
+• Debug errors
+• Manage projects efficiently
+
+Using an IDE increases **productivity**, **accuracy**, and **learning speed**, especially for beginners.
+
+### Why Do We Need an IDE?
+**Without an IDE:**
+• Writing code becomes difficult
+• Errors are harder to identify
+• Running and testing programs is slow
+
+**With an IDE:**
+• Syntax highlighting improves readability
+• Errors are shown clearly
+• Code execution is faster
+• Debugging tools are available
+
+### Types of Python Editors
+1. **Basic editors** (for beginners)
+2. **Advanced editors** (for professionals)
+3. **Notebook-based editors** (for data science)`,
+        codeSnippet: `print("IDEs make coding easier!")`,
+        isCompleted: false
+      },
+      {
+        id: 'p4_1',
+        title: '4.1 Python IDLE',
+        content: `**IDLE** stands for **Integrated Development and Learning Environment**.
+It is the **default editor** that comes with Python installation.
+
+![IDLE](https://www.aipython.in/wp-content/uploads/2020/03/Python_idle_windows-1-768x301.png)
+
+### Features
+• Simple interface
+• Built-in Python shell
+• Syntax highlighting
+• Error messages displayed clearly
+
+### Modes in IDLE
+1. **Interactive Mode**: Executes code line by line
+2. **Script Mode**: Used to write complete programs
+
+**Advantages**: Very easy for beginners; No extra installation.
+**Limitations**: Not suitable for large projects; Limited debugging.`,
+        codeSnippet: `print("This runs in IDLE")`,
+        isCompleted: false
+      },
+      {
+        id: 'p4_2',
+        title: '4.2 Visual Studio Code',
+        content: `**Visual Studio Code (VS Code)** is a **lightweight but powerful source code editor** developed by Microsoft.
+
+![VS Code](https://assets.digitalocean.com/articles/getting-started-with-python-in-visual-studio-code/lhkuvfxk5mwf7vtja7ln.png)
+
+### Features
+• Supports Python via extensions
+• Code completion
+• Integrated terminal
+• Git and GitHub support
+
+### Why VS Code is Popular
+• Fast and flexible
+• Used in industry
+• Supports multiple languages
+
+**Best Use Case**: Web development, Python scripting, Professional projects.`,
+        codeSnippet: `# VS Code requires the Python extension\nprint("VS Code is powerful!")`,
+        isCompleted: false
+      },
+      {
+        id: 'p4_3',
+        title: '4.3 Spyder',
+        content: `**Spyder** is an IDE designed specifically for **scientific computing and data analysis**.
+
+![Spyder](https://www.spyder-ide.org/assets/media/screenshot_light.webp)
+
+### Key Features
+• MATLAB-like interface
+• Variable explorer
+• Powerful editor
+• Integrated plotting
+
+**Advantages**: Ideal for data science students; Easy visualization.
+**Limitations**: Not ideal for web development.`,
+        codeSnippet: `# Spyder is great for plots\nimport matplotlib.pyplot as plt\nplt.plot([1,2,3])`,
+        isCompleted: false
+      },
+      {
+        id: 'p4_4',
+        title: '4.4 Visual Studio',
+        content: `**Visual Studio** is a **full-featured IDE** by Microsoft.
+
+### Features
+• Supports Python with plugins
+• Advanced debugging
+• Suitable for large applications
+
+**Use Case**: Enterprise-level software development.`,
+        codeSnippet: `print("Visual Studio is for big projects")`,
+        isCompleted: false
+      },
+      {
+        id: 'p4_5',
+        title: '4.5 PyCharm',
+        content: `**PyCharm** is a **Python-specific IDE** developed by JetBrains.
+
+### Features
+• Intelligent code completion
+• Advanced debugging
+• Virtual environment support
+• Django and Flask support
+
+### Editions
+• **Community**: Free
+• **Professional**: Paid
+
+**Advantages**: Best for Python professionals; Excellent project management.`,
+        codeSnippet: `print("PyCharm uses intelligent code completion")`,
+        isCompleted: false
+      },
+      {
+        id: 'p4_6',
+        title: '4.6 Wing Python IDE',
+        content: `**Wing IDE** is designed for **professional Python developers**.
+
+### Features
+• Advanced debugger
+• Code intelligence
+• Large project support
+
+**Limitations**: Not beginner-friendly; Paid software.`,
+        codeSnippet: `print("Wing IDE is for pros")`,
+        isCompleted: false
+      },
+      {
+        id: 'p4_7',
+        title: '4.7 Jupyter Notebook',
+        content: `**Jupyter Notebook** is an **interactive web-based environment** where code, output, text, and visuals appear together.
+
+### Features
+• Cell-based execution
+• Supports graphs and equations
+• Excellent for learning and research
+
+**Advantages**: Ideal for data science; Best for teaching.
+**Limitations**: Not suitable for large software projects.
+
+### Comparison of Python Editors
+| Editor | Best For | Level |
+| :--- | :--- | :--- |
+| **IDLE** | Beginners | Basic |
+| **VS Code** | General development | Intermediate |
+| **Spyder** | Scientific computing | Intermediate |
+| **PyCharm** | Professional Python | Advanced |
+| **Jupyter** | Learning & data science | All levels |`,
+        codeSnippet: `# Jupyter Cell\nx=10\ny=20\nx+y`,
         isCompleted: false
       },
       {
         id: 'p5',
-        title: 'Python Variables',
-        content: `Variables are containers for storing data values. Python has no command for declaring a variable. A variable is created the moment you first assign a value to it.\n\nVariables do not need to be declared with any particular type, and can even change type after they have been set. String variables can be declared either by using single or double quotes.\n\nVariable names are case-sensitive (age, Age and AGE are three different variables).`,
-        codeSnippet: 'x = 5\ny = "Siksha"\nprint(x)\nprint(y)',
+        title: '5. Resources',
+        content: `Learning Python effectively requires using the **right learning resources**. Python has one of the **largest learning ecosystems** among programming languages.
+
+### 5.1 Official Python Resources
+Python provides official learning support through:
+
+• **Official documentation**
+• **Tutorials and examples**
+• **Standard library references**
+
+**Why official resources are important:**
+• Accurate and up to date
+• Written by Python core developers
+• Useful for deep understanding`,
+        codeSnippet: `print("Start with docs.python.org")`,
         isCompleted: false
       },
-      { id: 'p6', title: 'Python Data Types', content: 'In programming, data type is an important concept. Variables can store data of different types, and different types can do different things. Python has the following data types built-in by default, in these categories:\n\nText Type: str\nNumeric Types: int, float, complex\nSequence Types: list, tuple, range\nMapping Type: dict\nSet Types: set, frozenset\nBoolean Type: bool\nBinary Types: bytes, bytearray, memoryview\nNone Type: NoneType', codeSnippet: 'x = 5    # int\ny = "Hi" # str\nz = 20.5 # float', isCompleted: false },
-      { id: 'p7', title: 'Python Numbers', content: 'There are three numeric types in Python: int, float, complex. Variables of numeric types are created when you assign a value to them.\n\nInt, or integer, is a whole number, positive or negative, without decimals, of unlimited length. Float, or "floating point number" is a number, positive or negative, containing one or more decimals. Complex numbers are written with a "j" as the imaginary part.', codeSnippet: 'x = 1    # int\ny = 2.8  # float\nz = 1j   # complex', isCompleted: false },
-      { id: 'p8', title: 'Python Casting', content: 'There may be times when you want to specify a type on to a variable. This can be done with casting. Python is an object-orientated language, and as such it uses classes to define data types, including its primitive types.\n\nCasting in python is therefore done using constructor functions: int(), float(), str().', codeSnippet: 'x = int(1)   # x will be 1\ny = int(2.8) # y will be 2\nz = str("s1")# z will be \'s1\'', isCompleted: false },
-      { id: 'p9', title: 'Python Strings', content: 'Strings in python are surrounded by either single quotation marks, or double quotation marks. \'hello\' is the same as "hello". You can display a string literal with the print() function.\n\nYou can assign a multiline string to a variable by using three quotes. Like many other popular programming languages, strings in Python are arrays of bytes representing unicode characters.', codeSnippet: 'a = "Hello"\nprint(a[1]) # prints \'e\'\nprint(len(a)) # prints 5', isCompleted: false },
-      { id: 'p10', title: 'Python Booleans', content: 'Booleans represent one of two values: True or False. In programming you often need to know if an expression is True or False. You can evaluate any expression in Python, and get one of two answers, True or False.\n\nWhen you compare two values, the expression is evaluated and Python returns the Boolean answer. Almost any value is evaluated to True if it has some sort of content. Any string is True, except empty strings. Any number is True, except 0.', codeSnippet: 'print(10 > 9)  # True\nprint(10 == 9) # False\nprint(10 < 9)  # False', isCompleted: false },
-      { id: 'p11', title: 'Python Operators', content: 'Operators are used to perform operations on variables and values. Python divides the operators in the following groups: Arithmetic operators, Assignment operators, Comparison operators, Logical operators, Identity operators, Membership operators, Bitwise operators.\n\nArithmetic operators are used with numeric values to perform common mathematical operations (+, -, *, /, %, **, //).', codeSnippet: 'x = 5\ny = 3\nprint(x + y) # 8\nprint(x ** y) # 125 (5 to the power of 3)', isCompleted: false },
-      { id: 'p12', title: 'Python Lists', content: 'Lists are used to store multiple items in a single variable. Lists are one of 4 built-in data types in Python used to store collections of data, the other 3 are Tuple, Set, and Dictionary, all with different qualities and usage.\n\nLists are created using square brackets []. List items are ordered, changeable, and allow duplicate values.', codeSnippet: 'thislist = ["apple", "banana", "cherry"]\nprint(thislist)\nprint(thislist[1]) # banana', isCompleted: false },
-      { id: 'p13', title: 'Python Tuples', content: 'Tuples are used to store multiple items in a single variable. A tuple is a collection which is ordered and unchangeable. Tuples are written with round brackets ().\n\nTuple items are ordered, unchangeable, and allow duplicate values. Tuple items are indexed, the first item has index [0], the second item has index [1] etc.', codeSnippet: 'thistuple = ("apple", "banana", "cherry")\nprint(thistuple)\n# thistuple[1] = "kiwi" # Error: Tuples are unchangeable', isCompleted: false },
-      { id: 'p14', title: 'Python Sets', content: 'Sets are used to store multiple items in a single variable. A set is a collection which is unordered, unchangeable*, and unindexed. *Note: Set items are unchangeable, but you can remove items and add new items.\n\nSets are written with curly brackets {}. Set items are unordered, so you cannot be sure in which order the items will appear.', codeSnippet: 'thisset = {"apple", "banana", "cherry"}\nprint(thisset)\nthisset.add("orange")\nprint(thisset)', isCompleted: false },
-      { id: 'p15', title: 'Python Dictionaries', content: 'Dictionaries are used to store data values in key:value pairs. A dictionary is a collection which is ordered*, changeable and do not allow duplicates. *As of Python version 3.7, dictionaries are ordered. In Python 3.6 and earlier, dictionaries are unordered.\n\nDictionaries are written with curly brackets, and have keys and values.', codeSnippet: 'thisdict = {\n  "brand": "Ford",\n  "model": "Mustang",\n  "year": 1964\n}\nprint(thisdict["brand"])', isCompleted: false },
-      { id: 'p16', title: 'Python If...Else', content: 'Python supports the usual logical conditions from mathematics: Equals (a == b), Not Equals (a != b), Less than (a < b), Less than or equal to (a <= b), Greater than (a > b), Greater than or equal to (a >= b). These conditions can be used in several ways, most commonly in "if statements" and loops.\n\nAn "if statement" is written by using the if keyword. The elif keyword is pythons way of saying "if the previous conditions were not true, then try this condition". The else keyword catches anything which isn\'t caught by the preceding conditions.', codeSnippet: 'a = 200\nb = 33\nif b > a:\n  print("b is greater than a")\nelif a == b:\n  print("a and b are equal")\nelse:\n  print("a is greater than b")', isCompleted: false },
-      { id: 'p17', title: 'Python While Loops', content: 'Python has two primitive loop commands: while loops and for loops. With the while loop we can execute a set of statements as long as a condition is true.\n\nThe while loop requires relevant variables to be ready, in this example we need to define an indexing variable, i, which we set to 1. With the break statement we can stop the loop even if the while condition is true. With the continue statement we can stop the current iteration, and continue with the next.', codeSnippet: 'i = 1\nwhile i < 6:\n  print(i)\n  i += 1', isCompleted: false },
-      { id: 'p18', title: 'Python For Loops', content: 'A for loop is used for iterating over a sequence (that is either a list, a tuple, a dictionary, a set, or a string). This is less like the for keyword in other programming languages, and works more like an iterator method as found in other object-orientated programming languages.\n\nWith the for loop we can execute a set of statements, once for each item in a list, tuple, set etc.', codeSnippet: 'fruits = ["apple", "banana", "cherry"]\nfor x in fruits:\n  print(x)', isCompleted: false },
-      { id: 'p19', title: 'Python Functions', content: 'A function is a block of code which only runs when it is called. You can pass data, known as parameters, into a function. A function can return data as a result.\n\nIn Python a function is defined using the def keyword. To call a function, use the function name followed by parenthesis. Information can be passed into functions as arguments.', codeSnippet: 'def my_function():\n  print("Hello from a function")\n\nmy_function()', isCompleted: false },
-      { id: 'p20', title: 'Python Classes/Objects', content: 'Python is an object oriented programming language. Almost everything in Python is an object, with its properties and methods. A Class is like an object constructor, or a "blueprint" for creating objects.\n\nTo create a class, use the keyword class. All classes have a function called __init__(), which is always executed when the class is being initiated. Use the __init__() function to assign values to object properties, or other operations that are necessary to do when the object is being created.', codeSnippet: 'class Person:\n  def __init__(self, name, age):\n    self.name = name\n    self.age = age\n\np1 = Person("John", 36)\nprint(p1.name)\nprint(p1.age)', isCompleted: false },
-      { id: 'p21', title: 'Python Iterators', content: 'An iterator is an object that contains a countable number of values. An iterator is an object that can be iterated upon, meaning that you can traverse through all the values. Technically, in Python, an iterator is an object which implements the iterator protocol, which consist of the methods __iter__() and __next__().', codeSnippet: 'mytuple = ("apple", "banana", "cherry")\nmyit = iter(mytuple)\n\nprint(next(myit))\nprint(next(myit))\nprint(next(myit))', isCompleted: false },
-      { id: 'p22', title: 'Python Scope', content: 'A variable is only available from inside the region it is created. This is called scope. A variable created inside a function belongs to the local scope of that function, and can only be used inside that function. A variable created in the main body of the Python code is a global variable and belongs to the global scope.', codeSnippet: 'def myfunc():\n  x = 300\n  print(x)\n\nmyfunc()', isCompleted: false },
-      { id: 'p23', title: 'Python Modules', content: 'Consider a module to be the same as a code library. A file containing a set of functions you want to include in your application. To create a module just save the code you want in a file with the file extension .py. To use a module, we use the import statement.', codeSnippet: 'import mymodule\n\nmymodule.greeting("Jonathan")', isCompleted: false },
-      { id: 'p24', title: 'Python Dates', content: 'A date in Python is not a data type of its own, but we can import a module named datetime to work with dates as date objects. The module is named datetime. The datetime module has many methods to return information about the date object.', codeSnippet: 'import datetime\n\nx = datetime.datetime.now()\nprint(x)', isCompleted: false },
-      { id: 'p25', title: 'Python Math', content: 'Python has a set of built-in math functions, including an extensive math module, that allows you to perform mathematical tasks on numbers. The min() and max() functions can be used to find the lowest or highest value in an iterable. The abs() function returns the absolute (positive) value of the specified number.', codeSnippet: 'import math\n\nx = math.sqrt(64)\n\nprint(x)', isCompleted: false }
+      {
+        id: 'p5_2',
+        title: '5.2 Online Learning Resources',
+        content: `Python learners commonly use:
+
+• **Online tutorials**
+• **Video lectures**
+• **Coding practice platforms**
+• **Community forums**
+
+**Benefits:**
+• Self-paced learning
+• Free or low-cost
+• Practical exposure`,
+        codeSnippet: `# Practice makes perfect\nfor i in range(3):\n    print("Code daily!")`,
+        isCompleted: false
+      },
+      {
+        id: 'p5_3',
+        title: '5.3 Books and Study Material',
+        content: `Books provide:
+
+• **Structured learning**
+• **Conceptual clarity**
+• **Exam-oriented explanations**
+
+Python books are widely used in **Universities**, **Competitive exams**, and **Research work**.`,
+        codeSnippet: `print("Books build strong foundations")`,
+        isCompleted: false
+      },
+      {
+        id: 'p5_4',
+        title: '5.4 Community Support',
+        content: `Python has strong community support through:
+
+• **Discussion forums**
+• **Developer groups**
+• **Open-source contributions**
+
+This helps beginners to **solve errors quickly**, **learn best practices**, and **improve coding skills**.
+
+### Why Python Resources Are Abundant
+• Python is open-source
+• Used globally
+• Strong academic and industry demand
+
+✔ This makes Python **easy to learn and grow with**.`,
+        codeSnippet: `print("Community is Python's superpower")`,
+        isCompleted: false
+      },
+      {
+        id: 'p6',
+        title: '6. Installing Python',
+        content: `Before writing Python programs, Python must be installed on the system.
+Python can be installed in **multiple ways**, depending on user needs.
+
+### Different Ways to Install Python
+1. **Python Windows Store App**
+2. **Official Python Installer**
+3. **Anaconda Distribution**
+4. **Python with IDEs like VS Code**`,
+        codeSnippet: `# Check if Python is installed\nimport sys\nprint(sys.executable)`,
+        isCompleted: false
+      },
+      {
+        id: 'p6_1',
+        title: '6.1 Python Windows Store App',
+        content: `### What is Python Store App?
+On Windows systems, Python can be installed directly from the **Microsoft Store**.
+
+**Advantages**: Very easy installation; Automatic updates; Beginner-friendly.
+**Limitations**: Limited configuration options; Not suitable for advanced development.
+**Best For**: Absolute beginners; Basic Python learning.`,
+        codeSnippet: `print("Windows Store install is one-click!")`,
+        isCompleted: false
+      },
+      {
+        id: 'p6_2',
+        title: '6.2 Installing Anaconda',
+        content: `**Anaconda** is preferred for **Data science**, **Scientific computing**, and **Machine learning**.
+
+### What Anaconda Installation Provides
+• Python interpreter
+• Scientific libraries
+• Conda package manager
+• IDEs (Spyder, Jupyter)
+
+**Advantages**: One-time installation; No dependency issues; Easy environment management.
+**Best For**: Students, Researchers, Data analysts.`,
+        codeSnippet: `print("Anaconda includes everything you need")`,
+        isCompleted: false
+      },
+      {
+        id: 'p6_3',
+        title: '6.3 Installing Visual Studio Code',
+        content: `**VS Code** is **not Python itself**, but an **editor** used to write and run Python programs.
+
+### Steps Conceptually
+1. Install VS Code
+2. Install Python
+3. Add Python extension
+4. Start coding
+
+**Advantages**: Lightweight; Industry standard; Supports debugging.
+**Best For**: Web development; Professional programming.
+
+### Choosing the Right Installation Method
+| User Type | Recommended Setup |
+| :--- | :--- |
+| **Beginner** | Python Store App / IDLE |
+| **Student (Data Science)** | Anaconda |
+| **Professional Developer** | Python + VS Code |
+| **Researcher** | Anaconda + Jupyter |`,
+        codeSnippet: `print("VS Code + Python is the pro choice")`,
+        isCompleted: false
+      },
+      {
+        id: 'p7',
+        title: '7. Start Using Python',
+        content: `After installing Python, the next step is to **start using it practically**. Python can be used in different ways:
+
+• Using an IDE
+• Using Python Shell (interactive mode)
+• Using Console / Terminal
+• Using Script mode`,
+        codeSnippet: `print("Ready to start!")`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_1',
+        title: '7.1 Python IDE',
+        content: `A **Python IDE** provides a complete environment to:
+
+• Write Python code
+• Execute programs
+• Debug errors
+• Manage files and projects
+
+**Examples**: Python IDLE, VS Code, Spyder, PyCharm.
+**Python IDLE** is commonly used by beginners.
+
+### Why Beginners Use Python IDE
+• No complex commands
+• Easy interface
+• Built-in execution support
+• Helpful error messages`,
+        codeSnippet: `print("IDLE is beginner friendly")`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_2',
+        title: '7.2 My First Python Program',
+        content: `The first program traditionally written in any programming language is **Hello World**.
+
+### First Python Program
+\`print("Hello, World!")\`
+
+### Explanation
+• \`print()\` → built-in function
+• \`"Hello, World!"\` → string to be displayed
+• No semicolon required
+• No main function needed
+
+✔ This shows how **simple and readable** Python is.`,
+        codeSnippet: `print("Hello, World!")`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_3',
+        title: '7.3 Python Shell',
+        content: `The **Python Shell** is an **interactive mode** where:
+
+• Code is executed **line by line**
+• Results are shown immediately
+• Useful for testing small commands
+
+### Example
+\`\`\`python
+>>> 5 + 3
+8
+>>> print("Python")
+Python
+\`\`\`
+
+**Advantages**: Immediate output; Easy experimentation.
+**Limitations**: Not suitable for large programs; Code is not saved permanently.`,
+        codeSnippet: `5 + 3\n# In shell, this prints 8 immediately`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_4',
+        title: '7.4 Running Python from the Console',
+        content: `Python programs can also be run using the **system console**.
+• **Windows** → Command Prompt / PowerShell
+• **macOS / Linux** → Terminal
+
+![Interactive Mode](https://files.realpython.com/media/idle-interactive-mode.6339d95cee95.png)
+
+### Why Use Console Mode
+• Faster execution
+• Useful for professionals
+• Helps understand real execution environment`,
+        codeSnippet: `python --version\n# Check version in console`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_4_1',
+        title: '7.4.1 Opening Console (macOS)',
+        content: `### Steps:
+1. Open Terminal
+2. Type: \`python3\`
+3. Python shell starts`,
+        codeSnippet: `python3`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_4_2',
+        title: '7.4.2 Opening Console (Windows)',
+        content: `### Steps:
+1. Open Command Prompt
+2. Type: \`python\`
+3. Python shell starts`,
+        codeSnippet: `python`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_4_3',
+        title: '7.4.3 Add Python to PATH',
+        content: `**PATH** is an environment variable that allows the system to find Python from any directory.
+
+### Why Add Python to PATH
+• Run Python from anywhere
+• Avoid “Python not recognized” error
+
+✔ Recommended during installation.`,
+        codeSnippet: `# If PATH is set, this works anywhere:\npython`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_5',
+        title: '7.5 Scripting Mode',
+        content: `In **Scripting Mode**, Python programs are:
+
+• Written in \`.py\` files
+• Saved permanently
+• Executed multiple times
+
+### Difference Between Shell and Script Mode
+| Shell Mode | Script Mode |
+| :--- | :--- |
+| Line by line execution | Full program execution |
+| Not saved | Saved as file |
+| Testing purpose | Real applications |`,
+        codeSnippet: `# hello.py\nprint("This is a script")`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_5_1',
+        title: '7.5.1 Run from IDLE',
+        content: `### Steps:
+1. Open IDLE
+2. File → New File
+3. Write program
+4. Save with \`.py\`
+5. Run → Run Module`,
+        codeSnippet: `print("Running from IDLE")`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_5_2',
+        title: '7.5.2 Run from Terminal (macOS)',
+        content: `\`python3 hello.py\``,
+        codeSnippet: `python3 hello.py`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_5_3',
+        title: '7.5.3 Run from CMD (Windows)',
+        content: `\`python hello.py\``,
+        codeSnippet: `python hello.py`,
+        isCompleted: false
+      },
+      {
+        id: 'p7_5_4',
+        title: '7.5.4 Run from Spyder',
+        content: `    Steps:
+1. Open Spyder
+2. Write code
+3. Click   Run   button
+4. Output appears in console`,
+        codeSnippet: `  Spyder Run`,
+        isCompleted: false
+      },
+      {
+        id: 'p8',
+        title: '8. Basic Python Programming',
+        content: `This topic forms the **foundation of Python**. Almost **all programs** are built using these basic concepts.
+
+Python programs are made up of:
+
+• Statements
+• Variables
+• Data values
+• Functions
+• Libraries
+
+Python focuses on **clarity and simplicity**, making basic programming easy for beginners.
+
+### 8.1 Basic Python Program
+A basic Python program consists of:
+
+1. Input (optional)
+2. Processing
+3. Output
+
+### Important Rule: Indentation
+Python uses **indentation instead of brackets \`{}\`**.
+
+• **Correct**: \`if a > b: print("a is greater")\`
+• **Incorrect**: \`if a > b:\` followed by unindented print statement.`,
+        codeSnippet: `a = 10\nb = 20\nc = a + b\nprint(c)\n# Simple and clean!`,
+        isCompleted: false
+      },
+      {
+        id: 'p8_1_1',
+        title: '8.1.1 Get Help in Python',
+        content: `Python provides **built-in help functionality**.
+
+### Using help()
+\`help(print)\`
+
+Shows function usage, description, and parameters.
+
+### Using dir()
+\`dir(str)\`
+
+Displays all methods of string type.
+
+✔ Helpful for **self-learning and debugging**.`,
+        codeSnippet: `help(len)\n# Shows help for len function`,
+        isCompleted: false
+      },
+      {
+        id: 'p8_2',
+        title: '8.2 Variables',
+        content: `A **variable** is a name used to store data in memory.
+
+### Creating Variables
+\`x = 10\`
+\`name = "Rohit"\`
+
+### Key Features
+• No need to declare data type
+• Type is decided at runtime (**Dynamic Typing**)
+• Can change value anytime
+
+### Rules for Naming Variables
+• Must start with a letter or underscore
+• Cannot start with a number
+• No special symbols allowed
+• Case-sensitive`,
+        codeSnippet: `total_marks = 95\n_validName = True\n# 1invalid = False  # This would fail`,
+        isCompleted: false
+      },
+      {
+        id: 'p8_2_1',
+        title: '8.2.1 Numbers',
+        content: `Python supports different types of numbers.
+
+### Types of Numbers
+1. **Integer (\`int\`)**: \`a = 10\`
+2. **Floating-point (\`float\`)**: \`b = 3.14\`
+3. **Complex (\`complex\`)**: \`c = 2 + 3j\`
+
+### Arithmetic Operations
+• Addition: \`+\`
+• Subtraction: \`-\`
+• Multiplication: \`*\`
+• Division: \`/\`
+• Modulus: \`%\``,
+        codeSnippet: `a = 10\nb = 3\nprint(a % b)\n# Output: 1 (Remainder)`,
+        isCompleted: false
+      },
+      {
+        id: 'p8_2_2',
+        title: '8.2.2 Strings',
+        content: `A **string** is a sequence of characters enclosed in quotes.
+• \`'Single'\`
+• \`"Double"\`
+• \`'''Multi-line'''\`
+
+### String Operations
+• **Concatenation**: \`"Hello" + "World"\`
+• **Indexing**: \`"Python"[0]\` (Output: P)
+• **Slicing**: \`"Python"[0:4]\` (Output: Pyth)
+
+### Default Immutability
+Strings **cannot be changed** after creation.`,
+        codeSnippet: `word = "Python"\nprint(word[0:2])\n# Output: Py`,
+        isCompleted: false
+      },
+      {
+        id: 'p8_2_3',
+        title: '8.2.3 String Input',
+        content: `Python uses \`input()\` to take input from user.
+
+### Input Always Returns String
+To use it as a number, you must convert it.
+
+\`age = input("Enter age: ")\`
+\`age = int(age)\``,
+        codeSnippet: `# Interactive input:\n# name = input("Your Name?")\nprint("Hello user")`,
+        isCompleted: false
+      },
+      {
+        id: 'p8_3',
+        title: '8.3 Built-in Functions',
+        content: `Python provides many **built-in functions**.
+
+### Common Built-in Functions
+
+| Function | Purpose |
+| :--- | :--- |
+| \`print()\` | Display output |
+| \`input()\` | Take input |
+| \`type()\` | Find data type |
+| \`len()\` | Length of object |
+| \`int()\` | Convert to integer |
+| \`float()\` | Convert to float |`,
+        codeSnippet: `x = "Python"\nprint(len(x))\n# Output: 6`,
+        isCompleted: false
+      },
+      {
+        id: 'p8_4',
+        title: '8.4 Standard Library',
+        content: `The **Standard Library** is a collection of pre-written modules that come with Python.
+
+### Examples
+• **math**: mathematical operations
+• **random**: random numbers
+• **datetime**: date and time
+• **os**: operating system interaction
+
+### Using a Module
+\`import math\`
+\`print(math.sqrt(25))\`
+
+**Advantages**: Saves time; Reliable; Optimized.`,
+        codeSnippet: `import math\nprint(math.pi)`,
+        isCompleted: false
+      },
+      {
+        id: 'p8_5',
+        title: '8.5 Using Libraries',
+        content: `### Module
+A single Python file containing functions.
+
+### Package
+A collection of modules organized in directories.
+
+### Library
+A collection of packages and modules.
+
+### Example
+\`from math import sqrt\`
+\`print(sqrt(16))\``,
+        codeSnippet: `from random import randint\nprint(randint(1, 10))`,
+        isCompleted: false
+      },
+      {
+        id: 'p9',
+        title: '9. Plotting in Python',
+        content: `Plotting means **representing data in graphical form** so that information can be:
+
+• Easily understood
+• Quickly analyzed
+• Clearly compared
+
+Python provides powerful plotting capability through libraries, the most common being **Matplotlib**.
+
+### 9.1 Introduction to Plotting
+Data is often large and complex. Graphs help to:
+
+• Identify patterns
+• Observe trends
+• Compare values
+
+**Used in**: Data Science, Research, Engineering.`,
+        codeSnippet: `import matplotlib.pyplot as plt\nprint("Matplotlib ready!")`,
+        isCompleted: false
+      },
+      {
+        id: 'p9_2',
+        title: '9.2 Matplotlib Library',
+        content: `**Matplotlib** is the **most popular Python library for plotting graphs**.
+
+### What is Matplotlib?
+A **data visualization library** to create 2D graphs, charts, and diagrams. It produces **publication-quality graphs**.
+
+### Why Matplotlib is Important
+• Easy to learn
+• Highly customizable
+• Works well with NumPy and Pandas`,
+        codeSnippet: `print("Matplotlib makes visualization easy")`,
+        isCompleted: false
+      },
+      {
+        id: 'p9_3',
+        title: '9.3 Basic Plotting',
+        content: `Before plotting, the library must be imported:
+\`import matplotlib.pyplot as plt\`
+
+• \`pyplot\`: plotting module
+• \`plt\`: alias name
+
+### Simple Line Plot Example
+\`\`\`python
+import matplotlib.pyplot as plt
+x = [1, 2, 3, 4]
+y = [10, 20, 30, 40]
+plt.plot(x, y)
+plt.show()
+\`\`\`
+• **plot()**: creates line graph
+• **show()**: displays graph`,
+        codeSnippet: `import matplotlib.pyplot as plt\nplt.plot([1, 2], [10, 20])\n# plt.show() # In a real script`,
+        isCompleted: false
+      },
+      {
+        id: 'p9_4',
+        title: '9.4 Types of Plots',
+        content: `Matplotlib supports various types of plots:
+
+1. **Line Plot**: Shows trends over time
+2. **Bar Chart**: Compares categories
+3. **Histogram**: Shows data distribution
+4. **Scatter Plot**: Shows relationship between variables
+
+### Example: Bar Chart
+\`plt.bar(["A", "B"], [70, 85])\`
+\`plt.show()\``,
+        codeSnippet: `import matplotlib.pyplot as plt\nplt.bar(["A", "B"], [10, 20])`,
+        isCompleted: false
+      },
+      {
+        id: 'p9_5',
+        title: '9.5 Adding Labels and Title',
+        content: `Graphs become meaningful when labels are added.
+
+### Syntax
+\`plt.xlabel("X Axis")\`
+\`plt.ylabel("Y Axis")\`
+\`plt.title("Sample Graph")\`
+
+### Complete Example
+\`\`\`python
+plt.plot([1, 2, 3], [2, 4, 6])
+plt.xlabel("Input")
+plt.ylabel("Output")
+plt.title("Linear Graph")
+plt.show()
+\`\`\``,
+        codeSnippet: `import matplotlib.pyplot as plt\nplt.title("My Graph")`,
+        isCompleted: false
+      },
+      {
+        id: 'p9_6',
+        title: '9.6 Subplots',
+        content: `**Subplots** allow multiple graphs to be displayed in **one window**.
+
+### Creating Subplots
+\`plt.subplot(rows, columns, position)\`
+
+**Example**:
+\`plt.subplot(1, 2, 1)\` → 1 row, 2 cols, 1st graph
+\`plt.plot(x, y1)\`
+\`plt.subplot(1, 2, 2)\` → 1 row, 2 cols, 2nd graph
+\`plt.plot(x, y2)\`
+\`plt.show()\``,
+        codeSnippet: `import matplotlib.pyplot as plt\nplt.subplot(2, 1, 1)\nplt.plot([1, 2], [1, 2])`,
+        isCompleted: false
+      },
+      {
+        id: 'p9_7',
+        title: '9.7 Advantages & Exercises',
+        content: `### 9.7 Advantages of Plotting
+• Easy data visualization
+• Improves data understanding
+• Saves time in analysis
+• Professional presentation
+
+### 9.8 Common Errors
+• Forgetting \`plt.show()\`
+• Mismatched X and Y values
+• Not importing matplotlib
+
+### 9.9 Exercises
+1. Plot a line graph of numbers 1 to 10.
+2. Create a bar chart showing marks of 5 students.
+3. Display two graphs using subplots.`,
+        codeSnippet: `# Try Exercise 1:\nx = list(range(1, 11))\ny = x\n# plt.plot(x, y)`,
+        isCompleted: false
+      },
+
     ]
   },
   {
@@ -198,8 +1252,8 @@ export const COURSES: Course[] = [
       {
         id: 'j4',
         title: 'Java Comments',
-        content: `Comments can be used to explain Java code, and to make it more readable. It can also be used to prevent execution when testing alternative code.\n\nSingle-line comments start with two forward slashes (//). Any text between // and the end of the line is ignored by Java (will not be executed).\n\nMulti-line comments start with /* and ends with */. Any text between /* and */ will be ignored by Java.`,
-        codeSnippet: '// This is a comment\nSystem.out.println("Hello World");\n\n/* The code below will print the words Hello World\nto the screen, and it is amazing */',
+        content: `Comments can be used to explain Java code, and to make it more readable. It can also be used to prevent execution when testing alternative code.\n\nSingle-line comments start with two forward slashes (//). Any text between // and the end of the line is ignored by Java (will not be executed).\n\nMulti-line comments start with /  and ends with  /. Any text between /  and  / will be ignored by Java.`,
+        codeSnippet: '// This is a comment\nSystem.out.println("Hello World");\n\n/  The code below will print the words Hello World\nto the screen, and it is amazing  /',
         isCompleted: false
       },
       {
@@ -279,7 +1333,7 @@ export const COURSES: Course[] = [
       { id: 'ph8', title: 'PHP Numbers', content: 'There are three main numeric types in PHP: Integer, Float, Number Strings. PHP also has some more functions used for numbers: is_int(), is_float(), is_numeric(). PHP Integers are whole numbers, without decimals, between -2147483648 and 2147483647.', codeSnippet: '$x = 5985;\nvar_dump(is_int($x));', isCompleted: false },
       { id: 'ph9', title: 'PHP Math', content: 'PHP has a set of math functions that allows you to perform mathematical tasks on numbers. pi() returns the value of PI. min() and max() functions can be used to find the lowest or highest value in a list of arguments. abs() returns the absolute (positive) value of a number. sqrt() returns the square root of a number.', codeSnippet: 'echo(pi());\necho(min(0, 150, 30, 20, -8, -200));\necho(max(0, 150, 30, 20, -8, -200));', isCompleted: false },
       { id: 'ph10', title: 'PHP Constants', content: 'Constants are like variables except that once they are defined they cannot be changed or undefined. A constant is an identifier (name) for a simple value. The value cannot be changed during the script. A valid constant name starts with a letter or underscore (no $ sign before the constant name). To create a constant, use the define() function.', codeSnippet: 'define("GREETING", "Welcome to SikshaSarovar.com!");\necho GREETING;', isCompleted: false },
-      { id: 'ph11', title: 'PHP Operators', content: 'Operators are used to perform operations on variables and values. PHP divides the operators in the following groups: Arithmetic operators, Assignment operators, Comparison operators, Increment/Decrement operators, Logical operators, String operators, Array operators, Conditional assignment operators.', codeSnippet: 'echo $x + $y;\necho $x ** $y; // Exponentiation', isCompleted: false },
+      { id: 'ph11', title: 'PHP Operators', content: 'Operators are used to perform operations on variables and values. PHP divides the operators in the following groups: Arithmetic operators, Assignment operators, Comparison operators, Increment/Decrement operators, Logical operators, String operators, Array operators, Conditional assignment operators.', codeSnippet: 'echo $x + $y;\necho $x    $y; // Exponentiation', isCompleted: false },
       { id: 'ph12', title: 'PHP If...Else', content: 'Conditional statements are used to perform different actions based on different conditions. Use if to execute some code only if a specified condition is true. Use if...else to execute some code if a condition is true and another code if that condition is false. Use if...elseif...else to execute different codes for more than two conditions.', codeSnippet: 'if ($t < "20") {\n  echo "Have a good day!";\n} else {\n  echo "Have a good night!";\n}', isCompleted: false },
       { id: 'ph13', title: 'PHP Switch', content: 'The switch statement is used to perform different actions based on different conditions. Use the switch statement to select one of many blocks of code to be executed. The break keyword breaks out of the switch block. The default keyword specifies the code to run if there is no case match.', codeSnippet: 'switch ($favcolor) {\n  case "red": echo "Red!"; break;\n  case "blue": echo "Blue!"; break;\n  default: echo "Neither!";\n}', isCompleted: false },
       { id: 'ph14', title: 'PHP Loops', content: 'Loops are used to execute the same block of code again and again, as long as a certain condition is true. while - loops through a block of code as long as the specified condition is true. do...while - loops through a block of code once, and then repeats the loop as long as the specified condition is true. for - loops through a block of code a specified number of times. foreach - loops through a block of code for each element in an array.', codeSnippet: '$x = 1;\nwhile($x <= 5) {\n  echo "Number: $x <br>";\n  $x++;\n}', isCompleted: false },
@@ -292,7 +1346,7 @@ export const COURSES: Course[] = [
       { id: 'ph21', title: 'PHP Date and Time', content: 'The PHP Date() function formats a timestamp to a more readable date and time. Syntax: date(format,timestamp). required format specifies the format of the timestamp. optional timestamp specifies a timestamp. Default is the current date and time.', codeSnippet: 'echo "Today is " . date("Y/m/d") . "<br>";\necho "Today is " . date("Y.m.d") . "<br>";\necho "Today is " . date("Y-m-d") . "<br>";\necho "Today is " . date("l");', isCompleted: false },
       { id: 'ph22', title: 'PHP Include', content: 'The include (or require) statement takes all the text/code/markup that exists in the specified file and copies it into the file that uses the include statement. Including files is very useful when you want to include the same PHP, HTML, or text on multiple pages of a website.', codeSnippet: '<html>\n<body>\n\n<h1>Welcome to my home page!</h1>\n<?php include \'footer.php\';?>\n\n</body>\n</html>', isCompleted: false },
       { id: 'ph23', title: 'PHP File Handling', content: 'File handling is an important part of any web application. You often need to open and process a file for different tasks. PHP has several functions for creating, reading, uploading, and editing files. The readfile() function reads a file and writes it to the output buffer.', codeSnippet: '<?php\necho readfile("webdictionary.txt");\n?>', isCompleted: false },
-      { id: 'ph24', title: 'PHP Cookies', content: 'A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user\'s computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values.', codeSnippet: '<?php\n$cookie_name = "user";\n$cookie_value = "John Doe";\nsetcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day\n?>', isCompleted: false },
+      { id: 'ph24', title: 'PHP Cookies', content: 'A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user\'s computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values.', codeSnippet: '<?php\n$cookie_name = "user";\n$cookie_value = "John Doe";\nsetcookie($cookie_name, $cookie_value, time() + (86400   30), "/"); // 86400 = 1 day\n?>', isCompleted: false },
       { id: 'ph25', title: 'PHP Sessions', content: 'A session is a way to store information (in variables) to be used across multiple pages. Unlike a cookie, the information is not stored on the users computer. Session variables solve this problem by storing user information to be used across multiple pages (e.g. username, favorite color, etc). By default, session variables last until the user closes the browser.', codeSnippet: '<?php\n// Start the session\nsession_start();\n\n// Set session variables\n$_SESSION["favcolor"] = "green";\n$_SESSION["favanimal"] = "cat";\necho "Session variables are set.";\n?>', isCompleted: false }
     ]
   },
@@ -335,13 +1389,13 @@ export const COURSES: Course[] = [
       {
         id: 'ai5',
         title: 'Problem Solving',
-        content: `Many AI tasks can be framed as search problems. A search problem consists of a state space, a start state, goal states, and a set of actions that lead from one state to another.\n\nUninformed search strategies (like Breadth-First Search and Depth-First Search) have no additional information about states beyond that provided in the problem definition. They can only generate successors and distinguish a goal state from a non-goal state.\n\nInformed search strategies (like A* Search) use problem-specific knowledge (heuristics) to find solutions more efficiently by estimating the cost to reach the goal.`,
+        content: `Many AI tasks can be framed as search problems. A search problem consists of a state space, a start state, goal states, and a set of actions that lead from one state to another.\n\nUninformed search strategies (like Breadth-First Search and Depth-First Search) have no additional information about states beyond that provided in the problem definition. They can only generate successors and distinguish a goal state from a non-goal state.\n\nInformed search strategies (like A  Search) use problem-specific knowledge (heuristics) to find solutions more efficiently by estimating the cost to reach the goal.`,
         codeSnippet: 'def breadth_first_search(problem):\n    node = Node(problem.initial_state)\n    if problem.goal_test(node.state): return node\n    frontier = [node]\n    # ... logic continues',
         isCompleted: false
       },
       { id: 'ai6', title: 'Adversarial Search', content: 'Adversarial search problems, also known as games, are those in which two or more agents have conflicting goals. In such environments, the agents must consider the actions of their opponents. The most common algorithm for this is Minimax. Minimax is a recursive algorithm for choosing the next move in an n-player game, usually a two-player, zero-sum game.', codeSnippet: 'def minimax(node, depth, maximizingPlayer):\n  if depth == 0 or node.is_terminal():\n    return node.value\n  # ...', isCompleted: false },
       { id: 'ai7', title: 'Knowledge Base', content: 'A knowledge base is a technology used to store complex structured and unstructured information used by a computer system. The goal of a knowledge base is to enable machines to act as if they have "common sense" or "expertise" by encoding facts and rules in a way that can be processed by an inference engine.', codeSnippet: 'KB = []\nKB.append("Man(Socrates)")\nKB.append("Man(x) => Mortal(x)")', isCompleted: false },
-      { id: 'ai8', title: 'Uncertainty', content: 'In many real-world situations, agents must act in the face of uncertainty. This uncertainty arises from partial observability, nondeterminism, and ignorance. Probability theory provides the formal basis for dealing with uncertainty in AI systems.', codeSnippet: 'P(A_given_B) = (P(B_given_A) * P(A)) / P(B)', isCompleted: false },
+      { id: 'ai8', title: 'Uncertainty', content: 'In many real-world situations, agents must act in the face of uncertainty. This uncertainty arises from partial observability, nondeterminism, and ignorance. Probability theory provides the formal basis for dealing with uncertainty in AI systems.', codeSnippet: 'P(A_given_B) = (P(B_given_A)   P(A)) / P(B)', isCompleted: false },
       { id: 'ai9', title: 'Bayesian Networks', content: 'A Bayesian network is a probabilistic graphical model that represents a set of variables and their conditional dependencies via a directed acyclic graph (DAG). Bayesian networks are ideal for taking an event that occurred and predicting the likelihood that any one of several possible known causes was the contributing factor.', codeSnippet: 'import pgmpy\n# define nodes and edges', isCompleted: false },
       { id: 'ai10', title: 'NLP Intro', content: 'Natural Language Processing (NLP) is a subfield of linguistics, computer science, and artificial intelligence concerned with the interactions between computers and human language, in particular how to program computers to process and analyze large amounts of natural language data.', codeSnippet: 'import nltk\ntext = "SikshaSarovar is great"\ntokens = nltk.word_tokenize(text)', isCompleted: false },
       { id: 'ai11', title: 'Sentiment Analysis', content: 'Sentiment analysis is the use of natural language processing, text analysis, computational linguistics, and biometrics to systematically identify, extract, quantify, and study affective states and subjective information.', codeSnippet: 'from textblob import TextBlob\nblob = TextBlob("I love coding!")\nprint(blob.sentiment.polarity)', isCompleted: false },

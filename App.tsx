@@ -161,6 +161,14 @@ const App: React.FC = () => {
     // Generate mock notifications including College Courses
     const mockNotifications = [
       {
+        id: 'notif-python-update-jan21',
+        title: 'Major Update: Basics of Python',
+        message: 'Content expanded! Now includes 60+ lessons, new Mind Map, and comprehensive topics from Basics to Plotting.',
+        date: 'Just Now',
+        courseId: 'python',
+        isRead: false
+      },
+      {
         id: 'notif-dva',
         title: 'New: Data Visualisation',
         message: 'Master analytics with our new college course. Unit 1 is live with Mind Maps!',
