@@ -96,8 +96,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
               <button
                 onClick={() => toggleCourse(course.id)}
                 className={`w-full flex items-center justify-between p-3 rounded-2xl transition-all ${expandedCourses.includes(course.id) || activeTab === 'lesson' && filterCourseId === course.id
-                    ? 'bg-slate-50 text-brand-900'
-                    : 'text-slate-600 hover:bg-slate-50'
+                  ? 'bg-slate-50 text-brand-900'
+                  : 'text-slate-600 hover:bg-slate-50'
                   }`}
               >
                 <div className="flex items-center gap-3">
@@ -127,8 +127,8 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
                           className="w-full flex items-center gap-3 py-2 px-3 pl-8 text-[13px] text-slate-500 hover:text-brand-600 transition-colors relative group/lesson"
                         >
                           <div className={`absolute left-[10px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full border-2 transition-all z-10 ${isCompleted
-                              ? 'bg-accent-500 border-accent-500 scale-110'
-                              : 'bg-white border-slate-300 group-hover/lesson:border-brand-400'
+                            ? 'bg-accent-500 border-accent-500 scale-110'
+                            : 'bg-white border-slate-300 group-hover/lesson:border-brand-400'
                             }`}></div>
                           <span className="truncate text-left flex-1">{lesson.title}</span>
                           {isCompleted && <CheckCircle size={12} className="text-accent-500 shrink-0" />}
@@ -152,7 +152,10 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
               <span className="text-white font-black text-xs uppercase tracking-widest">Pro Plan</span>
             </div>
             <p className="text-brand-100 text-[10px] font-medium leading-relaxed mb-3">Unlock AI Tutor, Certificates, and Premium Projects.</p>
-            <div className="w-full py-2 bg-white text-brand-900 rounded-xl text-center text-xs font-black uppercase tracking-widest hover:bg-accent-500 transition-colors">
+            <div
+              onClick={() => setActiveTab('upgrade')}
+              className="w-full py-2 bg-white text-brand-900 rounded-xl text-center text-xs font-black uppercase tracking-widest hover:bg-accent-500 transition-colors"
+            >
               Upgrade Now
             </div>
           </div>

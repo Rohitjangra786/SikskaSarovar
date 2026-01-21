@@ -14,6 +14,7 @@ import DmpCourse from './components/courses/DmpCourse';
 import CollegeBundle from './components/CollegeBundle';
 import Playground from './components/Playground';
 import StartLearningMenu from './components/StartLearningMenu';
+import Maintenance from './components/Maintenance';
 import Terms from './components/Terms';
 import Privacy from './components/Privacy';
 
@@ -482,6 +483,22 @@ const App: React.FC = () => {
     handleNavigate('playground', '/playground');
   };
 
+  const handleNotificationClick = (notif: any) => {
+    setIsNotificationsOpen(false);
+
+    if (notif.courseId === 'ai') {
+      handleNavigate('ai-tutor', '/ai-tutor');
+      return;
+    }
+
+    // Attempt to find course in regular or college lists
+    const course = COURSES.find(c => c.id === notif.courseId) || COLLEGE_COURSES.find(c => c.id === notif.courseId);
+
+    if (course && course.lessons.length > 0) {
+      handleSelectLesson(course.id, course.lessons[0].id);
+    }
+  };
+
   if (false) { // Login removed
     return null;
   }
@@ -489,6 +506,9 @@ const App: React.FC = () => {
   const renderHome = () => (
     <div className="space-y-10 animate-in fade-in duration-700">
       <SEO title="Home" description="SikshaSarovar - interactive tutorials and projects for web development and AI." />
+
+      {/* ... (rest of renderHome) ... */}
+
 
       {/* HERO SECTION */}
       <div className="relative bg-brand-900 rounded-[3rem] p-8 lg:p-12 overflow-hidden text-white shadow-2xl border border-white/10">
@@ -984,7 +1004,11 @@ const App: React.FC = () => {
                           <div className="p-8 text-center text-slate-400 text-xs font-medium">No new notifications</div>
                         ) : (
                           notifications.map((notif) => (
-                            <div key={notif.id} className="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors group cursor-pointer">
+                            <div
+                              key={notif.id}
+                              onMouseDown={() => handleNotificationClick(notif)}
+                              className="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors group cursor-pointer"
+                            >
                               <div className="flex gap-3">
                                 <div className="shrink-0 mt-1">
                                   <div className="w-2 h-2 rounded-full bg-accent-500"></div>
@@ -1053,6 +1077,10 @@ const App: React.FC = () => {
             {activeTab === 'about' && renderAbout()}
             {activeTab === 'terms' && <Terms />}
             {activeTab === 'privacy' && <Privacy />}
+
+            {activeTab === 'ai-tutor' && <div className="max-w-4xl mx-auto h-full animate-in fade-in duration-500"><AIAssistant /></div>}
+            {activeTab === 'playground' && <div className="h-full min-h-[600px] animate-in zoom-in-95 duration-500"><Playground initialCode={playgroundCode} /></div>}
+            {activeTab === 'upgrade' && <Maintenance onBack={() => setActiveTab('home')} />}
 
             {activeTab === 'college' && (
               <CollegeBundle onSelectCourse={(course) => {
