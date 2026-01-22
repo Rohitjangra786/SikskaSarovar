@@ -21,6 +21,8 @@ import pythonMindmap from './components/courses/Basics of Python/mindmapBasics.p
 import pythonOverview from './components/courses/Basics of Python/Basics overview.png';
 import cOverview from './components/courses/Foundations of C & C++/Overview.png';
 import cMindmap from './components/courses/Foundations of C & C++/mindmap.png';
+import javaMindmap from './components/courses/Java Full Course/javamindmap.png';
+import javaOverview from './components/courses/Java Full Course/overview.png';
 
 // Fix: Added missing ICON_MAP export which was causing errors in Sidebar, CourseCard, and App components.
 export const ICON_MAP: Record<string, React.ReactNode> = {
@@ -1593,6 +1595,8 @@ plt.show()
       {
         id: 'j1',
         title: 'Programming Languages',
+        image: javaOverview,
+        mindMapImage: javaMindmap,
         content: `### Programming Language
 A language or medium which is used to instruct computer to do some specific tasks is known as Programming language.
 

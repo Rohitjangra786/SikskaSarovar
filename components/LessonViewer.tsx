@@ -36,6 +36,10 @@ const LessonViewer: React.FC<LessonViewerProps> = ({
     }
   };
 
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [lesson.id]);
+
   const currentIndex = course.lessons.findIndex(l => l.id === lesson.id);
   const isCompleted = completedLessons.includes(lesson.id);
 

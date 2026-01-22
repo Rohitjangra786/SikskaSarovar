@@ -30,6 +30,7 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
     const [showMindMap, setShowMindMap] = useState(false);
 
     useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         const scrollContainer = document.getElementById('scroll-container');
         if (scrollContainer) {
             scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });

@@ -30,6 +30,7 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
 
     useEffect(() => {
         setShowMindMap(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [lesson.id]);
 
     const handleCopy = () => {

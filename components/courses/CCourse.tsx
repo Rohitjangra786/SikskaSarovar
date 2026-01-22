@@ -29,6 +29,7 @@ const CCourse: React.FC<CCourseProps> = ({
     const [showMindMap, setShowMindMap] = useState(false);
 
     React.useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         const scrollContainer = document.getElementById('scroll-container');
         if (scrollContainer) {
             scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
