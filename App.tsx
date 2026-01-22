@@ -1225,8 +1225,7 @@ const App: React.FC = () => {
                 />
               </div>
             )}
-            {activeTab === 'playground' && <div className="h-full min-h-[600px] animate-in zoom-in-95 duration-500"><Playground initialCode={playgroundCode} /></div>}
-            {activeTab === 'ai-tutor' && <div className="max-w-4xl mx-auto h-full animate-in fade-in duration-500"><AIAssistant /></div>}
+
           </div>
 
           <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-6 lg:px-12 mt-auto">

@@ -231,6 +231,65 @@ const COURSES_DATA = [
                 codeSnippet: 'from sklearn.linear_model import LinearRegression\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)'
             }
         ]
+    },
+    {
+        id: 'dmp',
+        title: 'Disaster Management',
+        category: 'College Subjects',
+        level: 'Intermediate',
+        lessons: [
+            {
+                id: 'dmp-u1-overview',
+                title: 'DMP Unit 1: Introduction',
+                keywords: ['disaster management', 'dmp', 'disaster', 'hazard', 'vulnerability', 'risk', 'capacity', 'natural disasters', 'man-made disasters'],
+                content: 'Disaster Management involves organizing resources and responsibilities for dealing with humanitarian aspects of emergencies. Key concepts include: Hazard (potential threat), Vulnerability (susceptibility to harm), Risk (likelihood of loss), and Capacity (ability to cope). Disasters can be Natural (earthquakes, floods) or Man-Made (industrial accidents, war). The management cycle includes Prevention, Preparedness, Response, and Recovery.',
+                codeSnippet: 'Risk = Hazard * Vulnerability / Capacity'
+            },
+            {
+                id: 'dmp-u1-hvr',
+                title: 'Hazard, Vulnerability, Risk',
+                keywords: ['hazard', 'vulnerability', 'risk', 'formula', 'relationship', 'physical vulnerability', 'social vulnerability'],
+                content: 'Hazard is a dangerous event. Vulnerability is the susceptibility to the hazard. Risk is the probability of harmful consequences. The relationship is Risk = Hazard x Vulnerability. Capacity reduces risk. Vulnerability can be Physical (weak structures), Social (poverty), or Economic.',
+                codeSnippet: '// Risk Assessment Logic\nif (Hazard && Vulnerability) {\n  Risk = High;\n} else if (Capacity > Hazard) {\n  Risk = Low;\n}'
+            }
+        ]
+    },
+    {
+        id: 'wbp',
+        title: 'Web Based Programming',
+        category: 'College Subjects',
+        level: 'Intermediate',
+        lessons: [
+            {
+                id: 'wbp-u1-overview',
+                title: 'WBP Unit 1: Overview',
+                keywords: ['wbp', 'web programming', 'php', 'server-side', 'client-side', 'local server', 'remote server', 'wamp', 'lamp', 'xampp'],
+                content: 'Web Based Programming involves creating dynamic web applications. Key concepts include Local Servers (localhost, for testing) vs Remote Servers (live websites). Common server environments are WAMP (Windows), LAMP (Linux), and XAMPP (Cross-platform). It covers Static vs Dynamic websites.',
+                codeSnippet: '<?php echo "Hello Web Programming"; ?>'
+            },
+            {
+                id: 'wbp-u1-notes',
+                title: 'WBP Unit 1: PHP Basics',
+                keywords: ['php', 'variables', 'data types', 'super globals', 'get', 'post', 'constants', 'operators'],
+                content: 'PHP is a server-side scripting language. Variables start with $. Data types include String, Integer, Float, Boolean, Array, Object, NULL. Super Globals like $_GET and $_POST collect form data. Constants are defined using define(). Operators include Arithmetic, Assignment, Comparison, and Logical.',
+                codeSnippet: '$x = 10;\n$y = 20;\necho $x + $y;'
+            }
+        ]
+    },
+    {
+        id: 'dva',
+        title: 'Data Visualisation',
+        category: 'College Subjects',
+        level: 'Advanced',
+        lessons: [
+            {
+                id: 'dva-u1-overview',
+                title: 'DVA Unit 1: Introduction',
+                keywords: ['data visualisation', 'dva', 'tableau', 'charts', 'graphs', 'visual analytics', 'business intelligence'],
+                content: 'Data Visualisation is the graphical representation of information and data. Tools like Tableau help in creating visual analytics. It involves understanding data types, choosing the right charts, and creating dashboards for business intelligence.',
+                codeSnippet: '// Tableau calculation example\nSUM([Sales]) / SUM([Profit])'
+            }
+        ]
     }
 ];
 
