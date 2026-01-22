@@ -5,6 +5,7 @@ import AIAssistant from './components/AIAssistant';
 import SEO from './components/SEO';
 import LessonViewer from './components/LessonViewer';
 import HtmlCourse from './components/courses/HtmlCourse';
+import CCourse from './components/courses/CCourse';
 import PythonCourse from './components/courses/PythonCourse';
 import JavaCourse from './components/courses/JavaCourse';
 import PhpCourse from './components/courses/PhpCourse';
@@ -160,6 +161,14 @@ const App: React.FC = () => {
   useEffect(() => {
     // Generate mock notifications including College Courses
     const mockNotifications = [
+      {
+        id: 'notif-c-launch',
+        title: 'New: Foundation of C & C++',
+        message: 'Master the fundamentals with our new comprehensive course. Includes Overview, Mind Maps, and OOP concepts!',
+        date: 'Just Now',
+        courseId: 'c-programming',
+        isRead: false
+      },
       {
         id: 'notif-python-update-jan21',
         title: 'Major Update: Basics of Python',
@@ -1158,6 +1167,7 @@ const App: React.FC = () => {
 
               switch (selectedCourse.id) {
                 case 'html': return <HtmlCourse {...commonProps} />;
+                case 'c-programming': return <CCourse {...commonProps} />;
                 case 'python': return <PythonCourse {...commonProps} />;
                 case 'java': return <JavaCourse {...commonProps} />;
                 case 'php': return <PhpCourse {...commonProps} />;

@@ -19,6 +19,8 @@ import { Course } from './types';
 import MLAppsImg from './Images/ml-applications.jpg';
 import pythonMindmap from './components/courses/Basics of Python/mindmapBasics.png';
 import pythonOverview from './components/courses/Basics of Python/Basics overview.png';
+import cOverview from './components/courses/Foundations of C & C++/Overview.png';
+import cMindmap from './components/courses/Foundations of C & C++/mindmap.png';
 
 // Fix: Added missing ICON_MAP export which was causing errors in Sidebar, CourseCard, and App components.
 export const ICON_MAP: Record<string, React.ReactNode> = {
@@ -39,6 +41,365 @@ export const ICON_MAP: Record<string, React.ReactNode> = {
 
 export const COURSES: Course[] = [
   {
+    id: 'c-programming',
+    title: 'Foundation of C & C++',
+    category: 'Programming',
+    icon: 'terminal',
+    level: 'Beginner',
+    progress: 0,
+    lessons: [
+      {
+        id: 'c-overview',
+        title: 'Unit 1: Overview',
+        content: `### Overview of Foundation of C & C++
+
+This course provides a strong foundation in C and C++ programming languages, covering everything from basic syntax to object-oriented concepts.
+
+### Visual Overview
+Below is the visual overview and mind map for the course.`,
+        image: cOverview,
+        mindMapImage: cMindmap,
+        isCompleted: false
+      },
+      {
+        id: 'c-intro',
+        title: 'Introduction to C',
+        content: `### Introduction to C Language
+C is a general-purpose programming language created by Dennis Ritchie at the Bell Laboratories in 1972. It is a very popular language, despite being old. The main reason for its popularity is because it is a fundamental language in the field of computer science.
+
+### Features of C Language
+• It is one of the most popular programming languages in the world
+• If you know C, you will have no problem learning other popular programming languages such as Java, Python, C++, C#, etc, as the syntax is similar
+• If you know C, you will understand how computer memory works
+• C is very fast, compared to other programming languages, like Java and Python
+• C is very versatile; it can be used in both applications and technologies
+
+### Difference between C and C++
+C++ was developed as an extension of C, and both languages have almost the same syntax. The main difference between C and C++ is that C++ supports classes and objects, while C does not.
+
+### C Syntax
+\`\`\`c
+#include <stdio.h>
+
+int main() {
+  printf("Hello World!");
+  return 0;
+}
+\`\`\`
+• \`#include <stdio.h>\` is a header file library that lets us work with input and output functions, such as \`printf()\`. Header files add functionality to C programs.
+• Another thing that always appear in a C program is \`main()\`. This is called a function. Any code inside its curly brackets \`{}\` will be executed.
+• \`printf()\` is a function used to output/print text to the screen. In our example, it will output "Hello World!".
+• \`return 0\` ends the \`main()\` function.
+
+### Input/Output
+**printf()**
+In C programming, \`printf()\` is one of the main output function. The function sends formatted output to the screen.
+
+**scanf()**
+The \`scanf\` (scan formatted) function reads data from the keyboard.
+Syntax: \`scanf("format string", &variable);\``,
+        codeSnippet: '#include <stdio.h>\n\nint main() {\n  printf("Hello World!");\n  return 0;\n}',
+        isCompleted: false
+      },
+      {
+        id: 'c-variables',
+        title: 'Variables & Data Types',
+        content: `### Common Format Specifiers
+These specifiers tell the functions what type of data is being handled:
+• \`%d\`: Integer (e.g., 5, -10)
+• \`%f\`: Float / Decimal (e.g., 3.14)
+• \`%c\`: Single Character (e.g., 'A')
+• \`%s\`: String / Array of characters
+• \`%lf\`: Double (larger decimal)
+
+### Character I/O
+**putchar()**
+Declaration: \`int putchar(int char)\`
+\`putchar()\` function is used to write a character on standard output/screen.
+Usage: \`putchar(char);\`, where char is a character variable/value.
+
+**getchar()**
+Declaration: \`int getchar(void)\`
+\`getchar()\` function is used to get/read a character from keyboard input.
+
+### C++ Basics (Transition)
+Since C++ is derived from C, many concepts overlap. C++ added Object Oriented Programming features.
+
+### Variables
+Variables are containers for storing data values.
+Syntax: \`type variableName = value;\`
+
+**Rules for Naming Variables:**
+• Allowed Characters: Names can only contain letters (A-Z, a-z), digits (0-9), and underscores (_).
+• Starting Character: A name must begin with a letter or an underscore. It cannot start with a digit.
+• Case Sensitivity: Variable names are case-sensitive. \`age\` and \`Age\` are treated as different variables.
+• No Special Characters or Spaces: Not allowed.
+• Reserved Keywords: Cannot use keywords like \`int\`, \`float\`, \`return\`.
+
+### Constants
+When you do not want others (or yourself) to change existing variable values, use the \`const\` keyword.
+\`const int myNum = 15;\`
+
+### Data Types
+• \`int\`: Integer (4 bytes)
+• \`float\`: Floating point number (4 bytes)
+• \`double\`: Double floating point (8 bytes)
+• \`char\`: Character (1 byte)
+• \`bool\`: Boolean (1 byte) - mainly C++
+• \`string\`: Text - C++ uses \`std::string\`, C uses char arrays.
+
+**Auto Keyword (C++)**
+Automatically detects the type of a variable.
+\`auto a = 5;\` // inferred as int
+
+**Type Conversion**
+• Implicit: Automatic conversion by compiler.
+• Explicit: Manual casting by programmer.`,
+        codeSnippet: '#include <stdio.h>\n\nint main() {\n  int myNum = 15;\n  float myFloat = 5.99;\n  char myLetter = \'D\';\n  printf("%d\\n", myNum);\n  printf("%f\\n", myFloat);\n  printf("%c\\n", myLetter);\n  return 0;\n}',
+        isCompleted: false
+      },
+      {
+        id: 'c-operators',
+        title: 'Operators & Control Flow',
+        content: `### Keywords
+Reserved words that have special meanings (e.g., \`int\`, \`float\`, \`main\`, \`break\`).
+
+### Operators
+**Arithmetic Operators:** \`+\`, \`-\`, \`*\`, \`/\`, \`%\`, \`++\`, \`--\`
+**Assignment Operators:** \`=\`, \`+=\`, \`-=\`, \`*=\`, \`/=\`, \`%=\`
+**Comparison Operators:** \`==\`, \`!=\`, \`>\`, \`<\`, \`>=\`, \`<=\` (Return 1 for true, 0 for false)
+**Logical Operators:** \`&&\` (AND), \`||\` (OR), \`!\` (NOT)
+
+### Conditional Statements
+**if Statement**
+\`\`\`c
+if (condition) {
+  // code to be executed if condition is true
+}
+\`\`\`
+
+**else Statement**
+\`\`\`c
+if (condition) {
+  // true block
+} else {
+  // false block
+}
+\`\`\`
+
+**else if Statement**
+Check multiple conditions.
+
+**Nested If**
+If inside an if.
+
+**Switch Statement**
+Select one of many code blocks to be executed.
+\`\`\`c
+switch(expression) {
+  case x:
+    // code block
+    break;
+  case y:
+    // code block
+    break;
+  default:
+    // code block
+}
+\`\`\`
+• \`break\`: Stops execution inside the switch block.
+• \`default\`: Runs if no case matches.
+
+### Loops
+**While Loop**
+Executes as long as condition is true (Entry Controlled).
+
+**For Loop**
+Used when iterations are known.
+Syntax: \`for (initialization; condition; increment/decrement) { ... }\`
+
+**Do-While Loop**
+Executes code block at least once before checking condition (Exit Controlled).
+
+**Continue**
+Breaks one iteration in the loop and continues with the next.
+
+**Goto**
+Provides unconditional jump to a labeled statement.`,
+        codeSnippet: '#include <stdio.h>\n\nint main() {\n  int i;\n  for (i = 0; i < 5; i++) {\n    if (i == 3) {\n      continue;\n    }\n    printf("%d\\n", i);\n  }\n  return 0;\n}',
+        isCompleted: false
+      },
+      {
+        id: 'c-functions',
+        title: 'Functions & Arrays',
+        content: `### Functions
+A reusable block of code that performs a specific task.
+**Definition:**
+\`\`\`c
+return_type function_name(parameter_list) {
+   // body
+}
+\`\`\`
+• **Return Type**: Data type of returned value.
+• **Parameters**: Placeholders for values passed to function.
+• **Calling**: Transfer control to function.
+
+**Arguments**
+• **Formal Arguments**: Variables declared in function definition.
+• **Actual Arguments**: Values passed during function call.
+
+**Macros**
+Symbolic name or constant defined using \`#define\`.
+\`#define pi 3.14\`
+
+**Static Variable**
+Preserves value between function calls.
+\`static int a = 5;\`
+
+**Call by Value vs Reference**
+• **Call by Value**: Copy of value passed. Changes do not affect original.
+• **Call by Reference**: Address passed. Changes affect original.
+
+### Arrays
+Store multiple values of same data type.
+\`int a[6] = {12, 4, 5, 8, 9, 2};\`
+
+**Looping Array**
+\`\`\`c
+for (int i=0; i<size; i++) {
+    printf("%d\\n", a[i]);
+}
+\`\`\`
+
+**2D Array**
+Matrix with rows and columns.
+\`int a[3][3] = {{1,2,3}, {4,5,6}, {7,8,9}};\`
+
+**Passing Array to Function**
+\`void show(int a[], int size) { ... }\``,
+        codeSnippet: '#include <stdio.h>\n\nint sum(int k) {\n  if (k > 0) {\n    return k + sum(k - 1);\n  } else {\n    return 0;\n  }\n}\n\nint main() {\n  int result = sum(10);\n  printf("%d", result);\n  return 0;\n}',
+        isCompleted: false
+      },
+      {
+        id: 'c-pointers',
+        title: 'Pointers',
+        content: `### Pointers
+A variable that stores the address of another variable.
+Definition: \`int *a = &b;\`
+• \`*\` (Dereference operator): Access value at address.
+• \`&\` (Address-of operator): Get address of variable.
+
+**Null Pointer**
+Points to nothing. \`int *a = NULL;\`
+
+**Double Pointer**
+Pointer to a pointer.
+\`int **c = &a;\`
+
+**Pointers and Arrays**
+Arrays can be manipulated using pointers. Array name decays to pointer to first element.
+
+**Passing Pointer to Function**
+Allows function to modify original variable.
+\`\`\`c
+void pointer(int *b) {
+    *b += 5;
+}
+\`\`\``,
+        codeSnippet: '#include <stdio.h>\n\nvoid swap(int *x, int *y) {\n  int temp = *x;\n  *x = *y;\n  *y = temp;\n}\n\nint main() {\n  int a = 10, b = 20;\n  swap(&a, &b);\n  printf("a=%d, b=%d", a, b);\n  return 0;\n}',
+        isCompleted: false
+      },
+      {
+        id: 'c-structures',
+        title: 'Structures & Unions',
+        content: `### Structures
+Group related variables of different types.
+\`\`\`c
+struct person {
+    int id;
+    char name[50];
+    int age;
+};
+\`\`\`
+**Accessing Members:** \`p1.id\`
+**Passing to Function:** \`void show(struct person p)\`
+
+### Unions
+Similar to structure but all members share same memory location. Size is equal to largest member.
+\`\`\`c
+union car {
+    int id;
+    int year;
+};
+\`\`\`
+
+### Enum
+Group of constants.
+\`enum colors { red, blue, green };\``,
+        codeSnippet: '#include <stdio.h>\n\nstruct Person {\n  char name[50];\n  int age;\n  float salary;\n};\n\nint main() {\n  struct Person p1 = {"Rahul", 25, 50000.0};\n  printf("Name: %s\\n", p1.name);\n  return 0;\n}',
+        isCompleted: false
+      },
+      {
+        id: 'c-oops',
+        title: 'OOP Concepts (C++)',
+        content: `### Classes and Objects
+**Class**: User-defined blueprint. Encapsulates data and methods.
+**Object**: Instance of a class.
+
+\`\`\`cpp
+class Student {
+public:
+    int id;
+    void display() {
+        cout << id;
+    }
+};
+\`\`\`
+
+### Member Functions
+• **Non-static**: Normal functions.
+• **Static**: Belong to class, not object.
+• **Const**: Cannot modify data members.
+• **Inline**: Code inserted at call site.
+
+### Constructor & Destructor
+**Constructor**: Special method to initialize object. Same name as class.
+• Default, Parameterized, Copy.
+**Destructor**: Cleans up when object goes out of scope. \`~ClassName()\`.
+
+### Access Modifiers
+• **Private**: Accessible only within class.
+• **Public**: Accessible everywhere.
+• **Protected**: Accessible in class and derived classes.`,
+        codeSnippet: '#include <iostream>\nusing namespace std;\n\nclass MyClass {\n  public:\n    void myMethod() {\n      cout << "Hello World!";\n    }\n};\n\nint main() {\n  MyClass myObj;\n  myObj.myMethod();\n  return 0;\n}',
+        isCompleted: false
+      },
+      {
+        id: 'c-files',
+        title: 'File Handling',
+        content: `### File Handling
+Reading from and writing to files.
+• \`ofstream\`: Write to file.
+• \`ifstream\`: Read from file.
+• \`fstream\`: Read and write.
+
+**Modes:**
+• \`ios::in\`: Read
+• \`ios::out\`: Write
+• \`ios::app\`: Append
+
+**Example:**
+\`\`\`cpp
+ofstream outFile("output.txt");
+outFile << "Hello File";
+outFile.close();
+\`\`\``,
+        codeSnippet: '#include <iostream>\n#include <fstream>\nusing namespace std;\n\nint main() {\n  ofstream MyFile("filename.txt");\n  MyFile << "Files can be tricky, but fun enough!";\n  MyFile.close();\n  return 0;\n}',
+        isCompleted: false
+      }
+    ]
+  },
+  {
     id: 'html',
     title: 'HTML',
     category: 'Web Development',
@@ -46,6 +407,7 @@ export const COURSES: Course[] = [
     level: 'Beginner',
     progress: 0,
     lessons: [
+
       {
         id: 'h1',
         title: 'HTML Introduction',
