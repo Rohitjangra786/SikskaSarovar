@@ -89,14 +89,14 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
                 </div>
             </div>
 
-            <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
+            <div className="bg-white dark:bg-slate-900 rounded-[3rem] shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <div className="h-3 bg-gradient-to-r from-indigo-900 via-indigo-700 to-indigo-500"></div>
 
                 <div className="p-10 md:p-16">
                     <div className="flex justify-between items-start mb-8 flex-wrap gap-4">
                         <div className="flex items-center gap-2">
-                            <span className="bg-indigo-100 text-indigo-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
-                            {isCompleted && <span className="flex items-center gap-1 text-indigo-600 text-[10px] font-black"><Check size={12} /> COMPLETED</span>}
+                            <span className="bg-indigo-100 dark:bg-slate-800 text-indigo-900 dark:text-indigo-100 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
+                            {isCompleted && <span className="flex items-center gap-1 text-indigo-600 dark:text-indigo-400 text-[10px] font-black"><Check size={12} /> COMPLETED</span>}
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -105,7 +105,7 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
                                     onClick={() => setShowMindMap(!showMindMap)}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${showMindMap
                                         ? 'bg-amber-100 text-amber-700'
-                                        : 'bg-amber-50 text-amber-600 hover:bg-amber-100'
+                                        : 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/40'
                                         }`}
                                 >
                                     <GraduationCap size={14} />
@@ -116,7 +116,7 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
                             <button
                                 onClick={() => toggleCompletion(lesson.id)}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isCompleted
-                                    ? 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
+                                    ? 'bg-indigo-50 dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-slate-700'
                                     : 'bg-indigo-900 text-white hover:bg-indigo-800'
                                     }`}
                             >
@@ -125,12 +125,12 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
                         </div>
                     </div>
 
-                    <h1 className="text-5xl font-black text-slate-900 mb-8 tracking-tight">{lesson.title}</h1>
+                    <h1 className="text-5xl font-black text-slate-900 dark:text-slate-100 mb-8 tracking-tight">{lesson.title}</h1>
 
                     {showMindMap && lesson.mindMapImage && (
-                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-amber-100 ring-4 ring-amber-50 animate-in fade-in zoom-in duration-300">
-                            <div className="bg-amber-50 px-6 py-3 border-b border-amber-100 flex items-center justify-between">
-                                <span className="text-amber-800 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-amber-100 dark:border-amber-900/30 ring-4 ring-amber-50 dark:ring-amber-900/10 animate-in fade-in zoom-in duration-300">
+                            <div className="bg-amber-50 dark:bg-amber-900/20 px-6 py-3 border-b border-amber-100 dark:border-amber-900/30 flex items-center justify-between">
+                                <span className="text-amber-800 dark:text-amber-200 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
                                     <GraduationCap size={14} />
                                     Mind Map Visual Resource
                                 </span>
@@ -140,7 +140,7 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
                     )}
 
                     {!showMindMap && lesson.image && (
-                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200">
+                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800">
                             <img src={lesson.image} alt={lesson.title} className="w-full h-auto object-cover" />
                         </div>
                     )}
@@ -167,21 +167,21 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
                         </div>
                     )}
 
-                    <div className="flex items-center gap-6 p-8 bg-indigo-50/50 rounded-[2rem] border border-indigo-100 mb-12">
-                        <div className="bg-indigo-900 text-white p-4 rounded-2xl shadow-lg shadow-indigo-200 shrink-0">
+                    <div className="flex items-center gap-6 p-8 bg-indigo-50/50 dark:bg-slate-800/50 rounded-[2rem] border border-indigo-100 dark:border-slate-800 mb-12">
+                        <div className="bg-indigo-900 text-white p-4 rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-none shrink-0">
                             <GraduationCap size={32} />
                         </div>
                         <div>
-                            <p className="font-black text-xl text-indigo-900 mb-1">College Notes</p>
-                            <p className="text-indigo-700 text-lg opacity-80">This material is curated for your college curriculum.</p>
+                            <p className="font-black text-xl text-indigo-900 dark:text-slate-100 mb-1">College Notes</p>
+                            <p className="text-indigo-700 dark:text-slate-400 text-lg opacity-80">This material is curated for your college curriculum.</p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-100">
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-100 dark:border-slate-800">
                         <button
                             onClick={onPrev}
                             disabled={currentIndex === 0}
-                            className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 font-black transition-all rounded-2xl ${currentIndex === 0 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:text-indigo-600 hover:bg-indigo-50'
+                            className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 font-black transition-all rounded-2xl ${currentIndex === 0 ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-800'
                                 }`}
                         >
                             <ArrowLeft size={20} />

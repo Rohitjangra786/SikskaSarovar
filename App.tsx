@@ -158,6 +158,33 @@ const App: React.FC = () => {
   const [streak, setStreak] = useState(0);
   const [lastActiveLesson, setLastActiveLesson] = useState<{ courseId: string, lessonId: string, title: string, category: string } | null>(null);
 
+  // Dark Mode State
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Load dark mode preference and apply to document
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem('siksha_dark_mode');
+    const darkModeEnabled = savedDarkMode === 'true';
+    setIsDarkMode(darkModeEnabled);
+    if (darkModeEnabled) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    const newDarkMode = !isDarkMode;
+    setIsDarkMode(newDarkMode);
+    localStorage.setItem('siksha_dark_mode', newDarkMode.toString());
+    if (newDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  };
+
   useEffect(() => {
     // Generate mock notifications including College Courses
     const mockNotifications = [
@@ -516,6 +543,10 @@ const App: React.FC = () => {
     }
   };
 
+  const handleMarkAllAsRead = () => {
+    setNotifications(prev => prev.map(n => ({ ...n, isRead: true })));
+  };
+
   if (false) { // Login removed
     return null;
   }
@@ -571,7 +602,7 @@ const App: React.FC = () => {
             <div className="bg-white/10 backdrop-blur-2xl rounded-[2.5rem] p-10 border border-white/20 shadow-2xl w-full lg:w-80">
               <div className="flex justify-between items-center mb-8">
                 <div className="p-2 bg-brand-900 rounded-3xl shadow-xl">
-                  <SikshaLogo className="w-12 h-12" colorMode="dark" />
+                  <SikshaLogo className="w-12 h-12" colorMode={isDarkMode ? "dark" : "light"} />
                 </div>
                 <div className="text-right">
                   <p className="text-[10px] opacity-60 font-black uppercase tracking-[0.2em] mb-1">XP SCORE</p>
@@ -681,8 +712,8 @@ const App: React.FC = () => {
     <div className="max-w-4xl mx-auto space-y-12 animate-in slide-in-from-bottom-10 duration-700 py-6">
       <SEO title="About" description="About SikshaSarovar - our mission, team and values." />
       <div className="text-center space-y-4">
-        <h2 className="text-4xl lg:text-5xl font-black text-brand-900 tracking-tight">About SikshaSarovar</h2>
-        <p className="text-slate-500 font-medium text-lg max-w-2xl mx-auto">Empowering the next generation of digital creators through high-quality, accessible education.</p>
+        <h2 className="text-4xl lg:text-5xl font-black text-brand-900 dark:text-slate-100 tracking-tight">About SikshaSarovar</h2>
+        <p className="text-slate-500 dark:text-slate-400 font-medium text-lg max-w-2xl mx-auto">Empowering the next generation of digital creators through high-quality, accessible education.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -705,8 +736,8 @@ const App: React.FC = () => {
             image: RohitImg // Local image placeholder (replace with actual photo if desired)
           }
         ].map((founder, i) => (
-          <div key={i} className="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 flex flex-col items-center text-center space-y-6 hover:shadow-2xl hover:-translate-y-2 transition-all group overflow-hidden">
-            <div className="relative w-full aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-brand-900/10">
+          <div key={i} className="bg-white dark:bg-slate-900 p-10 rounded-[3rem] shadow-xl border border-slate-100 dark:border-slate-800 flex flex-col items-center text-center space-y-6 hover:shadow-2xl hover:-translate-y-2 transition-all group overflow-hidden">
+            <div className="relative w-full aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-brand-900/10 dark:border-white/5">
               <img
                 src={founder.image}
                 alt={founder.name}
@@ -720,17 +751,17 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="pt-2">
-              <h3 className="text-2xl font-black text-slate-900 mb-1">{founder.name}</h3>
-              <p className="text-accent-600 font-black text-[10px] uppercase tracking-widest">{founder.role}</p>
+              <h3 className="text-2xl font-black text-slate-900 dark:text-slate-100 mb-1">{founder.name}</h3>
+              <p className="text-accent-600 dark:text-accent-400 font-black text-[10px] uppercase tracking-widest">{founder.role}</p>
             </div>
-            <p className="text-slate-500 text-sm leading-relaxed px-4">{founder.bio}</p>
+            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed px-4">{founder.bio}</p>
             <div className="flex gap-4 pt-4 w-full justify-center">
-              <a href={`https://wa.me/${founder.phone}`} target="_blank" rel="noopener noreferrer" className="flex-1 max-w-[140px] p-3 bg-green-50 rounded-xl text-green-600 hover:bg-green-600 hover:text-white transition-all border border-green-100 flex items-center justify-center gap-2 font-black text-[10px] uppercase tracking-widest">
+              <a href={`https://wa.me/${founder.phone}`} target="_blank" rel="noopener noreferrer" className="flex-1 max-w-[140px] p-3 bg-green-50 dark:bg-green-900/20 rounded-xl text-green-600 dark:text-green-400 hover:bg-green-600 hover:text-white transition-all border border-green-100 dark:border-green-900/40 flex items-center justify-center gap-2 font-black text-[10px] uppercase tracking-widest">
                 <MessageCircle size={18} />
                 WhatsApp
               </a>
-              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100"><Linkedin size={18} /></button>
-              <button className="p-3 bg-slate-50 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100"><Mail size={18} /></button>
+              <button className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100 dark:border-slate-700"><Linkedin size={18} /></button>
+              <button className="p-3 bg-slate-50 dark:bg-slate-800 rounded-xl text-slate-400 hover:text-brand-600 transition-colors border border-slate-100 dark:border-slate-700"><Mail size={18} /></button>
             </div>
           </div>
         ))}
@@ -779,11 +810,11 @@ const App: React.FC = () => {
   })();
 
   return (
-    <div className="h-screen w-full flex bg-slate-50 overflow-hidden font-['Inter']">
+    <div className="h-screen w-full flex bg-slate-50 dark:bg-slate-950 overflow-hidden font-['Inter'] transition-colors duration-300">
       <SEO title={seoData.title} description={seoData.description} url={seoData.url} />
 
       {/* SIDEBAR */}
-      <aside className={`fixed lg:relative inset-y-0 left-0 z-50 transition-all duration-500 ease-in-out ${isSidebarOpen ? 'w-72 translate-x-0' : 'w-0 -translate-x-full lg:translate-x-0'} bg-white border-r border-slate-200 overflow-hidden`}>
+      <aside className={`fixed lg:relative inset-y-0 left-0 z-50 transition-all duration-500 ease-in-out ${isSidebarOpen ? 'w-72 translate-x-0' : 'w-0 -translate-x-full lg:translate-x-0'} bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 overflow-hidden`}>
         <div className="w-72 h-full">
           <Sidebar
             activeTab={activeTab}
@@ -811,11 +842,11 @@ const App: React.FC = () => {
       <main className="flex-1 flex flex-col h-full min-w-0 relative" id="main-content">
 
         {/* HEADER */}
-        <header className={`sticky top-0 z-30 bg-brand-50/95 backdrop-blur-sm px-4 lg:px-6 py-2.5 flex justify-between items-center border-b border-brand-100 shrink-0 transition-transform duration-300 ${scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'}`}>
+        <header className={`sticky top-0 z-30 bg-brand-50/95 dark:bg-slate-900/95 backdrop-blur-sm px-4 lg:px-6 py-2.5 flex justify-between items-center border-b border-brand-100 dark:border-slate-800 shrink-0 transition-transform duration-300 ${scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'}`}>
           {isMobileSearchOpen ? (
             <div className="w-full flex items-center gap-2 animate-in fade-in slide-in-from-top-2 duration-200">
               <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-300" size={16} />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-300 dark:text-slate-500" size={16} />
                 <input
                   autoFocus
                   type="text"
@@ -826,16 +857,16 @@ const App: React.FC = () => {
                     // Delay closing to allow clicking results
                     setTimeout(() => setIsSearchOpen(false), 200);
                   }}
-                  className="w-full bg-white border border-brand-200 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-sm font-medium placeholder:text-brand-300"
+                  className="w-full bg-white dark:bg-slate-800 border border-brand-200 dark:border-slate-700 rounded-xl py-2 pl-9 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-sm font-medium placeholder:text-brand-300 dark:placeholder:text-slate-500 dark:text-slate-200"
                 />
                 {/* Search Results Dropdown for Mobile */}
                 {searchQuery.trim() !== '' && searchResults.length > 0 && (
-                  <div className="absolute top-full left-0 mt-2 w-full bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-50">
+                  <div className="absolute top-full left-0 mt-2 w-full bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden z-50">
                     <div className="flex flex-col p-1">
                       {searchResults.map((result, idx) => (
                         <button
                           key={`${result.type}-${result.id}-${idx}`}
-                          className="text-left px-3 py-3 hover:bg-slate-50 rounded-lg transition-colors flex items-center gap-3 border-b border-slate-50 last:border-0"
+                          className="text-left px-3 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors flex items-center gap-3 border-b border-slate-50 dark:border-slate-700 last:border-0"
                           onClick={() => {
                             handleSearchResultClick(result);
                             setIsMobileSearchOpen(false);
@@ -864,13 +895,13 @@ const App: React.FC = () => {
           ) : (
             <>
               <div className="flex items-center gap-3 min-w-0">
-                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-1.5 bg-white rounded-lg border border-brand-200 text-brand-900 hover:text-white hover:bg-brand-900 transition-all">
+                <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-1.5 bg-white dark:bg-slate-800 rounded-lg border border-brand-200 dark:border-slate-700 text-brand-900 dark:text-slate-200 hover:text-white hover:bg-brand-900 dark:hover:bg-brand-700 transition-all">
                   {isSidebarOpen ? <ChevronLeft size={16} /> : <Menu size={16} />}
                 </button>
-                <nav className="flex items-center text-[11px] font-bold tracking-tight overflow-hidden text-slate-500">
-                  <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 transition-colors">SikshaSarovar</button>
+                <nav className="flex items-center text-[11px] font-bold tracking-tight overflow-hidden text-slate-500 dark:text-slate-400">
+                  <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 dark:hover:text-brand-400 transition-colors">SikshaSarovar</button>
                   <ChevronRight size={12} className="mx-1.5 opacity-50" />
-                  <span className="text-brand-900 truncate font-black">{getPageTitle()}</span>
+                  <span className="text-brand-900 dark:text-slate-200 truncate font-black">{getPageTitle()}</span>
                 </nav>
               </div>
 
@@ -878,14 +909,14 @@ const App: React.FC = () => {
                 {/* Mobile Search Toggle */}
                 <button
                   onClick={() => setIsMobileSearchOpen(true)}
-                  className="md:hidden p-1.5 bg-white rounded-lg border border-brand-200 text-brand-900 hover:bg-brand-50"
+                  className="md:hidden p-1.5 bg-white dark:bg-slate-800 rounded-lg border border-brand-200 dark:border-slate-700 text-brand-900 dark:text-slate-200 hover:bg-brand-50 dark:hover:bg-slate-700"
                 >
                   <Search size={16} />
                 </button>
 
                 {/* SEARCH BAR (Desktop) */}
                 <div className="relative hidden md:block group">
-                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-brand-300" size={14} />
+                  <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-brand-300 dark:text-slate-500" size={14} />
                   <input
                     type="text"
                     placeholder="Search..."
@@ -893,20 +924,20 @@ const App: React.FC = () => {
                     onChange={(e) => { setSearchQuery(e.target.value); setIsSearchOpen(true); }}
                     onFocus={() => setIsSearchOpen(true)}
                     onBlur={() => setTimeout(() => setIsSearchOpen(false), 200)}
-                    className="w-32 lg:w-48 bg-white border border-brand-200 rounded-lg py-1 pl-8 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-[11px] font-medium placeholder:text-brand-200 transition-all focus:w-64"
+                    className="w-32 lg:w-48 bg-white dark:bg-slate-800 border border-brand-200 dark:border-slate-700 rounded-lg py-1 pl-8 pr-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 text-[11px] font-medium placeholder:text-brand-200 dark:placeholder:text-slate-500 dark:text-slate-200 transition-all focus:w-64"
                   />
 
                   {/* Search Results Dropdown */}
                   {isSearchOpen && searchResults.length > 0 && (
-                    <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
+                    <div className="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200">
                       <div className="flex flex-col p-1">
                         {searchResults.map((result, idx) => (
                           <button
                             key={`${result.type}-${result.id}-${idx}`}
-                            className="text-left px-3 py-2 hover:bg-slate-50 rounded-lg transition-colors flex flex-col gap-0.5"
+                            className="text-left px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg transition-colors flex flex-col gap-0.5"
                             onClick={() => handleSearchResultClick(result)}
                           >
-                            <span className="text-xs font-bold text-slate-700">{result.title}</span>
+                            <span className="text-xs font-bold text-slate-700 dark:text-slate-200">{result.title}</span>
                             <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1">
                               {result.type === 'course' ? <GraduationCap size={10} /> : <BookOpen size={10} />}
                               {result.subTitle}
@@ -1002,38 +1033,42 @@ const App: React.FC = () => {
                   <button
                     onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
                     onBlur={() => setTimeout(() => setIsNotificationsOpen(false), 200)}
-                    className={`bg-white p-1.5 rounded-lg border transition-all relative ${isNotificationsOpen ? 'bg-brand-900 text-white border-brand-900' : 'border-brand-200 text-brand-900 hover:bg-brand-900 hover:text-white'}`}
+                    className={`bg-white dark:bg-slate-800 p-1.5 rounded-lg border transition-all relative ${isNotificationsOpen ? 'bg-brand-900 dark:bg-brand-700 text-white border-brand-900 dark:border-brand-700' : 'border-brand-200 dark:border-slate-700 text-brand-900 dark:text-slate-200 hover:bg-brand-900 dark:hover:bg-slate-700 hover:text-white'}`}
                   >
                     <Bell size={16} />
                     {notifications.filter(n => !n.isRead).length > 0 && (
-                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white"></span>
+                      <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-slate-800"></span>
                     )}
                   </button>
 
                   {isNotificationsOpen && (
-                    <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-slate-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
-                      <div className="p-3 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
-                        <h4 className="text-xs font-black uppercase tracking-widest text-slate-500">Notifications</h4>
-                        <span className="px-2 py-0.5 bg-brand-100 text-brand-600 rounded-full text-[10px] font-bold">{notifications.length} New</span>
+                    <div className="absolute top-full right-0 mt-2 w-80 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200 origin-top-right">
+                      <div className="p-3 border-b border-slate-50 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
+                        <h4 className="text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Notifications</h4>
+                        <span className="px-2 py-0.5 bg-brand-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 rounded-full text-[10px] font-bold">{notifications.filter(n => !n.isRead).length} New</span>
                       </div>
                       <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
                         {notifications.length === 0 ? (
-                          <div className="p-8 text-center text-slate-400 text-xs font-medium">No new notifications</div>
+                          <div className="p-8 text-center text-slate-400 dark:text-slate-500 text-xs font-medium">No new notifications</div>
                         ) : (
                           notifications.map((notif) => (
                             <div
                               key={notif.id}
                               onMouseDown={() => handleNotificationClick(notif)}
-                              className="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors group cursor-pointer"
+                              className={`p-4 border-b border-slate-50 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors group cursor-pointer ${notif.isRead ? 'opacity-60' : ''}`}
                             >
                               <div className="flex gap-3">
                                 <div className="shrink-0 mt-1">
-                                  <div className="w-2 h-2 rounded-full bg-accent-500"></div>
+                                  {notif.isRead ? (
+                                    <div className="w-2 h-2 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+                                  ) : (
+                                    <div className="w-2 h-2 rounded-full bg-accent-500"></div>
+                                  )}
                                 </div>
                                 <div>
-                                  <p className="text-xs font-bold text-slate-800 mb-1 group-hover:text-brand-600 transition-colors">{notif.title}</p>
-                                  <p className="text-[10px] text-slate-500 leading-relaxed mb-2 line-clamp-2">{notif.message}</p>
-                                  <p className="text-[9px] font-bold text-slate-300 uppercase tracking-widest flex items-center gap-1">
+                                  <p className={`text-xs font-bold mb-1 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors ${notif.isRead ? 'text-slate-500 dark:text-slate-500' : 'text-slate-800 dark:text-slate-200'}`}>{notif.title}</p>
+                                  <p className="text-[10px] text-slate-500 dark:text-slate-400 leading-relaxed mb-2 line-clamp-2">{notif.message}</p>
+                                  <p className="text-[9px] font-bold text-slate-300 dark:text-slate-600 uppercase tracking-widest flex items-center gap-1">
                                     <Clock size={10} /> {notif.date}
                                   </p>
                                 </div>
@@ -1042,8 +1077,8 @@ const App: React.FC = () => {
                           ))
                         )}
                       </div>
-                      <div className="p-2 bg-slate-50 border-t border-slate-100 text-center">
-                        <button className="text-[10px] font-bold text-brand-500 hover:text-brand-700 uppercase tracking-widest">Mark all as read</button>
+                      <div className="p-2 bg-slate-50 dark:bg-slate-800 border-t border-slate-100 dark:border-slate-700 text-center">
+                        <button onMouseDown={handleMarkAllAsRead} className="text-[10px] font-bold text-brand-500 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 uppercase tracking-widest">Mark all as read</button>
                       </div>
                     </div>
                   )}
@@ -1055,24 +1090,24 @@ const App: React.FC = () => {
         </header>
 
         {/* SUB HEADER */}
-        <div className={`bg-white border-b border-slate-200 overflow-hidden shrink-0 transition-all duration-300 ${scrollDirection === 'down' ? '-mt-12' : 'mt-0'}`}>
+        <div className={`bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 overflow-hidden shrink-0 transition-all duration-300 ${scrollDirection === 'down' ? '-mt-12' : 'mt-0'}`}>
           <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row md:items-center px-4 lg:px-8 py-3 gap-4">
             <div className="flex items-center gap-4 shrink-0">
-              <div className="p-2 bg-brand-50 rounded-xl shadow-lg shadow-brand-200/50">
-                <SikshaLogo className="w-8 h-8" />
+              <div className="p-2 bg-brand-50 dark:bg-slate-800 rounded-xl shadow-lg shadow-brand-200/50 dark:shadow-none">
+                <SikshaLogo className="w-8 h-8" colorMode={isDarkMode ? "dark" : "light"} />
               </div>
               <div>
-                <h1 className="text-xl lg:text-2xl font-black text-brand-900 tracking-tight leading-none mb-1">{getPageTitle()}</h1>
+                <h1 className="text-xl lg:text-2xl font-black text-brand-900 dark:text-slate-100 tracking-tight leading-none mb-1">{getPageTitle()}</h1>
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">SikshaSarovar Hub</p>
               </div>
             </div>
-            <div className="h-8 w-px bg-slate-100 hidden md:block"></div>
+            <div className="h-8 w-px bg-slate-100 dark:bg-slate-800 hidden md:block"></div>
             <nav className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
               {(activeTab.startsWith('college') ? COLLEGE_COURSES : COURSES).map((course) => (
                 <button
                   key={course.id}
                   onClick={() => handleSelectLesson(course.id, course.lessons[0].id)}
-                  className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${selectedCourse?.id === course.id && (activeTab === 'lesson' || activeTab === 'college-lesson' || activeTab === 'playground') ? 'bg-brand-900 text-white border-brand-900 shadow-md shadow-brand-200' : 'bg-slate-50 text-slate-500 border-slate-100 hover:border-brand-200 hover:text-brand-900'}`}
+                  className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${selectedCourse?.id === course.id && (activeTab === 'lesson' || activeTab === 'college-lesson' || activeTab === 'playground') ? 'bg-brand-900 text-white border-brand-900 shadow-md shadow-brand-200' : 'bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-100 dark:border-slate-700 hover:border-brand-200 dark:hover:border-slate-600 hover:text-brand-900 dark:hover:text-slate-200'}`}
                 >
                   <span className={selectedCourse?.id === course.id ? 'text-accent-500' : 'text-brand-500'}>
                     {ICON_MAP[course.icon] || <span className="opacity-50">#</span>}
@@ -1080,7 +1115,7 @@ const App: React.FC = () => {
                   {course.title}
                 </button>
               ))}
-              <button onClick={() => handleNavigate('playground', '/playground')} className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${activeTab === 'playground' ? 'bg-accent-500 text-brand-900 border-accent-500 shadow-md shadow-accent-100' : 'bg-accent-50 text-accent-700 border-accent-100 hover:bg-accent-100'}`}>
+              <button onClick={() => handleNavigate('playground', '/playground')} className={`flex items-center gap-2.5 px-4 py-2 rounded-xl text-xs font-black transition-all whitespace-nowrap border ${activeTab === 'playground' ? 'bg-accent-500 text-brand-900 border-accent-500 shadow-md shadow-accent-100' : 'bg-accent-50 dark:bg-slate-800 text-accent-700 dark:text-accent-500 border-accent-100 dark:border-slate-700 hover:bg-accent-100 dark:hover:bg-slate-700'}`}>
                 <Zap size={14} fill="currentColor" /> Live Editor
               </button>
             </nav>
@@ -1088,7 +1123,7 @@ const App: React.FC = () => {
         </div>
 
         {/* CONTENT */}
-        <div id="scroll-container" className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/50 flex flex-col">
+        <div id="scroll-container" className="flex-1 overflow-y-auto custom-scrollbar bg-slate-50/50 dark:bg-slate-950 flex flex-col">
           <div className="p-4 lg:p-12 flex-1">
             {activeTab === 'home' && renderHome()}
             {activeTab === 'about' && renderAbout()}
@@ -1178,23 +1213,28 @@ const App: React.FC = () => {
             })()}
             {activeTab === 'settings' && (
               <div className="max-w-[1200px] mx-auto p-6 lg:p-12">
-                <Settings currentUser={currentUser} onUpdate={(u) => {
-                  const updatedUser = { name: u.name, email: u.email, designation: u.designation || '', age: u.age ?? '', sex: u.sex || '' };
-                  setCurrentUser(updatedUser);
-                  localStorage.setItem('siksha_user', JSON.stringify(updatedUser));
-                }} />
+                <Settings
+                  currentUser={currentUser}
+                  isDarkMode={isDarkMode}
+                  onToggleDarkMode={toggleDarkMode}
+                  onUpdate={(u) => {
+                    const updatedUser = { name: u.name, email: u.email, designation: u.designation || '', age: u.age ?? '', sex: u.sex || '' };
+                    setCurrentUser(updatedUser);
+                    localStorage.setItem('siksha_user', JSON.stringify(updatedUser));
+                  }}
+                />
               </div>
             )}
             {activeTab === 'playground' && <div className="h-full min-h-[600px] animate-in zoom-in-95 duration-500"><Playground initialCode={playgroundCode} /></div>}
             {activeTab === 'ai-tutor' && <div className="max-w-4xl mx-auto h-full animate-in fade-in duration-500"><AIAssistant /></div>}
           </div>
 
-          <footer className="bg-white border-t border-slate-200 py-8 px-6 lg:px-12 mt-auto">
+          <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-8 px-6 lg:px-12 mt-auto">
             <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="flex flex-col items-center md:items-start">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="bg-brand-900 p-1 rounded-md"><Sparkles className="text-accent-500" size={14} /></div>
-                  <span className="font-black text-brand-900 text-sm tracking-tight">SikshaSarovar.com</span>
+                  <span className="font-black text-brand-900 dark:text-slate-100 text-sm tracking-tight">SikshaSarovar.com</span>
                 </div>
                 <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Developed by SikshaSarovar</p>
                 <div className="mt-2 flex gap-4 text-[9px] font-black text-green-600 uppercase tracking-widest">
@@ -1202,14 +1242,14 @@ const App: React.FC = () => {
                   <a href="https://wa.me/7015204440" target="_blank" rel="noopener noreferrer" className="hover:text-green-800 flex items-center gap-1"><MessageCircle size={12} /> Rohit: 7015204440</a>
                 </div>
               </div>
-              <div className="flex items-center gap-8 text-[11px] font-black text-slate-500 uppercase tracking-widest">
-                <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 transition-colors">Home</button>
-                <button onClick={() => handleNavigate('about', '/about')} className="hover:text-brand-900 transition-colors">About</button>
-                <button onClick={() => handleNavigate('terms', '/terms')} className="hover:text-brand-900 transition-colors">Terms</button>
-                <button onClick={() => handleNavigate('privacy', '/privacy')} className="hover:text-brand-900 transition-colors">Privacy</button>
+              <div className="flex items-center gap-8 text-[11px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+                <button onClick={() => handleNavigate('home', '/')} className="hover:text-brand-900 dark:hover:text-slate-200 transition-colors">Home</button>
+                <button onClick={() => handleNavigate('about', '/about')} className="hover:text-brand-900 dark:hover:text-slate-200 transition-colors">About</button>
+                <button onClick={() => handleNavigate('terms', '/terms')} className="hover:text-brand-900 dark:hover:text-slate-200 transition-colors">Terms</button>
+                <button onClick={() => handleNavigate('privacy', '/privacy')} className="hover:text-brand-900 dark:hover:text-slate-200 transition-colors">Privacy</button>
               </div>
               <div className="flex gap-2">
-                <a href="https://github.com/Rohitjangra786" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-50 rounded-lg text-slate-400 hover:text-brand-900 border border-slate-100 transition-all">
+                <a href="https://github.com/Rohitjangra786" target="_blank" rel="noopener noreferrer" className="p-2 bg-slate-50 dark:bg-slate-800 rounded-lg text-slate-400 hover:text-brand-900 dark:hover:text-slate-200 border border-slate-100 dark:border-slate-700 transition-all">
                   <Github size={16} />
                 </a>
               </div>

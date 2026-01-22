@@ -84,14 +84,14 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                 </div>
             </div>
 
-            <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
+            <div className="bg-white dark:bg-slate-900 rounded-[3rem] shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <div className="h-3 bg-gradient-to-r from-brand-900 via-brand-700 to-brand-500"></div>
 
                 <div className="p-10 md:p-16">
                     <div className="flex justify-between items-start mb-8 flex-wrap gap-4">
                         <div className="flex items-center gap-2">
-                            <span className="bg-brand-100 text-brand-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
-                            {isCompleted && <span className="flex items-center gap-1 text-brand-600 text-[10px] font-black"><Check size={12} /> COMPLETED</span>}
+                            <span className="bg-brand-100 dark:bg-slate-800 text-brand-900 dark:text-brand-100 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
+                            {isCompleted && <span className="flex items-center gap-1 text-brand-600 dark:text-brand-400 text-[10px] font-black"><Check size={12} /> COMPLETED</span>}
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -100,7 +100,7 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                                     onClick={() => setShowMindMap(!showMindMap)}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${showMindMap
                                         ? 'bg-amber-100 text-amber-700'
-                                        : 'bg-amber-50 text-amber-600 hover:bg-amber-100'
+                                        : 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/40'
                                         }`}
                                 >
                                     <GraduationCap size={14} />
@@ -111,7 +111,7 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                             <button
                                 onClick={() => toggleCompletion(lesson.id)}
                                 className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isCompleted
-                                    ? 'bg-brand-50 text-brand-600 hover:bg-brand-100'
+                                    ? 'bg-brand-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-slate-700'
                                     : 'bg-brand-900 text-white hover:bg-brand-800'
                                     }`}
                             >
@@ -120,12 +120,12 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                         </div>
                     </div>
 
-                    <h1 className="text-5xl font-black text-slate-900 mb-8 tracking-tight">{lesson.title}</h1>
+                    <h1 className="text-5xl font-black text-slate-900 dark:text-slate-100 mb-8 tracking-tight">{lesson.title}</h1>
 
                     {showMindMap && lesson.mindMapImage && (
-                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-amber-100 ring-4 ring-amber-50 animate-in fade-in zoom-in duration-300">
-                            <div className="bg-amber-50 px-6 py-3 border-b border-amber-100 flex items-center justify-between">
-                                <span className="text-amber-800 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-amber-100 dark:border-amber-900/30 ring-4 ring-amber-50 dark:ring-amber-900/10 animate-in fade-in zoom-in duration-300">
+                            <div className="bg-amber-50 dark:bg-amber-900/20 px-6 py-3 border-b border-amber-100 dark:border-amber-900/30 flex items-center justify-between">
+                                <span className="text-amber-800 dark:text-amber-200 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
                                     <GraduationCap size={14} />
                                     Mind Map Visual Resource
                                 </span>
@@ -135,7 +135,7 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                     )}
 
                     {!showMindMap && lesson.image && (
-                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200">
+                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800">
                             <img
                                 src={lesson.image}
                                 alt={lesson.title}
@@ -152,7 +152,7 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                     </div>
 
                     {lesson.codeSnippet && (
-                        <div className="group relative bg-slate-900 rounded-[2rem] p-8 border border-slate-800 mb-12 shadow-2xl">
+                        <div className="group relative bg-slate-900 rounded-[2rem] p-8 border border-slate-800 mb-12 shadow-2xl px-6 sm:px-8">
                             <div className="flex justify-between items-center mb-6">
                                 <div className="flex items-center gap-3">
                                     <div className="flex gap-1.5">
@@ -185,21 +185,21 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                         </div>
                     )}
 
-                    <div className="flex items-center gap-6 p-8 bg-brand-50/50 rounded-[2rem] border border-brand-100 mb-12">
-                        <div className="bg-brand-900 text-white p-4 rounded-2xl shadow-lg shadow-brand-200 shrink-0">
+                    <div className="flex items-center gap-6 p-8 bg-brand-50/50 dark:bg-slate-800/50 rounded-[2rem] border border-brand-100 dark:border-slate-800 mb-12">
+                        <div className="bg-brand-900 text-white p-4 rounded-2xl shadow-lg shadow-brand-200 dark:shadow-none shrink-0">
                             <CheckCircle2 size={32} />
                         </div>
                         <div>
-                            <p className="font-black text-xl text-brand-900 mb-1">Module Concept</p>
-                            <p className="text-brand-700 text-lg opacity-80">This module is part of the {course.level} path. Experimenting with code is the fastest way to understand syntax behavior!</p>
+                            <p className="font-black text-xl text-brand-900 dark:text-slate-100 mb-1">Module Concept</p>
+                            <p className="text-brand-700 dark:text-slate-400 text-lg opacity-80">This module is part of the {course.level} path. Experimenting with code is the fastest way to understand syntax behavior!</p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-100">
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-100 dark:border-slate-800">
                         <button
                             onClick={onPrev}
                             disabled={currentIndex === 0}
-                            className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 font-black transition-all rounded-2xl ${currentIndex === 0 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:text-brand-600 hover:bg-brand-50'
+                            className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 font-black transition-all rounded-2xl ${currentIndex === 0 ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800'
                                 }`}
                         >
                             <ArrowLeft size={20} />
@@ -209,7 +209,7 @@ const PythonCourse: React.FC<PythonCourseProps> = ({
                             {!isCompleted && (
                                 <button
                                     onClick={() => toggleCompletion(lesson.id)}
-                                    className="flex items-center justify-center gap-3 bg-brand-50 text-brand-900 border border-brand-100 px-8 py-4 rounded-2xl font-black hover:bg-brand-100 transition-all"
+                                    className="flex items-center justify-center gap-3 bg-brand-50 dark:bg-slate-800 text-brand-900 dark:text-brand-100 border border-brand-100 dark:border-slate-700 px-8 py-4 rounded-2xl font-black hover:bg-brand-100 dark:hover:bg-slate-700 transition-all"
                                 >
                                     <Check size={20} />
                                     Complete Lesson

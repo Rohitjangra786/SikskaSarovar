@@ -52,14 +52,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
     : COURSES;
 
   return (
-    <div className="w-72 bg-white h-full border-r border-slate-200 flex flex-col overflow-hidden shadow-sm">
+    <div className="w-72 bg-white dark:bg-slate-900 h-full border-r border-slate-200 dark:border-slate-800 flex flex-col overflow-hidden shadow-sm">
       <div className="p-8 pb-4 flex items-center gap-3">
         <div className="bg-brand-900 p-2 rounded-xl shadow-lg shadow-brand-900/20 border border-white/5 relative group">
           <div className="absolute inset-0 bg-accent-500/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity rounded-xl"></div>
           <SikshaLogo className="w-10 h-10 relative z-10" colorMode="dark" />
         </div>
         <div>
-          <span className="font-black text-xl tracking-tight text-brand-900 block leading-none">SikshaSarovar</span>
+          <span className="font-black text-xl tracking-tight text-brand-900 dark:text-slate-100 block leading-none">SikshaSarovar</span>
           <span className="text-[10px] font-bold text-accent-500 uppercase tracking-widest mt-1 block">Learn Your Way</span>
         </div>
       </div>
@@ -72,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-300 ${activeTab === item.id
                 ? 'bg-brand-900 text-white font-bold shadow-lg shadow-brand-900/40'
-                : 'text-slate-500 hover:bg-brand-50 hover:text-brand-900'
+                : 'text-slate-500 dark:text-slate-400 hover:bg-brand-50 dark:hover:bg-slate-800 hover:text-brand-900 dark:hover:text-slate-200'
                 }`}
             >
               <span className={activeTab === item.id ? 'text-accent-500' : ''}>{item.icon}</span>
@@ -85,7 +85,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
           <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
             Tutorials
           </span>
-          <span className="bg-brand-50 text-brand-600 text-[10px] font-bold px-2 py-0.5 rounded-full">
+          <span className="bg-brand-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 text-[10px] font-bold px-2 py-0.5 rounded-full">
             {visibleCourses.length}
           </span>
         </div>
@@ -96,12 +96,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
               <button
                 onClick={() => toggleCourse(course.id)}
                 className={`w-full flex items-center justify-between p-3 rounded-2xl transition-all ${expandedCourses.includes(course.id) || activeTab === 'lesson' && filterCourseId === course.id
-                  ? 'bg-slate-50 text-brand-900'
-                  : 'text-slate-600 hover:bg-slate-50'
+                  ? 'bg-slate-50 dark:bg-slate-800 text-brand-900 dark:text-slate-100'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-xl transition-colors ${expandedCourses.includes(course.id) ? 'bg-white shadow-sm text-brand-600' : 'bg-slate-100 text-slate-400 group-hover:bg-white group-hover:shadow-sm group-hover:text-brand-600'
+                  <div className={`p-2 rounded-xl transition-colors ${expandedCourses.includes(course.id) ? 'bg-white dark:bg-slate-700 shadow-sm text-brand-600 dark:text-brand-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 group-hover:bg-white dark:group-hover:bg-slate-700 group-hover:shadow-sm group-hover:text-brand-600 dark:group-hover:text-brand-400'
                     }`}>
                     {ICON_MAP[course.icon]}
                   </div>
@@ -117,18 +117,18 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
               >
                 <div className="overflow-hidden">
                   <div className="pl-4 space-y-1 relative">
-                    <div className="absolute left-7 top-2 bottom-2 w-px bg-slate-200"></div>
+                    <div className="absolute left-7 top-2 bottom-2 w-px bg-slate-200 dark:bg-slate-800"></div>
                     {course.lessons.map((lesson) => {
                       const isCompleted = completedLessons.includes(lesson.id);
                       return (
                         <button
                           key={lesson.id}
                           onClick={() => onSelectLesson(course.id, lesson.id)}
-                          className="w-full flex items-center gap-3 py-2 px-3 pl-8 text-[13px] text-slate-500 hover:text-brand-600 transition-colors relative group/lesson"
+                          className="w-full flex items-center gap-3 py-2 px-3 pl-8 text-[13px] text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors relative group/lesson"
                         >
                           <div className={`absolute left-[10px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full border-2 transition-all z-10 ${isCompleted
                             ? 'bg-accent-500 border-accent-500 scale-110'
-                            : 'bg-white border-slate-300 group-hover/lesson:border-brand-400'
+                            : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-600 group-hover/lesson:border-brand-400'
                             }`}></div>
                           <span className="truncate text-left flex-1">{lesson.title}</span>
                           {isCompleted && <CheckCircle size={12} className="text-accent-500 shrink-0" />}
@@ -143,7 +143,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onSelectLess
         </div>
       </div>
 
-      <div className="p-6 border-t border-slate-100 bg-slate-50/50">
+      <div className="p-6 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
         <div className="bg-brand-900 rounded-2xl p-4 relative overflow-hidden group cursor-pointer shadow-xl">
           <div className="absolute top-0 right-0 w-24 h-24 bg-accent-500/10 rounded-full blur-2xl group-hover:bg-accent-500/20 transition-all"></div>
           <div className="relative z-10">

@@ -12,13 +12,13 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
 
         // Headers
         if (firstLine.startsWith('# ')) {
-            return <h1 key={index} className="text-4xl md:text-5xl font-black text-slate-900 mb-6 mt-10 tracking-tight leading-tight">{renderInline(firstLine.slice(2))}</h1>;
+            return <h1 key={index} className="text-4xl md:text-5xl font-black text-slate-900 dark:text-slate-100 mb-6 mt-10 tracking-tight leading-tight">{renderInline(firstLine.slice(2))}</h1>;
         }
         if (firstLine.startsWith('## ')) {
-            return <h2 key={index} className="text-3xl font-black text-slate-800 mb-4 mt-8 border-l-4 border-brand-500 pl-4 tracking-tight">{renderInline(firstLine.slice(3))}</h2>;
+            return <h2 key={index} className="text-3xl font-black text-slate-800 dark:text-slate-200 mb-4 mt-8 border-l-4 border-brand-500 pl-4 tracking-tight">{renderInline(firstLine.slice(3))}</h2>;
         }
         if (firstLine.startsWith('### ')) {
-            return <h3 key={index} className="text-2xl font-bold text-slate-700 mb-3 mt-6 tracking-tight">{renderInline(firstLine.slice(4))}</h3>;
+            return <h3 key={index} className="text-2xl font-bold text-slate-700 dark:text-slate-300 mb-3 mt-6 tracking-tight">{renderInline(firstLine.slice(4))}</h3>;
         }
 
         // Tables
@@ -38,22 +38,22 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             const dataRows = rows.slice(2);
 
             return (
-                <div key={index} className="my-6 overflow-x-auto rounded-xl shadow-lg border border-slate-200">
-                    <table className="w-full border-collapse bg-white text-sm">
+                <div key={index} className="my-6 overflow-x-auto rounded-xl shadow-lg border border-slate-200 dark:border-slate-700">
+                    <table className="w-full border-collapse bg-white dark:bg-slate-800 text-sm">
                         <thead>
-                            <tr className="bg-brand-50 border-b border-brand-100">
+                            <tr className="bg-brand-50 dark:bg-slate-700 border-b border-brand-100 dark:border-slate-600">
                                 {headers.map((header, i) => (
-                                    <th key={i} className={`p-4 font-bold text-brand-900 uppercase tracking-wider text-${alignments[i] || 'left'}`}>
+                                    <th key={i} className={`p-4 font-bold text-brand-900 dark:text-brand-100 uppercase tracking-wider text-${alignments[i] || 'left'}`}>
                                         {renderInline(header)}
                                     </th>
                                 ))}
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
                             {dataRows.map((row, rowIndex) => (
-                                <tr key={rowIndex} className="hover:bg-slate-50 transition-colors even:bg-slate-50/50">
+                                <tr key={rowIndex} className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors even:bg-slate-50/50 dark:even:bg-slate-800/50">
                                     {row.map((cell, cellIndex) => (
-                                        <td key={cellIndex} className={`p-4 text-slate-600 text-${alignments[cellIndex] || 'left'}`}>
+                                        <td key={cellIndex} className={`p-4 text-slate-600 dark:text-slate-300 text-${alignments[cellIndex] || 'left'}`}>
                                             {renderInline(cell)}
                                         </td>
                                     ))}
@@ -68,7 +68,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         // Lists (Unordered)
         if (firstLine.startsWith('• ') || firstLine.startsWith('- ')) {
             return (
-                <ul key={index} className="list-disc list-inside mb-4 space-y-2 text-slate-600 marker:text-brand-500">
+                <ul key={index} className="list-disc list-inside mb-4 space-y-2 text-slate-600 dark:text-slate-300 marker:text-brand-500">
                     {lines.map((line, i) => (
                         <li key={i} className="pl-2">{renderInline(line.trim().replace(/^[•-]\s+/, ''))}</li>
                     ))}
@@ -79,7 +79,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         // Numbered Lists
         if (/^\d+\.\s/.test(firstLine)) {
             return (
-                <ol key={index} className="list-decimal list-inside mb-4 space-y-2 text-slate-600 marker:text-brand-500 marker:font-bold">
+                <ol key={index} className="list-decimal list-inside mb-4 space-y-2 text-slate-600 dark:text-slate-300 marker:text-brand-500 marker:font-bold">
                     {lines.map((line, i) => (
                         <li key={i} className="pl-2">{renderInline(line.trim().replace(/^\d+\.\s+/, ''))}</li>
                     ))}
@@ -92,9 +92,9 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             const match = firstLine.match(/!\[(.*?)\]\((.*?)\)/);
             if (match) {
                 return (
-                    <div key={index} className="my-6 rounded-2xl overflow-hidden shadow-md border border-slate-100">
+                    <div key={index} className="my-6 rounded-2xl overflow-hidden shadow-md border border-slate-100 dark:border-slate-700">
                         <img src={match[2]} alt={match[1]} className="w-full h-auto object-cover" />
-                        {match[1] && <p className="text-center text-xs text-slate-400 mt-2 p-2 bg-slate-50 italic">{match[1]}</p>}
+                        {match[1] && <p className="text-center text-xs text-slate-400 mt-2 p-2 bg-slate-50 dark:bg-slate-800 italic">{match[1]}</p>}
                     </div>
                 );
             }
@@ -124,7 +124,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         // Blockquotes
         if (firstLine.startsWith('> ')) {
             return (
-                <blockquote key={index} className="border-l-4 border-amber-400 bg-amber-50 p-4 rounded-r-xl my-4 text-amber-900 italic">
+                <blockquote key={index} className="border-l-4 border-amber-400 bg-amber-50 dark:bg-amber-900/10 p-4 rounded-r-xl my-4 text-amber-900 dark:text-amber-100 italic">
                     {renderInline(lines.join(' ').replace(/^>\s+/gm, ''))}
                 </blockquote>
             );
@@ -132,7 +132,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
 
 
         // Default Paragraph
-        return <p key={index} className="mb-4 text-slate-600 leading-relaxed text-lg">{renderInline(block)}</p>;
+        return <p key={index} className="mb-4 text-slate-600 dark:text-slate-300 leading-relaxed text-lg">{renderInline(block)}</p>;
     };
 
     const renderInline = (text: string) => {
@@ -144,10 +144,10 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
 
         return parts.map((part, i) => {
             if (part.startsWith('**') && part.endsWith('**')) {
-                return <strong key={i} className="font-bold text-slate-900">{part.slice(2, -2)}</strong>;
+                return <strong key={i} className="font-bold text-slate-900 dark:text-slate-100">{part.slice(2, -2)}</strong>;
             }
             if (part.startsWith('`') && part.endsWith('`')) {
-                return <code key={i} className="bg-slate-100 text-brand-600 font-mono px-1.5 py-0.5 rounded text-sm border border-slate-200">{part.slice(1, -1)}</code>;
+                return <code key={i} className="bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 font-mono px-1.5 py-0.5 rounded text-sm border border-slate-200 dark:border-slate-700">{part.slice(1, -1)}</code>;
             }
             return part;
         });

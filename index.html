@@ -24,6 +24,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             colors: {
@@ -38,10 +39,10 @@
                 600: '#12737f',
                 700: '#105e68',
                 800: '#0d4e56',
-                900: '#00385D', 
+                900: '#00385D',
               },
               accent: {
-                DEFAULT: '#D3B16D', 
+                DEFAULT: '#D3B16D',
                 50: '#f9f6f0',
                 100: '#f2ece0',
                 200: '#e5d9c1',
@@ -110,7 +111,7 @@
 }
 </script>
 </head>
-  <body class="bg-slate-50 text-slate-900">
+  <body>
     <div id="root"></div>
     <!-- Load the main entry point -->
     <script type="module" src="./index.tsx"></script>

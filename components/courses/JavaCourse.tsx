@@ -79,19 +79,19 @@ const JavaCourse: React.FC<JavaCourseProps> = ({
                 </div>
             </div>
 
-            <div className="bg-white rounded-[3rem] shadow-xl border border-slate-100 overflow-hidden">
+            <div className="bg-white dark:bg-slate-900 rounded-[3rem] shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
                 <div className="h-3 bg-gradient-to-r from-brand-900 via-brand-700 to-brand-500"></div>
 
                 <div className="p-10 md:p-16">
                     <div className="flex justify-between items-start mb-8">
                         <div className="flex items-center gap-2">
-                            <span className="bg-brand-100 text-brand-900 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
-                            {isCompleted && <span className="flex items-center gap-1 text-brand-600 text-[10px] font-black"><Check size={12} /> COMPLETED</span>}
+                            <span className="bg-brand-100 dark:bg-slate-800 text-brand-900 dark:text-brand-100 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
+                            {isCompleted && <span className="flex items-center gap-1 text-brand-600 dark:text-brand-400 text-[10px] font-black"><Check size={12} /> COMPLETED</span>}
                         </div>
                         <button
                             onClick={() => toggleCompletion(lesson.id)}
                             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isCompleted
-                                ? 'bg-brand-50 text-brand-600 hover:bg-brand-100'
+                                ? 'bg-brand-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-slate-700'
                                 : 'bg-brand-900 text-white hover:bg-brand-800'
                                 }`}
                         >
@@ -99,11 +99,11 @@ const JavaCourse: React.FC<JavaCourseProps> = ({
                         </button>
                     </div>
 
-                    <h1 className="text-5xl font-black text-slate-900 mb-8 tracking-tight">{lesson.title}</h1>
+                    <h1 className="text-5xl font-black text-slate-900 dark:text-slate-100 mb-8 tracking-tight">{lesson.title}</h1>
 
                     {lesson.image && (
                         <div className="mb-10 flex justify-center">
-                            <div className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 max-w-full md:max-w-3xl">
+                            <div className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800 max-w-full md:max-w-3xl">
                                 <img
                                     src={lesson.image}
                                     alt={lesson.title}
@@ -154,21 +154,21 @@ const JavaCourse: React.FC<JavaCourseProps> = ({
                         </div>
                     )}
 
-                    <div className="flex items-center gap-6 p-8 bg-brand-50/50 rounded-[2rem] border border-brand-100 mb-12">
-                        <div className="bg-brand-900 text-white p-4 rounded-2xl shadow-lg shadow-brand-200 shrink-0">
+                    <div className="flex items-center gap-6 p-8 bg-brand-50/50 dark:bg-slate-800/50 rounded-[2rem] border border-brand-100 dark:border-slate-800 mb-12">
+                        <div className="bg-brand-900 text-white p-4 rounded-2xl shadow-lg shadow-brand-200 dark:shadow-none shrink-0">
                             <CheckCircle2 size={32} />
                         </div>
                         <div>
-                            <p className="font-black text-xl text-brand-900 mb-1">Module Concept</p>
-                            <p className="text-brand-700 text-lg opacity-80">This module is part of the {course.level} path. Experimenting with code is the fastest way to understand syntax behavior!</p>
+                            <p className="font-black text-xl text-brand-900 dark:text-slate-100 mb-1">Module Concept</p>
+                            <p className="text-brand-700 dark:text-slate-400 text-lg opacity-80">This module is part of the {course.level} path. Experimenting with code is the fastest way to understand syntax behavior!</p>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-100">
+                    <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-10 border-t border-slate-100 dark:border-slate-800">
                         <button
                             onClick={onPrev}
                             disabled={currentIndex === 0}
-                            className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 font-black transition-all rounded-2xl ${currentIndex === 0 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:text-brand-600 hover:bg-brand-50'
+                            className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 font-black transition-all rounded-2xl ${currentIndex === 0 ? 'text-slate-300 dark:text-slate-600 cursor-not-allowed' : 'text-slate-500 dark:text-slate-400 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-brand-50 dark:hover:bg-slate-800'
                                 }`}
                         >
                             <ArrowLeft size={20} />
@@ -178,7 +178,7 @@ const JavaCourse: React.FC<JavaCourseProps> = ({
                             {!isCompleted && (
                                 <button
                                     onClick={() => toggleCompletion(lesson.id)}
-                                    className="flex items-center justify-center gap-3 bg-brand-50 text-brand-900 border border-brand-100 px-8 py-4 rounded-2xl font-black hover:bg-brand-100 transition-all"
+                                    className="flex items-center justify-center gap-3 bg-brand-50 dark:bg-slate-800 text-brand-900 dark:text-brand-100 border border-brand-100 dark:border-slate-700 px-8 py-4 rounded-2xl font-black hover:bg-brand-100 dark:hover:bg-slate-700 transition-all"
                                 >
                                     <Check size={20} />
                                     Complete Lesson
