@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import SEO from '../SEO';
 import { Lesson, Course } from '../../types';
-import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo, Database } from 'lucide-react';
+import MarkdownRenderer from '../MarkdownRenderer';
 
 interface PhpCourseProps {
     lesson: Lesson;
@@ -43,10 +44,10 @@ const PhpCourse: React.FC<PhpCourseProps> = ({
     return (
         <div className="max-w-5xl mx-auto py-4 animate-in fade-in slide-in-from-bottom-6 duration-700">
             <SEO
-                title={`${lesson.title} — ${course.title}`}
+                title={`${lesson.title} — ${course.title} `}
                 description={seoDescription}
                 image={lesson.image}
-                url={`${base}/course/${course.id}/lesson/${lesson.id}`}
+                url={`${base} /course/${course.id} /lesson/${lesson.id} `}
             />
 
             {/* Visual Learning Path Indicator */}
@@ -63,10 +64,10 @@ const PhpCourse: React.FC<PhpCourseProps> = ({
                             <button
                                 key={l.id}
                                 onClick={() => onSelectLesson(l.id)}
-                                className={`h-2 flex-1 rounded-full transition-all duration-300 relative group ${done ? 'bg-brand-500' :
-                                    active ? 'bg-brand-900 shadow-lg shadow-brand-200' :
-                                        'bg-slate-200 hover:bg-slate-300'
-                                    }`}
+                                className={`h - 2 flex - 1 rounded - full transition - all duration - 300 relative group ${done ? 'bg-brand-500' :
+                                        active ? 'bg-brand-900 shadow-lg shadow-brand-200' :
+                                            'bg-slate-200 hover:bg-slate-300'
+                                    } `}
                                 title={l.title}
                             >
                                 <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[9px] font-bold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
@@ -89,10 +90,10 @@ const PhpCourse: React.FC<PhpCourseProps> = ({
                         </div>
                         <button
                             onClick={() => toggleCompletion(lesson.id)}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isCompleted
-                                ? 'bg-brand-50 text-brand-600 hover:bg-brand-100'
-                                : 'bg-brand-900 text-white hover:bg-brand-800'
-                                }`}
+                            className={`flex items - center gap - 2 px - 4 py - 2 rounded - xl text - [10px] font - black uppercase tracking - widest transition - all ${isCompleted
+                                    ? 'bg-brand-50 text-brand-600 hover:bg-brand-100'
+                                    : 'bg-brand-900 text-white hover:bg-brand-800'
+                                } `}
                         >
                             {isCompleted ? <><Undo size={14} /> Mark Incomplete</> : <><Check size={14} /> Mark Complete</>}
                         </button>
@@ -115,10 +116,8 @@ const PhpCourse: React.FC<PhpCourseProps> = ({
                         </div>
                     )}
 
-                    <div className="prose prose-brand max-w-none text-slate-600 text-xl leading-relaxed mb-12">
-                        {lesson.content.split('\n').map((paragraph, i) => (
-                            <p key={i} className="mb-4">{paragraph}</p>
-                        ))}
+                    <div className="mb-12">
+                        <MarkdownRenderer content={lesson.content} />
                     </div>
 
                     {lesson.codeSnippet && (
@@ -169,8 +168,8 @@ const PhpCourse: React.FC<PhpCourseProps> = ({
                         <button
                             onClick={onPrev}
                             disabled={currentIndex === 0}
-                            className={`w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 font-black transition-all rounded-2xl ${currentIndex === 0 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:text-brand-600 hover:bg-brand-50'
-                                }`}
+                            className={`w - full sm: w - auto flex items - center justify - center gap - 3 px - 8 py - 4 font - black transition - all rounded - 2xl ${currentIndex === 0 ? 'text-slate-300 cursor-not-allowed' : 'text-slate-500 hover:text-brand-600 hover:bg-brand-50'
+                                } `}
                         >
                             <ArrowLeft size={20} />
                             Previous Module

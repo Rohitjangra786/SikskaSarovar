@@ -12,13 +12,13 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
 
         // Headers
         if (firstLine.startsWith('# ')) {
-            return <h1 key={index} className="text-3xl font-black text-slate-900 mb-4 mt-8">{renderInline(firstLine.slice(2))}</h1>;
+            return <h1 key={index} className="text-4xl md:text-5xl font-black text-slate-900 mb-6 mt-10 tracking-tight leading-tight">{renderInline(firstLine.slice(2))}</h1>;
         }
         if (firstLine.startsWith('## ')) {
-            return <h2 key={index} className="text-2xl font-bold text-slate-800 mb-3 mt-6 border-l-4 border-brand-500 pl-3">{renderInline(firstLine.slice(3))}</h2>;
+            return <h2 key={index} className="text-3xl font-black text-slate-800 mb-4 mt-8 border-l-4 border-brand-500 pl-4 tracking-tight">{renderInline(firstLine.slice(3))}</h2>;
         }
         if (firstLine.startsWith('### ')) {
-            return <h3 key={index} className="text-xl font-bold text-slate-700 mb-2 mt-5">{renderInline(firstLine.slice(4))}</h3>;
+            return <h3 key={index} className="text-2xl font-bold text-slate-700 mb-3 mt-6 tracking-tight">{renderInline(firstLine.slice(4))}</h3>;
         }
 
         // Tables
@@ -70,7 +70,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             return (
                 <ul key={index} className="list-disc list-inside mb-4 space-y-2 text-slate-600 marker:text-brand-500">
                     {lines.map((line, i) => (
-                        <li key={i} className="pl-2">{renderInline(line.replace(/^[•-]\s+/, ''))}</li>
+                        <li key={i} className="pl-2">{renderInline(line.trim().replace(/^[•-]\s+/, ''))}</li>
                     ))}
                 </ul>
             );
@@ -81,7 +81,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             return (
                 <ol key={index} className="list-decimal list-inside mb-4 space-y-2 text-slate-600 marker:text-brand-500 marker:font-bold">
                     {lines.map((line, i) => (
-                        <li key={i} className="pl-2">{renderInline(line.replace(/^\d+\.\s+/, ''))}</li>
+                        <li key={i} className="pl-2">{renderInline(line.trim().replace(/^\d+\.\s+/, ''))}</li>
                     ))}
                 </ol>
             );
@@ -102,7 +102,16 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
 
         // Code Blocks (Basic)
         if (firstLine.startsWith('```')) {
-            const codeContent = lines.slice(1, -1).join('\n');
+            const codeLines = lines.slice(1, -1);
+            const contentLines = codeLines.filter(line => line.trim().length > 0);
+            const minIndent = contentLines.length > 0
+                ? Math.min(...contentLines.map(line => line.search(/\S|$/)))
+                : 0;
+
+            const codeContent = codeLines.map(line =>
+                line.length >= minIndent ? line.slice(minIndent) : line
+            ).join('\n');
+
             return (
                 <div key={index} className="my-6 bg-slate-900 rounded-xl p-4 overflow-x-auto border border-slate-800 shadow-inner">
                     <pre className="text-sm font-mono text-brand-100">
@@ -154,6 +163,11 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
     let inTable = false;
     let inCode = false;
 
+    const isListLine = (line: string) => {
+        const trimmed = line.trim();
+        return trimmed.startsWith('• ') || trimmed.startsWith('- ') || /^\d+\.\s/.test(trimmed);
+    };
+
     lines.forEach(line => {
         const trimmed = line.trim();
 
@@ -189,6 +203,24 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
                 blocks.push(currentBlock.join('\n'));
                 currentBlock = [];
                 inTable = false;
+            }
+
+            // Handle Lists - Split if switching between text and list
+            if (trimmed !== '') {
+                const isLineList = isListLine(line);
+
+                if (currentBlock.length > 0) {
+                    const firstLineOfBlock = currentBlock[0];
+                    const isBlockList = isListLine(firstLineOfBlock);
+
+                    // If we switch from text to list, or list to text (that isn't a continued list), split.
+                    // Note: Simple heuristic - if block started as list, keep adding unless... actually default lists usually capture sub-items?
+                    // But here we want to strict split text headers from lists
+                    if (isBlockList !== isLineList) {
+                        blocks.push(currentBlock.join('\n'));
+                        currentBlock = [];
+                    }
+                }
             }
 
             if (trimmed === '') {

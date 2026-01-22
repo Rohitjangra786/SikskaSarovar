@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import SEO from '../SEO';
 import { Lesson, Course } from '../../types';
 import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo, GraduationCap } from 'lucide-react';
+import MarkdownRenderer from '../MarkdownRenderer';
 
 interface DmpCourseProps {
     lesson: Lesson;
@@ -103,8 +104,8 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
                                 <button
                                     onClick={() => setShowMindMap(!showMindMap)}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${showMindMap
-                                            ? 'bg-amber-100 text-amber-700'
-                                            : 'bg-amber-50 text-amber-600 hover:bg-amber-100'
+                                        ? 'bg-amber-100 text-amber-700'
+                                        : 'bg-amber-50 text-amber-600 hover:bg-amber-100'
                                         }`}
                                 >
                                     <GraduationCap size={14} />
@@ -144,10 +145,8 @@ const DmpCourse: React.FC<DmpCourseProps> = ({
                         </div>
                     )}
 
-                    <div className="prose prose-indigo max-w-none text-slate-600 text-xl leading-relaxed mb-12">
-                        {lesson.content.split('\n').map((paragraph, i) => (
-                            <p key={i} className="mb-4">{paragraph}</p>
-                        ))}
+                    <div className="mb-12">
+                        <MarkdownRenderer content={lesson.content} />
                     </div>
 
                     {lesson.codeSnippet && (

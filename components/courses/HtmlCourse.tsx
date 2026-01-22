@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import SEO from '../SEO';
 import { Lesson, Course } from '../../types';
-import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo, Layout } from 'lucide-react';
+import MarkdownRenderer from '../MarkdownRenderer';
 
 interface HtmlCourseProps {
     lesson: Lesson;
@@ -115,10 +116,8 @@ const HtmlCourse: React.FC<HtmlCourseProps> = ({
                         </div>
                     )}
 
-                    <div className="prose prose-brand max-w-none text-slate-600 text-xl leading-relaxed mb-12">
-                        {lesson.content.split('\n').map((paragraph, i) => (
-                            <p key={i} className="mb-4">{paragraph}</p>
-                        ))}
+                    <div className="mb-12">
+                        <MarkdownRenderer content={lesson.content} />
                     </div>
 
                     {lesson.codeSnippet && (
