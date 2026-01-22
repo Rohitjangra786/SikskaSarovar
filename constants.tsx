@@ -1592,59 +1592,885 @@ plt.show()
     lessons: [
       {
         id: 'j1',
-        title: 'Java Intro',
-        content: `Java is a popular programming language, created in 1995. It is owned by Oracle, and more than 3 billion devices run Java. It is used for mobile applications (specially Android apps), desktop applications, web applications, web servers and application servers, games, and database connection.\n\nJava works on different platforms (Windows, Mac, Linux, Raspberry Pi, etc). It is one of the most popular programming language in the world. It is easy to learn and simple to use.\n\nIt is open-source and free. It is secure, fast and powerful. It has a huge community support (tens of millions of developers).`,
-        codeSnippet: 'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Hello, World!");\n  }\n}',
-        isCompleted: true
+        title: 'Programming Languages',
+        content: `### Programming Language
+A language or medium which is used to instruct computer to do some specific tasks is known as Programming language.
+
+### Types of Programming Language
+1. **Machine Level Language** (Low-Level Language)
+2. **Assembly Level Language** (Mid-Level Language)
+3. **High Level Language**
+
+### 1. Machine Level Language
+• The language which is easily readable, understandable and executable by the machine or computer is known as machine level language.
+• This is also known as Low-Level Language.
+• Example: **Binary Language (0 and 1)**.
+
+### 2. Assembly Level Language
+• The language which provides set of pre-defined words to do some specific tasks is known as Assembly level language.
+• Those pre-defined words are known as Mnemonics Ex: ADD, SUB, MOV, etc.
+  - **ADD** for Addition
+  - **SUB** for Subtraction
+  - **MOV** for move data from one memory location to another.
+• To convert these pre-defined words into machine level language one software is used which is known as **Assembler**.
+• It is also known as Mid-Level Language.
+• Example: **Instruction set of 8086 Architecture**.
+
+### 3. High Level Language
+• The language which is easily readable, understandable and executable by the programmer is known as High Level Language.
+• The languages are generally used to develop the software or Application.
+• Example: **C, C++, C#, Java, PHP and Python**.`,
+        codeSnippet: '// Example of High Level Language (Java)\nSystem.out.println("Hello Human!");',
+        isCompleted: false
       },
       {
         id: 'j2',
-        title: 'Java Syntax',
-        content: `Every line of code that runs in Java must be inside a class. In our example, we named the class Main. A class should always start with an uppercase first letter.\n\nThe main method is required and you will see it in every Java program: public static void main(String[] args). Any code inside the main() method will be executed.\n\nFor now, just remember that every Java program has a class name which must match the filename, and that every program must contain the main() method.`,
-        codeSnippet: 'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Learning Syntax");\n  }\n}',
+        title: 'Introduction to Java',
+        content: `### JAVA
+Java is a high-level programming language which is used to develop or test the application.
+
+### History of JAVA
+• Java was introduced in year 1995.
+• The first name of Java was **OAK**.
+• It was introduced by **Sun Microsystems**.
+• Now it is owned by **Oracle**.
+• Father of Java is **James Gosling**.
+
+### Features of JAVA
+• **Platform Independent Language**
+• **Portable**
+• **Robust**
+• **Interpreted**
+• **Architectural Neutral**
+• **Dynamic**
+• **Distributed**
+• **High Performance**
+• **Object Oriented**
+• **Multi-Threaded**
+• **Simple**
+• **Secure**
+
+### Platform Independence
+**Platform** is nothing but combination of operating system and processor (Ex: Windows 64-bit, Mac, Linux).
+
+**Platform Dependency**: If a software is developed on one platform which can be used only on the same platform, it is known as platform dependent (e.g., C, C++). Java is **Platform Independent** because it runs on the JVM.`,
+        codeSnippet: 'public class Main {\n  public static void main(String[] args) {\n    System.out.println("Java is Platform Independent!");\n  }\n}',
         isCompleted: false
       },
       {
         id: 'j3',
-        title: 'Java Output',
-        content: `The println() method is used to print values or text in Java. You can add as many println() methods as you want. Note that it will add a new line for each method.\n\nYou can also output numbers, and perform mathematical calculations inside the println() method. There is also a print() method, which is similar to println(). The only difference is that it does not insert a new line at the end of the output.`,
-        codeSnippet: 'System.out.println("Hello World!");\nSystem.out.println("I am learning Java.");\nSystem.out.println(3 + 3);',
+        title: 'Java Environment & Internals',
+        content: `### Java Environment
+Java involves a compilation and interpretation process.
+
+### Conversion of High Level To Low Level in Java
+
+**1. Java Source File**
+• The file generated by the programmer that consists instruction written in java programming language.
+• Extension: \`.java\`
+
+**2. Java CLASS file**
+• The file generated by the compiler which consists of instruction in **bytecode** or intermediate code.
+• Extension: \`.class\`
+
+**3. Bytecode**
+• The intermediate code generated by the compiler which is neither understandable by the programmer nor by the machine.
+
+### Key Components
+**JDK (Java Development Kit)**
+• JDK is a package which consist of java development tools like java compiler (\`javac\`) and JRE for execution.
+
+**JRE (Java Runtime Environment)**
+• JRE is an environment which consists JVM and built-in class files required for the execution of java program.
+
+**JVM (Java Virtual Machine)**
+• JVM helps to convert Bytecode into current system understandable language (low level language) with the help of interpreter and JIT compiler.
+
+**JIT Compiler (Just In Time)**
+• An integral part of JVM. It helps to improve the performance of java programs by compiling bytecode into native machine code at runtime.`,
+        codeSnippet: '// Compilation Process:\n// Source (.java) -> Compiler (javac) -> Bytecode (.class) -> JVM -> Machine Code',
         isCompleted: false
       },
       {
         id: 'j4',
-        title: 'Java Comments',
-        content: `Comments can be used to explain Java code, and to make it more readable. It can also be used to prevent execution when testing alternative code.\n\nSingle-line comments start with two forward slashes (//). Any text between // and the end of the line is ignored by Java (will not be executed).\n\nMulti-line comments start with /  and ends with  /. Any text between /  and  / will be ignored by Java.`,
-        codeSnippet: '// This is a comment\nSystem.out.println("Hello World");\n\n/  The code below will print the words Hello World\nto the screen, and it is amazing  /',
+        title: 'Printing & Comments',
+        content: `### Printing Statements
+In java mainly two types of printing statements are there:
+
+**1. Print Statement**
+• \`System.out.print(data);\`
+• Used only to print the data. It does NOT add a new line.
+• **Note:** You must pass data, otherwise it's a Compile Time Error (CTE).
+
+**2. Println Statement**
+• \`System.out.println(data);\`
+• Used to print the data as well as move the cursor to a new line.
+• You can use it without data to just print a new line.
+
+### Comments
+Comments allow us to specify information about the program inside our Java code. The compiler treats comments as whitespace.
+• **Single Line**: Begins with \`//\`
+• **Multi Line**: Begins with \`/*\` and ends with \`*/\``,
+        codeSnippet: 'System.out.print("Hello ");\nSystem.out.println("World!");\n// Output: Hello World!\nSystem.out.println(); // Prints empty line',
         isCompleted: false
       },
       {
         id: 'j5',
-        title: 'Java Variables',
-        content: `Variables are containers for storing data values. In Java, there are different types of variables, for example: String (stores text), int (stores integers), float (stores floating point numbers), char (stores single characters), and boolean (stores values with two states).\n\nTo create a variable, you must specify the type and assign it a value. If you don't want others (or yourself) to overwrite existing values, use the final keyword (this will declare the variable as "final" or "constant", which means unchangeable and read-only).`,
-        codeSnippet: 'String name = "John";\nint myNum = 15;\nfinal int myConstant = 20;\n// myConstant = 10; // error',
+        title: 'Tokens in Java',
+        content: `### Tokens
+The smallest unit of programming language which is used to compose the instruction is known as Token. There are 6 types:
+1. Keywords
+2. Identifiers
+3. Separators
+4. Comments
+5. Literals
+6. Operators
+
+### Keywords
+• Predefined words which the java compiler can understand (e.g., \`class\`, \`public\`, \`static\`, \`void\`, \`if\`, \`else\`).
+• Always written in **lower case**.
+• There are ~53 keywords in Java.
+
+### Identifiers
+The name given to the components of java by the programmer (Class name, Method name, Variable name).
+
+**Rules:**
+1. Allowed characters: 'a-z', 'A-Z', '0-9', '_', '$'.
+2. Must start with letter, underscore, or dollar.
+3. Cannot start with a number.
+4. No spaces allowed.
+5. Cannot use keywords.
+
+**Conventions:**
+• **Class**: PascalCase (e.g., \`StudentData\`)
+• **Method/Variable**: camelCase (e.g., \`studentName\`, \`getDetails()\`)
+
+### Separators
+• **Curly Braces {}**: Block start/end
+• **Parentheses ()**: Method declaration/call
+• **Square Brackets []**: Arrays
+• **Dot .**: Package/Member access
+• **Semicolon ;**: End of statement
+• **Comma ,**: Separation`,
+        codeSnippet: 'class Student { // Class Identifier\n    int rollNo; // Variable Identifier\n    void getData() { // Method Identifier\n       // Code...\n    }\n}',
         isCompleted: false
       },
-      { id: 'j6', title: 'Java Data Types', content: 'Data types are divided into two groups: Primitive data types - includes byte, short, int, long, float, double, boolean and char. Non-primitive data types - such as String, Arrays and Classes.\n\nA primitive data type specifies the size and type of variable values, and it has no additional methods.', codeSnippet: 'int myNum = 5;\nfloat myFloatNum = 5.99f;\nchar myLetter = \'D\';\nboolean myBool = true;', isCompleted: false },
-      { id: 'j7', title: 'Java Type Casting', content: 'Type casting is when you assign a value of one primitive data type to another type. In Java, there are two types of casting: Widening Casting (automatically) - converting a smaller type to a larger type size. Narrowing Casting (manually) - converting a larger type to a smaller size type.', codeSnippet: 'int myInt = 9;\ndouble myDouble = myInt; // Widening\n\ndouble d = 9.78d;\nint i = (int) d; // Narrowing', isCompleted: false },
-      { id: 'j8', title: 'Java Operators', content: 'Operators are used to perform operations on variables and values. Java divides the operators into the following groups: Arithmetic operators, Assignment operators, Comparison operators, Logical operators, Bitwise operators.', codeSnippet: 'int sum1 = 100 + 50;\nint sum2 = sum1 + 250;\nint sum3 = sum2 + sum2;', isCompleted: false },
-      { id: 'j9', title: 'Java Strings', content: 'A String in Java is actually an object, which contain methods that can perform certain operations on strings. For example, the length of a string can be found with the length() method. There are many other string methods available, for example toUpperCase() and toLowerCase().', codeSnippet: 'String txt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";\nSystem.out.println(txt.length());\nSystem.out.println(txt.toLowerCase());', isCompleted: false },
-      { id: 'j10', title: 'Java Math', content: 'The Java Math class has many methods that allows you to perform mathematical tasks on numbers. Math.max(x,y) can be used to find the highest value of x and y. Math.min(x,y) can be used to find the lowest value of x and y. Math.sqrt(x) returns the square root of x.', codeSnippet: 'Math.max(5, 10);\nMath.sqrt(64);\nMath.random();', isCompleted: false },
-      { id: 'j11', title: 'Java Booleans', content: 'Very often, in programming, you will need a data type that can only have one of two values, like: YES / NO, ON / OFF, TRUE / FALSE. For this, Java has a boolean data type, which can take the values true or false.', codeSnippet: 'boolean isJavaFun = true;\nboolean isFishTasty = false;\nSystem.out.println(10 > 9); // true', isCompleted: false },
-      { id: 'j12', title: 'Java If...Else', content: 'Java has the following conditional statements: Use if to specify a block of code to be executed, if a specified condition is true. Use else to specify a block of code to be executed, if the same condition is false. Use else if to specify a new condition to test, if the first condition is false. Use switch to specify many alternative blocks of code to be executed.', codeSnippet: 'if (20 > 18) {\n  System.out.println("20 is greater than 18");\n}', isCompleted: false },
-      { id: 'j13', title: 'Java Switch', content: 'Instead of writing many if..else statements, you can use the switch statement. The switch statement selects one of many code blocks to be executed. The switch expression is evaluated once. The value of the expression is compared with the values of each case. If there is a match, the associated block of code is executed.', codeSnippet: 'int day = 4;\nswitch (day) {\n  case 1: System.out.println("Monday"); break;\n  case 4: System.out.println("Thursday"); break;\n}', isCompleted: false },
-      { id: 'j14', title: 'Java While Loop', content: 'Loops can execute a block of code as long as a specified condition is true. Loops are handy because they save time, reduce errors, and they make code more readable. The while loop loops through a block of code as long as a specified condition is true.', codeSnippet: 'int i = 0;\nwhile (i < 5) {\n  System.out.println(i);\n  i++;\n}', isCompleted: false },
-      { id: 'j15', title: 'Java For Loop', content: 'When you know exactly how many times you want to loop through a block of code, use the for loop instead of a while loop. Statement 1 is executed (one time) before the execution of the code block. Statement 2 defines the condition for executing the code block. Statement 3 is executed (every time) after the code block has been executed.', codeSnippet: 'for (int i = 0; i < 5; i++) {\n  System.out.println(i);\n}', isCompleted: false },
-      { id: 'j16', title: 'Java Break/Continue', content: 'The break statement can also be used to jump out of a loop. The continue statement breaks one iteration (in the loop), if a specified condition occurs, and continues with the next iteration in the loop.', codeSnippet: 'for (int i = 0; i < 10; i++) {\n  if (i == 4) break;\n  System.out.println(i);\n}', isCompleted: false },
-      { id: 'j17', title: 'Java Arrays', content: 'Arrays are used to store multiple values in a single variable, instead of declaring separate variables for each value. To declare an array, define the variable type with square brackets. Array indexes start with 0: [0] is the first element. [1] is the second element, etc.', codeSnippet: 'String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};\nSystem.out.println(cars[0]);', isCompleted: false },
-      { id: 'j18', title: 'Java Methods', content: 'A method is a block of code which only runs when it is called. You can pass data, known as parameters, into a method. Methods are used to perform certain actions, and they are also known as functions. Why use methods? To reuse code: define the code once, and use it many times.', codeSnippet: 'public class Main {\n  static void myMethod() {\n    System.out.println("I just got executed!");\n  }\n\n  public static void main(String[] args) {\n    myMethod();\n  }\n}', isCompleted: false },
-      { id: 'j19', title: 'Java Parameters', content: 'Information can be passed to methods as parameter. Parameters act as variables inside the method. Parameters are specified after the method name, inside the parentheses. You can add as many parameters as you want, just separate them with a comma.', codeSnippet: 'static void myMethod(String fname) {\n  System.out.println(fname + " Kumar");\n}\n\npublic static void main(String[] args) {\n  myMethod("Rahul");\n}', isCompleted: false },
-      { id: 'j20', title: 'Java Recursion', content: 'Recursion is the technique of making a function call itself. This technique provides a way to break complicated problems down into simple problems which are easier to solve. Recursion may be a bit difficult to understand. The best way to figure out how it works is to experiment with it.', codeSnippet: 'public static int sum(int k) {\n  if (k > 0) {\n    return k + sum(k - 1);\n  } else {\n    return 0;\n  }\n}', isCompleted: false },
-      { id: 'j21', title: 'Java Enums', content: 'An enum is a special "class" that represents a group of constants (unchangeable variables, like final variables). To create an enum, use the enum keyword (instead of class or interface), and separate the constants with a comma. Note that they should be in uppercase letters.', codeSnippet: 'enum Level {\n  LOW,\n  MEDIUM,\n  HIGH\n}\n\nLevel myVar = Level.MEDIUM;\nSystem.out.println(myVar);', isCompleted: false },
-      { id: 'j22', title: 'Java User Input', content: 'The Scanner class is used to get user input, and it is found in the java.util package. To use the Scanner class, create an object of the class and use any of the available methods found in the Scanner class documentation. In our example, we will use the nextLine() method, which is used to read Strings.', codeSnippet: 'import java.util.Scanner;\n\nclass Main {\n  public static void main(String[] args) {\n    Scanner myObj = new Scanner(System.in);\n    String userName = myObj.nextLine();\n    System.out.println("Username is: " + userName);\n  }\n}', isCompleted: false },
-      { id: 'j23', title: 'Java Date', content: 'Java does not have a built-in Date class, but we can import the java.time package to work with the date and time API. The package includes many date and time classes. For example: LocalDate, LocalTime, LocalDateTime, DateTimeFormatter.', codeSnippet: 'import java.time.LocalDate;\n\npublic class Main {\n  public static void main(String[] args) {\n    LocalDate myObj = LocalDate.now();\n    System.out.println(myObj);\n  }\n}', isCompleted: false },
-      { id: 'j24', title: 'Java ArrayList', content: 'The ArrayList class is a resizable array, which can be found in the java.util package. The difference between a built-in array and an ArrayList in Java, is that the size of an array cannot be modified (if you want to add or remove elements to/from an array, you have to create a new one). While elements can be added and removed from an ArrayList whenever you want.', codeSnippet: 'import java.util.ArrayList;\n\nArrayList<String> cars = new ArrayList<String>();\ncars.add("Volvo");\ncars.add("BMW");\nSystem.out.println(cars);', isCompleted: false },
-      { id: 'j25', title: 'Java HashMap', content: 'In the ArrayList chapter, you learned that Arrays store items as an ordered collection, and you have to access them with an index number (int type). A HashMap however, store items in "key/value" pairs, and you can access them by an index of another type (e.g. a String). One object is used as a key (index) to another object (value).', codeSnippet: 'import java.util.HashMap;\n\nHashMap<String, String> capitalCities = new HashMap<String, String>();\ncapitalCities.put("England", "London");\ncapitalCities.put("Germany", "Berlin");\nSystem.out.println(capitalCities);', isCompleted: false }
+      {
+        id: 'j6',
+        title: 'Variables & Data Types',
+        content: `### Variables
+A variable is a container which is used to store the data or value.
+
+### Data Types
+**1. Primitive Data Types** (Keywords, store values)
+• **byte**: -128 to 127
+• **short**: -32768 to 32767
+• **int**: -2^31 to 2^31-1 (Default for numbers)
+• **long**: Very large integers
+• **float**: Decimal numbers (6-7 digits)
+• **double**: Decimal numbers (15 digits, Default for decimals)
+• **char**: Single character (16-bit Unicode)
+• **boolean**: \`true\` or \`false\`
+
+**Order of Capacity**:
+\`byte < short < int < long < float < double\`
+
+**2. Non-Primitive Data Types** (Store references)
+• String, Array, Classes, Interfaces.
+• Default value: \`null\`.
+
+### Declaration & Initialization
+\`\`\`java
+int a = 5; // Declaration + Initialization
+int p, q;  // Declaration
+p = 10;    // Initialization
+\`\`\``,
+        codeSnippet: 'int age = 22;\ndouble price = 99.99;\nchar grade = \'A\';\nboolean isJavaFun = true;\nString name = "Siksha";',
+        isCompleted: false
+      },
+      {
+        id: 'j7',
+        title: 'Type Casting',
+        content: `### Type Casting
+The process of converting one type of data into another type is known as Type Casting.
+
+### 1. Primitive Type Casting
+
+**Widening (Implicit)**:
+• Converting smaller range data into larger range data.
+• No data loss. Done automatically by compiler.
+• Example: \`int\` -> \`double\`
+
+**Narrowing (Explicit)**:
+• Converting larger range data into smaller range data.
+• **Possibility of data loss**.
+• Must be done manually using cast operator \`(type)\`.
+• Example: \`double\` -> \`int\`
+
+### 2. Non-Primitive Type Casting
+• **Upcasting**: Implicit (Child to Parent)
+• **Downcasting**: Explicit (Parent to Child)`,
+        codeSnippet: 'int i = 100;\ndouble d = i; // Widening (Implicit)\n\ndouble p = 9.8;\nint q = (int) p; // Narrowing (Explicit) -> q becomes 9',
+        isCompleted: false
+      },
+      {
+        id: 'j8',
+        title: 'Operators',
+        content: `Operators are predefined symbols used to perform specific tasks.
+
+### Classification
+1. **Arithmetic**: \`+\`, \`-\`, \`*\`, \`/\` (Quotient), \`%\` (Remainder)
+2. **Relational**: \`==\`, \`!=\`, \`>\`, \`<\`, \`>=\`, \`<=\` (Returns Boolean)
+3. **Logical**:
+   • \`&&\` (AND): True if both are true
+   • \`||\` (OR): True if any one is true
+   • \`!\` (NOT): Reverses boolean value
+4. **Assignment**: \`=\`, \`+=\`, \`-=\`, \`*=\`, etc.
+5. **Conditional (Ternary)**: \`condition ? truePart : falsePart\`
+6. **Increment/Decrement**:
+   • **Pre (++i)**: Update then Use
+   • **Post (i++)**: Use then Update`,
+        codeSnippet: 'int a = 10, b = 5;\nSystem.out.println(a + b); // 15\nSystem.out.println(a > b); // true\n\nint max = (a > b) ? a : b; // Ternary Operator',
+        isCompleted: false
+      },
+      {
+        id: 'j9',
+        title: 'Control Statements - Decision',
+        content: `Decision statements define the flow of execution based on conditions.
+
+### if Statement
+Executes block if condition is true.
+\`\`\`java
+if(condition) { ... }
+\`\`\`
+
+### if-else Statement
+Executes \`if\` block if true, otherwise \`else\` block.
+\`\`\`java
+if(condition) { ... } else { ... }
+\`\`\`
+
+### if-else-if Ladder
+Checks multiple conditions from top to bottom.
+\`\`\`java
+if(cond1) { ... }
+else if(cond2) { ... }
+else { ... }
+\`\`\`
+
+### Switch Statement
+Selects one of many code blocks to be executed.
+• Uses \`break\` to exit the block.
+• \`default\` runs if no case matches.
+• Supports: \`byte\`, \`short\`, \`char\`, \`int\`, \`String\`, \`enum\`.`,
+        codeSnippet: 'int day = 3;\nswitch(day) {\n  case 1: System.out.println("Mon"); break;\n  case 2: System.out.println("Tue"); break;\n  default: System.out.println("Other");\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j10',
+        title: 'Control Statements - Looping',
+        content: `Looping statements are used to execute a block of instructions repeatedly.
+
+### 1. While Loop
+Entry-controlled loop. Checks condition first.
+\`\`\`java
+while(condition) {
+    // code
+}
+\`\`\`
+
+### 2. Do-While Loop
+Exit-controlled loop. Executes at least once before checking condition.
+\`\`\`java
+do {
+    // code
+} while(condition);
+\`\`\`
+
+### 3. For Loop
+Used when number of iterations is known.
+\`\`\`java
+for(initialization; condition; updation) {
+    // code
+}
+\`\`\`
+Workflow: Init -> Condition -> Code -> Updation -> Condition...`,
+        codeSnippet: 'for(int i=1; i<=5; i++) {\n    System.out.println("Count: " + i);\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j11',
+        title: 'Basic Methods',
+        content: `A **Method** is a set of instructions used to perform specific tasks.
+
+### Syntax
+\`[access_mod] [modifier] return_type methodName(parameters) { body }\`
+
+### Types
+1. **No-Argument Method**: \`void m1() { ... }\`
+2. **Parameterized Method**: \`void m1(int a) { ... }\`
+
+### Method Calling
+• **Execution Flow**: Calling method pauses -> Control goes to Called method -> Executes -> Returns to Caller.
+• **Matching Rules**: Number, Type, and Order of arguments must match parameters.
+
+### Return Statement
+• Used to return a value to the caller.
+• \`return data;\`
+• A method with \`void\` return type cannot return a value.`,
+        codeSnippet: 'public static int add(int a, int b) {\n    return a + b;\n}\n\npublic static void main(String[] args) {\n    int sum = add(5, 10);\n    System.out.println(sum);\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j12',
+        title: 'Access Modifiers',
+        content: `Access modifiers strictly defines the accessibility scope of members.
+
+### Types & Scope
+1. **private**: Within the **class** only.
+2. **default** (no keyword): Within the **package** only.
+3. **protected**: Within package + Outside package (via **child class**).
+4. **public**: Everywhere (Global).
+
+**Accessibility Order**:
+\`private < default < protected < public\``,
+        codeSnippet: 'class A {\n    private int x = 10; // Only inside A\n    public int y = 20;  // Everywhere\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j13',
+        title: 'Static vs Non-Static',
+        content: `### Static (Class Members)
+• Prefixed with \`static\` keyword.
+• Loaded once in **Static Pool Area**.
+• Can be accessed via **Class Name** (e.g., \`ClassName.variable\`).
+• **Static Context**: Cannot access non-static members directly.
+
+### Non-Static (Instance Members)
+• Not prefixed with static.
+• Belong to an **Object** (Heap Area).
+• Accessed via **Object Reference**.
+• Every object has its own copy of non-static variables.
+
+### Static Initializers
+• **Single Line**: \`static int a = 10;\`
+• **Multi Line Block**: \`static { ... }\`
+• Executed implicitly during **Class Loading** (before main method).`,
+        codeSnippet: 'class Demo {\n    static int count = 0; // Shared by all objects\n    int id; // Unique per object\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j14',
+        title: 'Memory Management',
+        content: `### Java Runtime Memory Areas
+1. **Method Area**: Stores method code and class structures.
+2. **Heap Area**: Stores **Objects** (Instances).
+3. **Stack Area**: Stores method execution frames and local variables.
+4. **Static Pool Area**: Stores static members (inside Heap/Method area depending on version, conceptualized as Class Static Area).
+
+### Class Loading Process
+1. **Class Static Area** created.
+2. Methods loaded to Method Area.
+3. Static members stored/initialized in Static Area.
+4. Static blocks executed top-to-bottom.
+5. JVM calls \`main\` Method.`,
+        codeSnippet: '// Visualizing Memory:\n// Objects -> Heap\n// Local Vars -> Stack\n// Static Vars -> Static Pool',
+        isCompleted: false
+      },
+      {
+        id: 'j15',
+        title: 'Objects & Classes',
+        content: `### Object
+• Any entity that has attributes and behaviors.
+• In Java, an **Object** is a block of memory in the Heap Area representing a real-world entity.
+• Also known as an **Instance**.
+
+### Class
+• A blueprint or template for creating objects.
+• Defines the properties (variables) and behaviors (methods) common to all objects of that type.
+
+### Creating an Object
+\`ClassName reference = new ClassName();\`
+• \`new\`: Allocates memory in Heap.
+• \`reference\`: Holds the address of the object.`,
+        codeSnippet: 'class Car {\n    String color;\n    void drive() {\n        System.out.println("Driving...");\n    }\n}\n\n// Usage\nCar myCar = new Car();\nmyCar.color = "Red";\nmyCar.drive();',
+        isCompleted: false
+      },
+      {
+        id: 'j16',
+        title: 'Constructors Detailed',
+        content: `### Constructor
+A constructor is a special type of non-static method whose name is the same as the class name but it does not have a return type.
+
+**Syntax:**
+\`[modifier] ClassName(parameters) { ... }\`
+
+**Purpose:**
+• Initialize an object.
+• Load non-static members into the object.
+• Execute startup instructions.
+
+### Types of Constructors
+1. **No-Argument Constructor**: \`Student() { ... }\`
+2. **Parameterized Constructor**: \`Student(String name) { ... }\`
+
+**Note:** If no constructor is defined, compiler adds a **Default Constructor**.
+
+### Constructor Overloading
+Having multiple constructors with different signatures (args count, type, or order).
+
+### Constructor Chaining
+Calling one constructor from another.
+1. **this()**: Calls constructor of same class.
+2. **super()**: Calls constructor of parent class.
+**Rule**: Must be the **first statement**.`,
+        codeSnippet: 'class Student {\n    Student() { System.out.println("No-Arg"); }\n    Student(String name) { System.out.println(name); }\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j17',
+        title: 'Encapsulation',
+        content: `### Encapsulation
+The process of binding state (attributes) and behavior (methods) together. It enables **Data Hiding**.
+
+### Data Hiding
+Restricting direct access to data members to protect integrity.
+
+**Steps:**
+1. Make variables **private**.
+2. Provide **public getter and setter** methods.
+
+**Benefits:**
+• Security.
+• Validation (in setter).
+• Controlled access (Read-only or Write-only).`,
+        codeSnippet: 'class Account {\n    private double balance;\n    public double getBalance() { return balance; }\n    public void setBalance(double b) {\n        if(b > 0) balance = b;\n    }\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j18',
+        title: 'Relationships',
+        content: `### Relationships
+Connection between two objects.
+
+### 1. Has-A Relationship (Association)
+Dependency where one object has another.
+• **Aggregation**: Weak bond. Objects can exist independently. (e.g., Car & MusicPlayer).
+• **Composition**: Strong bond. One cannot exist without other. (e.g., Car & Engine).
+
+### 2. Is-A Relationship (Inheritance)
+Parent-Child relationship. Used for code reusability and polymorphism.`,
+        codeSnippet: '// Has-A example\nclass Car {\n    Engine e = new Engine(); // Composition\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j19',
+        title: 'Inheritance',
+        content: `### Inheritance
+Process of acquiring properties of one class by another.
+
+**Keywords:**
+• **extends**: Class to Class.
+• **implements**: Class to Interface.
+
+### Types
+1. **Single**: A -> B
+2. **Multilevel**: A -> B -> C
+3. **Hierarchical**: A -> B, A -> C
+4. **Multiple**: One child, multiple parents (Supported via **Interfaces** only).
+5. **Hybrid**: Combination.
+
+**Diamond Problem**: Ambiguity in Multiple Inheritance with classes.`,
+        codeSnippet: 'class Animal { void eat() {} }\nclass Dog extends Animal { void bark() {} }',
+        isCompleted: false
+      },
+      {
+        id: 'j20',
+        title: 'Polymorphism & Casting',
+        content: `### Non-Primitive Type Casting
+Converting one reference type to another.
+
+**1. Upcasting** (Generalization)
+• Child object to Parent reference.
+• Implicit.
+• \`Parent p = new Child();\`
+• Access limited to Parent members.
+
+**2. Downcasting** (Specialization)
+• Parent reference to Child reference.
+• Explicit.
+• \`Child c = (Child) p;\`
+• **Risk**: \`ClassCastException\` if object is not actually an instance of Child.`,
+        codeSnippet: 'Object o = "Hello";\nString s = (String) o; // Downcasting',
+        isCompleted: false
+      },
+      {
+        id: 'j21',
+        title: 'Packages',
+        content: `### Package
+Group of related classes and interfaces. Folder structure.
+
+**Types:**
+1. **Built-in**: \`java.lang\`, \`java.util\`, \`java.io\`.
+2. **User-defined**: \`package com.company.module;\`
+
+**Importing:**
+• \`import java.util.Scanner;\` (Specific)
+• \`import java.util.*;\` (All)
+• **Note:** \`java.lang\` is imported by default.`,
+        codeSnippet: 'package myPack;\nimport java.util.ArrayList;\n\nclass Test { ... }',
+        isCompleted: false
+      },
+      {
+        id: 'j22',
+        title: 'Object Class',
+        content: `### Object Class
+• Root of the class hierarchy. Every class inherits \`Object\`.
+• Present in \`java.lang\`.
+
+**Important Methods:**
+1. \`toString()\`: String representation.
+2. \`equals(Object o)\`: Comparison.
+3. \`hashCode()\`: Hash value.
+4. \`getClass()\`: Runtime class.
+5. \`clone()\`: Create copy.
+6. \`wait()\`, \`notify()\`, \`notifyAll()\`: Threading.
+7. \`finalize()\`: Garbage collection (Deprecated).`,
+        codeSnippet: 'class A {}\nA a = new A();\nSystem.out.println(a.toString());',
+        isCompleted: false
+      },
+      {
+        id: 'j23',
+        title: 'Polymorphism',
+        content: `### Polymorphism
+(poly = many, morph = form). It is the ability of an object to exhibit more than one form with the same name.
+For understanding:
+• One name → multiple forms
+• One variable name → different values
+• One method name → different behaviour
+
+### Types of Polymorphism
+1. **Compile Time Polymorphism** (Static Binding)
+2. **Runtime Polymorphism** (Dynamic Binding)
+
+### 1. Compile Time Polymorphism
+If the binding is achieved at compile time and the same behaviour is executed at runtime, it is known as compile-time polymorphism.
+• It is also known as **Static Polymorphism**.
+• **Ways to achieve**:
+  - Method Overloading
+  - Constructor Overloading
+  - Variable Shadowing
+  - Method Shadowing
+  - Operator Overloading (Not supported in Java)
+
+**A. Method Overloading**
+If more than one method is created with the same name but different arguments in the same class.
+• **Different Formal Arguments**:
+  - Differ in number of arguments.
+  - Differ in types of arguments.
+  - Differ in order of arguments.
+**Example**: \`java.io.PrintStream\` has \`println()\`, \`println(int)\`, \`println(String)\`.
+
+**B. Constructor Overloading**
+Class having more than one constructor with different formal arguments.
+
+**C. Method Shadowing**
+If a subclass and superclass have a **static method** with the same declaration but different implementation.
+• **Binding**: Done at compile-time based on **Reference Type** (not Object Type).
+• **Rules**:
+  - Return type must be same (or covariant).
+  - Access modifier same or higher visibility.
+  - Only for **static** methods.
+
+**D. Variable Shadowing**
+If superclass and subclass have a variable with the same name but different values.
+• **Binding**: Done at compile-time based on **Reference Type**.
+• Applies to both static and non-static variables.
+
+### 2. Runtime Polymorphism
+If binding occurs at compile time but different behaviour is achieved at runtime.
+• Also known as **Dynamic Binding**.
+• Achieved by **Method Overriding**.
+
+**Method Overriding**
+If subclass and superclass have a **non-static method** with the same declaration but different implementation.
+• **Rules**:
+  - **IS-A** relationship (Inheritance) is mandatory.
+  - Only for **non-static** methods.
+  - **Signature** must be exactly the same.
+  - **Return Type**: Same or Covariant (Subclass return type can be child of parent's return type).
+  - **Access Modifier**: Same or higher visibility.
+• **@Override Annotation**: Recommended to ensure correct overriding.
+• **Execution**: Depends on the **Object Created** (Runtime object).`,
+        codeSnippet: 'class Parent {\n    public void test() { System.out.println("From Parent"); }\n}\nclass Child extends Parent {\n    @Override\n    public void test() { System.out.println("From Child"); }\n}\n// Usage\nParent p = new Child();\np.test(); // "From Child" (Runtime Poly)',
+        isCompleted: false
+      },
+      {
+        id: 'j24',
+        title: 'Abstraction',
+        content: `### Abstraction
+It is the design process of hiding the implementation and showing only the functionality (declaration) to the user.
+
+### Ways to Achieve
+1. **Abstract Classes** (0 to 100% abstraction)
+2. **Interfaces** (100% abstraction)
+
+### Abstract Modifier
+Keyword: \`abstract\`. Applicable for methods and classes.
+
+### Abstract Method
+A method prefixed with \`abstract\`, having **no implementation** (ends with semicolon).
+• Syntax: \`abstract [access_mod] returnType methodName(args);\`
+• Known as "Incomplete Method".
+• **Rules**:
+  - Cannot be \`private\`, \`static\`, or \`final\`.
+  - Child class is responsible for implementation.
+
+### Abstract Class
+A class prefixed with \`abstract\`.
+• **Cannot define an object (Instance)** for an abstract class.
+• Can consist of both abstract and concrete methods.
+• If a class has at least one abstract method, the class **must** be declared abstract.
+• **Constructor**: Allowed (invoked via constructor chaining).
+
+**Implementation Rules**:
+1. If a class extends an abstract class, it **must implement all abstract methods**.
+2. If it fails to do so, the subclass must also be declared \`abstract\`.
+
+**When to use Abstract Methods?**
+• When we don't have a clear idea about implementation.
+• To force child classes to provide their own implementation.`,
+        codeSnippet: 'abstract class WhatsApp {\n    abstract public void send();\n}\nclass App extends WhatsApp {\n    public void send() { System.out.println("Sent!"); }\n}\n// Usage\nWhatsApp w = new App();\nw.send();',
+        isCompleted: false
+      },
+      {
+        id: 'j25',
+        title: 'Interfaces',
+        content: `### Interface
+A component used to achieve **100% Abstraction** and **Multiple Inheritance**.
+• Syntax: \`interface InterfaceName { ... }\`
+• Compiled to a \`.class\` file.
+
+### Members of Interface
+| Member | Class | Interface |
+| :--- | :--- | :--- |
+| **Variables** | Yes | **Public, Static, Final** (Constants) |
+| **Methods** | Yes | **Public, Abstract** (Default) |
+| **Constructors** | Yes | **No** |
+| **Static Methods** | Yes | **Yes** (From JDK 1.8) |
+| **Default Methods** | No | **Yes** (From JDK 1.8) |
+
+**Notes:**
+• All members are implicitly \`public\`.
+• Variables must be initialized (since they are final).
+• Cannot create an object of Interface.
+
+### Inheritance
+1. **Class implements Interface**: \`class C implements I1\`
+2. **Interface extends Interface**: \`interface I2 extends I1\`
+3. **Multiple Inheritance**:
+   • Class can implement multiple interfaces: \`class C implements I1, I2\`
+   • Interface can extend multiple interfaces: \`interface I3 extends I1, I2\`
+
+**Diamond Problem Solved**:
+Interfaces have no constructors and no state (instance variables). Ambiguity in method calls is resolved because implementation is forced in the concrete child class.
+
+### Types of Interfaces
+1. **Regular Interface**: More than one abstract method.
+2. **Functional Interface**: Exactly one abstract method. (e.g., \`Runnable\`, \`Comparable\`).
+   - Used in Lambda Expressions.
+3. **Marker Interface**: No methods. Empty.
+   - Tells JVM about certain activity. (e.g., \`Serializable\`, \`Cloneable\`, \`RandomAccess\`).`,
+        codeSnippet: 'interface Flyable {\n    void fly();\n}\nclass Bird implements Flyable {\n    public void fly() { System.out.println("Flying..."); }\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j26',
+        title: 'Final Keyword',
+        content: `### Final Keyword
+Final is a modifier used to restrict usage. It is applicable to Class, Variable, and Method.
+
+### 1. Final Class
+• **Effect**: Cannot be inherited (Prevent Inheritance).
+• Example: \`final class Demo { ... }\` → \`class Test extends Demo\` is **Error**.
+
+### 2. Final Variable
+• **Effect**: Cannot reassign value (Constant).
+• Convention: Uppercase names (e.g., \`MAX_AGE\`).
+• Example:
+  \`final int AGE = 10;\`
+  \`AGE = 20;\` // **Compile Time Error**
+
+### 3. Final Method
+• **Effect**: Cannot be overridden (Prevent Overriding).
+• Example: Parent has \`final void show()\` → Child cannot \`@Override void show()\`.
+
+### Frequently Asked Questions
+• **Can Constructor be Final?** No. Constructors are not inherited, so overriding concept doesn't apply.
+• **Can Abstract Method be Final?** No. Abstract needs overriding, Final prevents it. Contradiction.
+• **Can Main Method be Final?** Yes.`,
+        codeSnippet: 'final class Secure {\n    final int LIMIT = 100;\n    final void process() {\n        // cannot be overridden\n    }\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j27',
+        title: 'Arrays',
+        content: `### Array
+An array is a continuous block of memory used to store multiple **homogeneous** (same type) values. In Java, Array is an Object.
+
+### Characteristics
+• **Fixed Size**: Defined at instantiation. Cannot be modified later.
+• **Index Based**: Starts from 0 to \`length - 1\`.
+• **Homogeneous**: Only same data type allowed.
+
+### Declaration & Instantiation
+1. **Declaration**: \`int[] x;\` or \`int x[];\`
+2. **Instantiation**: \`x = new int[5];\` (Default values assigned: 0 for int, null for Objects).
+3. **Single Line**: \`int[] x = new int[5];\`
+4. **Initialization**: \`int[] x = {10, 20, 30};\`.
+   • **Anonymous Array**: \`new int[]{1, 2, 3}\`
+
+### Length Property
+\`x.length\`: Returns size of the array.
+
+### Accessing Elements
+1. **Limit**: \`0\` to \`length-1\`.
+2. **Exception**: Accessing outside range throws \`ArrayIndexOutOfBoundsException\`.
+3. **Loops**: 
+   • \`for(int i=0; i<x.length; i++)\`
+   • **For-Each**: \`for(int val : x)\` (Forward direction only).
+
+### Arrays Class
+Present in \`java.util\`. Static helper methods.
+• \`Arrays.sort(arr)\`: Sorts ascending.
+• \`Arrays.toString(arr)\`: Printable string format.
+
+### Multi-Dimensional Array
+Storing elements in rows and columns (Matrix).
+• Declaration: \`int[][] arr;\`
+• Instantiation: \`new int[3][3];\` (3 Rows, 3 Cols).
+• Access: \`arr[row][col]\`.`,
+        codeSnippet: 'int[] arr = {5, 1, 9};\njava.util.Arrays.sort(arr);\nfor(int n : arr) {\n    System.out.println(n); // 1, 5, 9\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j28',
+        title: 'Wrapper Classes',
+        content: `### Wrapper Classes
+In Java, every primitive data type has a corresponding class which works like a wrapper. It provides a mechanism to wrap primitive data into an object.
+• All wrapper classes are **final** and present in \`java.lang\` package.
+
+**Mapping:**
+| Primitive | Wrapper Class |
+| :--- | :--- |
+| boolean | Boolean |
+| char | Character |
+| int | Integer |
+| double | Double |
+(Byte, Short, Integer, Long, Float, Double are subclasses of **Number** class).
+
+### Use of Wrapper Class
+1. To represent primitive data as Objects (Reference Types).
+2. To convert String primitives to actual primitives (Parsing).
+3. Used in **Collections** which store only Objects.
+
+### AutoBoxing & Unboxing
+1. **AutoBoxing**:
+   Automatic conversion of primitive type into its corresponding wrapper object.
+   \`Integer i = 10; // AutoBoxed\`
+2. **Unboxing**:
+   Automatic conversion of wrapper object into its corresponding primitive type.
+   \`int j = i; // Unboxed\`
+
+### Parsing (String to Primitive)
+Every wrapper class has a valid static method \`parseXxx(String s)\`.
+• \`public static int parseInt(String s)\`
+• \`public static double parseDouble(String s)\`
+• \`public static boolean parseBoolean(String s)\`
+• **Note:** \`char\` cannot be parsed (Use \`charAt()\`).
+
+### NumberFormatException
+Thrown when trying to convert a String with invalid format into a number.
+Example: \`Integer.parseInt("123a")\` throws \`NumberFormatException\`.`,
+        codeSnippet: 'String str = "100";\nint num = Integer.parseInt(str); // Parsing\nInteger obj = num; // AutoBoxing\nint val = obj; // Unboxing',
+        isCompleted: false
+      },
+      {
+        id: 'j29',
+        title: 'Exception Handling',
+        content: `### Exception Definition
+An unexpected problem/event that occurs during the execution of a program (Runtime) which stops the normal flow.
+• **Root Class**: \`java.lang.Throwable\`.
+• **Object Class**: Parent of Throwable.
+
+### Hierarchy
+**Throwable**
+1. **Error** (Hardware/System level, e.g., StackOverflowError).
+2. **Exception**:
+   • **Checked** (Compile-time): Compiler forces handling (e.g., FileNotFoundException, IOException).
+   • **Unchecked** (Runtime): Compiler ignores (e.g., ArithmeticException, NullPointerException).
+   • **Note:** RuntimeException and its children are Unchecked. All others are Checked.
+
+### Exception Handling Keywords
+1. **try**: Block consisting of code that might raise an exception.
+2. **catch**: Block used to handle the exception thrown by try.
+   • Can have multiple catch blocks (Child first, Parent last).
+3. **finally**: Block that **always executes** (even if exception occurs or handled).
+   • Used for resource cleanup (Closing DB, Streams).
+4. **throw**: Used to explicitly throw an exception object. \`throw new ArithmeticException("Msg");\`
+5. **throws**: Used in method signature to declare/propagate checked exceptions. \`void m() throws IOException\`
+
+### Exception Propagation
+Movement of exception object from called method to calling method. Unchecked exceptions propagate automatically. Checked exceptions need \`throws\`.
+
+### Custom Exception
+User defined exceptions.
+1. **Checked**: Extend \`Exception\`.
+2. **Unchecked**: Extend \`RuntimeException\`.`,
+        codeSnippet: 'try {\n    int data = 100 / 0;\n} catch (ArithmeticException e) {\n    System.out.println("Handled: " + e.getMessage());\n} finally {\n    System.out.println("Done");\n}',
+        isCompleted: false
+      },
+      {
+        id: 'j30',
+        title: 'Collection Framework',
+        content: `### Collection Framework
+Unifies architecture for storing and manipulating a **group of objects**.
+• **Package**: \`java.util\`
+• **Advantage over Array**:
+  - Dynamic Size (Growable).
+  - Heterogeneous data (though Generics make it type-safe).
+  - Built-in methods (Add, Remove, Search, Sort).
+
+### Hierarchy 1: Collection
+**Iterable** → **Collection**
+1. **List** (Interface):
+   • Insertion order maintained.
+   • Duplicates allowed.
+   • Classes: **ArrayList** (Fast search), **LinkedList** (Fast insert/delete), **Vector**, **Stack**.
+2. **Set** (Interface):
+   • No insertion order (hashing).
+   • No duplicates.
+   • Classes: **HashSet**, **LinkedHashSet** (Ordered Set), **TreeSet** (Sorted).
+3. **Queue** (Interface):
+   • FIFO (First In First Out).
+   • Classes: **PriorityQueue**, **ArrayDeque**.
+
+### Hierarchy 2: Map
+**Map** (Interface) works on Key-Value pairs.
+• Keys must be **Unique**. Values can be duplicated.
+• Classes: **HashMap**, **LinkedHashMap**, **TreeMap**, **Hashtable**.
+
+### Generics (< >)
+Introduced in JDK 1.5 to provide Type Safety.
+• \`ArrayList<String> list = new ArrayList<>();\`
+• Ensures only Strings are added. Avoids ClassCastException at runtime.
+
+### Iteration
+1. **for-each loop**: \`for(Object o : collection)\`
+2. **Iterator**: Universal cursor. \`iterator.next()\`, \`iterator.remove()\`.`,
+        codeSnippet: 'List<String> list = new ArrayList<>();\nlist.add("Java");\nlist.add("Python");\n\nMap<String, Integer> marks = new HashMap<>();\nmarks.put("Math", 95);\nmarks.put("Science", 90);',
+        isCompleted: false
+      }
     ]
   },
   {

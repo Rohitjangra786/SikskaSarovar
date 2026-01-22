@@ -66,22 +66,119 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         }
 
         // Lists (Unordered)
+        // Lists (Unordered)
         if (firstLine.startsWith('• ') || firstLine.startsWith('- ')) {
+            const listItems: { text: string; children: string[] }[] = [];
+            let currentItem: { text: string; children: string[] } | null = null;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ');
+                // Treat numbered lines inside bullet list as sub-items or simple text if indented?
+                // For simplicity, let's treat any indented line starting with number as child if currentItem exists.
+                // Or just stick to bullet-child logic.
+                // Let's assume nested items in bullet lists are also bullets/hyphens.
+                const isChild = (line.startsWith('  ') || line.startsWith('\t')) && (trimmed.startsWith('- ') || trimmed.startsWith('• '));
+
+                // Keep it simple: Top level bullets vs Indented bullets?
+                // Our block grouper flattens indentation.
+                // So we rely on the same logic: Bullet = New Item?
+                // Wait, in Numbered Lists, "Bullet" was explicitly a CHILD.
+                // In Bullet lists, "Bullet" is usually a SIBLING.
+                // Checking indentation is hard because `lines` in `renderBlock` might have trimmed lines if I'm not careful? 
+                // Ah, `block.split('\n')` preserves indentation. `lines` in `renderBlock` has indentation.
+
+                // Better heuristic for Unordered Lists:
+                // If it starts with "- " or "• " (no indent), it's a root item.
+                // If it is indented spaces + "- " or "• ", it's a child.
+
+                if (trimmed.startsWith('- ') || trimmed.startsWith('• ')) {
+                    const indent = line.search(/\S/); // Count leading spaces
+                    if (indent >= 2 && currentItem) {
+                        // It causes a sub-item
+                        currentItem.children.push(trimmed.replace(/^[•-]\s+/, ''));
+                    } else {
+                        // New root item
+                        if (currentItem) listItems.push(currentItem);
+                        currentItem = {
+                            text: trimmed.replace(/^[•-]\s+/, ''),
+                            children: []
+                        };
+                    }
+                } else {
+                    // Continuation text
+                    if (currentItem) {
+                        currentItem.text += ' ' + trimmed;
+                    }
+                }
+            });
+            if (currentItem) listItems.push(currentItem);
+
             return (
                 <ul key={index} className="list-disc list-inside mb-4 space-y-2 text-slate-600 dark:text-slate-300 marker:text-brand-500">
-                    {lines.map((line, i) => (
-                        <li key={i} className="pl-2">{renderInline(line.trim().replace(/^[•-]\s+/, ''))}</li>
+                    {listItems.map((item, i) => (
+                        <li key={i} className="pl-2">
+                            {renderInline(item.text)}
+                            {item.children.length > 0 && (
+                                <ul className="list-circle list-inside ml-4 mt-2 space-y-1 text-slate-500 dark:text-slate-400">
+                                    {item.children.map((child, ci) => (
+                                        <li key={ci} className="pl-1 text-sm">{renderInline(child)}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
                     ))}
                 </ul>
             );
         }
 
         // Numbered Lists
+        // Numbered Lists
         if (/^\d+\.\s/.test(firstLine)) {
+            const listItems: { text: string; children: string[] }[] = [];
+            let currentItem: { text: string; children: string[] } | null = null;
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                const isNumbered = /^\d+\.\s/.test(trimmed);
+                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ');
+
+                if (isNumbered) {
+                    if (currentItem) listItems.push(currentItem);
+                    currentItem = {
+                        text: trimmed.replace(/^\d+\.\s+/, ''),
+                        children: []
+                    };
+                } else if (isBullet) {
+                    const childText = trimmed.replace(/^[•-]\s+/, '');
+                    if (currentItem) {
+                        currentItem.children.push(childText);
+                    } else {
+                        // Fallback for bullet at start or mixed content
+                        currentItem = { text: childText, children: [] };
+                    }
+                } else {
+                    // Continuation text
+                    if (currentItem) {
+                        currentItem.text += ' ' + trimmed;
+                    }
+                }
+            });
+            if (currentItem) listItems.push(currentItem);
+
             return (
                 <ol key={index} className="list-decimal list-inside mb-4 space-y-2 text-slate-600 dark:text-slate-300 marker:text-brand-500 marker:font-bold">
-                    {lines.map((line, i) => (
-                        <li key={i} className="pl-2">{renderInline(line.trim().replace(/^\d+\.\s+/, ''))}</li>
+                    {listItems.map((item, i) => (
+                        <li key={i} className="pl-2">
+                            {renderInline(item.text)}
+                            {item.children.length > 0 && (
+                                <ul className="list-disc list-inside ml-4 mt-2 space-y-1 text-slate-500 dark:text-slate-400">
+                                    {item.children.map((child, ci) => (
+                                        <li key={ci} className="pl-1 text-sm">{renderInline(child)}</li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
                     ))}
                 </ol>
             );
