@@ -73,14 +73,23 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             const listItems: { text: string; children: string[] }[] = [];
             let currentItem: { text: string; children: string[] } | null = null;
 
+            // Normalize indentation
+            const nonEmptyLines = lines.filter(l => l.trim().length > 0);
+            const baseIndent = nonEmptyLines.length > 0
+                ? Math.min(...nonEmptyLines.map(l => l.search(/\S/)))
+                : 0;
+
             lines.forEach((line) => {
                 const trimmed = line.trim();
-                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ') || trimmed.startsWith('* ');
+                if (trimmed === '') return;
 
-                // Indented bullet = child
+                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ') || trimmed.startsWith('* ');
+                const effectiveIndent = line.search(/\S/) - baseIndent;
+
+                // Indented bullet = child (must be significantly indented relative to base)
+                // Using 2 spaces as threshold for child
                 if (isBullet) {
-                    const indent = line.search(/\S/); // Count leading spaces
-                    if (indent >= 2 && currentItem) {
+                    if (effectiveIndent >= 2 && currentItem) {
                         // It causes a sub-item
                         currentItem.children.push(trimmed.replace(/^[•\-\*]\s+/, ''));
                     } else {
@@ -106,7 +115,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
                         <li key={i} className="pl-2">
                             {renderInline(item.text)}
                             {item.children.length > 0 && (
-                                <ul className="list-circle list-inside ml-4 mt-2 space-y-1 text-slate-500 dark:text-slate-400">
+                                <ul className="list-[circle] list-inside ml-4 mt-2 space-y-1 text-slate-500 dark:text-slate-400">
                                     {item.children.map((child, ci) => (
                                         <li key={ci} className="pl-1 text-sm">{renderInline(child)}</li>
                                     ))}
