@@ -193,7 +193,7 @@ const App: React.FC = () => {
         title: 'New: HTML',
         message: 'Master the fundamentals of HTML with our new comprehensive course HTML.',
         date: 'Just Now',
-        courseId: 'HtmlCourse',
+        courseId: 'html',
         isRead: false
       },
       {
