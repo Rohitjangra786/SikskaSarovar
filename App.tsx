@@ -186,13 +186,19 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    // Generate mock notifications including College Courses
+    // Generate mock notifications using current time
+    const now = new Date();
+    const getTimeString = (diffHours: number) => {
+      const d = new Date(now.getTime() - diffHours * 60 * 60 * 1000);
+      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    };
+
     const mockNotifications = [
       {
         id: 'notif-html-launch',
         title: 'New: HTML',
         message: 'Master the fundamentals of HTML with our new comprehensive course HTML.',
-        date: 'Just Now',
+        date: getTimeString(0), // Current time
         courseId: 'html',
         isRead: false
       },
@@ -200,7 +206,7 @@ const App: React.FC = () => {
         id: 'notif-c-launch',
         title: 'New: Foundation of C & C++',
         message: 'Master the fundamentals with our new comprehensive course. Includes Overview, Mind Maps, and OOP concepts!',
-        date: '1 Day ago',
+        date: 'Yesterday',
         courseId: 'c-programming',
         isRead: false
       },
@@ -208,7 +214,7 @@ const App: React.FC = () => {
         id: 'notif-python-update-jan21',
         title: 'Major Update: Basics of Python',
         message: 'Content expanded! Now includes 60+ lessons, new Mind Map, and comprehensive topics from Basics to Plotting.',
-        date: '1 Day ago',
+        date: 'Yesterday',
         courseId: 'python',
         isRead: false
       },
@@ -216,7 +222,7 @@ const App: React.FC = () => {
         id: 'notif-dva',
         title: 'New: Data Visualisation',
         message: 'Master analytics with our new college course. Unit 1 is live with Mind Maps!',
-        date: 'Just Now',
+        date: getTimeString(0.1), // 6 mins ago
         courseId: 'dva',
         isRead: false
       },
@@ -224,7 +230,7 @@ const App: React.FC = () => {
         id: 'notif-wbp',
         title: 'New: Web Based Programming',
         message: 'Deep dive into PHP and Web Architecture. Check out the Unit 1 Notes & Mind Map.',
-        date: '2 hours ago',
+        date: getTimeString(2), // 2 hours ago
         courseId: 'wbp',
         isRead: false
       },
@@ -232,7 +238,7 @@ const App: React.FC = () => {
         id: 'notif-dmp',
         title: 'Course Update: Disaster Management',
         message: 'Comprehensive notes and visual mind maps are now available for DMP Unit 1.',
-        date: '5 hours ago',
+        date: getTimeString(5), // 5 hours ago
         courseId: 'dmp',
         isRead: false
       },
@@ -240,7 +246,7 @@ const App: React.FC = () => {
         id: 'notif-ai',
         title: 'Try the AI Tutor',
         message: 'Stuck? Ask our AI assistant for help with any concept.',
-        date: '1 day ago',
+        date: 'Yesterday',
         courseId: 'ai',
         isRead: false
       }

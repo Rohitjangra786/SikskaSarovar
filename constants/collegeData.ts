@@ -23,6 +23,7 @@ export const COLLEGE_COURSES: Course[] = [
 This module provides a comprehensive overview of Disaster Management, covering basic concepts, classifications, and the management cycle.
 
 ### Visual Overview
+
 Below is the visual overview of Unit 1. Please refer to this for a structural understanding before proceeding to the detailed modules.`,
         image: DmpOverview,
         mindMapImage: DmpMindMap,
@@ -33,11 +34,13 @@ Below is the visual overview of Unit 1. Please refer to this for a structural un
         id: 'dmp-u1-concepts',
         title: 'Concept & Definitions of Disaster',
         content: `### Introduction
+
 A disaster is a serious disruption of the normal functioning of a community or society, causing widespread human, material, economic, or environmental losses that exceed the ability of the affected community to cope using its own resources.
 
 Disasters can occur due to natural causes, human activities, or a combination of both.
 
 ### Definition of Disaster
+
 **General Definition:**
 A disaster is a sudden or progressive event that causes significant damage, destruction, and human suffering.
 
@@ -45,6 +48,7 @@ A disaster is a sudden or progressive event that causes significant damage, dest
 A disaster is a serious disruption of the functioning of a community or society involving widespread losses and impacts, exceeding the affected community’s capacity to cope.
 
 ### Key Characteristics of a Disaster
+
 • Sudden or slow onset (earthquake is sudden, drought is slow)
 • Large-scale impact on people and property
 • Disruption of normal life
@@ -52,6 +56,7 @@ A disaster is a serious disruption of the functioning of a community or society 
 • Requires external assistance
 
 ### Disaster vs Hazard vs Risk
+
 **Hazard:**
 A potentially dangerous event or phenomenon (e.g., earthquake, flood).
 
@@ -67,6 +72,7 @@ Actual occurrence causing serious damage and loss.
 • Earthquake causing deaths and damage (Disaster)
 
 ### Types of Disasters
+
 **Natural Disasters:**
 • Earthquakes
 • Floods
@@ -357,7 +363,7 @@ Below is the visual overview of Unit 1.`,
         These servers bundle **Web Server + Database + Programming Language**.
 
         ### 2. WAMP Server
-        
+
         **What is WAMP?**
         WAMP stands for:
         • **W** – Windows

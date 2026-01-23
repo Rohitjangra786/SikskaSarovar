@@ -253,6 +253,10 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         return trimmed.startsWith('• ') || trimmed.startsWith('- ') || trimmed.startsWith('* ') || /^\d+\.\s/.test(trimmed);
     };
 
+    const isHeaderLine = (line: string) => {
+        return /^#{1,6}\s/.test(line.trim());
+    };
+
     lines.forEach(line => {
         const trimmed = line.trim();
 
@@ -290,6 +294,16 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
                 inTable = false;
             }
 
+            // Handle Headers - Split strictly
+            if (isHeaderLine(line)) {
+                if (currentBlock.length > 0) {
+                    blocks.push(currentBlock.join('\n'));
+                }
+                blocks.push(line);
+                currentBlock = [];
+                return;
+            }
+
             // Handle Lists - Split if switching between text and list
             if (trimmed !== '') {
                 const isLineList = isListLine(line);
@@ -299,8 +313,6 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
                     const isBlockList = isListLine(firstLineOfBlock);
 
                     // If we switch from text to list, or list to text (that isn't a continued list), split.
-                    // Note: Simple heuristic - if block started as list, keep adding unless... actually default lists usually capture sub-items?
-                    // But here we want to strict split text headers from lists
                     if (isBlockList !== isLineList) {
                         blocks.push(currentBlock.join('\n'));
                         currentBlock = [];
