@@ -436,6 +436,7 @@ Many people use the terms "Internet" and "World Wide Web" (WWW) interchangeably,
 *   **Website**: A collection of related web pages.
 
 ### Front End vs Back End
+
 **Front End**: Front-end developers focus on designing the physical appearance of websites with front-end programming languages. The visual aspect of a website is the result of front-end development — including fonts, colors, layout, and graphics.
 *   **Technology Used**: HTML, CSS, JavaScript.
 
