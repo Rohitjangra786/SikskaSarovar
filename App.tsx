@@ -203,22 +203,6 @@ const App: React.FC = () => {
         isRead: false
       },
       {
-        id: 'notif-c-launch',
-        title: 'New: Foundation of C & C++',
-        message: 'Master the fundamentals with our new comprehensive course. Includes Overview, Mind Maps, and OOP concepts!',
-        date: 'Yesterday',
-        courseId: 'c-programming',
-        isRead: false
-      },
-      {
-        id: 'notif-python-update-jan21',
-        title: 'Major Update: Basics of Python',
-        message: 'Content expanded! Now includes 60+ lessons, new Mind Map, and comprehensive topics from Basics to Plotting.',
-        date: 'Yesterday',
-        courseId: 'python',
-        isRead: false
-      },
-      {
         id: 'notif-dva',
         title: 'New: Data Visualisation',
         message: 'Master analytics with our new college course. Unit 1 is live with Mind Maps!',
@@ -240,6 +224,22 @@ const App: React.FC = () => {
         message: 'Comprehensive notes and visual mind maps are now available for DMP Unit 1.',
         date: getTimeString(5), // 5 hours ago
         courseId: 'dmp',
+        isRead: false
+      },
+      {
+        id: 'notif-c-launch',
+        title: 'New: Foundation of C & C++',
+        message: 'Master the fundamentals with our new comprehensive course. Includes Overview, Mind Maps, and OOP concepts!',
+        date: 'Yesterday',
+        courseId: 'c-programming',
+        isRead: false
+      },
+      {
+        id: 'notif-python-update-jan21',
+        title: 'Major Update: Basics of Python',
+        message: 'Content expanded! Now includes 60+ lessons, new Mind Map, and comprehensive topics from Basics to Plotting.',
+        date: 'Yesterday',
+        courseId: 'python',
         isRead: false
       },
       {
