@@ -272,6 +272,7 @@ Below is the visual overview of Unit 1.`,
         A web server responds to requests from a web browser and sends back web content such as HTML pages, images, and data.
 
         ### 2. Local Web Server
+
         A local web server is installed and run on a local computer. It is mainly used for development, testing, and learning purposes.
 
         **Characteristics:**
@@ -297,6 +298,7 @@ Below is the visual overview of Unit 1.`,
         • Limited performance and scalability
 
         ### 3. Remote Web Server
+
         A remote web server is hosted on the internet and can be accessed from anywhere in the world using a domain name or IP address.
 
         **Characteristics:**
@@ -332,6 +334,7 @@ Below is the visual overview of Unit 1.`,
         | Performance | Limited | High |
 
         ### 5. When to Use Which Server?
+
         **Local Server:**
         • Learning web development
         • Testing web applications
@@ -382,6 +385,7 @@ Below is the visual overview of Unit 1.`,
         • Less flexible than XAMPP
 
         ### 3. LAMP Server
+
         **What is LAMP?**
         LAMP stands for:
         • **L** – Linux
@@ -409,6 +413,7 @@ Below is the visual overview of Unit 1.`,
         • Requires Linux knowledge
 
         ### 4. XAMPP Server
+
         **What is XAMPP?**
         XAMPP stands for:
         • **X** – Cross-platform
@@ -437,6 +442,7 @@ Below is the visual overview of Unit 1.`,
         • Security settings are basic
 
         ### 5. MAMP Server
+        
         **What is MAMP?**
         MAMP stands for:
         • **M** – macOS
@@ -1061,7 +1067,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 5. PHP Array Predefined Functions
-        
+
         PHP provides many built-in functions to handle arrays.
 
         **Common Array Functions:**
