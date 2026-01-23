@@ -6,7 +6,7 @@ import MarkdownRenderer from './MarkdownRenderer';
 // Remove unused google import if not needed directly here, or keep if used elsewhere.
 // import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const AIAssistant: React.FC = () => {
+const AIAssistant: React.FC<{ className?: string }> = ({ className = "h-full" }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'model',
@@ -98,7 +98,7 @@ const AIAssistant: React.FC = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col h-full overflow-hidden transition-colors duration-300">
+    <div className={`bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col overflow-hidden transition-colors duration-300 ${className}`}>
       {/* Header */}
       <div className="bg-brand-900 dark:bg-slate-950 p-6 flex items-center gap-4 border-b border-brand-800 dark:border-slate-800">
         <div className="bg-white/10 p-3 rounded-2xl shadow-inner backdrop-blur-md">
@@ -129,16 +129,16 @@ const AIAssistant: React.FC = () => {
 
               {/* Avatar */}
               <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-sm border ${msg.role === 'user'
-                  ? 'bg-brand-100 dark:bg-brand-900/50 text-brand-900 dark:text-brand-300 border-brand-200 dark:border-brand-800'
-                  : 'bg-white dark:bg-slate-800 text-brand-900 dark:text-white border-slate-100 dark:border-slate-700'
+                ? 'bg-brand-100 dark:bg-brand-900/50 text-brand-900 dark:text-brand-300 border-brand-200 dark:border-brand-800'
+                : 'bg-white dark:bg-slate-800 text-brand-900 dark:text-white border-slate-100 dark:border-slate-700'
                 }`}>
                 {msg.role === 'user' ? <UserIcon size={20} /> : <Bot size={20} />}
               </div>
 
               {/* Message Bubble */}
               <div className={`p-5 rounded-3xl text-sm leading-relaxed shadow-sm overflow-hidden ${msg.role === 'user'
-                  ? 'bg-brand-900 dark:bg-brand-700 text-white rounded-tr-none shadow-brand-200 dark:shadow-none'
-                  : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 rounded-tl-none border border-slate-100 dark:border-slate-800'
+                ? 'bg-brand-900 dark:bg-brand-700 text-white rounded-tr-none shadow-brand-200 dark:shadow-none'
+                : 'bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 rounded-tl-none border border-slate-100 dark:border-slate-800'
                 }`}>
                 {msg.role === 'user' ? (
                   <p className="whitespace-pre-wrap font-medium">{msg.content}</p>

@@ -672,7 +672,7 @@ const App: React.FC = () => {
         </div>
 
         <div className="space-y-10">
-          <AIAssistant />
+          <AIAssistant className="h-[600px]" />
           <div className="bg-brand-900 p-8 lg:p-10 rounded-[3rem] shadow-2xl relative overflow-hidden group border border-slate-800">
             <div className="absolute -right-4 -top-4 w-32 h-32 bg-accent-500/10 rounded-full blur-3xl group-hover:bg-accent-500/20 transition-all duration-1000"></div>
             <h3 className="font-black text-2xl text-white mb-8 flex items-center gap-4">
