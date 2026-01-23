@@ -247,6 +247,8 @@ Below is the visual overview of Unit 1.`,
         content: `
         ### Introduction to Web Applications
 
+        Web applications are software programs that run on a web server and are accessed through a web browser. They are built using a combination of HTML, CSS, and JavaScript, and can be used for a variety of purposes, such as e-commerce, social networking, and content management.
+
         | Processing Speed | Faster | Slower |
         | Security | Less secure | More secure |
         | Code Visibility | Visible to user | Hidden from user |
@@ -347,6 +349,7 @@ Below is the visual overview of Unit 1.`,
         ### WAMP, LAMP, XAMPP & MAMP Server & Static Website vs Dynamic Website Development
 
         ### 1. Introduction to Local Server Environments
+
         Local server environments allow developers/students to run web applications on their own computer before deploying them to a remote server.
         These servers bundle **Web Server + Database + Programming Language**.
 
@@ -468,6 +471,7 @@ Below is the visual overview of Unit 1.`,
         | MAMP | macOS | Easy | Medium |
 
         ### 7. Static Website Development
+
         **What is a Static Website?**
         A static website displays fixed content.
         The same page is shown to all users.
@@ -496,6 +500,7 @@ Below is the visual overview of Unit 1.`,
         • Content updates manually
 
         ### 8. Dynamic Website Development
+
         **What is a Dynamic Website?**
         A dynamic website generates content at runtime based on user interaction.
 
@@ -537,6 +542,7 @@ Below is the visual overview of Unit 1.`,
         ### Introduction to PHP: Data Types, Variables & Super Global Variables
 
         ### 1. Introduction to PHP
+
         PHP (Hypertext Preprocessor) is a server-side scripting language mainly used for web application development.
         PHP scripts are executed on the server, and the result is sent to the browser as plain HTML.
 
@@ -555,6 +561,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 2. PHP Data Types
+
         PHP supports different types of data to store values.
 
         **2.1 Integer**
@@ -603,6 +610,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 3. PHP Variables
+
         A variable is used to store data temporarily.
 
         **Rules for PHP Variables:**
@@ -631,6 +639,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 4. PHP Super Global Variables
+
         Super Globals are predefined variables available anywhere in the script.
 
         **List of PHP Super Global Variables**
@@ -687,6 +696,7 @@ Below is the visual overview of Unit 1.`,
         ### PHP: Constants, Comments, Operators & Expressions, Regular Expressions, Advantages of PHP
 
         ### 1. PHP Constants
+
         A constant is an identifier whose value cannot be changed once defined.
 
         **Features of Constants:**
@@ -706,6 +716,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 2. PHP Comments
+
         Comments are used to explain code and are ignored by the PHP interpreter.
 
         **Types of Comments:**
@@ -724,6 +735,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 3. PHP Operators
+
         Operators are symbols used to perform operations on variables and values.
 
         **3.1 Arithmetic Operators**
@@ -772,6 +784,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 4. PHP Expressions
+
         An expression is a combination of variables, operators, and values that produces a result.
 
         **Example:**
@@ -780,6 +793,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 5. PHP Regular Expressions
+
         Regular Expressions (Regex) are used for pattern matching in strings.
 
         **Common PHP Regex Functions:**
@@ -810,6 +824,7 @@ Below is the visual overview of Unit 1.`,
         | [a-z] | Lowercase letters |
 
         ### 6. Advantages of PHP
+
         **Why Use PHP?**
         • Open source and free
         • Easy to learn and use
@@ -822,6 +837,7 @@ Below is the visual overview of Unit 1.`,
         ### Control Statements in PHP: Conditional Statements & Loops
 
         ### 1. Control Statements in PHP
+
         Control statements are used to control the flow of execution of a PHP program.
         They help in decision making and repetition of tasks.
 
@@ -830,6 +846,7 @@ Below is the visual overview of Unit 1.`,
         2. Looping Statements
 
         ### 2. Conditional Statements in PHP
+
         Conditional statements execute code based on conditions.
 
         **2.1 if Statement**
@@ -902,6 +919,7 @@ Below is the visual overview of Unit 1.`,
         • default executes if no case matches
 
         ### 3. Looping Statements in PHP
+
         Loops are used to execute a block of code repeatedly.
 
         **3.1 for Loop**
@@ -959,6 +977,7 @@ Below is the visual overview of Unit 1.`,
         ### Arrays in PHP: Indexed Array, Associative Array, Multidimensional Array & Predefined Functions
 
         ### 1. Introduction to Arrays in PHP
+
         An array is a special variable that can store multiple values in a single variable.
         Each value is stored with an index or key.
 
@@ -968,6 +987,7 @@ Below is the visual overview of Unit 1.`,
         • Easy data management
 
         ### 2. Indexed Array
+
         An indexed array uses numeric indexes (starting from 0 by default).
 
         **Declaration:**
@@ -988,6 +1008,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 3. Associative Array
+
         An associative array uses named keys instead of numeric indexes.
 
         **Declaration:**
@@ -1012,6 +1033,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 4. Multidimensional Array
+
         A multidimensional array is an array containing one or more arrays.
 
         **Example:**
@@ -1039,6 +1061,7 @@ Below is the visual overview of Unit 1.`,
         \`\`\`
 
         ### 5. PHP Array Predefined Functions
+        
         PHP provides many built-in functions to handle arrays.
 
         **Common Array Functions:**
