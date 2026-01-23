@@ -20,6 +20,9 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         if (firstLine.startsWith('### ')) {
             return <h3 key={index} className="text-2xl font-bold text-slate-700 dark:text-slate-300 mb-3 mt-6 tracking-tight">{renderInline(firstLine.slice(4))}</h3>;
         }
+        if (firstLine.startsWith('#### ')) {
+            return <h4 key={index} className="text-xl font-bold text-slate-600 dark:text-slate-400 mb-2 mt-4 tracking-tight">{renderInline(firstLine.slice(5))}</h4>;
+        }
 
         // Tables
         if (firstLine.startsWith('|')) {
@@ -66,42 +69,25 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         }
 
         // Lists (Unordered)
-        // Lists (Unordered)
-        if (firstLine.startsWith('• ') || firstLine.startsWith('- ')) {
+        if (firstLine.startsWith('• ') || firstLine.startsWith('- ') || firstLine.startsWith('* ')) {
             const listItems: { text: string; children: string[] }[] = [];
             let currentItem: { text: string; children: string[] } | null = null;
 
             lines.forEach((line) => {
                 const trimmed = line.trim();
-                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ');
-                // Treat numbered lines inside bullet list as sub-items or simple text if indented?
-                // For simplicity, let's treat any indented line starting with number as child if currentItem exists.
-                // Or just stick to bullet-child logic.
-                // Let's assume nested items in bullet lists are also bullets/hyphens.
-                const isChild = (line.startsWith('  ') || line.startsWith('\t')) && (trimmed.startsWith('- ') || trimmed.startsWith('• '));
+                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ') || trimmed.startsWith('* ');
 
-                // Keep it simple: Top level bullets vs Indented bullets?
-                // Our block grouper flattens indentation.
-                // So we rely on the same logic: Bullet = New Item?
-                // Wait, in Numbered Lists, "Bullet" was explicitly a CHILD.
-                // In Bullet lists, "Bullet" is usually a SIBLING.
-                // Checking indentation is hard because `lines` in `renderBlock` might have trimmed lines if I'm not careful? 
-                // Ah, `block.split('\n')` preserves indentation. `lines` in `renderBlock` has indentation.
-
-                // Better heuristic for Unordered Lists:
-                // If it starts with "- " or "• " (no indent), it's a root item.
-                // If it is indented spaces + "- " or "• ", it's a child.
-
-                if (trimmed.startsWith('- ') || trimmed.startsWith('• ')) {
+                // Indented bullet = child
+                if (isBullet) {
                     const indent = line.search(/\S/); // Count leading spaces
                     if (indent >= 2 && currentItem) {
                         // It causes a sub-item
-                        currentItem.children.push(trimmed.replace(/^[•-]\s+/, ''));
+                        currentItem.children.push(trimmed.replace(/^[•\-\*]\s+/, ''));
                     } else {
                         // New root item
                         if (currentItem) listItems.push(currentItem);
                         currentItem = {
-                            text: trimmed.replace(/^[•-]\s+/, ''),
+                            text: trimmed.replace(/^[•\-\*]\s+/, ''),
                             children: []
                         };
                     }
@@ -133,7 +119,6 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
         }
 
         // Numbered Lists
-        // Numbered Lists
         if (/^\d+\.\s/.test(firstLine)) {
             const listItems: { text: string; children: string[] }[] = [];
             let currentItem: { text: string; children: string[] } | null = null;
@@ -141,7 +126,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             lines.forEach((line) => {
                 const trimmed = line.trim();
                 const isNumbered = /^\d+\.\s/.test(trimmed);
-                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ');
+                const isBullet = trimmed.startsWith('- ') || trimmed.startsWith('• ') || trimmed.startsWith('* ');
 
                 if (isNumbered) {
                     if (currentItem) listItems.push(currentItem);
@@ -150,7 +135,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
                         children: []
                     };
                 } else if (isBullet) {
-                    const childText = trimmed.replace(/^[•-]\s+/, '');
+                    const childText = trimmed.replace(/^[•\-\*]\s+/, '');
                     if (currentItem) {
                         currentItem.children.push(childText);
                     } else {
@@ -234,10 +219,9 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
 
     const renderInline = (text: string) => {
         // Simple inline parser for **bold**, *italic*, `code`
-        // This is recursive/regex based. For simplicity, we'll chain replacements or use a splitter.
+        // Also handling simple *italic*
 
-        // We can split by ** first
-        const parts = text.split(/(\*\*.*?\*\*|`.*?`)/g);
+        let parts = text.split(/(\*\*.*?\*\*|\*.*?\*|`.*?`)/g);
 
         return parts.map((part, i) => {
             if (part.startsWith('**') && part.endsWith('**')) {
@@ -245,6 +229,10 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
             }
             if (part.startsWith('`') && part.endsWith('`')) {
                 return <code key={i} className="bg-slate-100 dark:bg-slate-800 text-brand-600 dark:text-brand-400 font-mono px-1.5 py-0.5 rounded text-sm border border-slate-200 dark:border-slate-700">{part.slice(1, -1)}</code>;
+            }
+            // Add italic support
+            if (part.startsWith('*') && part.endsWith('*') && part.length > 2 && !part.startsWith('**')) {
+                return <em key={i} className="italic text-slate-800 dark:text-slate-200">{part.slice(1, -1)}</em>;
             }
             return part;
         });
@@ -262,7 +250,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
 
     const isListLine = (line: string) => {
         const trimmed = line.trim();
-        return trimmed.startsWith('• ') || trimmed.startsWith('- ') || /^\d+\.\s/.test(trimmed);
+        return trimmed.startsWith('• ') || trimmed.startsWith('- ') || trimmed.startsWith('* ') || /^\d+\.\s/.test(trimmed);
     };
 
     lines.forEach(line => {

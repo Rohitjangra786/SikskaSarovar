@@ -409,62 +409,915 @@ outFile.close();
     level: 'Beginner',
     progress: 0,
     lessons: [
+      {
+        id: 'h-intro-env',
+        title: '1. Web Concepts & Environment',
+        content: `### Web Design
 
-      {
-        id: 'h1',
-        title: 'HTML Introduction',
-        content: `HTML stands for HyperText Markup Language. It is the standard markup language for creating Web pages. HTML describes the structure of a Web page semantically and originally included cues for the appearance of the document.\n\nHTML elements are the building blocks of HTML pages. They are represented by tags like <h1>, <p>, <a>, etc. Browsers do not display the HTML tags, but use them to render the content of the page.\n\nA simple HTML document consists of a DOCTYPE declaration, an <html> root element, a <head> section containing meta information, and a <body> section that contains the visible page content.`,
-        codeSnippet: '<!DOCTYPE html>\n<html>\n<head>\n  <title>Page Title</title>\n</head>\n<body>\n  <h1>My First Heading</h1>\n  <p>My first paragraph.</p>\n</body>\n</html>',
+**Definition**: Web design is the process of creating websites. It encompasses several different aspects, including webpage layout, content production, and graphic design.
+
+### The Internet vs. The WWW
+Many people use the terms "Internet" and "World Wide Web" (WWW) interchangeably, but they are different things.
+
+#### Definition
+*   **The Internet**: A massive network of networks. It connects millions of computers globally. It is the **hardware** (cables, routers, servers).
+*   **The World Wide Web (WWW)**: A way of accessing information over the medium of the Internet. It is the **software** (pages, sites, links).
+
+#### Difference Table
+| Feature | The Internet | The World Wide Web (WWW) |
+| :--- | :--- | :--- |
+| **Nature** | Hardware (Network of Networks) | Software (Information Space) |
+| **Origin** | Late 1960s (ARPANET) | 1989 (Tim Berners-Lee) |
+| **Function** | Connects computers | Connects documents/pages |
+| **Protocol** | TCP/IP | HTTP/HTTPS |
+
+### Web Page
+**Definition**: A web page (or webpage) is a document for the World Wide Web that is identified by a unique Uniform Resource Locator (URL) and is written in HTML.
+*   **Website**: A collection of related web pages.
+
+### Front End vs Back End
+**Front End**: Front-end developers focus on designing the physical appearance of websites with front-end programming languages. The visual aspect of a website is the result of front-end development — including fonts, colors, layout, and graphics.
+*   **Technology Used**: HTML, CSS, JavaScript.
+
+**Back End**: Back-end developers create the structure or logic of a website by using server-side programming languages. They write code that tells the website how to bring the front-end programming languages alive in the browser.
+*   **Technology Used**: Python, Java, Ruby, PHP.
+
+### Scripting Types
+**Client-Side Scripting**: Scripting that runs in the user's browser (e.g., JavaScript).
+*   Enhances user experience instantly (alerts, validation).
+*   Minimizes server requests.
+*   Uses HTML/CSS/JS.
+
+**Server-Side Scripting**: Scripting that runs on the web server (e.g., PHP, Node.js).
+*   Handles databases and customizes content.
+*   Essential for dynamic sites (e-commerce, logins).
+
+### Website Types
+**Static Website**:
+*   Prebuilt source code (HTML/CSS/JS).
+*   No server-side processing or database interaction.
+*   Fast and low cost, but content is fixed.
+
+**Dynamic Website**:
+*   Generated at runtime based on user demand.
+*   Interacts with databases.
+*   Slower but allows updates and personalization.
+
+### Responsiveness
+It is called **responsive web design** when you use CSS and HTML to resize, hide, shrink, enlarge, or move the content to make it look good on any screen (desktops, tablets, phones).
+
+### Setting Up Environment (VS Code)
+1.  **Download**: Search "VS Code download" and get the installer for your OS.
+2.  **Install**: Run installer, accept license, choose paths.
+3.  **Launch**: Open VS Code from Start menu.
+
+**File Creation**:
+*   Create new file: \`Ctrl+N\`
+*   Save file: \`Ctrl+S\` (Save as \`.html\`)`,
+        codeSnippet: '<!-- Save your file as name.html -->\n<!DOCTYPE html>\n<html>...</html>',
         isCompleted: false
       },
       {
-        id: 'h2',
-        title: 'HTML Editors',
-        content: `A web developer can use a professional HTML editor to create and modify websites. However, for learning HTML, we recommend a simple text editor like Notepad (PC) or TextEdit (Mac). We believe using a simple text editor is a good way to learn HTML.\n\nProfessional editors like Visual Studio Code, Sublime Text, and Atom are excellent once you have mastered the basics. They offer features like syntax highlighting, autocompletion, and integrated version control. For now, focus on writing the tags manually to build muscle memory.`,
-        codeSnippet: '<!-- Open your text editor, write your code, and save as index.html -->',
+        id: 'h-history',
+        title: '2. HTML History & Evolution',
+        content: `### Origin
+HyperText Markup Language (HTML) is the standard markup language for documents designed to be displayed in a web browser. It was initially developed by **Sir Tim Berners-Lee** in late 1991 at CERN.
+*   **Motivation**: To allow scientists to share research papers and documents electronically across different computer systems.
+*   **Result**: It laid the foundation for the World Wide Web (WWW).
+
+### Evolution Timeline
+HTML has undergone significant changes to support multimedia, scripting, and complex applications.
+
+*   **1991 - HTML 1.0**: Created by Tim Berners-Lee. Deeply basic, text-oriented, included tags like \`<h1>\` and \`<p>\` but no images or tables.
+*   **1995 - HTML 2.0**: The first standard version. Added forms (\`<input>\`) which made the web interactive.
+*   **1997 - HTML 3.2**: Recommended by W3C. Added tables, applets, and text-flow around images, but suffered from browser compatibility issues (Netscape vs IE).
+*   **1999 - HTML 4.01**: A major milestone. It separated structure (HTML) from presentation (CSS), cleaning up the code.
+*   **2000 - XHTML 1.0**: A stricter, XML-based version of HTML. It required perfect syntax (e.g., all tags must be closed, lowercase attributes).
+*   **2004 - WHATWG**: The Web Hypertext Application Technology Working Group formed to evolve HTML when W3C focused on XHTML 2.0.
+*   **2014 - HTML5**: published as a W3C Recommendation. It introduced semantic elements (\`<header>\`, \`<article>\`), multimedia (\`<video>\`, \`<audio>\`), and APIs (Geolocation, Canvas).
+
+### Role of W3C
+The **World Wide Web Consortium (W3C)** is the international standards organization for the World Wide Web.
+*   **Function**: To develop protocols and guidelines (like HTML, CSS) that ensure long-term growth of the Web.
+*   **Goal**: Ensure that all browsers display web pages consistently.`,
+        codeSnippet: '<!-- HTML has evolved from simple text to rich media -->',
         isCompleted: false
       },
       {
-        id: 'h3',
-        title: 'HTML Basic Examples',
-        content: `Every HTML document must start with a document type declaration: <!DOCTYPE html>. The document itself begins with <html> and ends with </html>. The visible part of the HTML document is between <body> and </body>.\n\nHTML headings are defined with the <h1> to <h6> tags. <h1> defines the most important heading. <h6> defines the least important heading. HTML paragraphs are defined with the <p> tag. HTML links are defined with the <a> tag.`,
-        codeSnippet: '<h1>This is a heading</h1>\n<p>This is a paragraph.</p>\n<a href="https://sikshasarovar.com">Visit SikshaSarovar</a>',
+        id: 'h-intro-def',
+        title: '3. HTML Introduction',
+        content: `### Definition Breakdown
+**HTML** stands for **HyperText Markup Language**. Let's break it down:
+
+*   **HyperText**: refers to "Text within Text". It is text that contains links to other texts (hyperlinks). It allows users to jump from one document to another non-linearly.
+*   **Markup**: refers to the "tags" or comments used to annotate the text. These tags tell the browser how to structure and display the content (e.g., "This text is a heading", "This text is bold").
+*   **Language**: refers to the set of rules (syntax) that must be followed to write the code so computers can understand it.
+
+### Core Structure Explained
+Every HTML document follows a strict tree-like structure.
+
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Title</title>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <p>This is content.</p>
+</body>
+</html>
+\`\`\`
+
+1.  **\`<!DOCTYPE html>\`**: This is **not a tag**, but an instruction to the browser. It tells the browser that the document type is **HTML5**. Without this, browsers might render the page in "Quirks Mode" (compatibility mode for old pages).
+2.  **\`<html>\`**: The **root element** of the page. All other elements are descendants of this tag. The \`lang\` attribute (e.g., \`lang="en"\`) declares the language of the page for screen readers and search engines.
+3.  **\`<head>\`**: Contains **metadata** (information about the page) that is **not visible** to the user. It includes the title, character set, styles, and scripts.
+4.  **\`<body>\`**: Contains the **visible content** of the web page. Everything you see in the browser window—headings, paragraphs, images, links—must be inside this tag.`,
+        codeSnippet: '<!DOCTYPE html>\n<html>\n<head>\n<title>My First Webpage</title>\n</head>\n<body>\n  Hello World!\n</body>\n</html>',
         isCompleted: false
       },
       {
-        id: 'h4',
-        title: 'HTML Elements',
-        content: `An HTML element is defined by a start tag, some content, and an end tag. The HTML element is everything from the start tag to the end tag: <tagname>Content goes here...</tagname>.\n\nSome HTML elements have no content (like the <br> element). These elements are called empty elements. Empty elements do not have an end tag!\n\nHTML elements can be nested (this means that elements can contain other elements). All HTML documents consist of nested HTML elements.`,
-        codeSnippet: '<div>\n  <h1>Nested Heading</h1>\n  <p>Nested <b>bold</b> text.</p>\n</div>',
+        id: 'h-head',
+        title: '4. Head Section Elements',
+        content: `The \`<head>\` element is a container for metadata and resources. It serves as the "brain" of the webpage, defining properties that affect how the page loads and behaves.
+
+### 1. The Title Tag \`<title>\`
+*   **Definition**: Defines the title of the HTML document.
+*   **Visibility**: It is NOT shown on the page itself, but in the **browser's title bar** or **tab**.
+*   **Importance**:
+    *   Essential for **SEO** (Search Engine Optimization).
+    *   Displayed in search engine results.
+    *   Used as the name when adding a page to **Favorites/Bookmarks**.
+
+### 2. The Meta Tag \`<meta>\`
+Meta tags provide metadata about the HTML document. They are always empty tags.
+*   **Character Set**: \`<meta charset="UTF-8">\`
+    *   Specifies the character encoding. **UTF-8** covers almost all characters and symbols in the world.
+*   **Viewport**: \`<meta name="viewport" content="width=device-width, initial-scale=1.0">\`
+    *   Crucial for **Responsive Design**. It tells the browser to set the width of the page to follow the screen-width of the device (mobile-friendly).
+*   **Description**: \`<meta name="description" content="Free web tutorials">\`
+    *   A short summary of the page, often used by search engines in snippets.
+
+### 3. The Link Tag \`<link>\`
+*   **Definition**: Defines a relationship between the current document and an external resource.
+*   **Primary Use**: Linking **External CSS** files.
+    *   \`<link rel="stylesheet" href="styles.css">\`
+*   **Icon**: Linking a Favicon (tab icon).
+    *   \`<link rel="icon" href="favicon.ico">\`
+
+### 4. The Style Tag \`<style>\`
+*   Used to define **internal CSS** (styles) for a single HTML page.
+*   Placed inside the \`<head>\` section.
+    *   \`<style> body { background-color: powderblue; } </style>\`
+
+### 5. The Script Tag \`<script>\`
+*   Used to define client-side JavaScript.
+*   Can contain the script code directly or point to an external source file.
+    *   \`<script src="myscript.js"></script>\`
+*   *Note*: While often placed in the \`<head>\`, scripts are sometimes placed at the end of \`<body>\` to improve page load speed.`,
+        codeSnippet: '<head>\n  <title>My Page</title>\n  <meta charset="UTF-8">\n  <link rel="stylesheet" href="styles.css">\n</head>',
         isCompleted: false
       },
       {
-        id: 'h5',
-        title: 'HTML Attributes',
-        content: `All HTML elements can have attributes. Attributes provide additional information about elements and are always specified in the start tag. They usually come in name/value pairs like: name="value".\n\nThe href attribute specifies the URL of the page the link goes to. The src attribute specifies the path to the image to be displayed. The width and height attributes provide size information for images. The alt attribute specifies an alternate text for an image, if the image for some reason cannot be displayed.`,
-        codeSnippet: '<img src="logo.png" width="500" height="600" alt="Siksha Logo">\n<a href="https://google.com" title="Search Engine">Go to Google</a>',
+        id: 'h-tags-types',
+        title: '5. Types of Tags',
+        content: `There are two main types of tags in HTML:
+
+### 1. Container Tags (Paired Tags)
+*   **Definition**: Tags that have both an **opening** (<tag>) and a **closing** (</tag>) tag. Content is placed between them.
+*   **Purpose**: To contain text or other tags.
+*   **Examples**:
+    *   \`<html>...</html>\` (The root container)
+    *   \`<p>This is a paragraph</p>\`
+    *   \`<title>Page Title</title>\`
+    *   \`<h1>Main Heading</h1>\`
+
+### 2. Empty Tags (Void Elements)
+*   **Definition**: Tags that have **only an opening tag**. They do not have a closing tag or content inside them.
+*   **Characteristics**: They usually perform a stand-alone action (like inserting a line break or image).
+*   **Examples**:
+    *   \`<br>\`: Inserts a single line break.
+    *   \`<hr>\`: Creates a thematic break (horizontal line).
+    *   \`<img>\` Embeds an image.
+    *   \`<input>\`: Creates an input field.
+
+### Comparison Table
+| Feature | Container Tags | Empty Tags |
+| :--- | :--- | :--- |
+| **Parts** | Opening & Closing | Opening only |
+| **Content** | Holds text/tags | No content |
+| **Syntax** | \`<tag>...</tag>\` | \`<tag>\` |`,
+        codeSnippet: '<p>This is a container tag.</p>\n<hr> <!-- This is an empty tag -->',
         isCompleted: false
       },
-      { id: 'h6', title: 'HTML Headings', content: 'Headings are used for titles and subtitles that you want to show on a webpage. Search engines use the headings to index the structure and content of your web pages. Users often skim a page by its headings. It is important to use headings to show the document structure.\n\n<h1> headings should be used for main headings, followed by <h2> headings, then the less important <h3>, and so on.', codeSnippet: '<h1>Heading 1</h1>\n<h2>Heading 2</h2>\n<h3>Heading 3</h3>', isCompleted: false },
-      { id: 'h7', title: 'HTML Paragraphs', content: 'The HTML <p> element defines a paragraph. A paragraph always starts on a new line, and browsers automatically add some white space (a margin) before and after a paragraph.\n\nYou cannot be sure how HTML will be displayed. Large or small screens, and resized windows will create different results. With HTML, you cannot change the display by adding extra spaces or extra lines in your HTML code.', codeSnippet: '<p>This is a paragraph.</p>\n<p>This is another paragraph.</p>', isCompleted: false },
-      { id: 'h8', title: 'HTML Styles', content: 'The HTML style attribute is used to add styles to an element, such as color, font, size, and more. Setting the style of an HTML element, can be done with the style attribute. The HTML style attribute has the following syntax: <tagname style="property:value;">.', codeSnippet: '<p style="color:red;">I am red</p>\n<p style="font-family:courier;">I am Courier</p>', isCompleted: false },
-      { id: 'h9', title: 'HTML Formatting', content: 'HTML contains several elements for defining text with a special meaning. Formatting elements were designed to display special types of text: <b> - Bold text, <strong> - Important text, <i> - Italic text, <em> - Emphasized text, <mark> - Marked text, <small> - Smaller text, <del> - Deleted text, <ins> - Inserted text, <sub> - Subscript text, <sup> - Superscript text.', codeSnippet: '<p>This is <b>bold</b> and this is <i>italic</i>.</p>', isCompleted: false },
-      { id: 'h10', title: 'HTML Quotations', content: 'The HTML <q> element defines a short quotation. Browsers normally insert quotation marks around the quotation. The HTML <blockquote> element defines a section that is quoted from another source. Browsers usually indent <blockquote> elements.', codeSnippet: '<p>WWF goal is to: <q>Build a future where people live in harmony with nature.</q></p>', isCompleted: false },
-      { id: 'h11', title: 'HTML Comments', content: 'HTML comments are not displayed in the browser, but they can help document your HTML source code. You can add comments to your HTML source by using the following syntax: <!-- Write your comments here -->. Notice that there is an exclamation point (!) in the start tag, but not in the end tag.', codeSnippet: '<!-- This is a hidden comment -->\n<p>This is visible.</p>', isCompleted: false },
-      { id: 'h12', title: 'HTML Colors', content: 'HTML colors are specified with predefined color names, or with RGB, HEX, HSL, RGBA, or HSLA values. In HTML, a color can be specified by using a color name. HTML supports 140 standard color names.', codeSnippet: '<h2 style="background-color:Tomato;">Tomato</h2>\n<h2 style="background-color:Orange;">Orange</h2>', isCompleted: false },
-      { id: 'h13', title: 'HTML CSS', content: 'CSS stands for Cascading Style Sheets. CSS saves a lot of work. It can control the layout of multiple web pages all at once. CSS can be added to HTML elements in 3 ways: Inline (using the style attribute), Internal (using a <style> element in the <head> section), and External (using a <link> element to link to an external CSS file).', codeSnippet: '<head>\n<style>\nbody {background-color: powderblue;}\nh1   {color: blue;}\n</p>\n</style>\n</head>', isCompleted: false },
-      { id: 'h14', title: 'HTML Links', content: 'The HTML <a> tag defines a hyperlink. It has the following syntax: <a href="url">link text</a>. The most important attribute of the <a> element is the href attribute, which indicates the link destination. The link text is the part that will be visible to the reader.', codeSnippet: '<a href="https://www.w3schools.com/">Visit W3Schools.com!</a>', isCompleted: false },
-      { id: 'h15', title: 'HTML Images', content: 'Images can improve the design and the appearance of a web page. The HTML <img> tag is used to embed an image in a web page. Images are not technically inserted into a web page; images are linked to web pages. The <img> tag creates a holding space for the referenced image.', codeSnippet: '<img src="img_chania.jpg" alt="Flowers in Chania">', isCompleted: false },
-      { id: 'h16', title: 'HTML Favicon', content: 'A favicon is a small image displayed next to the page title in the browser tab. You can use any image you like as your favicon. You can also create your own favicon on sites like favicon.cc. To add a favicon to your website, either save your favicon image to the root directory of your webserver, or create a folder in the root directory called images, and save your favicon image in this folder.', codeSnippet: '<link rel="icon" type="image/x-icon" href="/images/favicon.ico">', isCompleted: false },
-      { id: 'h17', title: 'HTML Tables', content: 'HTML tables allow web developers to arrange data into rows and columns. A table in HTML consists of table cells inside rows and columns. Each table cell is defined by a <td> and a </td> tag. Each table row starts with a <tr> and ends with a </tr> tag.', codeSnippet: '<table>\n  <tr>\n    <th>Company</th>\n    <th>Contact</th>\n  </tr>\n  <tr>\n    <td>Alfreds Futterkiste</td>\n    <td>Maria Anders</td>\n  </tr>\n</table>', isCompleted: false },
-      { id: 'h18', title: 'HTML Lists', content: 'HTML lists allow web developers to group a set of related items in lists. An unordered HTML list starts with the <ul> tag. Each list item starts with the <li> tag. The list items will be marked with bullets (small black circles) by default. An ordered HTML list starts with the <ol> tag. Each list item starts with the <li> tag. The list items will be marked with numbers by default.', codeSnippet: '<ul>\n  <li>Coffee</li>\n  <li>Tea</li>\n  <li>Milk</li>\n</ul>', isCompleted: false },
-      { id: 'h19', title: 'HTML Block & Inline', content: 'Every HTML element has a default display value, depending on what type of element it is. There are two display values: block and inline. A block-level element always starts on a new line, and the browsers automatically add some space (a margin) before and after the element. An inline element does not start on a new line. An inline element only takes up as much width as necessary.', codeSnippet: '<div>This is a block element.</div>\n<span>This is an inline element.</span>', isCompleted: false },
-      { id: 'h20', title: 'HTML Classes', content: 'The HTML class attribute is used to specify a class for an HTML element. Multiple HTML elements can share the same class. The class attribute is often used to point to a class name in a style sheet. It can also be used by a JavaScript to access and manipulate elements with the specific class name.', codeSnippet: '<style>\n.city {\n  background-color: tomato;\n  color: white;\n  padding: 10px;\n}\n</style>\n\n<h2 class="city">London</h2>\n<h2 class="city">Paris</h2>', isCompleted: false },
-      { id: 'h21', title: 'HTML Forms Attributes', content: 'This chapter describes the different attributes for the HTML <form> element. The Action Attribute defines the action to be performed when the form is submitted. The Target Attribute specifies where to display the response that is received after submitting the form. The Method Attribute specifies the HTTP method to be used when submitting the form data.', codeSnippet: '<form action="/action_page.php" target="_blank" method="post">\n  <label for="fname">First name:</label><br>\n  <input type="text" id="fname" name="fname" value="John"><br>\n  <input type="submit" value="Submit">\n</form>', isCompleted: false },
-      { id: 'h22', title: 'HTML Form Elements', content: 'The HTML <form> element can contain one or more of the following form elements: <input>, <label>, <select>, <textarea>, <button>, <fieldset>, <legend>, <datalist>, <output>, <option>, <optgroup>.', codeSnippet: '<label for="cars">Choose a car:</label>\n<select id="cars" name="cars">\n  <option value="volvo">Volvo</option>\n  <option value="saab">Saab</option>\n</select>', isCompleted: false },
-      { id: 'h23', title: 'HTML Input Types', content: 'This chapter describes the different types for the HTML <input> element. Here are some examples: <input type="button">, <input type="checkbox">, <input type="color">, <input type="date">, <input type="email">, <input type="file">, <input type="hidden">, <input type="image">, <input type="number">, <input type="password">, <input type="radio">, <input type="range">, <input type="reset">, <input type="search">, <input type="submit">, <input type="tel">, <input type="text">, <input type="time">, <input type="url">, <input type="week">.', codeSnippet: '<input type="button" onclick="alert(\'Hello World!\')" value="Click Me!">', isCompleted: false },
-      { id: 'h24', title: 'HTML Input Attributes', content: 'This chapter describes the different attributes for the HTML <input> element. The value attribute specifies an initial value for an input field. The readonly attribute specifies that an input field is read-only. The disabled attribute specifies that an input field should be disabled. The size attribute specifies the visible width, in characters, of an input field.', codeSnippet: '<input type="text" id="fname" name="fname" value="John" readonly>', isCompleted: false },
-      { id: 'h25', title: 'HTML Input Form Attributes', content: 'This chapter describes the different attributes for the HTML <input> element. The form attribute specifies the form the <input> element belongs to. The formaction attribute specifies the URL of the file that will process the input control when the form is submitted. The formenctype attribute specifies how the form-data should be encoded when submitting it to the server.', codeSnippet: '<form action="/action_page.php" id="form1">\n  <label for="fname">First name:</label>\n  <input type="text" id="fname" name="fname"><br><br>\n  <input type="submit" value="Submit">\n</form>\n\n<label for="lname">Last name:</label>\n<input type="text" id="lname" name="lname" form="form1">', isCompleted: false }
+      {
+        id: 'h-comments',
+        title: '6. HTML Comments',
+        content: `### Purpose of Comments
+Comments are text snippets inserted into the code that are **ignored by the browser**. They are not displayed to the user but are visible in the "View Source" code.
+
+**Syntax**:
+\`<!-- This is a comment -->\`
+
+### Uses of Comments
+1.  **Documentation**: Explaining complex logic or sections of code for future reference (or for other developers).
+    *   \`<!-- Navigation Bar Section -->\`
+2.  **Debugging**: Temporarily "commenting out" lines of code to isolate errors without deleting them.
+    *   \`<!-- <input type="text" name="broken_field"> -->\`
+3.  **Reminders**: Leaving "TODO" notes for unfinished tasks.
+
+### Rules
+*   Comments can span multiple lines.
+*   You cannot nest comments (put a comment inside another comment).`,
+        codeSnippet: '<!-- This is a hidden comment -->\n<p>This is visible text.</p>',
+        isCompleted: false
+      },
+      {
+        id: 'h-headings',
+        title: '7. Heading Tags',
+        content: `### Purpose of Headings
+Headings are used to define the **titles and subtitles** of a webpage. They provide a structural hierarchy, similar to a book's Table of Contents.
+
+### The Hierarchy (H1 to H6)
+HTML offers six levels of heading tags. \`<h1>\` is the most important, and \`<h6>\` is the least important.
+
+*   **\`<h1>\`**: **Main Title**. Should be used **only once** per page to define the main topic.
+*   **\`<h2>\`**: **Major Section Headings**. Used to divide the page into main content areas.
+*   **\`<h3>\`**: **Sub-sections**. Used under H2.
+*   **\`<h4>\` - \`<h6>\`**: Used for less important sub-sub-sections.
+
+### Importance for Search Engines (SEO)
+Search engines (like Google) use headings to index the structure and content of your web pages.
+*   **Rule**: Use headings for structure, NOT just to make text BIG or BOLD. Use CSS for styling.
+
+**Syntax**:
+\`\`\`html
+<h1>Main Topic (e.g., HTML Tutorial)</h1>
+  <h2>Chapter 1: Intro</h2>
+    <h3>What is HTML?</h3>
+  <h2>Chapter 2: Elements</h2>
+\`\`\``,
+        codeSnippet: '<h1>Main Heading</h1>\n<h2>Sub Heading</h2>\n<h3>Small Heading</h3>',
+        isCompleted: false
+      },
+      {
+        id: 'h-paragraphs',
+        title: '8. Paragraph Tag',
+        content: `### Paragraphs
+
+The \`<p>\` tag defines a **paragraph**. It is the most common element for text content.
+
+### Characteristics
+1.  **Block-Level Element**: A paragraph always starts on a new line and takes up the full width available.
+2.  **Automatic Margins**: Browsers automatically add white space (margin) before and after a paragraph.
+
+### Behavior with Whitespace
+HTML ignores extra spaces and line breaks within the code.
+*   If you type 10 spaces, the browser displays only 1.
+*   If you press "Enter" 5 times in the code, the browser displays it on the same line.
+
+**Example of Whitespace collapse**:
+\`\`\`html
+<p>
+  This      text       contains
+  many       spaces     and
+  lines.
+</p>
+\`\`\`
+*Output*: "This text contains many spaces and lines."
+
+### Line Break Tag \`<br>\`
+
+To force a line break *without* starting a new paragraph (and without extra margin), use the **\`<br>\`** tag.
+\`<p>Line 1<br>Line 2</p>\`
+
+### Horizontal Rule \`<hr>\`
+
+The \`<hr>\` tag defines a thematic break in content, typically displayed as a hormonal line. Used to separate chapters or topics.`,
+        codeSnippet: '<p>Lorem ipsum dolor sit amet...</p>',
+        isCompleted: false
+      },
+      {
+        id: 'h-formatting',
+        title: '9. Text Formatting',
+        content: `HTML contains several tags dedicated to defining the **visual appearance** of text. These tags control how text *looks*, but do not necessarily convey importance.
+
+### Physical Style Tags
+*   **\`<b>\` (Bold)**: Makes text bold. Use for visual emphasis where importance is not implied.
+*   **\`<i>\` (Italic)**: Makes text italic. Use for alternate voice or technical terms.
+*   **\`<u>\` (Underline)**: Underlines text. *Avoid usage*, as it confuses users who think it is a link.
+*   **\`<s>\` (Strikethrough)**: Draws a line through text (e.g., old price).
+*   **\`<small>\`**: Displays text in a smaller font size (e.g., copyright notes).
+
+### Text Marking Tags
+*   **\`<mark>\`**: Highlights text (usually yellow background). Useful for search results or highlighting.
+*   **\`<del>\`**: Represents deleted or removed text.
+*   **\`<ins>\`**: Represents inserted or added text (usually underlined).
+
+**Example**:
+\`The <mark>highlighted</mark> word is clear.\``,
+        codeSnippet: '<p><b>Bold</b>, <i>Italic</i>, <u>Underline</u></p>',
+        isCompleted: false
+      },
+      {
+        id: 'h-semantic-formatting',
+        title: '10. Semantic Formatting',
+        content: `### Difference Between Visual and Semantic
+*   **Visual tags** (\`<b>\`, \`<i>\`) only change the *look*.
+*   **Semantic tags** (\`<strong>\`, \`<em>\`) describe the *meaning* (semantics) of the text to the browser and the developer.
+
+### Key Semantic Tags
+
+#### 1. Strong Importance \`<strong>\`
+*   **Function**: Defines text with strong importance.
+*   **Visual**: Typically displayed as **bold**.
+*   **Semantic**: Screen readers will announce this text with extra stress or deeper tone.
+*   **Usage**: Warnings, serious notes.
+
+#### 2. Emphasized Text \`<em>\`
+*   **Function**: Defines emphasized text.
+*   **Visual**: Typically displayed as *italic*.
+*   **Semantic**: Screen readers change voice inflection to emphasize the word.
+*   **Usage**: Stressing a specific word ("I *love* HTML").
+
+#### 3. Preformatted Text \`<pre>\`
+*   **Function**: Tells the browser to display text **exactly as written** in the HTML source.
+*   **Behavior**: Preserves both **spaces** and **line breaks**.
+*   **Font**: Usually displayed in a fixed-width (monospaced) font like Courier.
+*   **Usage**: To display code snippets or poetry.
+
+\`\`\`html
+<pre>
+    Line   1
+      Line   2 (Indented)
+</pre>
+\`\`\``,
+        codeSnippet: '<strong>Important Warning!</strong>\n<pre>\n Code block here\n</pre>',
+        isCompleted: false
+      },
+      {
+        id: 'h-sub-sup',
+        title: '11. Subscript & Superscript',
+        content: `### Definition
+
+Subscript and Superscript tags are used to specific formatting where text appears smaller and either below or above the normal line of type.
+
+### 1. Subscript \`<sub>\`
+*   **Definition**: The \`<sub>\` tag defines subscript text. Subscript text appears **half a character below** the normal line.
+*   **Common Uses**:
+    *   **Chemical Formulas**: H₂O (Water), CO₂ (Carbon Dioxide).
+    *   **Math**: Base numbers like X₁ or log₂.
+*   **Example**:
+    \`H<sub>2</sub>O\` → H₂O
+
+### 2. Superscript \`<sup>\`
+*   **Definition**: The \`<sup>\` tag defines superscript text. Superscript text appears **half a character above** the normal line.
+*   **Common Uses**:
+    *   **Mathematics**: Powers and Exponents (E = mc²).
+    *   **Ordinals**: Dates (4ᵗʰ of July).
+*   **Example**:
+    \`E = mc<sup>2</sup>\` → E = mc²`,
+        codeSnippet: 'H<sub>2</sub>O\nE = mc<sup>2</sup>',
+        isCompleted: false
+      },
+      {
+        id: 'h-anchors',
+        title: '12. Anchor Tag',
+        content: `### Definition
+
+The \`<a>\` (Anchor) tag is the most essential tag in HTML. It **defines a hyperlink**, which is used to link from one page to another.
+
+### key Attribute: \`href\`
+*   **href** stands for **Hypertext REFerence**.
+*   It specifies the **destination URL** of the link.
+*   Without \`href\`, the \`<a>\` tag is just a placeholder and is not clickable.
+
+### Types of URLs
+1.  **Absolute URL**: A full web address starting with \`https://\`.
+    *   Use when linking to another website.
+    *   Example: \`href="https://www.google.com"\`
+2.  **Relative URL**: A local path to a file within the same website.
+    *   Use when linking to your own pages.
+    *   Example: \`href="about.html"\` or \`href="images/logo.png"\`
+
+### Other Uses
+*   **Mailto**: Opens the user's email program.
+    *   \`<a href="mailto:info@example.com">Send Email</a>\`
+*   **Tel**: Triggers a phone call (mobile devices).
+    *   \`<a href="tel:+1234567890">Call Us</a>\`
+*   **ID Jump**: Jumps to a specific section on the same page.
+    *   \`<a href="#section1">Go to Section 1</a>\``,
+        codeSnippet: '<a href="https://google.com">Go to Google</a>',
+        isCompleted: false
+      },
+      {
+        id: 'h-target',
+        title: '13. Target Attribute',
+        content: `### Definition
+
+The **\`target\`** attribute specifies **where to open the linked document**.
+
+### Attribute Values
+1.  **\`_self\`** (Default): Opens the link in the **same window/tab** as it was clicked. This is standard behavior for internal links.
+2.  **\`_blank\`**: Opens the link in a **new window or tab**.
+    *   **Best Practice**: Use when linking to external websites (like Google or Wikipedia) so users don't lose your page.
+3.  **\`_parent\`**: Opens the linked document in the parent frame (used with iframes).
+4.  **\`_top\`**: Opens the linked document in the full body of the window (breaks out of iframes).
+
+### Security Note (The \`_blank\` vulnerability)
+When using \`target="_blank"\`, always add \`rel="noopener noreferrer"\` to prevent the new page from accessing your page's internal data (a security risk known as "tabnabbing").
+*   **Safe Syntax**:
+    \`<a href="https://example.com" target="_blank" rel="noopener noreferrer">External Link</a>\``,
+        codeSnippet: '<a href="https://sikshasarovar.com" target="_blank">Visit Us</a>',
+        isCompleted: false
+      },
+      {
+        id: 'h-images',
+        title: '14. Image Tag',
+        content: `### Definition
+The \`<img>\` tag is used to embed an image into a web page.
+*   **Type**: It is an **empty tag** (it contains attributes only, and does not have a closing tag).
+
+### Key Attributes
+1.  **\`src\` (Source)**: Specifies the path (URL) to the image.
+    *   Can be **Absolute** (\`https://site.com/img.jpg\`) or **Relative** (\`folder/img.jpg\`).
+2.  **\`alt\` (Alternate Text)**: Describes the image content.
+    *   **Accessibility**: Screen readers read this text to blind users.
+    *   **Failure**: Shown if the image fails to load.
+    *   **SEO**: Helps search engines understand the image.
+    *   *Rule*: Always include \`alt\` text!
+3.  **\`width\` and \`height\`**: Defines the size of the image in pixels.
+    *   Example: \`width="500" height="600"\`
+
+### Common Image Formats
+*   **JPEG/JPG**: Best for photographs.
+*   **PNG**: Best for graphics with transparent backgrounds.
+*   **SVG**: Scalable vector graphics (icons, logos).
+*   **GIF**: Animated images.`,
+        codeSnippet: '<img src="flower.jpg" alt="A beautiful flower">',
+        isCompleted: false
+      },
+      {
+        id: 'h-image-links',
+        title: '15. Image & Link Integration',
+        content: `### Concept
+
+Images do not have to be static. You can make an image clickable (act as a button) by nesting the \`<img>\` tag **inside** an \`<a>\` tag.
+
+### How It Works
+1.  Open an anchor tag: \`<a href="...">\`
+2.  Place the image tag inside: \`<img src="...">\`
+3.  Close the anchor tag: \`</a>\`
+
+### Example Code
+\`\`\`html
+<a href="https://www.google.com">
+  <img src="google-logo.png" alt="Go to Google" width="100" height="50">
+</a>
+\`\`\`
+
+### UX Best Practice
+*   **Border**: In older browsers, clickable images had a blue border. Use CSS \`img { border: none; }\` to remove it.
+*   **Cursor**: The mouse cursor automatically changes to a "hand" icon when hovering over a linked image, indicating interactivity.`,
+        codeSnippet: '<a href="home.html"><img src="home-icon.png" alt="Home"></a>',
+        isCompleted: false
+      },
+      {
+        id: 'h-list-ul',
+        title: '16. Unordered Lists',
+        content: `### Definition
+
+An **unordered list** is a collection of related items that have no specific order (sequence does not matter). The items are typically marked with bullets.
+
+### Syntax
+*   **\`<ul>\`**: Defines the container for the list.
+*   **\`<li>\`**: Defines each "List Item".
+
+### Styling Attributes
+The \`type\` attribute represents the bullet style (Note: styling is usually done with CSS now).
+*   **\`disc\`**: Default black circle.
+*   **\`circle\`**: Empty circle.
+*   **\`square\`**: Filled square.
+*   **\`none\`**: No bullets (often used for navigation menus).
+
+### Nested Lists
+
+You can put a list inside another list item to create a sub-list.
+\`\`\`html
+<ul>
+  <li>Fruits
+    <ul>
+      <li>Apple</li>
+      <li>Banana</li>
+    </ul>
+  </li>
+  <li>Vegetables</li>
+</ul>
+\`\`\``,
+        codeSnippet: '<ul>\n  <li>Apple</li>\n  <li>Mango</li>\n</ul>',
+        isCompleted: false
+      },
+      {
+        id: 'h-list-ol',
+        title: '17. Ordered Lists',
+        content: `### Definition
+
+An **ordered list** is used when the sequence of items is important (e.g., recipes, instructions, ranking). Items are automatically numbered.
+
+### Syntax
+*   **\`<ol>\`**: Defines the ordered list.
+*   **\`<li>\`**: Defines each list item.
+
+### Attributes
+1.  **\`type\` Attribute**: Controls the marker style.
+    *   \`1\`: Numbers (1, 2, 3) - **Default**.
+    *   \`A\`: Uppercase letters (A, B, C).
+    *   \`a\`: Lowercase letters (a, b, c).
+    *   \`I\`: Uppercase Roman numerals (I, II, III).
+    *   \`i\`: Lowercase Roman numerals (i, ii, iii).
+
+2.  **\`start\` Attribute**: Specifies the start value of the first list item.
+    *   \`<ol start="50">\` starts numbering from 50.
+
+3.  **\`reversed\` Attribute**: Reverses the numbering order (e.g., 3, 2, 1).
+    *   \`<ol reversed>\`
+
+### Example
+\`\`\`html
+<ol type="A" start="3">
+  <li>Item C</li>
+  <li>Item D</li>
+</ol>
+\`\`\``,
+        codeSnippet: '<ol type="A">\n  <li>Item One</li>\n  <li>Item Two</li>\n</ol>',
+        isCompleted: false
+      },
+      {
+        id: 'h-list-dl',
+        title: '18. Description Lists',
+        content: `### Definition
+
+A **Description List** (formerly Definition List) is a list of terms, with a description of each term. It is excellent for **glossaries**, **metadata** (key-value pairs), or **FAQs**.
+
+### Tags
+*   **\`<dl>\` (Description List)**: The wrapper container.
+*   **\`<dt>\` (Description Term)**: The name or term being defined.
+*   **\`<dd>\` (Description Data)**: The definition or description of the term.
+
+### Structure
+
+One \`<dt>\` can have multiple \`<dd>\` elements, or vice versa.
+
+### Example
+\`\`\`html
+<dl>
+  <dt>HTML</dt>
+  <dd>Standard markup language for Web pages.</dd>
+  <dt>CSS</dt>
+  <dd>Language for styling Web pages.</dd>
+</dl>
+\`\`\``,
+        codeSnippet: '<dl>\n  <dt>Coffee</dt>\n  <dd>Black hot drink</dd>\n</dl>',
+        isCompleted: false
+      },
+      {
+        id: 'h-div',
+        title: '19. Div Tag',
+        content: `### Definition
+      
+The \`<div>\` (Division) tag is a **generic block-level container**. It has no semantic meaning (it doesn't tell the browser "this is a header" or "this is an article").
+
+### Usage
+*   **Grouping**: Grouping elements together to apply a common style or layout.
+*   **Layout**: Used heavily with CSS (Flexbox, Grid) to build page structures/columns.
+*   **Separation**: Visually separating content sections.
+
+### Best Practices
+*   Use \`<div>\` only when no other **semantic element** (like \`<main>\`, \`<article>\`, \`<nav>\`) is appropriate.
+*   Always try to use a class or id with a div to give it meaning.
+    *   \`<div class="user-profile">\`
+
+**Syntax**:
+\`\`\`html
+<div class="card">
+  <h2>Title</h2>
+  <p>Box content.</p>
+</div>
+\`\`\``,
+        codeSnippet: '<div style="background-color: lightgray;">\n  <h3>Box Content</h3>\n</div>',
+        isCompleted: false
+      },
+      {
+        id: 'h-section',
+        title: '20. Section & Inline Tags',
+        content: `### Definition
+        
+Semantic tags are tags that clearly describe their meaning to both the browser and the developer.
+
+### Semantic Sectioning Tags
+Since HTML5, we have specific tags that act like \`<div>\` but carry meaning:
+
+*   **\`<section>\`**: Defines a thematic grouping of content, typically with a heading.
+*   **\`<article>\`**: A self-contained, independent piece of content (blog post, news item).
+*   **\`<header>\`**: Header of a page or section.
+*   **\`<footer>\`**: Footer of a page or section.
+*   **\`<nav>\`**: Contains navigation links.
+*   **\`<aside>\`**: Sidebar or content tangentially related to the main content.
+*   **\`<main>\`**: Specifies the main content of the document.
+*   **\`<figure>\`**: Groups media content like images, diagrams, or illustrations.
+*   **\`<figcaption>\`**: Provides a caption for a \`<figure>\` element.
+*   **\`<details>\`**: Defines additional details that the user can view or hide.
+*   **\`<summary>\`**: Visible heading for the \`<details>\` element.
+*   **\`<time>\`**: Represents a specific time or date.
+*   **\`<mark>\`**: Highlights or marks text for reference.
+*   **\`<address>\`**: Provides contact information for the author or owner.
+
+
+### Block vs Inline: The Core Concept
+Every HTML element has a default display value.
+
+**1. Block-level Elements**:
+*   Start on a **new line**.
+*   Take up the **full width** available.
+*   **Examples**: \`<div>\`, \`<p>\`, \`<h1>\`-\`<h6>\`, \`<ul>\`, \`<li>\`, \`<section>\`.
+
+**2. Inline Elements**:
+*   Do **NOT** start on a new line.
+*   Take only as much width as necessary.
+*   **Examples**: \`<span>\`, \`<a>\`, \`<img>\`, \`<b>\`, \`<strong>\`.
+
+### The \`<span>\` Tag
+*   \`<span>\` is the **inline** equivalent of \`<div>\`.
+*   Used to style a *part* of a text without breaking the line.
+    *   \`<p>My <span style="color:red">red</span> text.</p>\``,
+        codeSnippet: '<span>Inline 1</span><span>Inline 2</span>\n<div>Block 1</div><div>Block 2</div>',
+        isCompleted: false
+      },
+      {
+        id: 'h-tables',
+        title: '21. Table Structure',
+        content: `### Definition
+
+HTML Tables allow web developers to arrange data into rows and columns.
+
+### Core Structure
+*   **\`<table>\`**: The root container.
+*   **\`<thead>\`**: Groups header content (used for printing/scrolling).
+*   **\`<tbody>\`**: Groups the body content.
+*   **\`<tfoot>\`**: Groups footer content (e.g., totals).
+*   **\`<tr>\`** (Table Row): Defines a row of cells.
+*   **\`<th>\`** (Table Header): Defines a header cell. Text is **bold and centered**.
+*   **\`<td>\`** (Table Data): Defines a standard data cell.
+
+### Accessibility Tip
+
+Always use **\`<caption>\`** to describe the nature of the table for screen readers.
+
+### Example
+\`\`\`html
+<table>
+  <caption>Monthly Savings</caption>
+  <thead>
+    <tr>
+      <th>Month</th>
+      <th>Savings</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>January</td>
+      <td>$100</td>
+    </tr>
+  </tbody>
+</table>
+\`\`\``,
+        codeSnippet: '<table border="1">\n  <tr><th>A</th><th>B</th></tr>\n  <tr><td>1</td><td>2</td></tr>\n</table>',
+        isCompleted: false
+      },
+      {
+        id: 'h-table-merge',
+        title: '22. Table Merging',
+        content: `### Definition
+
+Table merging allows a single cell to span across multiple rows or columns, similar to the "Merge & Center" feature in spreadsheet software like Excel.
+
+### 1. Colspan (Column Span)
+*   **Attribute**: \`colspan\`
+*   **Function**: Merges cells **horizontally**. It dictates how many columns a cell should occupy.
+*   **Usage**: Often used in headers.
+*   **Example**: \`<td colspan="2">\` takes up the space of 2 columns.
+
+### 2. Rowspan (Row Span)
+*   **Attribute**: \`rowspan\`
+*   **Function**: Merges cells **vertically**. It dictates how many rows a cell should occupy.
+*   **Example**: \`<td rowspan="3">\` takes up the height of 3 rows.
+
+### Example Code
+\`\`\`html
+<table border="1">
+  <tr>
+    <th colspan="2">Merged Header</th>
+  </tr>
+  <tr>
+    <td rowspan="2">Vertical Merge</td>
+    <td>Cell 1</td>
+  </tr>
+  <tr>
+    <td>Cell 2</td>
+  </tr>
+</table>
+\`\`\``,
+        codeSnippet: '<td colspan="2">Wide Cell</td>',
+        isCompleted: false
+      },
+      {
+        id: 'h-forms-basic',
+        title: '23. Forms Basics',
+        content: `### Definition
+
+The \`<form>\` element allows users to enter data, which is then sent to a server for processing.
+
+### Key Attributes
+1.  **\`action\`**: The URL where the form data is sent when submitted.
+    *   Example: \`action="/submit-data"\`
+2.  **\`method\`**: The HTTP method used to send data.
+    *   **GET**: Appends data to the URL (Visible). Good for search, NOT for passwords.
+    *   **POST**: Sends data in the body (Hidden). Secure. Used for login/registration.
+
+### The \`<input>\` Tag
+
+The most versatile form element. It acts differently depending on the **\`type\`** attribute.
+
+### Common Input Types
+*   **\`text\`**: Standard single-line text field.
+*   **\`password\`**: Characters are masked (hidden).
+*   **\`email\`**: Validates that text is an email address.
+*   **\`number\`**: Restricts input to numbers (often with spinners).
+*   **\`date\`**: Opens a date picker calendar.
+*   **\`file\`**: Allow users to upload files.
+*   **\`color\`**: Opens a color picker.
+*   **\`range\`**: Slider control.`,
+        codeSnippet: '<form>\n  First Name: <input type="text" name="fname">\n</form>',
+        isCompleted: false
+      },
+      {
+        id: 'h-labels',
+        title: '24. Labels & Text Fields',
+        content: `### Definition
+
+The \`<label>\` tag defines a caption for a form element.
+*   **Accessibility**: Screen readers read the label when the user focuses the input.
+*   **Usability**: Clicking the label text automatically focuses (clicks) the associated input field.
+
+### Binding Label to Input
+
+To create this connection, the \`for\` attribute of the label must match the \`id\` of the input.
+
+**Correct Syntax**:
+\`\`\`html
+<!-- The 'for' matches the 'id' -->
+<label for="user-email">Email Address:</label>
+<input type="email" id="user-email" name="email">
+\`\`\``,
+        codeSnippet: '<label for="user">Username:</label>\n<input type="text" id="user">',
+        isCompleted: false
+      },
+      {
+        id: 'h-selection',
+        title: '25. Radio & Checkbox',
+        content: `### Radio Buttons (\`type="radio"\`)
+*   **Use Case**: When the user must select **exactly one** option from a defined set.
+*   **Grouping**: All radio buttons in a group must share the **same \`name\` attribute**. This ensures only one can be checked at a time.
+*   **Behavior**: Clicking one deselects the others.
+
+### Checkboxes (\`type="checkbox"\`)
+*   **Use Case**: When the user can select **zero, one, or multiple** options.
+*   **Grouping**: Using the same name allows grouping the data on the server, but they operate independently.
+*   **Attribute**: Add \`checked\` to pre-select an option.
+
+### Comparison
+| Feature | Radio | Checkbox |
+| :--- | :--- | :--- |
+| **Selection** | Single Choice | Multiple Choice |
+| **Shape** | Round | Square |
+| **Name** | Must be same | Can be same/different |`,
+        codeSnippet: '<input type="radio" name="color" value="red"> Red',
+        isCompleted: false
+      },
+      {
+        id: 'h-select-text',
+        title: '26. Select & Textarea',
+        content: `### Select Dropdown (\`<select>\`)
+Creates a drop-down list to save space.
+*   **\`<select>\`**: The container.
+*   **\`<option>\`**: Defines each item in the list.
+*   **\`selected\` Attribute**: Pre-selects an option.
+    *   \`<option value="usa" selected>USA</option>\`
+
+### Text Area (\`<textarea>\`)
+A multi-line text input control (like a comment box).
+*   **Difference from Input**: \`<input>\` is for one line; \`<textarea>\` is for paragraphs.
+*   **Sizing**: Controlled by \`rows\` (height) and \`cols\` (width) attributes, or CSS.
+*   **Closing Tag**: Unlike input, it **has** a closing tag.
+    *   \`<textarea>Default text here</textarea>\``,
+        codeSnippet: '<textarea rows="4" cols="50">Enter comments...</textarea>',
+        isCompleted: false
+      },
+      {
+        id: 'h-form-attrs',
+        title: '27. Form Actions & Attributes',
+        content: `### Validation attributes
+HTML5 introduced built-in form validation.
+*   **\`required\`**: The user cannot submit the form until this field is filled.
+*   **\`minlength\` / \`maxlength\`**: Limits the number of characters.
+*   **\`min\` / \`max\`**: Limits numeric or date values.
+*   **\`pattern\`**: Uses Regex to validate input (advanced).
+
+### Usability Attributes
+*   **\`placeholder\`**: Displays a hint inside the field before the user types.
+*   **\`value\`**: Sets the initial default value.
+*   **\`readonly\`**: The user can see but cannot edit the value (it IS sent on submit).
+*   **\`disabled\`**: The user cannot use or click the field (it is NOT sent on submit).
+*   **\`autofocus\`**: The field is automatically selected when the page loads.`,
+        codeSnippet: '<input type="text" required placeholder="Enter Name">',
+        isCompleted: false
+      },
+      {
+        id: 'h-buttons-fieldset',
+        title: '28. Buttons & Fieldset',
+        content: `### Button Types
+Buttons inside a form behave differently based on their \`type\`. ALWAYS specify the type.
+
+1.  **\`type="submit"\`**: The default behavior. When clicked, it validates and sends the form data to the server (Action URL).
+2.  **\`type="reset"\`**: Clears all inputs in the form to their default values. (Use sparingly).
+3.  **\`type="button"\`**: A "dumb" button. It does nothing by default. You must attach JavaScript to make it do something.
+
+### Fieldset & Legend
+Used to group related data in a form (like "Billing Address" vs "Shipping Address").
+*   **\`<fieldset>\`**: Draws a box around the elements.
+*   **\`<legend>\`**: Defines the title of that box.`,
+        codeSnippet: '<button type="submit">Register</button>',
+        isCompleted: false
+      },
+      {
+        id: 'h-advanced',
+        title: '29. Advanced Elements',
+        content: `### 1. Classes & IDs
+These are global attributes used for CSS and JavaScript.
+*   **\`id\` (#)**: A **Unique Identifier**.
+    *   No two elements on a page can have the same ID.
+    *   Used for bookmarks, specific styling, or JS hooks.
+*   **\`class\` (.)**: A **Reusable Identifier**.
+    *   Multiple elements can share the same class.
+    *   Used to style groups of elements (e.g., \`class="btn"\`).
+
+### 2. Iframes (\`<iframe>\`)
+An "Inline Frame" is used to embed another website or document within the current HTML page.
+*   **Syntax**: \`<iframe src="https://example.com" width="300" height="200"></iframe>\`
+*   **Security**: Often sandboxed for security. Use \`title\` for accessibility.
+
+### 3. Interactive Details
+*   **\`<details>\`**: Creates a disclosure widget that is hidden by default.
+*   **\`<summary>\`**: The visible heading. Clicking it reveals the details.
+
+### 4. HTML Entities
+Reserved characters that must be escaped.
+*   Space: \`&nbsp;\`
+*   \`<\`: \`&lt;\`
+*   \`>\`: \`&gt;\`
+*   \`&\`: \`&amp;\`
+*   Copyright ©: \`&copy;\``,
+        codeSnippet: '<div id="header" class="main-box">...</div>',
+        isCompleted: false
+      },
+      {
+        id: 'h-media',
+        title: '30. Multimedia',
+        content: `### Video
+The \`<video>\` tag embeds a media player.
+*   **Attributes**:
+    *   **\`controls\`**: Shows play/pause buttons, volume, etc.
+    *   **\`autoplay\`**: Starts playing automatically (often blocked by browsers if sound is on).
+    *   **\`muted\`**: Plays without sound.
+    *   **\`loop\`**: Replays when finished.
+    *   **\`poster\`**: Shows an image before the video plays.
+
+### Audio
+The \`<audio>\` tag embeds a sound player.
+*   Works similarly to video but without \`height\`, \`width\`, or \`poster\`.
+
+### Fallback Content
+Text inside the tag is displayed only if the browser does NOT support the media.
+\`\`\`html
+<video controls>
+  <source src="movie.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+\`\`\``,
+        codeSnippet: '<video src="clip.mp4" controls></video>',
+        isCompleted: false
+      }
     ]
   },
   {

@@ -344,746 +344,746 @@ Below is the visual overview of Unit 1.`,
         • A student creates a website using HTML, CSS, and PHP on localhost → Local Server
         • The same website uploaded to a hosting provider and accessed using a domain → Remote Server
 
-### WAMP, LAMP, XAMPP & MAMP Server & Static Website vs Dynamic Website Development
-
-### 1. Introduction to Local Server Environments
-Local server environments allow developers/students to run web applications on their own computer before deploying them to a remote server.
-These servers bundle **Web Server + Database + Programming Language**.
-
-### 2. WAMP Server
-**What is WAMP?**
-WAMP stands for:
-• **W** – Windows
-• **A** – Apache
-• **M** – MySQL
-• **P** – PHP
-
-It is used on Windows OS only.
-
-**Installation Steps (WAMP):**
-1. Download WAMP server installer
-2. Run the installer
-3. Choose installation directory
-4. Select default browser
-5. Finish installation
-6. Start WAMP server
-7. Check server via: http://localhost
-
-**Advantages:**
-• Easy to install on Windows
-• Good for beginners
-• Simple interface
-
-**Limitations:**
-• Windows only
-• Less flexible than XAMPP
-
-### 3. LAMP Server
-**What is LAMP?**
-LAMP stands for:
-• **L** – Linux
-• **A** – Apache
-• **M** – MySQL
-• **P** – PHP / Python / Perl
-
-Used mainly on Linux systems.
-
-**Installation Steps (LAMP – Basic):**
-1. Install Apache server
-2. Install MySQL database
-3. Install PHP
-4. Configure Apache & PHP
-5. Restart services
-6. Test using localhost
-
-**Advantages:**
-• Highly secure
-• Open-source
-• Preferred for production servers
-
-**Limitations:**
-• Complex installation
-• Requires Linux knowledge
-
-### 4. XAMPP Server
-**What is XAMPP?**
-XAMPP stands for:
-• **X** – Cross-platform
-• **A** – Apache
-• **M** – MySQL
-• **P** – PHP
-• **P** – Perl
-
-Works on Windows, Linux, and macOS.
-
-**Installation Steps (XAMPP):**
-1. Download XAMPP installer
-2. Run setup file
-3. Select components (Apache, MySQL, PHP)
-4. Complete installation
-5. Start Apache & MySQL from control panel
-6. Open: http://localhost
-
-**Advantages:**
-• Cross-platform
-• Very easy to use
-• Most popular for students
-
-**Limitations:**
-• Not recommended for production
-• Security settings are basic
-
-### 5. MAMP Server
-**What is MAMP?**
-MAMP stands for:
-• **M** – macOS
-• **A** – Apache
-• **M** – MySQL
-• **P** – PHP
-
-Used mainly on macOS (also available for Windows).
-
-**Installation Steps (MAMP):**
-1. Download MAMP
-2. Install application
-3. Launch MAMP
-4. Start servers
-5. Access site via localhost
-
-**Advantages:**
-• Best for macOS users
-• Simple UI
-• Stable environment
-
-  Limitations:  
-• Some features are paid
-• Less common in colleges
-
-### 6. Comparison of WAMP, LAMP, XAMPP & MAMP
-| Server | OS | Ease of Use | Popularity |
-|---|---|---|---|
-| WAMP | Windows | Easy | Medium |
-| LAMP | Linux | Difficult | High (Production) |
-| XAMPP | Cross-platform | Very Easy | Very High |
-| MAMP | macOS | Easy | Medium |
-
-### 7. Static Website Development
-**What is a Static Website?**
-A static website displays fixed content.
-The same page is shown to all users.
-
-**Technologies Used:**
-• HTML
-• CSS
-• Basic JavaScript
-
-**Characteristics:**
-• No database
-• Fast loading
-• Simple structure
-
-**Examples:**
-• Portfolio website
-• College information site
-
-**Advantages:**
-• Easy to develop
-• Low cost
-• High speed
-
-**Limitations:**
-• No user interaction
-• Content updates manually
-
-### 8. Dynamic Website Development
-**What is a Dynamic Website?**
-A dynamic website generates content at runtime based on user interaction.
-
-**Technologies Used:**
-• HTML, CSS, JavaScript
-• PHP / JSP / Python
-• Database (MySQL, Oracle)
-
-**Characteristics:**
-• Database-driven
-• User interaction supported
-• Content changes dynamically
-
-**Examples:**
-• E-commerce websites
-• Online exam portals
-• Social media platforms
-
-**Advantages:**
-• Interactive
-• Easy content management
-• Personalized user experience
-
-**Limitations:**
-• More complex
-• Slower than static sites
-• Requires server & database
-
-### 9. Static vs Dynamic Website (Comparison)
-| Feature | Static Website | Dynamic Website |
-|---|---|---|
-| Content | Fixed | Changing |
-| Database | Not used | Used |
-| Interaction | No | Yes |
-| Speed | Fast | Slower |
-| Complexity | Simple | Complex |
-| Cost | Low | Higher |
-
-### Introduction to PHP: Data Types, Variables & Super Global Variables
-
-### 1. Introduction to PHP
-PHP (Hypertext Preprocessor) is a server-side scripting language mainly used for web application development.
-PHP scripts are executed on the server, and the result is sent to the browser as plain HTML.
-
-**Features of PHP:**
-• Open source
-• Easy to learn
-• Platform independent
-• Supports databases (MySQL, Oracle, PostgreSQL)
-• Embedded within HTML
-
-**Example of PHP Code:**
-\`\`\`php
-<?php
-echo "Welcome to Web Based Programming";
-?>
-\`\`\`
-
-### 2. PHP Data Types
-PHP supports different types of data to store values.
-
-**2.1 Integer**
-Used to store whole numbers.
-\`\`\`php
-$age = 20;
-\`\`\`
-
-**2.2 Float (Double)**
-Used to store decimal numbers.
-\`\`\`php
-$price = 99.50;
-\`\`\`
-
-**2.3 String**
-Used to store text.
-\`\`\`php
-$name = "Rohit";
-\`\`\`
-
-**2.4 Boolean**
-Used to store true or false.
-\`\`\`php
-$isLogin = true;
-\`\`\`
-
-**2.5 Array**
-Used to store multiple values in one variable.
-\`\`\`php
-$subjects = array("HTML", "CSS", "PHP");
-\`\`\`
-
-**2.6 Object**
-Used to store data and functions together.
-\`\`\`php
-class Student {
-  public $name = "Amit";
-}
-$obj = new Student();
-\`\`\`
-
-**2.7 NULL**
-Represents no value.
-\`\`\`php
-$var = NULL;
-\`\`\`
-
-### 3. PHP Variables
-A variable is used to store data temporarily.
-
-**Rules for PHP Variables:**
-• Starts with $ symbol
-• Must begin with a letter or underscore
-• Case-sensitive
-• Cannot start with a number
-
-**Example:**
-\`\`\`php
-$name = "Ankit";
-$age = 21;
-\`\`\`
-
-**3.1 Variable Scope**
-1. **Local Variable** – Defined inside a function
-2. **Global Variable** – Defined outside a function
-3. **Static Variable** – Retains value between function calls
-
-\`\`\`php
-function test() {
-  static $x = 0;
-  $x++;
-  echo $x;
-}
-\`\`\`
-
-### 4. PHP Super Global Variables
-Super Globals are predefined variables available anywhere in the script.
-
-**List of PHP Super Global Variables**
-| Super Global | Description |
-|---|---|
-| $_GET | Collects data from URL |
-| $_POST | Collects form data |
-| $_REQUEST | Collects GET, POST & COOKIE data |
-| $_SERVER | Server information |
-| $_SESSION | Stores session data |
-| $_COOKIE | Stores cookie data |
-| $_FILES | File upload data |
-| $_ENV | Environment variables |
-| $GLOBALS | Access global variables |
-
-**4.1 $_GET**
-Used to collect data sent via URL.
-\`\`\`php
-echo $_GET['name'];
-\`\`\`
-
-**4.2 $_POST**
-Used to collect form data securely.
-\`\`\`php
-echo $_POST['username'];
-\`\`\`
-
-**4.3 $_SERVER**
-Provides server and execution environment information.
-\`\`\`php
-echo $_SERVER['SERVER_NAME'];
-\`\`\`
-
-**4.4 $_SESSION**
-Used to store user data across multiple pages.
-\`\`\`php
-session_start();
-$_SESSION['user'] = "Admin";
-\`\`\`
-
-**4.5 $_COOKIE**
-Used to store small data on user’s browser.
-\`\`\`php
-setcookie("user", "Admin", time()+3600);
-\`\`\`
-
-### 5. GET vs POST (Short Comparison)
-| Feature | GET | POST |
-|---|---|---|
-| Data Visibility | Visible in URL | Hidden |
-| Security | Less secure | More secure |
-| Data Limit | Limited | Large |
-| Usage | Search forms | Login forms |
-### PHP: Constants, Comments, Operators & Expressions, Regular Expressions, Advantages of PHP
-
-### 1. PHP Constants
-A constant is an identifier whose value cannot be changed once defined.
-
-**Features of Constants:**
-• Do not use $ symbol
-• Case-sensitive by default
-• Global scope
-
-**Defining Constants:**
-\`\`\`php
-define("SITE_NAME", "MyWebsite");
-echo SITE_NAME;
-\`\`\`
-
-**Using const keyword:**
-\`\`\`php
-const PI = 3.14;
-\`\`\`
-
-### 2. PHP Comments
-Comments are used to explain code and are ignored by the PHP interpreter.
-
-**Types of Comments:**
-1. **Single-line comment**
-\`\`\`php
-// This is a single-line comment
-# This is also a single-line comment
-\`\`\`
-
-2. **Multi-line comment**
-\`\`\`php
-/*
- This is
- a multi-line comment
-*/
-\`\`\`
-
-### 3. PHP Operators
-Operators are symbols used to perform operations on variables and values.
-
-**3.1 Arithmetic Operators**
-| Operator | Description |
-|---|---|
-| + | Addition |
-| - | Subtraction |
-| * | Multiplication |
-| / | Division |
-| % | Modulus |
-
-\`\`\`php
-echo 10 + 5;
-\`\`\`
-
-**3.2 Assignment Operators**
-| Operator | Example |
-|---|---|
-| = | $x = 10 |
-| += | $x += 5 |
-| -= | $x -= 2 |
-
-**3.3 Comparison Operators**
-| Operator | Meaning |
-|---|---|
-| == | Equal |
-| === | Identical |
-| != | Not equal |
-| > | Greater than |
-
-\`\`\`php
-if ($a == $b) { }
-\`\`\`
-
-**3.4 Logical Operators**
-| Operator | Meaning |
-|---|---|
-| && | AND |
-| \|\| | OR |
-| ! | NOT |
-
-**3.5 Increment / Decrement Operators**
-\`\`\`php
-$x++;
-$y--;
-\`\`\`
-
-### 4. PHP Expressions
-An expression is a combination of variables, operators, and values that produces a result.
-
-**Example:**
-\`\`\`php
-$result = ($a + $b) * 2;
-\`\`\`
-
-### 5. PHP Regular Expressions
-Regular Expressions (Regex) are used for pattern matching in strings.
-
-**Common PHP Regex Functions:**
-| Function | Purpose |
-|---|---|
-| preg_match() | Match pattern |
-| preg_replace() | Replace text |
-| preg_split() | Split string |
-
-**Example: Email Validation**
-\`\`\`php
-$email = "test@gmail.com";
-if (preg_match("/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i", $email)) {
-  echo "Valid Email";
-} else {
-  echo "Invalid Email";
-}
-\`\`\`
-
-**Common Regex Patterns:**
-| Pattern | Meaning |
-|---|---|
-| ^ | Start of string |
-| $ | End of string |
-| . | Any character |
-| * | Zero or more |
-| + | One or more |
-| [a-z] | Lowercase letters |
-
-### 6. Advantages of PHP
-**Why Use PHP?**
-• Open source and free
-• Easy to learn and use
-• Platform independent
-• Fast execution
-• Supports many databases
-• Large community support
-• Widely used in web development
-
-### Control Statements in PHP: Conditional Statements & Loops
-
-### 1. Control Statements in PHP
-Control statements are used to control the flow of execution of a PHP program.
-They help in decision making and repetition of tasks.
-
-**Control statements are mainly of two types:**
-1. Conditional Statements
-2. Looping Statements
-
-### 2. Conditional Statements in PHP
-Conditional statements execute code based on conditions.
-
-**2.1 if Statement**
-Executes code only if the condition is true.
-\`\`\`php
-$age = 20;
-if ($age >= 18) {
-  echo "Eligible to vote";
-}
-\`\`\`
-
-**2.2 if–else Statement**
-Executes one block if condition is true, otherwise another block.
-\`\`\`php
-$marks = 45;
-if ($marks >= 40) {
-  echo "Pass";
-} else {
-  echo "Fail";
-}
-\`\`\`
-
-**2.3 if–elseif–else Statement**
-Used to test multiple conditions.
-\`\`\`php
-$marks = 75;
-if ($marks >= 80) {
-  echo "Grade A";
-} elseif ($marks >= 60) {
-  echo "Grade B";
-} else {
-  echo "Grade C";
-}
-\`\`\`
-
-**2.4 Nested if Statement**
-An if statement inside another if statement.
-\`\`\`php
-$age = 22;
-$citizen = true;
-
-if ($age >= 18) {
-  if ($citizen) {
-    echo "Eligible to vote";
-  }
-}
-\`\`\`
-
-**2.5 switch–case Statement**
-Used when there are multiple fixed values.
-\`\`\`php
-$day = 3;
-switch ($day) {
-  case 1:
-    echo "Monday";
-    break;
-  case 2:
-    echo "Tuesday";
-    break;
-  case 3:
-    echo "Wednesday";
-    break;
-  default:
-    echo "Invalid day";
-}
-\`\`\`
-
-**Important Points:**
-• break stops execution
-• default executes if no case matches
-
-### 3. Looping Statements in PHP
-Loops are used to execute a block of code repeatedly.
-
-**3.1 for Loop**
-Used when the number of iterations is known.
-\`\`\`php
-for ($i = 1; $i <= 5; $i++) {
-  echo $i . "<br>";
-}
-\`\`\`
-
-**3.2 while Loop**
-Executes code while condition is true.
-\`\`\`php
-$i = 1;
-while ($i <= 5) {
-  echo $i . "<br>";
-  $i++;
-}
-\`\`\`
-
-**3.3 do–while Loop**
-Executes code at least once, even if condition is false.
-\`\`\`php
-$i = 1;
-do {
-  echo $i . "<br>";
-  $i++;
-} while ($i <= 5);
-\`\`\`
-
-**3.4 foreach Loop**
-Used to iterate through arrays.
-\`\`\`php
-$subjects = array("HTML", "CSS", "PHP");
-foreach ($subjects as $sub) {
-  echo $sub . "<br>";
-}
-\`\`\`
-
-### 4. Comparison of Loops
-| Loop | Use Case |
-|---|---|
-| for | Known number of iterations |
-| while | Unknown iterations |
-| do-while | Execute at least once |
-| foreach | Arrays |
-
-### 5. Comparison of Conditional vs Loop Statements
-| Feature | Conditional | Loop |
-|---|---|
-| Purpose | Decision making | Repetition |
-| Executes | Based on condition | Multiple times |
-| Examples | if, switch | for, while |
-
-### Arrays in PHP: Indexed Array, Associative Array, Multidimensional Array & Predefined Functions
-
-### 1. Introduction to Arrays in PHP
-An array is a special variable that can store multiple values in a single variable.
-Each value is stored with an index or key.
-
-**Why Use Arrays?**
-• Store multiple related values
-• Reduce number of variables
-• Easy data management
-
-### 2. Indexed Array
-An indexed array uses numeric indexes (starting from 0 by default).
-
-**Declaration:**
-\`\`\`php
-$subjects = array("HTML", "CSS", "PHP", "JavaScript");
-\`\`\`
-
-**Accessing Elements:**
-\`\`\`php
-echo $subjects[0];   // HTML
-\`\`\`
-
-**Using Loop:**
-\`\`\`php
-for ($i = 0; $i < count($subjects); $i++) {
-  echo $subjects[$i] . "<br>";
-}
-\`\`\`
-
-### 3. Associative Array
-An associative array uses named keys instead of numeric indexes.
-
-**Declaration:**
-\`\`\`php
-$student = array(
-  "name" => "Rohit",
-  "age" => 21,
-  "course" => "BCA"
-);
-\`\`\`
-
-**Accessing Elements:**
-\`\`\`php
-echo $student["name"];
-\`\`\`
-
-**Using foreach Loop:**
-\`\`\`php
-foreach ($student as $key => $value) {
-  echo $key . " : " . $value . "<br>";
-}
-\`\`\`
-
-### 4. Multidimensional Array
-A multidimensional array is an array containing one or more arrays.
-
-**Example:**
-\`\`\`php
-$students = array(
-  array("Amit", 20, "BCA"),
-  array("Neha", 21, "BCA"),
-  array("Ravi", 22, "BCA")
-);
-\`\`\`
-
-**Accessing Elements:**
-\`\`\`php
-echo $students[0][0];   // Amit
-\`\`\`
-
-**Using Nested Loop:**
-\`\`\`php
-for ($i = 0; $i < count($students); $i++) {
-  for ($j = 0; $j < count($students[$i]); $j++) {
-    echo $students[$i][$j] . " ";
-  }
-  echo "<br>";
-}
-\`\`\`
-
-### 5. PHP Array Predefined Functions
-PHP provides many built-in functions to handle arrays.
-
-**Common Array Functions:**
-| Function | Description |
-|---|---|
-| count() | Count elements |
-| sort() | Sort ascending |
-| rsort() | Sort descending |
-| array_push() | Add element at end |
-| array_pop() | Remove last element |
-| array_merge() | Merge arrays |
-| in_array() | Check value exists |
-| array_keys() | Get all keys |
-| array_values() | Get all values |
-
-**Examples:**
-
-**count()**
-\`\`\`php
-echo count($subjects);
-\`\`\`
-
-**sort()**
-\`\`\`php
-sort($subjects);
-\`\`\`
-
-**array_push()**
-\`\`\`php
-array_push($subjects, "React");
-\`\`\`
-
-**in_array()**
-\`\`\`php
-if (in_array("PHP", $subjects)) {
-  echo "Found";
-}
-\`\`\`
-
-### 6. Difference Between Indexed & Associative Array
-| Feature | Indexed Array | Associative Array |
-|---|---|---|
-| Index Type | Numeric | Named |
-| Access | Using index | Using key |
-| Usage | Lists | Key–value data |`,
+        ### WAMP, LAMP, XAMPP & MAMP Server & Static Website vs Dynamic Website Development
+
+        ### 1. Introduction to Local Server Environments
+        Local server environments allow developers/students to run web applications on their own computer before deploying them to a remote server.
+        These servers bundle **Web Server + Database + Programming Language**.
+
+        ### 2. WAMP Server
+        **What is WAMP?**
+        WAMP stands for:
+        • **W** – Windows
+        • **A** – Apache
+        • **M** – MySQL
+        • **P** – PHP
+
+        It is used on Windows OS only.
+
+        **Installation Steps (WAMP):**
+        1. Download WAMP server installer
+        2. Run the installer
+        3. Choose installation directory
+        4. Select default browser
+        5. Finish installation
+        6. Start WAMP server
+        7. Check server via: http://localhost
+
+        **Advantages:**
+        • Easy to install on Windows
+        • Good for beginners
+        • Simple interface
+
+        **Limitations:**
+        • Windows only
+        • Less flexible than XAMPP
+
+        ### 3. LAMP Server
+        **What is LAMP?**
+        LAMP stands for:
+        • **L** – Linux
+        • **A** – Apache
+        • **M** – MySQL
+        • **P** – PHP / Python / Perl
+
+        Used mainly on Linux systems.
+
+        **Installation Steps (LAMP – Basic):**
+        1. Install Apache server
+        2. Install MySQL database
+        3. Install PHP
+        4. Configure Apache & PHP
+        5. Restart services
+        6. Test using localhost
+
+        **Advantages:**
+        • Highly secure
+        • Open-source
+        • Preferred for production servers
+
+        **Limitations:**
+        • Complex installation
+        • Requires Linux knowledge
+
+        ### 4. XAMPP Server
+        **What is XAMPP?**
+        XAMPP stands for:
+        • **X** – Cross-platform
+        • **A** – Apache
+        • **M** – MySQL
+        • **P** – PHP
+        • **P** – Perl
+
+        Works on Windows, Linux, and macOS.
+
+        **Installation Steps (XAMPP):**
+        1. Download XAMPP installer
+        2. Run setup file
+        3. Select components (Apache, MySQL, PHP)
+        4. Complete installation
+        5. Start Apache & MySQL from control panel
+        6. Open: http://localhost
+
+        **Advantages:**
+        • Cross-platform
+        • Very easy to use
+        • Most popular for students
+
+        **Limitations:**
+        • Not recommended for production
+        • Security settings are basic
+
+        ### 5. MAMP Server
+        **What is MAMP?**
+        MAMP stands for:
+        • **M** – macOS
+        • **A** – Apache
+        • **M** – MySQL
+        • **P** – PHP
+
+        Used mainly on macOS (also available for Windows).
+
+        **Installation Steps (MAMP):**
+        1. Download MAMP
+        2. Install application
+        3. Launch MAMP
+        4. Start servers
+        5. Access site via localhost
+
+        **Advantages:**
+        • Best for macOS users
+        • Simple UI
+        • Stable environment
+
+          Limitations:
+        • Some features are paid
+        • Less common in colleges
+
+        ### 6. Comparison of WAMP, LAMP, XAMPP & MAMP
+        | Server | OS | Ease of Use | Popularity |
+        |---|---|---|---|
+        | WAMP | Windows | Easy | Medium |
+        | LAMP | Linux | Difficult | High (Production) |
+        | XAMPP | Cross-platform | Very Easy | Very High |
+        | MAMP | macOS | Easy | Medium |
+
+        ### 7. Static Website Development
+        **What is a Static Website?**
+        A static website displays fixed content.
+        The same page is shown to all users.
+
+        **Technologies Used:**
+        • HTML
+        • CSS
+        • Basic JavaScript
+
+        **Characteristics:**
+        • No database
+        • Fast loading
+        • Simple structure
+
+        **Examples:**
+        • Portfolio website
+        • College information site
+
+        **Advantages:**
+        • Easy to develop
+        • Low cost
+        • High speed
+
+        **Limitations:**
+        • No user interaction
+        • Content updates manually
+
+        ### 8. Dynamic Website Development
+        **What is a Dynamic Website?**
+        A dynamic website generates content at runtime based on user interaction.
+
+        **Technologies Used:**
+        • HTML, CSS, JavaScript
+        • PHP / JSP / Python
+        • Database (MySQL, Oracle)
+
+        **Characteristics:**
+        • Database-driven
+        • User interaction supported
+        • Content changes dynamically
+
+        **Examples:**
+        • E-commerce websites
+        • Online exam portals
+        • Social media platforms
+
+        **Advantages:**
+        • Interactive
+        • Easy content management
+        • Personalized user experience
+
+        **Limitations:**
+        • More complex
+        • Slower than static sites
+        • Requires server & database
+
+        ### 9. Static vs Dynamic Website (Comparison)
+        | Feature | Static Website | Dynamic Website |
+        |---|---|---|
+        | Content | Fixed | Changing |
+        | Database | Not used | Used |
+        | Interaction | No | Yes |
+        | Speed | Fast | Slower |
+        | Complexity | Simple | Complex |
+        | Cost | Low | Higher |
+
+        ### Introduction to PHP: Data Types, Variables & Super Global Variables
+
+        ### 1. Introduction to PHP
+        PHP (Hypertext Preprocessor) is a server-side scripting language mainly used for web application development.
+        PHP scripts are executed on the server, and the result is sent to the browser as plain HTML.
+
+        **Features of PHP:**
+        • Open source
+        • Easy to learn
+        • Platform independent
+        • Supports databases (MySQL, Oracle, PostgreSQL)
+        • Embedded within HTML
+
+        **Example of PHP Code:**
+        \`\`\`php
+        <?php
+        echo "Welcome to Web Based Programming";
+        ?>
+        \`\`\`
+
+        ### 2. PHP Data Types
+        PHP supports different types of data to store values.
+
+        **2.1 Integer**
+        Used to store whole numbers.
+        \`\`\`php
+        $age = 20;
+        \`\`\`
+
+        **2.2 Float (Double)**
+        Used to store decimal numbers.
+        \`\`\`php
+        $price = 99.50;
+        \`\`\`
+
+        **2.3 String**
+        Used to store text.
+        \`\`\`php
+        $name = "Rohit";
+        \`\`\`
+
+        **2.4 Boolean**
+        Used to store true or false.
+        \`\`\`php
+        $isLogin = true;
+        \`\`\`
+
+        **2.5 Array**
+        Used to store multiple values in one variable.
+        \`\`\`php
+        $subjects = array("HTML", "CSS", "PHP");
+        \`\`\`
+
+        **2.6 Object**
+        Used to store data and functions together.
+        \`\`\`php
+        class Student {
+          public $name = "Amit";
+        }
+        $obj = new Student();
+        \`\`\`
+
+        **2.7 NULL**
+        Represents no value.
+        \`\`\`php
+        $var = NULL;
+        \`\`\`
+
+        ### 3. PHP Variables
+        A variable is used to store data temporarily.
+
+        **Rules for PHP Variables:**
+        • Starts with $ symbol
+        • Must begin with a letter or underscore
+        • Case-sensitive
+        • Cannot start with a number
+
+        **Example:**
+        \`\`\`php
+        $name = "Ankit";
+        $age = 21;
+        \`\`\`
+
+        **3.1 Variable Scope**
+        1. **Local Variable** – Defined inside a function
+        2. **Global Variable** – Defined outside a function
+        3. **Static Variable** – Retains value between function calls
+
+        \`\`\`php
+        function test() {
+          static $x = 0;
+          $x++;
+          echo $x;
+        }
+        \`\`\`
+
+        ### 4. PHP Super Global Variables
+        Super Globals are predefined variables available anywhere in the script.
+
+        **List of PHP Super Global Variables**
+        | Super Global | Description |
+        |---|---|
+        | $_GET | Collects data from URL |
+        | $_POST | Collects form data |
+        | $_REQUEST | Collects GET, POST & COOKIE data |
+        | $_SERVER | Server information |
+        | $_SESSION | Stores session data |
+        | $_COOKIE | Stores cookie data |
+        | $_FILES | File upload data |
+        | $_ENV | Environment variables |
+        | $GLOBALS | Access global variables |
+
+        **4.1 $_GET**
+        Used to collect data sent via URL.
+        \`\`\`php
+        echo $_GET['name'];
+        \`\`\`
+
+        **4.2 $_POST**
+        Used to collect form data securely.
+        \`\`\`php
+        echo $_POST['username'];
+        \`\`\`
+
+        **4.3 $_SERVER**
+        Provides server and execution environment information.
+        \`\`\`php
+        echo $_SERVER['SERVER_NAME'];
+        \`\`\`
+
+        **4.4 $_SESSION**
+        Used to store user data across multiple pages.
+        \`\`\`php
+        session_start();
+        $_SESSION['user'] = "Admin";
+        \`\`\`
+
+        **4.5 $_COOKIE**
+        Used to store small data on user’s browser.
+        \`\`\`php
+        setcookie("user", "Admin", time()+3600);
+        \`\`\`
+
+        ### 5. GET vs POST (Short Comparison)
+        | Feature | GET | POST |
+        |---|---|---|
+        | Data Visibility | Visible in URL | Hidden |
+        | Security | Less secure | More secure |
+        | Data Limit | Limited | Large |
+        | Usage | Search forms | Login forms |
+        ### PHP: Constants, Comments, Operators & Expressions, Regular Expressions, Advantages of PHP
+
+        ### 1. PHP Constants
+        A constant is an identifier whose value cannot be changed once defined.
+
+        **Features of Constants:**
+        • Do not use $ symbol
+        • Case-sensitive by default
+        • Global scope
+
+        **Defining Constants:**
+        \`\`\`php
+        define("SITE_NAME", "MyWebsite");
+        echo SITE_NAME;
+        \`\`\`
+
+        **Using const keyword:**
+        \`\`\`php
+        const PI = 3.14;
+        \`\`\`
+
+        ### 2. PHP Comments
+        Comments are used to explain code and are ignored by the PHP interpreter.
+
+        **Types of Comments:**
+        1. **Single-line comment**
+        \`\`\`php
+        // This is a single-line comment
+        # This is also a single-line comment
+        \`\`\`
+
+        2. **Multi-line comment**
+        \`\`\`php
+        /*
+         This is
+         a multi-line comment
+        */
+        \`\`\`
+
+        ### 3. PHP Operators
+        Operators are symbols used to perform operations on variables and values.
+
+        **3.1 Arithmetic Operators**
+        | Operator | Description |
+        |---|---|
+        | + | Addition |
+        | - | Subtraction |
+        | * | Multiplication |
+        | / | Division |
+        | % | Modulus |
+
+        \`\`\`php
+        echo 10 + 5;
+        \`\`\`
+
+        **3.2 Assignment Operators**
+        | Operator | Example |
+        |---|---|
+        | = | $x = 10 |
+        | += | $x += 5 |
+        | -= | $x -= 2 |
+
+        **3.3 Comparison Operators**
+        | Operator | Meaning |
+        |---|---|
+        | == | Equal |
+        | === | Identical |
+        | != | Not equal |
+        | > | Greater than |
+
+        \`\`\`php
+        if ($a == $b) { }
+        \`\`\`
+
+        **3.4 Logical Operators**
+        | Operator | Meaning |
+        |---|---|
+        | && | AND |
+        | \|\| | OR |
+        | ! | NOT |
+
+        **3.5 Increment / Decrement Operators**
+        \`\`\`php
+        $x++;
+        $y--;
+        \`\`\`
+
+        ### 4. PHP Expressions
+        An expression is a combination of variables, operators, and values that produces a result.
+
+        **Example:**
+        \`\`\`php
+        $result = ($a + $b) * 2;
+        \`\`\`
+
+        ### 5. PHP Regular Expressions
+        Regular Expressions (Regex) are used for pattern matching in strings.
+
+        **Common PHP Regex Functions:**
+        | Function | Purpose |
+        |---|---|
+        | preg_match() | Match pattern |
+        | preg_replace() | Replace text |
+        | preg_split() | Split string |
+
+        **Example: Email Validation**
+        \`\`\`php
+        $email = "test@gmail.com";
+        if (preg_match("/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i", $email)) {
+          echo "Valid Email";
+        } else {
+          echo "Invalid Email";
+        }
+        \`\`\`
+
+        **Common Regex Patterns:**
+        | Pattern | Meaning |
+        |---|---|
+        | ^ | Start of string |
+        | $ | End of string |
+        | . | Any character |
+        | * | Zero or more |
+        | + | One or more |
+        | [a-z] | Lowercase letters |
+
+        ### 6. Advantages of PHP
+        **Why Use PHP?**
+        • Open source and free
+        • Easy to learn and use
+        • Platform independent
+        • Fast execution
+        • Supports many databases
+        • Large community support
+        • Widely used in web development
+
+        ### Control Statements in PHP: Conditional Statements & Loops
+
+        ### 1. Control Statements in PHP
+        Control statements are used to control the flow of execution of a PHP program.
+        They help in decision making and repetition of tasks.
+
+        **Control statements are mainly of two types:**
+        1. Conditional Statements
+        2. Looping Statements
+
+        ### 2. Conditional Statements in PHP
+        Conditional statements execute code based on conditions.
+
+        **2.1 if Statement**
+        Executes code only if the condition is true.
+        \`\`\`php
+        $age = 20;
+        if ($age >= 18) {
+          echo "Eligible to vote";
+        }
+        \`\`\`
+
+        **2.2 if–else Statement**
+        Executes one block if condition is true, otherwise another block.
+        \`\`\`php
+        $marks = 45;
+        if ($marks >= 40) {
+          echo "Pass";
+        } else {
+          echo "Fail";
+        }
+        \`\`\`
+
+        **2.3 if–elseif–else Statement**
+        Used to test multiple conditions.
+        \`\`\`php
+        $marks = 75;
+        if ($marks >= 80) {
+          echo "Grade A";
+        } elseif ($marks >= 60) {
+          echo "Grade B";
+        } else {
+          echo "Grade C";
+        }
+        \`\`\`
+
+        **2.4 Nested if Statement**
+        An if statement inside another if statement.
+        \`\`\`php
+        $age = 22;
+        $citizen = true;
+
+        if ($age >= 18) {
+          if ($citizen) {
+            echo "Eligible to vote";
+          }
+        }
+        \`\`\`
+
+        **2.5 switch–case Statement**
+        Used when there are multiple fixed values.
+        \`\`\`php
+        $day = 3;
+        switch ($day) {
+          case 1:
+            echo "Monday";
+            break;
+          case 2:
+            echo "Tuesday";
+            break;
+          case 3:
+            echo "Wednesday";
+            break;
+          default:
+            echo "Invalid day";
+        }
+        \`\`\`
+
+        **Important Points:**
+        • break stops execution
+        • default executes if no case matches
+
+        ### 3. Looping Statements in PHP
+        Loops are used to execute a block of code repeatedly.
+
+        **3.1 for Loop**
+        Used when the number of iterations is known.
+        \`\`\`php
+        for ($i = 1; $i <= 5; $i++) {
+          echo $i . "<br>";
+        }
+        \`\`\`
+
+        **3.2 while Loop**
+        Executes code while condition is true.
+        \`\`\`php
+        $i = 1;
+        while ($i <= 5) {
+          echo $i . "<br>";
+          $i++;
+        }
+        \`\`\`
+
+        **3.3 do–while Loop**
+        Executes code at least once, even if condition is false.
+        \`\`\`php
+        $i = 1;
+        do {
+          echo $i . "<br>";
+          $i++;
+        } while ($i <= 5);
+        \`\`\`
+
+        **3.4 foreach Loop**
+        Used to iterate through arrays.
+        \`\`\`php
+        $subjects = array("HTML", "CSS", "PHP");
+        foreach ($subjects as $sub) {
+          echo $sub . "<br>";
+        }
+        \`\`\`
+
+        ### 4. Comparison of Loops
+        | Loop | Use Case |
+        |---|---|
+        | for | Known number of iterations |
+        | while | Unknown iterations |
+        | do-while | Execute at least once |
+        | foreach | Arrays |
+
+        ### 5. Comparison of Conditional vs Loop Statements
+        | Feature | Conditional | Loop |
+        |---|---|
+        | Purpose | Decision making | Repetition |
+        | Executes | Based on condition | Multiple times |
+        | Examples | if, switch | for, while |
+
+        ### Arrays in PHP: Indexed Array, Associative Array, Multidimensional Array & Predefined Functions
+
+        ### 1. Introduction to Arrays in PHP
+        An array is a special variable that can store multiple values in a single variable.
+        Each value is stored with an index or key.
+
+        **Why Use Arrays?**
+        • Store multiple related values
+        • Reduce number of variables
+        • Easy data management
+
+        ### 2. Indexed Array
+        An indexed array uses numeric indexes (starting from 0 by default).
+
+        **Declaration:**
+        \`\`\`php
+        $subjects = array("HTML", "CSS", "PHP", "JavaScript");
+        \`\`\`
+
+        **Accessing Elements:**
+        \`\`\`php
+        echo $subjects[0];   // HTML
+        \`\`\`
+
+        **Using Loop:**
+        \`\`\`php
+        for ($i = 0; $i < count($subjects); $i++) {
+          echo $subjects[$i] . "<br>";
+        }
+        \`\`\`
+
+        ### 3. Associative Array
+        An associative array uses named keys instead of numeric indexes.
+
+        **Declaration:**
+        \`\`\`php
+        $student = array(
+          "name" => "Rohit",
+          "age" => 21,
+          "course" => "BCA"
+        );
+        \`\`\`
+
+        **Accessing Elements:**
+        \`\`\`php
+        echo $student["name"];
+        \`\`\`
+
+        **Using foreach Loop:**
+        \`\`\`php
+        foreach ($student as $key => $value) {
+          echo $key . " : " . $value . "<br>";
+        }
+        \`\`\`
+
+        ### 4. Multidimensional Array
+        A multidimensional array is an array containing one or more arrays.
+
+        **Example:**
+        \`\`\`php
+        $students = array(
+          array("Amit", 20, "BCA"),
+          array("Neha", 21, "BCA"),
+          array("Ravi", 22, "BCA")
+        );
+        \`\`\`
+
+        **Accessing Elements:**
+        \`\`\`php
+        echo $students[0][0];   // Amit
+        \`\`\`
+
+        **Using Nested Loop:**
+        \`\`\`php
+        for ($i = 0; $i < count($students); $i++) {
+          for ($j = 0; $j < count($students[$i]); $j++) {
+            echo $students[$i][$j] . " ";
+          }
+          echo "<br>";
+        }
+        \`\`\`
+
+        ### 5. PHP Array Predefined Functions
+        PHP provides many built-in functions to handle arrays.
+
+        **Common Array Functions:**
+        | Function | Description |
+        |---|---|
+        | count() | Count elements |
+        | sort() | Sort ascending |
+        | rsort() | Sort descending |
+        | array_push() | Add element at end |
+        | array_pop() | Remove last element |
+        | array_merge() | Merge arrays |
+        | in_array() | Check value exists |
+        | array_keys() | Get all keys |
+        | array_values() | Get all values |
+
+        **Examples:**
+
+        **count()**
+        \`\`\`php
+        echo count($subjects);
+        \`\`\`
+
+        **sort()**
+        \`\`\`php
+        sort($subjects);
+        \`\`\`
+
+        **array_push()**
+        \`\`\`php
+        array_push($subjects, "React");
+        \`\`\`
+
+        **in_array()**
+        \`\`\`php
+        if (in_array("PHP", $subjects)) {
+          echo "Found";
+        }
+        \`\`\`
+
+        ### 6. Difference Between Indexed & Associative Array
+        | Feature | Indexed Array | Associative Array |
+        |---|---|---|
+        | Index Type | Numeric | Named |
+        | Access | Using index | Using key |
+        | Usage | Lists | Key–value data |`,
         codeSnippet: undefined,
         isCompleted: false
       }
@@ -1598,7 +1598,6 @@ Marks: 45, 48, 50, 52, 98
 • Genuine rare events
 
 ### 4. Outlier Detection Methods
-
 ### 4.1 Statistical Methods
 • Z-Score Method
 • IQR (Interquartile Range) Method
@@ -1781,7 +1780,7 @@ It answers: "How can data be divided into similar groups?"
 ### 4. Role in Data Analytics
 • Categorization helps in labeling data
 • Segmentation helps in discovering structure in data
-• Both improve data visualization and analysis`,
+•	Both improve data visualization and analysis`,
         codeSnippet: undefined,
         isCompleted: false
       }
