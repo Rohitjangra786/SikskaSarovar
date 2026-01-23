@@ -357,6 +357,7 @@ Below is the visual overview of Unit 1.`,
         These servers bundle **Web Server + Database + Programming Language**.
 
         ### 2. WAMP Server
+        
         **What is WAMP?**
         WAMP stands for:
         • **W** – Windows
@@ -442,7 +443,7 @@ Below is the visual overview of Unit 1.`,
         • Security settings are basic
 
         ### 5. MAMP Server
-        
+
         **What is MAMP?**
         MAMP stands for:
         • **M** – macOS
