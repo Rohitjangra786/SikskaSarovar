@@ -189,10 +189,18 @@ const App: React.FC = () => {
     // Generate mock notifications including College Courses
     const mockNotifications = [
       {
+        id: 'notif-html-launch',
+        title: 'New: HTML',
+        message: 'Master the fundamentals of HTML with our new comprehensive course HTML.',
+        date: 'Just Now',
+        courseId: 'HtmlCourse',
+        isRead: false
+      },
+      {
         id: 'notif-c-launch',
         title: 'New: Foundation of C & C++',
         message: 'Master the fundamentals with our new comprehensive course. Includes Overview, Mind Maps, and OOP concepts!',
-        date: 'Just Now',
+        date: '1 Day ago',
         courseId: 'c-programming',
         isRead: false
       },
@@ -200,7 +208,7 @@ const App: React.FC = () => {
         id: 'notif-python-update-jan21',
         title: 'Major Update: Basics of Python',
         message: 'Content expanded! Now includes 60+ lessons, new Mind Map, and comprehensive topics from Basics to Plotting.',
-        date: 'Just Now',
+        date: '1 Day ago',
         courseId: 'python',
         isRead: false
       },
