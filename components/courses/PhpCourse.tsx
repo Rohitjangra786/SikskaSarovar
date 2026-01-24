@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import SEO from '../SEO';
 import { Lesson, Course } from '../../types';
-import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo, Database } from 'lucide-react';
+import { CheckCircle2, ArrowRight, ArrowLeft, Play, Copy, Check, Circle, Undo, Database, GraduationCap } from 'lucide-react';
 import MarkdownRenderer from '../MarkdownRenderer';
 
 interface PhpCourseProps {
@@ -26,6 +26,7 @@ const PhpCourse: React.FC<PhpCourseProps> = ({
     onTryIt
 }) => {
     const [copied, setCopied] = useState(false);
+    const [showMindMap, setShowMindMap] = useState(false);
 
     const handleCopy = () => {
         if (lesson.codeSnippet) {
@@ -36,6 +37,7 @@ const PhpCourse: React.FC<PhpCourseProps> = ({
     };
 
     React.useEffect(() => {
+        setShowMindMap(false);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, [lesson.id]);
 
@@ -92,20 +94,46 @@ const PhpCourse: React.FC<PhpCourseProps> = ({
                             <span className="bg-brand-100 dark:bg-slate-800 text-brand-900 dark:text-brand-100 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-[0.2em]">Lesson {currentIndex + 1}</span>
                             {isCompleted && <span className="flex items-center gap-1 text-brand-600 dark:text-brand-400 text-[10px] font-black"><Check size={12} /> COMPLETED</span>}
                         </div>
-                        <button
-                            onClick={() => toggleCompletion(lesson.id)}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isCompleted
-                                ? 'bg-brand-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-slate-700'
-                                : 'bg-brand-900 text-white hover:bg-brand-800'
-                                }`}
-                        >
-                            {isCompleted ? <><Undo size={14} /> Mark Incomplete</> : <><Check size={14} /> Mark Complete</>}
-                        </button>
+                        <div className="flex items-center gap-3">
+                            {lesson.mindMapImage && (
+                                <button
+                                    onClick={() => setShowMindMap(!showMindMap)}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${showMindMap
+                                        ? 'bg-amber-100 text-amber-700'
+                                        : 'bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/40'
+                                        }`}
+                                >
+                                    <GraduationCap size={14} />
+                                    {showMindMap ? 'Hide Mind Map' : 'View Mind Map'}
+                                </button>
+                            )}
+                            <button
+                                onClick={() => toggleCompletion(lesson.id)}
+                                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isCompleted
+                                    ? 'bg-brand-50 dark:bg-slate-800 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-slate-700'
+                                    : 'bg-brand-900 text-white hover:bg-brand-800'
+                                    }`}
+                            >
+                                {isCompleted ? <><Undo size={14} /> Mark Incomplete</> : <><Check size={14} /> Mark Complete</>}
+                            </button>
+                        </div>
                     </div>
 
                     <h1 className="text-5xl font-black text-slate-900 dark:text-slate-100 mb-8 tracking-tight">{lesson.title}</h1>
 
-                    {lesson.image && (
+                    {showMindMap && lesson.mindMapImage && (
+                        <div className="mb-10 rounded-[2rem] overflow-hidden shadow-2xl border border-amber-100 dark:border-amber-900/30 ring-4 ring-amber-50 dark:ring-amber-900/10 animate-in fade-in zoom-in duration-300">
+                            <div className="bg-amber-50 dark:bg-amber-900/20 px-6 py-3 border-b border-amber-100 dark:border-amber-900/30 flex items-center justify-between">
+                                <span className="text-amber-800 dark:text-amber-200 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+                                    <GraduationCap size={14} />
+                                    Mind Map Visual Resource
+                                </span>
+                            </div>
+                            <img src={lesson.mindMapImage} alt={`${lesson.title} Mind Map`} className="w-full h-auto object-cover" />
+                        </div>
+                    )}
+
+                    {!showMindMap && lesson.image && (
                         <div className="mb-10 flex justify-center">
                             <div className="rounded-[2rem] overflow-hidden shadow-xl border border-slate-100 dark:border-slate-800 max-w-full md:max-w-3xl">
                                 <img

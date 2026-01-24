@@ -1219,7 +1219,7 @@ const App: React.FC = () => {
                 case 'c-programming': return <CCourse {...commonProps} />;
                 case 'python': return <PythonCourse {...commonProps} />;
                 case 'java': return <JavaCourse {...commonProps} />;
-                case 'php': return <PhpCourse {...commonProps} />;
+                case 'php-programming': return <PhpCourse {...commonProps} />;
                 case 'ai': return <AiCourse {...commonProps} />;
                 case 'ml': return <MlCourse {...commonProps} />;
                 default: return <LessonViewer {...commonProps} />;

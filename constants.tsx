@@ -23,6 +23,7 @@ import cOverview from './components/courses/Foundations of C & C++/Overview.png'
 import cMindmap from './components/courses/Foundations of C & C++/mindmap.png';
 import javaMindmap from './components/courses/Java Full Course/javamindmap.png';
 import javaOverview from './components/courses/Java Full Course/overview.png';
+import { phpCourse } from './constants/phpCourseData';
 
 // Fix: Added missing ICON_MAP export which was causing errors in Sidebar, CourseCard, and App components.
 export const ICON_MAP: Record<string, React.ReactNode> = {
@@ -3331,71 +3332,7 @@ Introduced in JDK 1.5 to provide Type Safety.
       }
     ]
   },
-  {
-    id: 'php',
-    title: 'PHP',
-    category: 'Backend',
-    icon: 'database',
-    level: 'Intermediate',
-    progress: 0,
-    lessons: [
-      {
-        id: 'ph1',
-        title: 'PHP Intro',
-        content: `PHP is an acronym for "PHP: Hypertext Preprocessor". It is a widely-used, open source scripting language. PHP scripts are executed on the server. It is free to download and use.\n\nPHP is an amazing and popular language! It is powerful enough to be at the core of the biggest blogging system on the web (WordPress)! It is deep enough to run the largest social network (Facebook)! It is also easy enough to be a beginner's first server side language!\n\nPHP files can contain text, HTML, CSS, JavaScript, and PHP code. PHP code is executed on the server, and the result is returned to the browser as plain HTML.`,
-        codeSnippet: '<?php\necho "Hello World!";\n?>',
-        isCompleted: false
-      },
-      {
-        id: 'ph2',
-        title: 'PHP Install',
-        content: `To start using PHP, you can find a web host with PHP and MySQL support, or install a web server on your own PC, and then install PHP and MySQL.\n\nIf your server has activated support for PHP you do not need to do anything. Just create some .php files, place them in your web directory, and the server will automatically parse them for you. You do not need to compile anything or install any extra tools.\n\nBecause PHP is free, most web hosts offer PHP support.`,
-        codeSnippet: '<!-- No code, setup XAMPP or WAMP -->',
-        isCompleted: false
-      },
-      {
-        id: 'ph3',
-        title: 'PHP Syntax',
-        content: `A PHP script can be placed anywhere in the document. A PHP script starts with <?php and ends with ?>. The default file extension for PHP files is ".php".\n\nIn PHP, keywords (e.g. if, else, while, echo, etc.), classes, functions, and user-defined functions are NOT case-sensitive. However, all variable names are case-sensitive.\n\nIn the example below, all three echo statements are equal and legal.`,
-        codeSnippet: '<?php\nECHO "Hello World!<br>";\necho "Hello World!<br>";\nEcHo "Hello World!<br>";\n?>',
-        isCompleted: false
-      },
-      {
-        id: 'ph4',
-        title: 'PHP Variables',
-        content: `Variables are "containers" for storing information. In PHP, a variable starts with the $ sign, followed by the name of the variable.\n\nA variable name must start with a letter or the underscore character. A variable name cannot start with a number. A variable name can only contain alpha-numeric characters and underscores (A-z, 0-9, and _).\n\nPHP has no command for declaring a variable. It is created the moment you first assign a value to it.`,
-        codeSnippet: '<?php\n$txt = "Hello world!";\n$x = 5;\n$y = 10.5;\n?>',
-        isCompleted: false
-      },
-      {
-        id: 'ph5',
-        title: 'PHP Echo/Print',
-        content: `In PHP there are two basic ways to get output: echo and print. echo and print are more or less the same. They are both used to output data to the screen.\n\nThe differences are small: echo has no return value while print has a return value of 1 so it can be used in expressions. echo can take multiple parameters (although such usage is rare) while print can take one argument. echo is marginally faster than print.\n\nThe echo statement can be used with or without parentheses: echo or echo().`,
-        codeSnippet: '<?php\necho "<h2>PHP is Fun!</h2>";\necho "Hello world!<br>";\necho "I am about to learn PHP!<br>";\n?>',
-        isCompleted: false
-      },
-      { id: 'ph6', title: 'PHP Data Types', content: 'Variables can store data of different types, and different data types can do different things. PHP supports the following data types: String, Integer, Float (floating point numbers - also called double), Boolean, Array, Object, NULL, Resource.', codeSnippet: '$x = "Hello world!";\n$y = 5966;\n$z = 10.365;', isCompleted: false },
-      { id: 'ph7', title: 'PHP Strings', content: 'A string is a sequence of characters, like "Hello world!". strlen() - returns the length of a string. str_word_count() - counts words in a string. strrev() - reverses a string. strpos() - searches for a text within a string. str_replace() - replaces text within a string.', codeSnippet: 'echo strlen("Hello world!");\necho strrev("Hello world!");', isCompleted: false },
-      { id: 'ph8', title: 'PHP Numbers', content: 'There are three main numeric types in PHP: Integer, Float, Number Strings. PHP also has some more functions used for numbers: is_int(), is_float(), is_numeric(). PHP Integers are whole numbers, without decimals, between -2147483648 and 2147483647.', codeSnippet: '$x = 5985;\nvar_dump(is_int($x));', isCompleted: false },
-      { id: 'ph9', title: 'PHP Math', content: 'PHP has a set of math functions that allows you to perform mathematical tasks on numbers. pi() returns the value of PI. min() and max() functions can be used to find the lowest or highest value in a list of arguments. abs() returns the absolute (positive) value of a number. sqrt() returns the square root of a number.', codeSnippet: 'echo(pi());\necho(min(0, 150, 30, 20, -8, -200));\necho(max(0, 150, 30, 20, -8, -200));', isCompleted: false },
-      { id: 'ph10', title: 'PHP Constants', content: 'Constants are like variables except that once they are defined they cannot be changed or undefined. A constant is an identifier (name) for a simple value. The value cannot be changed during the script. A valid constant name starts with a letter or underscore (no $ sign before the constant name). To create a constant, use the define() function.', codeSnippet: 'define("GREETING", "Welcome to SikshaSarovar.com!");\necho GREETING;', isCompleted: false },
-      { id: 'ph11', title: 'PHP Operators', content: 'Operators are used to perform operations on variables and values. PHP divides the operators in the following groups: Arithmetic operators, Assignment operators, Comparison operators, Increment/Decrement operators, Logical operators, String operators, Array operators, Conditional assignment operators.', codeSnippet: 'echo $x + $y;\necho $x    $y; // Exponentiation', isCompleted: false },
-      { id: 'ph12', title: 'PHP If...Else', content: 'Conditional statements are used to perform different actions based on different conditions. Use if to execute some code only if a specified condition is true. Use if...else to execute some code if a condition is true and another code if that condition is false. Use if...elseif...else to execute different codes for more than two conditions.', codeSnippet: 'if ($t < "20") {\n  echo "Have a good day!";\n} else {\n  echo "Have a good night!";\n}', isCompleted: false },
-      { id: 'ph13', title: 'PHP Switch', content: 'The switch statement is used to perform different actions based on different conditions. Use the switch statement to select one of many blocks of code to be executed. The break keyword breaks out of the switch block. The default keyword specifies the code to run if there is no case match.', codeSnippet: 'switch ($favcolor) {\n  case "red": echo "Red!"; break;\n  case "blue": echo "Blue!"; break;\n  default: echo "Neither!";\n}', isCompleted: false },
-      { id: 'ph14', title: 'PHP Loops', content: 'Loops are used to execute the same block of code again and again, as long as a certain condition is true. while - loops through a block of code as long as the specified condition is true. do...while - loops through a block of code once, and then repeats the loop as long as the specified condition is true. for - loops through a block of code a specified number of times. foreach - loops through a block of code for each element in an array.', codeSnippet: '$x = 1;\nwhile($x <= 5) {\n  echo "Number: $x <br>";\n  $x++;\n}', isCompleted: false },
-      { id: 'ph15', title: 'PHP Functions', content: 'The real power of PHP comes from its functions. PHP has more than 1000 built-in functions, and besides those, you can create your own custom functions. A user-defined function declaration starts with the word function. A function name must start with a letter or an underscore. Function names are NOT case-sensitive.', codeSnippet: 'function writeMsg() {\n  echo "Hello world!";\n}\n\nwriteMsg();', isCompleted: false },
-      { id: 'ph16', title: 'PHP Arrays', content: 'An array stores multiple values in one single variable. In PHP, the array() function is used to create an array. There are three types of arrays: Indexed arrays - Arrays with a numeric index. Associative arrays - Arrays with named keys. Multidimensional arrays - Arrays containing one or more arrays.', codeSnippet: '$cars = array("Volvo", "BMW", "Toyota");\necho "I like " . $cars[0];', isCompleted: false },
-      { id: 'ph17', title: 'PHP Superglobals', content: 'Some predefined variables in PHP are "superglobals", which means that they are always accessible, regardless of scope - and you can access them from any function, class or file without having to do anything special. The PHP superglobal variables are: $GLOBALS, $_SERVER, $_REQUEST, $_POST, $_GET, $_FILES, $_ENV, $_COOKIE, $_SESSION.', codeSnippet: 'echo $_SERVER[\'PHP_SELF\'];\necho $_SERVER[\'SERVER_NAME\'];', isCompleted: false },
-      { id: 'ph18', title: 'PHP Forms', content: 'The PHP superglobals $_GET and $_POST are used to collect form-data. Both GET and POST create an array. This array holds key/value pairs, where keys are the names of the form controls and values are the input data from the user. Both GET and POST are treated as $_GET and $_POST. These are superglobals, which means that they are always accessible, regardless of scope.', codeSnippet: '<form action="welcome.php" method="post">\nName: <input type="text" name="name"><br>\nE-mail: <input type="text" name="email"><br>\n<input type="submit">\n</form>', isCompleted: false },
-      { id: 'ph19', title: 'PHP Validation', content: 'The first thing you should do when processing HTML forms is to pass all variables through PHP\'s htmlspecialchars() function. When you use the htmlspecialchars() function; then if a user tries to submit a script in a text field, it will not be executed, because it will be saved as HTML escaped code. This is important for security.', codeSnippet: '$name = test_input($_POST["name"]);\nfunction test_input($data) {\n  $data = trim($data);\n  $data = stripslashes($data);\n  $data = htmlspecialchars($data);\n  return $data;\n}', isCompleted: false },
-      { id: 'ph20', title: 'PHP MySQL', content: 'MySQL is the most popular database system used with PHP. MySQL is a database system used on the web. MySQL is a database system that runs on a server. MySQL is ideal for both small and large applications. MySQL is very fast, reliable, and easy to use. MySQL uses standard SQL.', codeSnippet: '$servername = "localhost";\n$username = "username";\n$password = "password";\n\n$conn = new mysqli($servername, $username, $password);\nif ($conn->connect_error) {\n  die("Connection failed: " . $conn->connect_error);\n}\necho "Connected successfully";', isCompleted: false },
-      { id: 'ph21', title: 'PHP Date and Time', content: 'The PHP Date() function formats a timestamp to a more readable date and time. Syntax: date(format,timestamp). required format specifies the format of the timestamp. optional timestamp specifies a timestamp. Default is the current date and time.', codeSnippet: 'echo "Today is " . date("Y/m/d") . "<br>";\necho "Today is " . date("Y.m.d") . "<br>";\necho "Today is " . date("Y-m-d") . "<br>";\necho "Today is " . date("l");', isCompleted: false },
-      { id: 'ph22', title: 'PHP Include', content: 'The include (or require) statement takes all the text/code/markup that exists in the specified file and copies it into the file that uses the include statement. Including files is very useful when you want to include the same PHP, HTML, or text on multiple pages of a website.', codeSnippet: '<html>\n<body>\n\n<h1>Welcome to my home page!</h1>\n<?php include \'footer.php\';?>\n\n</body>\n</html>', isCompleted: false },
-      { id: 'ph23', title: 'PHP File Handling', content: 'File handling is an important part of any web application. You often need to open and process a file for different tasks. PHP has several functions for creating, reading, uploading, and editing files. The readfile() function reads a file and writes it to the output buffer.', codeSnippet: '<?php\necho readfile("webdictionary.txt");\n?>', isCompleted: false },
-      { id: 'ph24', title: 'PHP Cookies', content: 'A cookie is often used to identify a user. A cookie is a small file that the server embeds on the user\'s computer. Each time the same computer requests a page with a browser, it will send the cookie too. With PHP, you can both create and retrieve cookie values.', codeSnippet: '<?php\n$cookie_name = "user";\n$cookie_value = "John Doe";\nsetcookie($cookie_name, $cookie_value, time() + (86400   30), "/"); // 86400 = 1 day\n?>', isCompleted: false },
-      { id: 'ph25', title: 'PHP Sessions', content: 'A session is a way to store information (in variables) to be used across multiple pages. Unlike a cookie, the information is not stored on the users computer. Session variables solve this problem by storing user information to be used across multiple pages (e.g. username, favorite color, etc). By default, session variables last until the user closes the browser.', codeSnippet: '<?php\n// Start the session\nsession_start();\n\n// Set session variables\n$_SESSION["favcolor"] = "green";\n$_SESSION["favanimal"] = "cat";\necho "Session variables are set.";\n?>', isCompleted: false }
-    ]
-  },
+  phpCourse,
   {
     id: 'ai',
     title: 'AI Fundamentals',
@@ -3603,5 +3540,6 @@ Introduced in JDK 1.5 to provide Type Safety.
         isCompleted: false
       }
     ]
-  }
+  },
+  phpCourse
 ];
