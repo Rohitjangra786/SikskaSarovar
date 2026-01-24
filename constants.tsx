@@ -3541,5 +3541,5 @@ Introduced in JDK 1.5 to provide Type Safety.
       }
     ]
   },
-  phpCourse
+
 ];
