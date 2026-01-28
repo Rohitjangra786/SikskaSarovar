@@ -1,6 +1,7 @@
 import { Course } from '../types';
 import DmpOverview from '../components/courses/DMP/Overview.png';
 import DmpMindMap from '../components/courses/DMP/Mind Map.png';
+import DmpUnit2Overview from '../components/courses/DMP/Unit2Overview.png';
 import WbpOverview from '../components/courses/WBP/Overview Unit 1.png';
 import WbpMindMap from '../components/courses/WBP/Unit 1 Mind Map.png';
 import DvaOverview from '../components/courses/DVA/overview unit 1.png';
@@ -221,6 +222,121 @@ Organized process to reduce disaster impacts.
 • Higher capacity reduces disaster risk.
 • Capacity building is essential for sustainable societies.`,
         codeSnippet: '// Improved Risk Formula\nDisasterRisk = (Hazard * Vulnerability) / Capacity\n\n// Increase Capacity to Decrease Risk!',
+        isCompleted: false
+      },
+      {
+        id: 'dmp-u2-overview',
+        title: 'Unit 2: Overview',
+        content: `### Unit 2: Disaster Management Cycle & Applications
+
+This unit explores the Disaster Management Cycle, a continuous process of planning and action to manage disaster risks and impacts. We will cover the phases of Mitigation, Preparedness, Response, and Recovery, along with the critical role of engineering in each phase.
+
+### Visual Overview
+
+The Disaster Management Cycle is not linear but circular, implying that post-disaster recovery should lead to better pre-disaster preparedness for the future.`,
+        image: DmpUnit2Overview,
+        mindMapImage: undefined,
+        codeSnippet: undefined,
+        isCompleted: false
+      },
+      {
+        id: 'dmp-u2-cycle',
+        title: 'The Disaster Management Cycle',
+        content: `### Introduction to the Cycle
+The Disaster Management Cycle serves as a framework for managing disaster risks. It illustrates that disaster management is a continuous process, not just a reaction to an event.
+
+The cycle consists of **three major stages** and **four key phases**:
+
+### 1. Pre-Disaster Phase (Risk Reduction)
+Activities taken *before* a disaster happens to reduce risk and potential loss.
+*   **Prevention:** Avoiding the hazard entirely (e.g., relocating a village from a landslide zone).
+*   **Mitigation:** Reducing the severity of the impact (e.g., building earthquake-resistant structures).
+*   **Preparedness:** Getting ready to respond (e.g., mock drills, installing warning systems).
+
+### 2. During Disaster Phase (Emergency Response)
+Activities taken *immediately* during or after the disaster strikes.
+*   **Response:** Search and rescue, first aid, providing food/shelter, evacuation. The goal is to save lives and minimize further damage.
+
+### 3. Post-Disaster Phase (Recovery & Development)
+Activities taken *after* the immediate crisis is over to return to normalcy.
+*   **Recovery:** Restoring basic services (electricity, water).
+*   **Rehabilitation:** Social and economic support to victims.
+*   **Reconstruction:** Rebuilding infrastructure (roads, houses) often with "Build Back Better" principles to improve resilience against future disasters.
+
+### Key Takeaway
+The cycle connects recovery back to preparedness. A good recovery phase (incorporating safe building practices) acts as mitigation for the next potential disaster.`,
+        image: undefined,
+        mindMapImage: undefined,
+        codeSnippet: undefined,
+        isCompleted: false
+      },
+      {
+        id: 'dmp-u2-mitigation',
+        title: 'Mitigation & Preparedness',
+        content: `### Disaster Mitigation
+Mitigation involves long-term measures to reduce the scale of a future disaster.
+
+**1. Structural Mitigation (Hard Measures):**
+Physical construction and engineering solutions.
+*   **Engineering Interventions:** Building dams, levees, and embankments to control floods.
+*   **Retrofitting:** Strengthening existing buildings to withstand earthquakes.
+*   **Shelters:** Constructing cyclone shelters.
+
+**2. Non-Structural Mitigation (Soft Measures):**
+Policies, awareness, and laws.
+*   **Land-Use Zoning:** Prohibiting construction in high-risk zones (e.g., floodplains).
+*   **Building Codes:** Enforcing laws that require earthquake-resistant designs.
+*   **Public Awareness:** Education campaigns on disaster safety.
+
+### Disaster Preparedness
+Preparedness focuses on readiness to respond when a disaster strikes.
+*   **Early Warning Systems (EWS):** Using technology (satellites, radar) to predict hazards and warn communities (e.g., Tsunami warning system).
+*   **Contingency Planning:** Having a clear plan of action (who does what) during an emergency.
+*   **Mock Drills:** Practicing evacuation plans in schools and offices.
+*   **Stockpiling:** Storing emergency supplies (food, medicine, radios).
+
+### Role of Engineering
+Engineers play a vital role in:
+*   Designing robust infrastructure.
+*   Developing sensor networks for EWS.
+*   Using **GIS (Geographic Information Systems)** and **Remote Sensing** for hazard mapping and risk analysis.`,
+        image: undefined,
+        mindMapImage: undefined,
+        codeSnippet: undefined,
+        isCompleted: false
+      },
+      {
+        id: 'dmp-u2-response',
+        title: 'Response & Recovery',
+        content: `### Disaster Response
+This is the "Emergency" phase. It happens immediately after the disaster occurs.
+
+**Key Activities:**
+*   **Search and Rescue (SAR):** Locating and rescuing trapped survivors (e.g., NDRF teams).
+*   **Emergency Relief:** Providing food, clean water, temporary shelter, and medical aid.
+*   **Damage Assessment:** Rapid survey to understand the extent of destruction.
+*   **Restoration of Critical Services:** Prioritizing power, telecommunications, and transport clearing.
+
+### Disaster Recovery
+Recovery is the process of returning the community to normal.
+
+**1. Rehabilitation (Short to Medium Term):**
+*   Restarting schools, markets, and hospitals.
+*   **Psychosocial Support:** Trauma counseling for victims.
+*   **Economic Support:** Loans and grants to help restart livelihoods.
+
+**2. Reconstruction (Long Term):**
+*   Rebuilding destroyed houses and infrastructure.
+*   **"Build Back Better":** The principle that reconstruction should not just restore the old state but improve it to withstand future disasters.
+*   **Example:** If a mud house was destroyed by a flood, rebuilding it as a concrete house on a raised plinth.
+
+### Challenges in Response & Recovery
+*   **Communication Breakdown:** Networks often fail during disasters.
+*   **Logistics:** Transporting aid to remote/cutoff areas.
+*   **Coordination:** Managing multiple agencies (Govt, NGOs, Annual volunteers).`,
+        image: undefined,
+        mindMapImage: undefined,
+        codeSnippet: undefined,
         isCompleted: false
       }
     ]
