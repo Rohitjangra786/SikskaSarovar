@@ -195,10 +195,18 @@ const App: React.FC = () => {
 
     const mockNotifications = [
       {
+        id: 'notif-css-launch',
+        title: 'New: CSS Course',
+        message: 'Master CSS from zero to hero! 34+ detailed modules covering Flexbox, Grid, Animations & more.',
+        date: getTimeString(0), // Current time
+        courseId: 'css-core-mastery',
+        isRead: false
+      },
+      {
         id: 'notif-html-launch',
         title: 'New: HTML',
         message: 'Master the fundamentals of HTML with our new comprehensive course HTML.',
-        date: getTimeString(0), // Current time
+        date: getTimeString(0.1), // Slightly older
         courseId: 'html',
         isRead: false
       },
@@ -838,6 +846,7 @@ const App: React.FC = () => {
               else if (tab === 'playground') handleNavigate('playground', '/playground');
               else if (tab === 'ai-tutor') handleNavigate('ai-tutor', '/ai-tutor');
               else if (tab === 'settings') handleNavigate('settings', '/settings');
+              else if (tab === 'college') handleNavigate('college', '/college');
               else setActiveTab(tab); // fallback for tabs without specific URLs if any
             }}
             onSelectLesson={handleSelectLesson}

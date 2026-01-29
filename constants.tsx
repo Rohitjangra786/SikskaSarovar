@@ -24,6 +24,7 @@ import cMindmap from './components/courses/Foundations of C & C++/mindmap.png';
 import javaMindmap from './components/courses/Java Full Course/javamindmap.png';
 import javaOverview from './components/courses/Java Full Course/overview.png';
 import { phpCourse } from './constants/phpCourseData';
+import { cssCourse } from './constants/cssCourseData';
 
 // Fix: Added missing ICON_MAP export which was causing errors in Sidebar, CourseCard, and App components.
 export const ICON_MAP: Record<string, React.ReactNode> = {
@@ -1322,6 +1323,7 @@ Text inside the tag is displayed only if the browser does NOT support the media.
       }
     ]
   },
+  cssCourse,
   {
     id: 'python',
     title: 'Basics of Python',
@@ -3540,6 +3542,5 @@ Introduced in JDK 1.5 to provide Type Safety.
         isCompleted: false
       }
     ]
-  },
-
+  }
 ];
